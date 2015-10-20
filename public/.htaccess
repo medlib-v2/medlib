@@ -1,0 +1,44 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    DirectoryIndex index.php
+
+    <Files ~ "^(index)\.(p?s?x?htm?|txt|aspx?|cfml?|cgi|pl|php[3-9]|jsp|xml)$">
+        order allow,deny
+        deny from all
+    </Files>
+
+    <Files ~ "\.(inc|class|sql|ini|conf|exe|dll|bin|tpl|bkp|dat|c|h|py|spd|theme|module)$">
+        deny from all
+    </Files>
+
+    <Files ~ "^((wp-)?config(\.inc)?|configure|configuration|login|options?\.inc|option|settings?(\.inc)?|functions?(\.inc)?|setup(\.inc)?|default|home|main|install?|admin|errors?|hacke?r?d?|[-_a-z0-9.]*mafia[-_a-z0-9.]*|[-_a-z0-9.]*power[-_a-z0-9.]*|[-_a-z0-9.]*jihad[-_a-z0-9.]*|php|shell|ssh|root|cmd|[0-9]{1,6}|test|data)\.(p?s?x?htm?l?|txt|aspx?|cfml?|cgi|pl|php[3-9]{0,1}|jsp?|sql|xml)$">
+        order allow,deny
+        deny from all
+    </Files>
+
+    RedirectMatch gone ^/_vti.*
+    RedirectMatch gone ^/MSOffice.*
+    RedirectMatch gone ^[-_a-z0-9/\.]*//.*
+    RedirectMatch gone ^.*/etc/passwd.*
+
+    RewriteEngine On
+
+    Options -Indexes
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-l
+
+    RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    # If we don't have mod_rewrite installed, all 404's
+    # can be sent to index.php, and everything works as normal.
+    # ErrorDocument 404 /index.php
+    ErrorDocument 404 /error
+</IfModule>
