@@ -14,15 +14,11 @@
 /**
  * Home Page
  */
-Route::get('/', [
-    'uses' => 'HomeController@index',
-    'as' => 'home',
-]);
+Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
 
 /**
  * Authentification
  */
-
 Route::get('/login', [ 'uses' => 'Auth\AuthController@showLogin',  'as' => 'auth.login',  'middleware' => ['guest'] ]);
 
 Route::post('/login', [ 'uses' => 'Auth\AuthController@doLogin', 'middleware' => ['guest'] ]);
@@ -42,15 +38,9 @@ Route::get('/logout', ['uses' => 'Auth\AuthController@doLogout', 'middleware' =>
  */
 Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
 
-    Route::get('/simple', [
-        'uses' => 'SearchQueryController@doSimple',
-        'as' => 'search.simple'
-    ]);
+    Route::get('/simple', ['uses' => 'SearchQueryController@doSimple', 'as' => 'search.simple']);
 
-    Route::get('/advanced', [
-        'uses' => 'SearchQueryController@doAdvanced',
-        'as' => 'search.advanced'
-    ]);
+    Route::get('/advanced', ['uses' => 'SearchQueryController@doAdvanced', 'as' => 'search.advanced']);
 });
 
 /**
@@ -120,30 +110,15 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Us
  */
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
 
-    Route::get('/', [
-        'uses' => 'DashboardController@index',
-        'as' => 'dashboard.home'
-    ]);
+    Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.home']);
 
-    Route::get('/books', [
-        'uses' => 'DashboardController@books',
-        'as' => 'dashboard.books'
-    ]);
+    Route::get('/books', ['uses' => 'DashboardController@books', 'as' => 'dashboard.books']);
 
-    Route::get('/history', [
-        'uses' => 'DashboardController@history',
-        'as' => 'dashboard.history'
-    ]);
+    Route::get('/history', ['uses' => 'DashboardController@history', 'as' => 'dashboard.history']);
 
-    Route::get('/viewed', [
-        'uses' => 'DashboardController@viewed',
-        'as' => 'dashboard.viewed'
-    ]);
+    Route::get('/viewed', ['uses' => 'DashboardController@viewed', 'as' => 'dashboard.viewed']);
 
-    Route::get('/search', [
-        'uses' => 'SearchUserController@getResults',
-        'as' => 'dashboard.search'
-    ]);
+    Route::get('/search', ['uses' => 'SearchUserController@getResults', 'as' => 'dashboard.search']);
 });
 
 
@@ -152,13 +127,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'D
  */
 Route::group(['prefix' => 'helpers', 'namespace' => 'Helpers'], function(){
 
-    Route::get('/', [
-        'uses' => 'DashboardController@index',
-        'as' => 'helpers.home'
-    ]);
+    Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'helpers.home']);
 
-    Route::get('/deleting', [
-        'uses' => 'HelpersController@deletingAccount',
-        'as' => 'helpers.deleting.account'
-    ]);
+    Route::get('/deleting', ['uses' => 'HelpersController@deletingAccount', 'as' => 'helpers.deleting.account']);
 });
