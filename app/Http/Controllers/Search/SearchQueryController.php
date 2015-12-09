@@ -27,9 +27,9 @@ class SearchQueryController extends Controller
         ];
 
         /** create custom validation messages */
-        $messages = array(
+        $messages = [
             'required' => 'The :attribute is really really important.',
-        );
+        ];
 
         /** run the validation rules on the inputs from the form */
         $validator = Validator::make($request->all(), $rules, $messages);

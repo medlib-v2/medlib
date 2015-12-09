@@ -13462,7 +13462,7 @@ legend {
   font-weight: 600;
 }
 .content .breadcrumb {
-  padding-top: 0;
+  padding-top: 19px;
   padding-bottom: 0;
 }
 
@@ -13564,9 +13564,9 @@ legend {
 }
 
 .panel {
-  border: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  border-radius: 2px;
 }
 
 .panel-heading {
@@ -27330,7 +27330,7 @@ input[type=search], .input-group-lg > input[type=search], .input-group-sm > inpu
 }
 .widget-chat-list-group .list-group-item .body {
   font-size: 13px;
-  color: #999999;
+  color: #788288;
 }
 .widget-chat-list-group .list-group-item.on-right .thumb,
 .widget-chat-list-group .list-group-item.on-right .thumb-sm {

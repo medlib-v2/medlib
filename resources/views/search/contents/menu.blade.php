@@ -11,7 +11,7 @@
 <div id="list-result">
     <div id="search-summary" class="alert alert-success hidden-xs hidden-sm">
         Page : 1 to 2 of 2 items <br />
-        Searched: Title keywords (all of these) = vihsida
+        <p class="text-gray-dark">Searched:  {{ \Illuminate\Support\Facades\Input::get('query') }} </p>
     </div>
 </div>
 <!--  advanced menu -->
@@ -35,7 +35,7 @@
             <input type="hidden" name="browseIndex" value="" id="browseIndex" />
             <input type="hidden" name="browseOffset" value="" id="browseOffset" />
             <input type="hidden" name="browseTotal" value="" id="browseTotal" />
-            <input type="hidden" name="filters" value="fk_col_institution_format_facet:(&quot;UkBaUB true&quot; OR &quot;UkBaUB false&quot; OR &quot;UkBaUB Unknown&quot;)" id="filters" />
+            <input type="hidden" name="filters" id="filters" />
             <label for="max">Results per page:</label>
             <select name="maxPerPage" class="form-control auto-width-size" id="max" >
                 <option value="10" selected="selected" >10</option>

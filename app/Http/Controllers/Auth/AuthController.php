@@ -2,6 +2,7 @@
 
 namespace Medlib\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,8 @@ class AuthController extends Controller
     public function doLogin(Request $request) {
 
         $rules = [
-            'email'    => 'required|email', /** make sure the email is an actual email */
-            'password' => 'required|min:6' /** password can only be alphanumeric and has to be greater than 3 characters */
+            'email'    => 'required|email',
+            'password' => 'required|min:6'
         ];
 
         /** run the validation rules on the inputs from the form */
@@ -33,8 +34,8 @@ class AuthController extends Controller
         /** if the validator fails, redirect back to the form */
         if ($validator->fails()) {
             return Redirect::to('login')
-                ->withErrors($validator)                /** send back all errors to the login form */
-                ->withInput(Input::except('password')); /** send back the input (not the password) so that we can repopulate the form */
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
         } else {
 
             // create our user data for the authentication
@@ -68,14 +69,21 @@ class AuthController extends Controller
 
     public function doRegister(Request $request) {
 
+        $timestamp = strtotime('-15 years');
+
         $rules = [
-            'first_name' => 'required|unique:users|alpha_dash|max:20',
-            'last_name' => 'required|unique:users|alpha_dash|max:20',
+            'first_name' => 'required|max:20',
+            'last_name' => 'required|max:20',
             'username' => 'required|unique:users|alpha_dash|max:20',
             'email' => 'required|unique:users|email|max:255',
             'email_confirm' => 'required|max:255|same:email',
+            'profession' => 'not_in: ',
             'password' => 'required|min:6',
             'password_confirm' => 'required|min:6|same:password',
+            'birthday_day'	=>	'required|numeric|between:01,31',
+            'birthday_month'	=>	'required|numeric|between:01,12',
+            'birthday_year'	=>	'required|numeric|before:'.date('Y', $timestamp),
+            'gender' =>	'required',
             'g-recaptcha-response' => 'required|recaptcha',
         ];
 
@@ -104,7 +112,9 @@ class AuthController extends Controller
 
         } else {
 
-            $confirmation_code = str_random(30). $request->input('email');
+            $confirmation_code = str_random(45);
+
+            $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 
             User::create([
                 'email'    => $request->get('email'),
@@ -113,7 +123,7 @@ class AuthController extends Controller
                 'first_name'     => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
                 'profession' => $request->get('profession'),
-                'date_of_birth' => '1985-08-05',
+                'date_of_birth' => $date_of_birth,
                 'gender' => $request->get('gender'),
                 'user_active' => false,
                 'account_type' => false,
@@ -121,9 +131,9 @@ class AuthController extends Controller
                 'confirmation_code' => $confirmation_code
             ]);
 
-            Mail::send('auth.email.verify', $confirmation_code, function($message) {
+            Mail::queue('auth.email.verify', ['code', $confirmation_code], function($message) {
                 $message->to(Input::get('email'), Input::get('username'))
-                    ->subject('Verify your email address');
+                    ->subject('Activate your account');
             });
 
             return Redirect::route('home')->with('info', 'Your account has been created with success !')

@@ -72,7 +72,7 @@
                                     <div class="">Profession</div>
                                     <div class="form-group @if ($errors->has('profession')) has-error @endif">
                                         <select name="profession" required  class="form-control input-lg" tabindex="10" style="padding: 5px">
-                                            <option value>---Selectonner une prefession---</option>
+                                            <option value="">---Selectonner une prefession---</option>
                                             <option value="studiant">Etudaint</option>
                                             <option value="teacher">Professeur</option>
                                             <option value="researcher">Chercheur</option>
@@ -83,8 +83,8 @@
                                 <div class="col-md-7">
                                     <div class="">Date of Birth</div>
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select name="birthday_day" required  title="Jour" id="day" class="form-control input-lg" tabindex="11" style="padding: 5px">
+                                        <div class="form-group @if ($errors->has('birthday_day')) has-error @endif">
+                                            <select name="birthday_day" required  title="Jour" id="birthday_day" class="form-control input-lg" tabindex="11" style="padding: 5px">
                                                 <option value="0" selected="1">Day</option>
                                                 @for ($i = 0; $i <= 31; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
@@ -94,8 +94,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select name="birthday_month" required  title="Mois" id="month" class="form-control input-lg" tabindex="12" style="padding: 5px">
+                                        <div class="form-group @if ($errors->has('birthday_month')) has-error @endif">
+                                            <select name="birthday_month" required  title="Mois" id="birthday_month" class="form-control input-lg" tabindex="12" style="padding: 5px">
                                                 <option value>Month</option>
                                                 @for ($i = 0; $i <= 12; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
@@ -105,8 +105,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select name="birthday_year" required  title="Année" id="year" class="form-control input-lg" tabindex="13" style="padding: 1px">
+                                        <div class="form-group @if ($errors->has('birthday_year')) has-error @endif">
+                                            <select name="birthday_year" required  title="Année" id="birthday_year" class="form-control input-lg" tabindex="13" style="padding: 1px">
                                                 <option value>Year</option>
                                                 @for ($i = date("Y")-100; $i <= date("Y"); $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>

@@ -9,7 +9,7 @@
                 <ul class="nav">
                     <li>
                         <div class="profile-userpic">
-                            <img src="{{ url('avatars/'. Auth::user()->getAvatar()) }}" class="img-responsive" alt="img_{{ Auth::user()->getFristNameOrUsername() }}_here">
+                            <img src="{{ url('avatars/'. Auth::user()->getAvatar()) }}" class="img-responsive" alt="img_{{ Auth::user()->getFirstNameOrUsername() }}_here">
                         </div>
                         <div class="profile-usertitle">
                             <div class="profile-usertitle-name">{{ Auth::user()->getName() }}</div>

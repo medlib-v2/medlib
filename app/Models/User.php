@@ -116,4 +116,9 @@ class User extends Model implements AuthenticatableContract
         return true;
     }
 
+    public function getLocation() {
+
+        return Str::ucfirst($this->location);
+    }
+
 }

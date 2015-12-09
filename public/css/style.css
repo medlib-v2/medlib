@@ -96,6 +96,7 @@
 	font-weight:bold;
 }
 
+
 /*********************************************************
 	FOOTER
 *********************************************************/
@@ -288,19 +289,16 @@ footer .subFooter ul > li a {
     z-index: 1000;
 }
 
-.connect
-{
+.connect {
     font-zise:14px;
     font-weight:500;
 }
 
-.bas
-{
+.bas {
     margin-top:5px;
 }
 
-.singin input
-{
+.singin input {
 	height:35px;
 	border-radius:5px;
 }
@@ -313,6 +311,11 @@ footer .subFooter ul > li a {
 	text-shadow: 1px 1px #fff;
 }
 
+.margin-v-5 {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
 /*
 .logo
 {
@@ -321,8 +324,7 @@ footer .subFooter ul > li a {
 */
 
 
-.box
-{
+.box {
     background-color: #fff;
 }
 
@@ -337,7 +339,7 @@ footer .subFooter ul > li a {
 
 /* The UL that contains the search type icons */
 
-.icons{
+.icons {
 	list-style:none;
 	margin:10px 0 0 15px;
 	height:19px;
@@ -390,8 +392,7 @@ span.arrow{
     background-position:    5px;
 }
 
-.fond-register
-{
+.fond-register {
     background-image	:	url('../images/carte_monde.png');
 }
 
@@ -609,7 +610,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 	background-position: -34px 0;
 	right: 0;
 }
- /*-- responsive-mediaquries --*/
+
 @media (max-width:1024px) {
  .caption {
  width: 63%;

@@ -5,7 +5,7 @@
         <div class="list-group-item active">Changer le mot de passe</div>
         <div class="list-group-item">
             <form accept-charset="UTF-8" method="post" action="{{ route('profile.edit.password') }}" name="new_password" class="edit_user" id="change_password">
-                <input type="hidden" name="username" value="{{ Auth::user()->getFristNameOrUsername() }}" />
+                <input type="hidden" name="username" value="{{ Auth::user()->getFirstNameOrUsername() }}" />
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <dl class="form password-confirmation-form">
                     <dt><label for="reset_input_passwor_old">Ancien mot de passe</label></dt>

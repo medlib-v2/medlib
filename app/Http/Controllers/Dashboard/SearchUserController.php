@@ -5,11 +5,14 @@ namespace Medlib\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Medlib\Http\Controllers\Controller;
+use Medlib\Models\User;
 
 class SearchUserController extends Controller {
 
+    /**
     public function appendValue($data, $type, $element)
     {
         // operate on the item passed by reference, adding the element and type
@@ -27,35 +30,44 @@ class SearchUserController extends Controller {
         }
         return $data;
     }
+    */
 
     public function getResults() {
 
         $term = e(Input::get('q',''));
 
-        if(!$term && $term == '') return Response::json(array(), 400);
+        //if(!$term && $term == '') return Response::json(array(), 400);
+
+        if(!$term && $term == '') return Redirect::back();
 
         $results = [];
 
-        $queries = DB::table('users')
-            ->where('first_name', 'LIKE', '%'.$term.'%')
-            ->orWhere('last_name', 'LIKE', '%'.$term.'%')
+        $users = User::where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'LIKE', "%{$term}%")
+            ->orWhere('username', 'LIKE', "%{$term}%")
             ->orderBy('username','asc')
-            ->take(5)->get(['first_name','last_name','user_avatar']);
+            ->get(['first_name','last_name','user_avatar']);
 
         /**
+         *
+         * $users = User::table('users')
+        ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'LIKE', "%{$term}%")
+        ->orWhere('username', 'LIKE', "%{$term}%")
+        ->orderBy('username','asc')
+        ->take(5)->get(['first_name','last_name','user_avatar']);
+
         $categories = Category::where('name','like','%'.$query.'%')
-            ->has('products')
-            ->take(5)
-            ->get(array('slug', 'name'))
-            ->toArray();
-         */
-        foreach ($queries as $query)
+        ->has('products')
+        ->take(5)
+        ->get(array('slug', 'name'))
+        ->toArray();
+
+        foreach ($users as $user)
         {
-            $results[] = [ 'value' => $query->first_name.' '.$query->last_name, 'avatar' => $query->user_avatar ];
+        $results[] = [ 'value' => $user->first_name.' '.$user->last_name, 'avatar' => $user->user_avatar ];
         }
+         */
 
-
-        return Response::json($results);
+        return view('dashboard.search-users')->with('users', $users);
 
     }
 }

@@ -27,7 +27,7 @@ class UserTableSeeder extends Seeder
             'gender' => 'man',
             'user_active' => false,
             'account_type' => false,
-            'user_avatar' => 'medlib-profile.jpg'
+            'user_avatar' => 'medlib-profile.png'
 
         ));
 

@@ -11,10 +11,40 @@
 |
 */
 
+use Carbon\Carbon;
+use Medlib\Models\User;
+
 /**
  * Home Page
  */
 Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
+
+Route::get('/newuser', function(){
+
+    $confirmation_code = str_random(45);
+
+    $date_of_birth = Carbon::createFromDate(1975, 11, 14)->toDateString();
+
+    dd($confirmation_code);
+
+    User::create([
+        'email'    => 'demo04@medlib.fr',
+        'username' => 'demo04',
+        'password' => bcrypt('demo'),
+        'first_name'     => 'Demo',
+        'last_name' => 'Demo',
+        'profession' => 'teacher',
+        'location' => 'Paris, France',
+        'date_of_birth' => $date_of_birth,
+        'gender' => 'man',
+        'user_active' => false,
+        'account_type' => false,
+        'user_avatar' => '',
+        'confirmation_code' => "{$confirmation_code}",
+    ]);
+
+});
+
 
 /**
  * Authentification
@@ -81,7 +111,6 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'namespace' => 'Users
 /**
  * User settings
  */
-
 Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
 
     Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
@@ -120,7 +149,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'D
 
     Route::get('/search', ['uses' => 'SearchUserController@getResults', 'as' => 'dashboard.search']);
 });
-
 
 /**
  * Helpers

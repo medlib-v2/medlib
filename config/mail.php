@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'noreply@medlib.fr', 'name' => 'Medlib Team'],
 
     /*
     |--------------------------------------------------------------------------
