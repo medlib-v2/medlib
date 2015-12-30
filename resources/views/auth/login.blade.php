@@ -1,11 +1,12 @@
 @extends('layouts.master')
 
+@section('title', 'Register')
+
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid animated fadeInUp">
     <div class="row">
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     @if ($errors->has())
                     <div class="alert alert-danger">
@@ -17,41 +18,39 @@
                         </ul>
                     </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
+                    <section class="m-b-lg">
+                        <header class="wrapper text-center">
+                            <strong>Sign in to get in touch</strong>
+                        </header>
+                        <form role="form" method="POST" action="{{ url('/login') }}" accept-charset="UTF-8">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <input type="email" placeholder="Email" class="form-control no-border" name="email" value="{{ old('email') }}">
+                                    </div>
+                                    <div class="list-group-item">
+                                        <input type="password" placeholder="Password" class="form-control no-border" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input id="checkbox1" type="checkbox" name="remember" class="form-control no-border">
+                                            <label for="checkbox1">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">Login</button>
-
-                                <a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+                                <div class="text-center m-t m-b">
+                                    <a href="{{ url('/password/email') }}" class="btn btn-link">
+                                        <small>Forgot Your Password?</small>
+                                    </a>
+                                </div>
+                                <div class="line line-dashed"></div>
+                                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                                <a href="{{ route('auth.register') }}" class="btn btn-lg btn-default btn-block">Create an account</a>
+                            </form>
+                    </section>
                 </div>
             </div>
         </div>

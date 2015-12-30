@@ -86,3 +86,4 @@
 <script type="text/javascript" src="{{ url('vendor/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ url('vendor/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ url('js/form-elements-home.js') }}"></script>
+<script type="text/javascript" src="{{ url('vendor/jasny-bootstrap/js/fileinput.js') }}"></script>

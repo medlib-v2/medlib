@@ -5,8 +5,8 @@
 @section('content')
     <div id="content" class="content" role="main">
         <div id="page-content" class="container">
-            <div class="col-md-3 col-xs-1"></div>
-            <div class="col-md-6 col-xs-10 inpt-search">
+            <div class="col-md-2 col-xs-1 col-sm-1"></div>
+            <div class="col-md-7 col-xs-8 col-sm-10 inpt-search">
                 <form method="GET" action="{{ url('search/simple') }}" name="search_input" onsubmit="if (search_input.query.value.length == 0) { return false; }" role="form">
                     <div class="form-group">
                         <div class="row">
@@ -43,7 +43,8 @@
                         <div class="row">
                             <div class="form-group mt">
                                 <div id="AdvencedOptions" class="panel-title AdvencedOptions" >
-                                    <img src="{{ asset('/images/tree_plus.gif') }}"/><label> <span style="margin: 5px; padding-top:20px"> Options Avancées</span></label>
+                                    <img src="{{ asset('/images/tree_plus.gif') }}"/>
+                                    <label><span class="m-ad"> Options Avancées</span></label>
                                 </div>
                                 <div id="DescriptionOptions" class="description" style="display:none">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
@@ -75,7 +76,7 @@
                 </form>
                 <div><span class="link" ><a href="{{ route('search.advanced') }}">Recherche avancée</a></span></div>
             </div>
-            <div class="col-md-3 col-xs-1"></div>
+            <div class="col-md-2 col-xs-1 col-sm-2"></div>
         </div>
     </div>
 @endsection

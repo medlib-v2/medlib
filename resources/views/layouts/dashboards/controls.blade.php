@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<nav class="page-controls navbar navbar-default">
+<nav class="page-controls navbar navbar-default box-shadow">
     <div class="container-fluid">
         <!-- .navbar-header contains links seen on xs & sm screens -->
         <div class="navbar-header">
@@ -28,12 +28,12 @@
             </ul>
             <!-- xs & sm screen logo -->
             <a class="navbar-brand visible-xs" href="{{ route('home') }}">
-                <i class="fa fa-circle text-gray mr-n-sm"></i>
+                <i class="fa fa-circle text-gray"></i>
                 <i class="fa fa-circle text-warning"></i>
                 &nbsp;
-                Medlib
+                <img src="{{ url('images/logo_a.png') }}" style="width:30px; height:auto;">
                 &nbsp;
-                <i class="fa fa-circle text-warning mr-n-sm"></i>
+                <i class="fa fa-circle text-warning"></i>
                 <i class="fa fa-circle text-gray"></i>
             </a>
         </div>
@@ -54,7 +54,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle dropdown-toggle-notifications" id="notifications-dropdown-toggle" data-toggle="dropdown">
                         <span class="thumb-sm avatar pull-left">
-                            <img class="img-circle" src="{{ url('avatars/'. Auth::user()->getAvatar()) }}" alt="...">
+                            <img class="img-circle" src="{{ Auth::user()->getAvatar() }}" alt="...">
                         </span>
                         &nbsp;
                         {{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong>&nbsp;
@@ -72,19 +72,19 @@
                                              only requirement for async reloading -->
                                         <input type="radio" checked
                                                data-ajax-trigger="change"
-                                               data-ajax-load="demo/ajax/notifications.html"
+                                               data-ajax-load="/demo/ajax/notifications.html"
                                                data-ajax-target="#notifications-list"> Notifications
                                     </label>
                                     <label class="btn btn-default">
                                         <input type="radio"
                                                data-ajax-trigger="change"
-                                               data-ajax-load="demo/ajax/messages.html"
+                                               data-ajax-load="/demo/ajax/messages.html"
                                                data-ajax-target="#notifications-list"> Messages
                                     </label>
                                     <label class="btn btn-default">
                                         <input type="radio"
                                                data-ajax-trigger="change"
-                                               data-ajax-load="demo/ajax/progress.html"
+                                               data-ajax-load="/demo/ajax/progress.html"
                                                data-ajax-target="#notifications-list"> Progress
                                     </label>
                                 </div>
@@ -93,7 +93,7 @@
                             <div id="notifications-list" class="list-group thin-scroll">
                                 <div class="list-group-item">
                                 <span class="thumb-sm pull-left mr clearfix">
-                                    <img class="img-circle" src="demo/img/people/a3.jpg" alt="...">
+                                    <img class="img-circle" src="/demo/img/people/a3.jpg" alt="...">
                                 </span>
                                     <p class="no-margin overflow-hidden">
                                         1 new user just signed up! Check out
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="list-group-item">
                                 <span class="thumb-sm pull-left mr clearfix">
-                                    <img class="img-circle" src="demo/img/people/a5.jpg" alt="...">
+                                    <img class="img-circle" src="/demo/img/people/a5.jpg" alt="...">
                                 </span>
                                     <p class="no-margin overflow-hidden">
                                         User <a href="#">Jeff</a> registered
@@ -135,7 +135,7 @@
                                      when clicked -->
                                 <button class="btn btn-xs btn-link pull-right"
                                         id="load-notifications-btn"
-                                        data-ajax-load="demo/ajax/notifications.php"
+                                        data-ajax-load="/demo/ajax/notifications.php"
                                         data-ajax-target="#notifications-list"
                                         data-loading-text="<i class='fa fa-refresh fa-spin mr-xs'></i> Loading...">
                                     <i class="fa fa-refresh"></i>
@@ -166,7 +166,7 @@
                         <div class="chat-notification-inner">
                             <h6 class="title">
                                 <span class="thumb-xs">
-                                    <img src="demo/img/people/a6.jpg" class="img-circle mr-xs pull-left">
+                                    <img src="/demo/img/people/a6.jpg" class="img-circle mr-xs pull-left">
                                 </span>
                                 Jess Smith
                             </h6>

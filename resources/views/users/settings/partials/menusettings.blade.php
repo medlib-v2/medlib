@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-5 col-md-3">
+<div class="col-xs-11 col-sm-5 col-md-3">
     <div class="list-group">
         <div class="list-group-item active">
             <span class="menu-heading">Paramètres personnels</span>
@@ -9,7 +9,7 @@
                 <ul class="nav">
                     <li>
                         <div class="profile-userpic">
-                            <img src="{{ url('avatars/'. Auth::user()->getAvatar()) }}" class="img-responsive" alt="img_{{ Auth::user()->getFirstNameOrUsername() }}_here">
+                            <img src="{{ Auth::user()->getAvatar() }}" class="img-responsive" alt="img_{{ Auth::user()->getFirstNameOrUsername() }}_here">
                         </div>
                         <div class="profile-usertitle">
                             <div class="profile-usertitle-name">{{ Auth::user()->getName() }}</div>

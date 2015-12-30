@@ -1,6 +1,7 @@
 <?php
 
 use Medlib\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,36 +15,39 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->truncate();
+        //DB::table('users')->truncate();
 
-        User::create(array(
-            'email'    => 'medlib-team@medlib-v2.lan',
-            'username' => 'medlib',
-            'password' => Hash::make('madlib-admin'),
-            'first_name'     => 'Medlib',
-            'last_name' => 'Team',
-            'profession' => 'student',
-            'date_of_birth' => '1985-08-05',
-            'gender' => 'man',
-            'user_active' => false,
-            'account_type' => false,
-            'user_avatar' => 'medlib-profile.png'
+        $faker = Faker::create();
 
-        ));
 
-        User::create(array(
-            'email'    => 'eldorplus@gmail.com',
-            'username' => 'eldorplus',
-            'password' => Hash::make('Lusquain01'),
-            'first_name'     => 'Patrick',
-            'last_name' => 'LUZOLO SIASIA',
-            'profession' => 'student',
-            'date_of_birth' => '1985-08-05',
-            'gender' => 'man',
-            'user_active' => true,
-            'account_type' => false,
-            'user_avatar' => 'eldorplus-profile.jpg'
+        foreach (range(1, 30) as $index) {
 
-        ));
+            User::create([
+                'email' => $faker->unique()->email,
+                'username' => $faker->unique()->username,
+                'password' => Hash::make('secret1983'),
+                'first_name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'profession' => $faker->randomElement(['student','researcher', 'teacher']),
+                'location' => "",
+                'date_of_birth' => $faker->date,
+                'gender' => $faker->randomElement(['man','woman']),
+                'user_active' => true,
+                'account_type' => false,
+                'user_avatar' => $faker->imageUrl($width = 180, $height = 180),
+                'confirmation_code' => self::generateToken()
+            ]);
+        }
+    }
+
+
+    /**
+     * Generate the verification token.
+     *
+     * @return string
+     */
+    protected static function generateToken() {
+
+        return str_random(64).config('app.key');
     }
 }

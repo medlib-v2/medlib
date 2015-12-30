@@ -148,6 +148,7 @@ return [
         Yaz\Services\YazServiceProvider::class,
         Yaz\Services\QueryServiceProvider::class,
         Medlib\MarcXML\ParserServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -201,6 +202,7 @@ return [
         'Yaz'       => Yaz\Facades\Yaz::class,
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

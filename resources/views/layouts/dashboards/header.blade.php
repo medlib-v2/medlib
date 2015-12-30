@@ -2,11 +2,13 @@
 <nav id="sidebar" class="sidebar" role="navigation">
     <div class="js-sidebar-content">
         <header class="logo">
-            <a href="{{ route('home') }}">Medlib</a>
+            <a href="{{ route('home') }}">
+                <img src="{{ url('/images/logo.svg') }}">
+            </a>
         </header>
         <div class="sidebar-status visible-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="thumb-sm avatar pull-right"><img class="img-circle" src="{{ url('avatars/'. Auth::user()->getAvatar()) }}" alt="..."></span>
+                <span class="thumb-sm avatar pull-right"><img class="img-circle" src="{{ Auth::user()->getAvatar() }}" alt="..."></span>
                 <span class="circle bg-warning fw-bold text-gray-dark">
                     13
                 </span>
@@ -25,7 +27,7 @@
                     <i class="toggle fa fa-angle-down"></i>
                 </a>
                 <ul id="sidebar-dashboard" class="collapse in">
-                    <li class="active"><a href="{{ route('dashboard.books') }}>">Mes livres<span class="label label-danger">9</span></a></li>
+                    <li class="active"><a href="{{ route('dashboard.books') }}">Mes livres<span class="label label-danger">9</span></a></li>
                     <li><a href="#favorites.html">Favoris</a></li>
                     <li><a href="#encore.html">Lecture en cours</a></li>
                     <li><a href="#lire.html">A lire</a></li>

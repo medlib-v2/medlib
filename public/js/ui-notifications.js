@@ -42,8 +42,7 @@ $(function(){
         $.globalMessenger({ theme: theme });
         Messenger.options = { theme: theme  };
 
-        Messenger().post("Thanks for checking out Messenger!");
-
+        /** Messenger().post("Thanks for checking out Messenger!"); **/
 
         var loc = ['bottom', 'right'];
 

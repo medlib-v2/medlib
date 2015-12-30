@@ -6,3 +6,5 @@ Homestead.json
 /src
 /readme.md
 /composer.lock
+.DS_Store
+.idea

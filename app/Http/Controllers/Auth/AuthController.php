@@ -5,15 +5,16 @@ namespace Medlib\Http\Controllers\Auth;
 use Carbon\Carbon;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
+use Medlib\Services\ProcessImage;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Medlib\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Medlib\Exceptions\InvalidConfirmationCodeException;
 
 class AuthController extends Controller
 {
@@ -38,16 +39,24 @@ class AuthController extends Controller
                 ->withInput(Input::except('password'));
         } else {
 
+            // set the remember me cookie if the user check the box
+            //$remember = ($request->has('remember')) ? true : false;
+
             // create our user data for the authentication
-            $userdata = array(
+            $userdata = [
                 'email'     => $request->get('email'),
                 'password'  => $request->get('password'),
-                'user_active' => 1
-            );
+                //'user_active' => 1
+            ];
 
             // attempt to do the login
             if (Auth::attempt($userdata, $request->has('remember'))) {
 
+                // check if account is active
+                if (Auth::user()->user_active == 0) {
+                    Auth::logout();
+                    return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
+                }
                 // validation successful!
                 // redirect them to the secure section or whatever
                 return Redirect::to('/');
@@ -56,6 +65,7 @@ class AuthController extends Controller
 
                 // validation not successful, send back to form
                 // return Redirect::to('login')->with('error', 'Could not sign you in with those details.');
+                // return Redirect::back()->withInput()->withErrors(['credentials' => 'We were unable to sign you in.']);
                 return Redirect::to('login');
 
             }
@@ -80,16 +90,16 @@ class AuthController extends Controller
             'profession' => 'not_in: ',
             'password' => 'required|min:6',
             'password_confirm' => 'required|min:6|same:password',
-            'birthday_day'	=>	'required|numeric|between:01,31',
-            'birthday_month'	=>	'required|numeric|between:01,12',
-            'birthday_year'	=>	'required|numeric|before:'.date('Y', $timestamp),
+            'day'	=>	'required|numeric|between:01,31',
+            'month'	=>	'required|numeric|between:01,12',
+            'year'	=>	'required|numeric|before:'.date('Y', $timestamp),
             'gender' =>	'required',
             'g-recaptcha-response' => 'required|recaptcha',
         ];
 
         /** create custom validation messages */
         $messages = [
-            'required' => 'The :attribute is really really really important.',
+            'required' => 'The :attribute is really really important.',
             'same'  => 'The :others must match.'
         ];
 
@@ -111,30 +121,62 @@ class AuthController extends Controller
                 ->withInput(Input::except('password', 'password_confirm'));
 
         } else {
+            $userProfileImage = $profileImagePath = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
 
-            $confirmation_code = str_random(45);
+            $date_of_birth = Carbon::createFromDate(
+                $request->get('year'),
+                $request->get('month'),
+                $request->get('day')
+            )->toDateString();
 
-            $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
-
-            User::create([
-                'email'    => $request->get('email'),
+            $user = User::create([
+                'email' => $request->get('email'),
                 'username' => $request->get('username'),
-                'password' => bcrypt($request->get('password')),
-                'first_name'     => $request->get('first_name'),
+                'password' => Hash::make($request->get('password')),
+                'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
                 'profession' => $request->get('profession'),
+                'location' => "",
                 'date_of_birth' => $date_of_birth,
                 'gender' => $request->get('gender'),
                 'user_active' => false,
                 'account_type' => false,
-                'user_avatar' => '',
-                'confirmation_code' => $confirmation_code
+                'user_avatar' => $userProfileImage,
+                'confirmation_code' => self::generateToken()
             ]);
 
-            Mail::queue('auth.email.verify', ['code', $confirmation_code], function($message) {
-                $message->to(Input::get('email'), Input::get('username'))
+            /**
+            $user = new User();
+            $user->email    = $request->get('email');
+            $user->username = $request->get('username');
+            $user->password = Hash::make($request->get('password'));
+            $user->first_name     = $request->get('first_name');
+            $user->last_name = $request->get('last_name');
+            $user->profession = $request->get('profession');
+            $user->location = "Paris, France";
+            $user->date_of_birth = $date_of_birth;
+            $user->gender = $request->get('gender');
+            $user->user_active = false;
+            $user->account_type = false;
+            $user->user_avatar = $userProfileImage;
+            $user->confirmation_code = self::generateToken();
+             *
+             * $user->save();
+             */
+
+            $account = [
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
+                'user_avatar' => $user->getAvatar(),
+                'confirmation_code' => $user->getConfirmationCode()
+            ];
+
+            Mail::queue('auth.email.verify', compact('account'), function($message) use ($user) {
+                $message->to($user->getEmail(), $user->getFirstName()." ".$user->getLastName())
                     ->subject('Activate your account');
             });
+
+            unset($user);
 
             return Redirect::route('home')->with('info', 'Your account has been created with success !')
                 ->with('success', 'A e-mail has been sended');
@@ -152,18 +194,36 @@ class AuthController extends Controller
 
     public function doVerify($confirmation_code) {
 
-        if(!$confirmation_code) { throw new InvalidConfirmationCodeException; }
+        if(!$confirmation_code) {
 
-        $user = User::where('confirmation_code', '=', $confirmation_code)->first();
+            return Redirect::route('home')->with('error', 'You need validation code!');
+        }
 
-        if (!$user)  { throw new InvalidConfirmationCodeException; }
+        //$user = User::where('confirmation_code', '=', $confirmation_code)->first();
+
+        $user = User::whereConfirmationCode($confirmation_code)->first();
+
+        if (!$user)  {
+
+            return Redirect::route('auth.login')->with('error', 'Your validation code does not exist, check if your account is not already activated');
+        }
 
         $user->user_active = true;
         $user->confirmation_code = null;
         $user->save();
 
-        Session::flash('success', 'Success, your account has been activated.');
+        unset($user);
 
-        return Redirect::route('auth.login');
+        return Redirect::route('auth.login')->with('success', 'Success, your account has been activated.');
+    }
+
+    /**
+     * Generate the verification token.
+     *
+     * @return string
+     */
+    protected static function generateToken() {
+
+        return str_random(64).config('app.key');
     }
 }

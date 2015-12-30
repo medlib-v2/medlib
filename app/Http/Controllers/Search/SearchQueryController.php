@@ -2,10 +2,10 @@
 
 namespace Medlib\Http\Controllers\Search;
 
-use Yaz\YazRecords;
 use Yaz\Facades\Yaz;
 use Yaz\Facades\Query;
 use Medlib\Http\Requests;
+use Yaz\Record\YazRecords;
 use Medlib\MarcXML\MarcXML;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -19,8 +19,8 @@ class SearchQueryController extends Controller
 
     private $_results = [];
 
-    public function doSimple(Request $request)
-    {
+    public function doSimple(Request $request) {
+
         $rules = [
             'query'    => 'required|min:3',
             'qdb' => 'required|not_in: '
@@ -48,19 +48,19 @@ class SearchQueryController extends Controller
         $record = Yaz::from($request->query('qdb'))
             ->where($query)
             ->limit(0, 10)
-            ->orderBy('au ASC')
             ->all(YazRecords::TYPE_XML);
+
+        Yaz::close();
 
         if(!$record->fails())
         {
             foreach($record->getRecords() as $result)
             {
-                $parserResult = new QuiteSimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?>'.$result);
+                $parserResult = new QuiteSimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?>'. $result);
                 $parserResult->registerXPathNamespaces([ 'marc' => 'http://www.loc.gov/MARC21/slim' ]);
 
                 $this->_results[] = MarcXML::parse($parserResult);
             }
-            //dd($this->_results);
         }
         else {
             $this->_results = [

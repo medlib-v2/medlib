@@ -1,14 +1,15 @@
-@extends('layouts.master')
+@extends('layouts.dashboards.dashboard')
 
-@section('title', 'Profile '. Auth::user()->getName())
+@section('title', 'Profile ' . Auth::user()->getName())
 
 @section('content')
-    <div id="content" class="content" role="main">
-        <div id="page-content" class="container">
-            <br>
-            <div class="row">
-                Public Profile
-            </div>
-        </div>
+    <div class="content-wrap">
+        <main id="content" class="content" role="main">
+            @include('users.users.partials.profile')
+        </main>
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ url('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js') }}"></script>
 @endsection

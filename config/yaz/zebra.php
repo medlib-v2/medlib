@@ -11,7 +11,6 @@ return [
             'name' => ['TOUT', 'TOUT-UTF8'],
             'format' => 'unimarc',
             'elementset' => 'F',
-
         ],
         'options' => [
             'user' => 'Z3950',
@@ -48,7 +47,7 @@ return [
             'port' => 210,
             'name' => ['COPAC'],
             'format' => 'UNIMARC',
-            //'elementset' => 'F',
+            'elementset' => 'F',
 
         ],
         'options' => [
@@ -67,7 +66,7 @@ return [
             'port' => 7090,
             'name' => ['voyager'],
             'format' => 'marc21', // ou USMARC
-            //'elementset' => 'F',
+            'elementset' => 'F',
 
         ],
         'options' => [

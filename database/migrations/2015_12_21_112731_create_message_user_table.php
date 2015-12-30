@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUsersTable extends Migration
+class CreateMessageUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,12 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->string('confirmation_code')->nullable();
+        Schema::create('message_user', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('message_id');
+            $table->integer('user_id');
+            $table->timestamps();
         });
     }
 
@@ -25,9 +28,6 @@ class UpdateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->dropColumn(['confirmation_code']);
-        });
+        Schema::drop('message_user');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-#namespace Medlib\Http\Controllers\Auth;
+namespace Medlib\Http\Controllers\Auth;
 
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

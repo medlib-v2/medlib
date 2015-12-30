@@ -19,6 +19,7 @@
         <![endif]-->
         <link href="{{ url('css/application.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url('css/progressbar.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url('css/dashboard.css') }}" rel="stylesheet" type="text/css">
 
         <!-- TITLE -->
         <title>Medlib - @yield('title')</title>
@@ -28,6 +29,7 @@
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
         <![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
         <script src="{{ url('js/jquery.min.js') }}"></script>
     </head>
     <body>
