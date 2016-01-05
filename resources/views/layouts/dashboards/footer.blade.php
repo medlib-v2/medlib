@@ -22,7 +22,7 @@
     <script src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
 
     <!-- common app js -->
-    <script src="{{ asset('js/settings.js') }}"></script>
+    <script src="{{ asset('js/settings-app.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/autocomplete.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>

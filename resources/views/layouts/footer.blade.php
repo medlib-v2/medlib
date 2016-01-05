@@ -73,7 +73,7 @@
 <script type="text/javascript" src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
 
 <!-- common app js -->
-<script type="text/javascript" src="{{ asset('js/settings.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/settings-app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 <!-- Bootstrap core JavaScript -->
