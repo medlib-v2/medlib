@@ -9,7 +9,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 .icon-acorn:before, .icon-anchor:before, .icon-axe:before, .icon-back-pack:before, .icon-beach:before, .icon-binoculars:before, .icon-boat:before, .icon-butterfly:before, .icon-camp-fire:before, .icon-cantine:before, .icon-clover:before, .icon-compass-1:before, .icon-compass-2:before, .icon-dead-tree:before, .icon-earth:before, .icon-ever-greens:before, .icon-fire-fill:before, .icon-fire:before, .icon-fish-hook:before, .icon-flashlight:before, .icon-flower-1:before, .icon-flower-2:before, .icon-flower-3:before, .icon-flower-4:before, .icon-flower-5:before, .icon-flower-pot:before, .icon-kayak:before, .icon-lady-bug:before, .icon-lantern:before, .icon-leaf-1:before, .icon-leaf-2:before, .icon-leaf-3:before, .icon-leaf-4:before, .icon-life-raft:before, .icon-love-recycle:before, .icon-mountains:before, .icon-mushroom:before, .icon-north:before, .icon-picnic-table:before, .icon-pine-cone:before, .icon-pocket-knife:before, .icon-pot-plant-fill:before, .icon-pot-plant:before, .icon-sail-boat:before, .icon-ship-wheel:before, .icon-swimming:before, .icon-telescope:before, .icon-tent:before, .icon-trailer:before, .icon-tree-1:before, .icon-tree-2:before, .icon-tree-3:before, .icon-water:before, .icon-worldwide:before {
     font-family: "picto-foundry-nature";
     font-style: normal;
@@ -632,4 +631,513 @@ ul.img-grid li img {
 }
 .profile-userpic {
     padding: 16px;
+}
+.cover.overlay.cover-image-full > img, .cover.overlay.cover-image-full > .img {
+    width: 100%;
+}
+.cover.overlay .cover-image-full {
+    height: 221px;
+}
+.v-top {
+    vertical-align: top !important;
+}
+.profile-block {
+    position: relative;
+}
+.profile-icons img {
+    width: 40px;
+    height: 40px;
+}
+.profile-block .cover .icon {
+    color: #fff;
+    font-size: 18px;
+}
+.profile-block .avatar {
+    z-index: 4;
+    border: 3px solid #fff;
+    width: 100px;
+    height: 100px;
+}
+.profile-block .profile-icons {
+    height: 65px;
+    line-height: 65px;
+    padding-left: 140px;
+    z-index: 5;
+}
+.profile-block .cover {
+    overflow: visible;
+    height: 200px;
+    margin-bottom: 0;
+}
+.profile-block .cover.overlay .overlay.overlay-full .v-bottom {
+    bottom: -59px;
+}
+.user-count-circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #efefef;
+    border-radius: 50px;
+    vertical-align: middle;
+    line-height: 48px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #ccc;
+}
+.profile-icons {
+    font-size: 14px;
+    font-weight: bold;
+    color: #efefef;
+}
+.panel > .cover {
+    margin-bottom: 0;
+}
+.media-left > .cover:last-child {
+    margin-bottom: 0;
+}
+.cover.overlay.cover-image-full > img,
+.cover.overlay.cover-image-full > .img {
+    width: 100%;
+}
+.cover.overlay.hover .overlay-hover {
+    transition: all .5s;
+    visibility: hidden;
+    opacity: 0;
+}
+.cover.overlay.hover:hover .overlay-hover {
+    visibility: visible;
+    opacity: 1;
+}
+.cover.overlay .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 18px;
+    display: table;
+    width: 100%;
+    vertical-align: middle;
+}
+.cover.overlay .overlay:hover {
+    text-decoration: none;
+}
+.cover.overlay .overlay [class*="v-spacing-2"] {
+    left: 18px;
+    right: 18px;
+}
+.cover.overlay .overlay [class*="v-spacing-2"].v-top {
+    top: 18px;
+}
+.cover.overlay .overlay [class*="v-spacing-2"].v-bottom {
+    bottom: 18px;
+}
+.cover.overlay .overlay.overlay-full {
+    top: 0;
+    height: 100%;
+}
+.cover.overlay .overlay.overlay-full p {
+    max-width: 100%;
+}
+.cover.overlay .overlay.overlay-full .v-top {
+    vertical-align: top !important;
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    right: 9px;
+    display: block;
+    width: auto;
+    height: auto;
+    vertical-align: baseline;
+    text-align: inherit;
+}
+.cover.overlay .overlay.overlay-full .v-center {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    bottom: auto;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+.cover.overlay .overlay.overlay-full .v-bottom {
+    position: absolute;
+    bottom: 9px;
+    left: 9px;
+    right: 9px;
+    display: block;
+    width: auto;
+    height: auto;
+    vertical-align: baseline;
+    text-align: inherit;
+}
+.cover.overlay .overlay.overlay-full [class*="v-spacing-2"] {
+    left: 18px;
+    right: 18px;
+}
+.cover.overlay .overlay.overlay-full [class*="v-spacing-2"].v-top {
+    top: 18px;
+}
+.cover.overlay .overlay.overlay-full [class*="v-spacing-2"].v-bottom {
+    bottom: 18px;
+}
+@media (max-width: 767px) {
+    .cover.overlay .overlay.overlay-full-xs {
+        top: 0;
+        height: 100%;
+    }
+    .cover.overlay .overlay.overlay-full-xs p {
+        max-width: 100%;
+    }
+    .cover.overlay .overlay.overlay-full-xs .v-top {
+        vertical-align: top !important;
+        position: absolute;
+        top: 9px;
+        left: 9px;
+        right: 9px;
+        display: block;
+        width: auto;
+        height: auto;
+        vertical-align: baseline;
+        text-align: inherit;
+    }
+    .cover.overlay .overlay.overlay-full-xs .v-center {
+        display: table-cell;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+        bottom: auto;
+        top: auto;
+        left: auto;
+        right: auto;
+    }
+    .cover.overlay .overlay.overlay-full-xs .v-bottom {
+        position: absolute;
+        bottom: 9px;
+        left: 9px;
+        right: 9px;
+        display: block;
+        width: auto;
+        height: auto;
+        vertical-align: baseline;
+        text-align: inherit;
+    }
+    .cover.overlay .overlay.overlay-full-xs [class*="v-spacing-2"] {
+        left: 18px;
+        right: 18px;
+    }
+    .cover.overlay .overlay.overlay-full-xs [class*="v-spacing-2"].v-top {
+        top: 18px;
+    }
+    .cover.overlay .overlay.overlay-full-xs [class*="v-spacing-2"].v-bottom {
+        bottom: 18px;
+    }
+    .cover.overlay .overlay[class*="overlay-full"] .v-top-xs {
+        vertical-align: top !important;
+        position: absolute;
+        top: 9px;
+        left: 9px;
+        right: 9px;
+        display: block;
+        width: auto;
+        height: auto;
+        vertical-align: baseline;
+        text-align: inherit;
+    }
+    .cover.overlay .overlay[class*="overlay-full"] .v-center-xs {
+        display: table-cell;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+        bottom: auto;
+        top: auto;
+        left: auto;
+        right: auto;
+    }
+    .cover.overlay .overlay[class*="overlay-full"] .v-bottom-xs {
+        position: absolute;
+        bottom: 9px;
+        left: 9px;
+        right: 9px;
+        display: block;
+        width: auto;
+        height: auto;
+        vertical-align: baseline;
+        text-align: inherit;
+    }
+}
+.cover.overlay .overlay[class*="overlay-bg-grey"] .text-overlay {
+    color: #fff;
+    text-shadow: 0 2px 0 #555;
+}
+.cover.overlay .overlay p {
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+.cover.overlay .overlay p.lead {
+    font-size: 22px;
+}
+.cover.overlay .overlay *:last-child {
+    margin-bottom: 0;
+}
+.cover.overlay .overlay[class*="overlay-bg-white"] .text-overlay {
+    text-shadow: none;
+    color: #212121;
+}
+.cover.overlay .overlay[class*="overlay-bg-white"] p.text-overlay {
+    color: #212121;
+}
+.cover.overlay .overlay.overlay-bg-black .text-overlay {
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
+}
+.cover.overlay .overlay.overlay-bg-black p.text-overlay {
+    text-shadow: none;
+    color: #EEEEEE;
+}
+.cover.overlay [class*="overlay-bg-"][class*="text-"]:not(.overlay) {
+    padding: 8px 16px;
+}
+.cover.overlay .overlay-bg-black {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+}
+.cover.overlay .overlay-bg-white {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+}
+.cover.overlay .overlay-bg-white-fade {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+}
+.cover.overlay .overlay-bg-white-strong {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+}
+.cover.overlay .overlay-bg-grey {
+    background: linear-gradient(to right, #616160, rgba(123, 122, 121, 0.2));
+}
+.tabbable .cover.overlay {
+    margin: -18px;
+}
+.cover.overlay .carousel-control {
+    z-index: 4;
+}
+.cover.overlay .ribbon-mark {
+    z-index: 5;
+}
+[class*="cover-navbar"] .cover.overlay .ribbon-mark .caret {
+    box-shadow: none;
+}
+.cover-navbar-top.cover.overlay .ribbon-mark {
+    top: 50px;
+}
+.cover-navbar-small-top.cover.overlay .ribbon-mark {
+    top: 42px;
+}
+.cover-navbar-large-top.cover.overlay .ribbon-mark {
+    top: 50px;
+}
+@media (min-width: 992px) {
+    .cover-navbar-large-top.cover.overlay .ribbon-mark {
+        top: 64px;
+    }
+}
+.container > .cover.overlay .overlay {
+    padding-left: 0;
+    padding-right: 0;
+}
+@media (min-width: 992px) {
+    .container > .cover.overlay .overlay p {
+        max-width: 70%;
+    }
+}
+.cover.overlay .btn-cover {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: transparent;
+    z-index: 2;
+}
+.cover.overlay .btn-cover:hover,
+.cover.overlay .btn-cover:focus,
+.cover.overlay .btn-cover.focus,
+.cover.overlay .btn-cover:active,
+.cover.overlay .btn-cover.active,
+.open > .dropdown-toggle.cover.overlay .btn-cover {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0);
+}
+.cover.overlay .btn-cover:active,
+.cover.overlay .btn-cover.active,
+.open > .dropdown-toggle.cover.overlay .btn-cover {
+    background-image: none;
+}
+.cover.overlay .btn-cover.disabled,
+.cover.overlay .btn-cover[disabled],
+fieldset[disabled] .cover.overlay .btn-cover,
+.cover.overlay .btn-cover.disabled:hover,
+.cover.overlay .btn-cover[disabled]:hover,
+fieldset[disabled] .cover.overlay .btn-cover:hover,
+.cover.overlay .btn-cover.disabled:focus,
+.cover.overlay .btn-cover[disabled]:focus,
+fieldset[disabled] .cover.overlay .btn-cover:focus,
+.cover.overlay .btn-cover.disabled.focus,
+.cover.overlay .btn-cover[disabled].focus,
+fieldset[disabled] .cover.overlay .btn-cover.focus,
+.cover.overlay .btn-cover.disabled:active,
+.cover.overlay .btn-cover[disabled]:active,
+fieldset[disabled] .cover.overlay .btn-cover:active,
+.cover.overlay .btn-cover.disabled.active,
+.cover.overlay .btn-cover[disabled].active,
+fieldset[disabled] .cover.overlay .btn-cover.active {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: transparent;
+}
+.cover.overlay .btn-cover .badge {
+    color: rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+}
+.cover.overlay .btn-cover:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.cover.overlay .cover-nav {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+    background: rgba(0, 0, 0, 0.24);
+    text-align: center;
+    padding: 0;
+    z-index: 5;
+}
+.cover.overlay .cover-nav li {
+    padding: 0;
+    display: inline;
+}
+.cover.overlay .cover-nav li a {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 8px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+.cover.overlay .cover-nav li a:hover {
+    background: rgba(0, 0, 0, 0.54);
+}
+.cover.overlay .cover-nav li a i {
+    margin-right: 3px;
+    font-size: 1.4em;
+}
+.cover.overlay .cover-nav li a i:before {
+    vertical-align: middle;
+}
+.cover.overlay .cover-nav li.active a {
+    background: rgba(0, 0, 0, 0.54);
+}
+@media (max-width: 480px) {
+    .cover.overlay .cover-nav {
+        bottom: -40px;
+        background: #212121;
+        border-top: none;
+    }
+    .cover.overlay .cover-nav li a {
+        color: #474747;
+    }
+    .cover.overlay .cover-nav li.active a,
+    .cover.overlay .cover-nav li.active a:hover {
+        color: #fff;
+        background: #26a69a;
+    }
+    .cover.overlay .cover-nav li a:hover {
+        color: #fff;
+        background: #0a0a0a;
+    }
+}
+@media (max-width: 992px) {
+    .cover.overlay .cover-nav li a {
+        height: 40px;
+        line-height: 40px;
+    }
+    .cover.overlay .cover-nav li a li a i {
+        margin: 0;
+    }
+    .cover.overlay .cover-nav li a span {
+        display: none;
+    }
+}
+@media (min-width: 1270px) {
+    .cover.overlay .cover-nav {
+        text-align: left;
+        width: 250px;
+        top: 0;
+        right: 0;
+        background: #fff;
+    }
+    .cover.overlay .cover-nav li {
+        display: block;
+    }
+    .cover.overlay .cover-nav li.active a {
+        background: #26a69a;
+        color: #fff;
+    }
+    .cover.overlay .cover-nav li.active a i {
+        color: #fff;
+    }
+    .cover.overlay .cover-nav li a {
+        width: 100%;
+        height: 60px;
+        font-weight: 400;
+        line-height: 60px;
+        color: #3f3f3f;
+        border-bottom: 1px solid #efefef;
+    }
+    .cover.overlay .cover-nav li a i {
+        width: 50px;
+        text-align: center;
+        color: #dfdfdf;
+    }
+    .cover.overlay .cover-nav li a:hover {
+        color: #fff;
+    }
+}
+@media (min-width: 768px) {
+    .cover.overlay {
+        overflow: hidden;
+    }
+}
+@media (max-width: 480px) {
+    .cover.overlay.cover-menu {
+        overflow: visible;
+        margin-bottom: 60px;
+    }
+}
+@media (max-width: 767px) {
+    .cover.overlay .overlay {
+        padding: 0;
+    }
+    .cover.overlay .jumbotron {
+        padding: 15px 0;
+    }
+}
+[class*="ls-top-navbar"] .navbar-absolute-top + .cover-navbar-large-top {
+    margin-top: -50px;
+}
+@media (min-width: 992px) {
+    [class*="ls-top-navbar"] .navbar-absolute-top + .cover-navbar-large-top {
+        margin-top: -64px;
+    }
+}
+[class*="ls-top-navbar"] .navbar-absolute-top + .cover-navbar-small-top {
+    margin-top: -42px;
+}
+[class*="ls-top-navbar"] .navbar-absolute-top + .cover-navbar-top {
+    margin-top: -50px;
 }

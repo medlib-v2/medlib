@@ -14,18 +14,18 @@ class CreateFriendRequestCommand extends Command implements SelfHandling
 {
 
     /**
-     *  @var int
+     *  @var string
      */
-    protected $requestedId;
+    protected $requestedName;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct($requestedId)
+    public function __construct($requestedName)
     {
-        $this->requestedId = $requestedId;
+        $this->requestedName = $requestedName;
     }
     /**
      * Execute the command.
@@ -36,7 +36,7 @@ class CreateFriendRequestCommand extends Command implements SelfHandling
      */
     public function handle(UserRepository $userRepository)
     {
-        $requestedUser = $userRepository->findById($this->requestedId);
+        $requestedUser = $userRepository->findByUsername($this->requestedName);
 
         $requesterUser = Auth::user();
 

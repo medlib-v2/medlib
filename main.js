@@ -1,8 +1,14 @@
 (function(){
 
 	// Ajax friend activity
-	$('.friend-request-button').click(handleAjaxRequests);
-	$('.accept-friend-button').click(handleAjaxRequests);
+	$('.add-friend-request-button').click(handleAjaxRequests);
+
+	//$('.accept-friend-button').click(handleAjaxRequests);
+	$('.users-list').on('click', '.accept-friend-button', handleAjaxRequests);
+	$('.users-list').on('click', '.del-friend-button', handleAjaxRequests);
+	$('.profile-userpic').on('click', '.send-friend-request-button', handleAjaxRequests);
+	$('.profile-userpic').on('click', '.del-friend-button', handleAjaxRequests);
+
 
 	function handleAjaxRequests() {
 
@@ -21,9 +27,15 @@
 
 		var imgPath = button.closest('.panel-default').find('.img-circle').attr('src') || button.closest('.profile-userpic').find('.img-circle').attr('src');
 
-		console.log('Url : '+ url + ' TOKEN : ' + token);
+		console.log('Name : '+ username +'\nUrl : '+ url +'\nMethod : '+ method +'\nTOKEN : ' + token +'\nClass :' + className + "\nImages : " + imgPath);
 
-		 $.ajax({
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		$.ajax({
 			type: method,
 			url: url,
 			data: {
@@ -37,90 +49,71 @@
 
 				switch (className) {
 
-					case 'btn btn-success friend-request-button':
-
-						button.attr('disabled', 'disabled').text('Requested');
+					case 'btn btn-success add-friend-request-button':
+						button.empty();
+						button.append('<i class="fa fa-check-circle fa-fw"></i>&nbsp;Requested');
+						button.attr('disabled', 'disabled');
 						Messenger().post({
-							message: 'Your request was be send with successful!',
+							message: data.message,
 							type: 'success',
 							showCloseButton: true
 						});
 						break;
 
+					// From friends/requests Interface
 					case 'btn btn-primary btn-success accept-friend-button btn-sm':
-
-						button.attr('disabled', 'disabled').text('Friend added');
+						button.empty();
+						button.append('<i class="fa fa-check-circle fa-fw"></i>&nbsp;Friend added');
+						button.attr('disabled', 'disabled');
 						Messenger().post({
-							message: 'Friend added with successful!',
+							message: data.message,
 							type: 'success',
 							showCloseButton: true
 						});
-						button.closest('.item').remove().fadeOut(300);
+						button.closest('.panel-default').parents('.item').fadeOut(300);
+						if(data.count == 0) {
+							button.parents('.col-md-12').append('<div class="alert alert-info" role="alert">'+
+								'<span class="glyphicon glyphicon-info-sign"></span> You don\'t have any friend requests.</div>'
+							);
+						}
 						break;
 
-					case 'btn btn-primary add-friend-button-2 btn-sm':
+					// From friends/requests Interface
+					case 'btn btn-primary btn-danger del-friend-button btn-sm':
+						button.closest('.panel-default').parents('.item').fadeOut(300);
+						Messenger().post({
+							message: data.message,
+							type: 'success',
+							showCloseButton: true
+						});
+						if(data.count == 0) {
+							button.parents('.col-md-12').append('<div class="alert alert-info" role="alert">'+
+								'<span class="glyphicon glyphicon-info-sign"></span> You don\'t have any friend requests.</div>'
+							);
+						}
+						break;
 
-						button.closest('.listed-object-close').slideUp();
+					// From users/{username}
+					case 'btn btn-danger del-friend-button':
+						button.removeClass();
+						button.addClass('btn btn-success send-friend-request-button');
+						button.attr('href', url+'/requests');
+						button.attr('data-method', 'POST');
+						button.data('method', 'POST');
+						button.empty();
+						button.append('<i class="fa fa-check-circle fa-fw"></i>&nbsp;Add friend');
+						break;
 
-			         if(data.count == 0)
-			        {
-
-			        	$('.users-list').append('<div class="alert alert-info" role="alert">'+
-						'<span class="glyphicon glyphicon-info-sign"></span> You don\'t have any friend requests.</div>');
-			        }
-
-
-	        		$('#no-friend-chat-alert').hide();
-
-					$('#friend-list').append('<div id="friend-side-list" class="list-group">'+
-					'<a href="#" class="list-group-item side-list disabled" data-username = "'+ username +'">'+
-					'<div class="media"><div class="pull-left">'+
-					'<img class="media-object avatar small-avatar" src="'+imgPath+'" alt="'+ username+'">'+
-					'</div><div class="media-body">'+
-					''+ friendName +' <span class="glyphicon glyphicon-flash text-success"></span>'+
-					'</div></div></a></div>');
-
-		        	var friendsCount = $('.friends-count').text();
-
-					var actualFriendsCount = parseInt(friendsCount) + 1;
-
-					$('.friends-count').text(actualFriendsCount);
-
-					break;
-
-					case 'btn btn-primary unfriend-button btn-sm':
-
-					 if(data.count == 0) {
-						 $('#friend-side-list').hide();
-						 $('#friend-list').append('<div id="no-friend-chat-alert" class="alert alert-info" role="alert">'+
-							 '<span class="glyphicon glyphicon-info-sign"></span>'+
-							 ' You don\'t have any friends.</div>'
-						 );
-					 }
-
-				    var friendsCount = $('.friends-count').text();
-
-					var actualFriendsCount = parseInt(friendsCount) - 1;
-
-					$('.friends-count').text(actualFriendsCount);
-
-					$( "#chat-list-user-"+userId ).hide('slide', {direction : 'right'}, 300);
-
-					button.attr('disabled', 'disabled').text('Removed');
-
-					break;
-
-					case 'btn btn-primary unfriend-button-2 btn-sm':
-
-			         button.closest('.listed-object-close').slideUp();
-
-			        if(data.count == 0)
-			        {
-			        	$('.users-list').append('<div class="alert alert-info" role="alert">'+
-						'<span class="glyphicon glyphicon-info-sign"></span> You don\'t have any friend requests.</div>');
-			        }
-
-					break;
+					case 'btn btn-success send-friend-request-button':
+						button.empty();
+						button.append('<i class="fa fa-check-circle fa-fw"></i>&nbsp;Requested');
+						button.attr('disabled', 'disabled');
+						Messenger().post({
+							message: data.message,
+							type: 'success',
+							showCloseButton: true
+						});
+						break;
 
 					case 'btn btn-primary unfriend-button-3 btn-sm':
 
@@ -128,8 +121,7 @@
 
 				        $( "a[data-username="+button.attr('data-username')+"]" ).hide('slide', {direction : 'right'}, 300);
 
-				        if(data.count == 0)
-				        {
+				        if(data.count == 0) {
 				        	$('.users-list').append('<div class="alert alert-info" role="alert">'+
 							'<span class="glyphicon glyphicon-info-sign"></span> You don\'t have any friends.</div>');
 
@@ -143,37 +135,51 @@
 						var actualFriendsCount = parseInt(friendsCount) - 1;
 						$('.friends-count').text(actualFriendsCount);
 
-					break;
+						break;
 
 					case 'logout-link':
 
-						if($('#no-friend-chat-alert').is(":visible"))
-						{
+						if($('#no-friend-chat-alert').is(":visible")) {
 							window.location.replace("/");
 						}
-						else
-						{
+						else {
 							$('.side-list').each(function(){
-							var friendListUserId = $(this).attr('data-username');
-							sessionStorage.removeItem('conversation-with-'+friendListUserId);
+								var friendListUserId = $(this).attr('data-username');
+								sessionStorage.removeItem('conversation-with-'+friendListUserId);
 							});
 							window.location.replace("/");
 						}
 					break;
 				}
 			}
-			else if(data.response == 'failed')
-			{
-				$('.center-alert').html(data.message).fadeIn(300).delay(2500).fadeOut(300);
+			else if(data.response == 'failed') {
+				Messenger().post({
+					message: data.message,
+					type: 'error',
+					showCloseButton: true
+				});
 			}
-			else
-			{
-				alert('Something went wrong. Please try again later.');
+			else {
+				Messenger().post({
+					message: 'Something went wrong. Please try again.',
+					type: 'error',
+					showCloseButton: true
+				});
 			}
 		})
-
-		.fail(function(jqxhr) {
-			return alert('something went wrong. Please try again.');
+		.fail(function(data, jqxhr) {
+			if(data.response == 'failed') {
+				Messenger().post({
+					message: data.message,
+					type: 'error',
+					showCloseButton: true
+				});
+			}
+			Messenger().post({
+				message: 'Something went wrong. Please try again.',
+				type: 'error',
+				showCloseButton: true
+			});
 		});
 
 		return false

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Medlib\Http\Controllers\Controller;
+use Medlib\Models\User;
 use Medlib\Repositories\Feed\FeedRepository;
 use Medlib\Repositories\User\UserRepository;
 
@@ -47,9 +48,11 @@ class UsersController extends Controller {
 
         $user = $userRepository->findByUsername($username);
 
+        $friends = $user->friends()->take(8)->get();
+
         $feeds = $feedRepository->getPublishedByUser($user);
 
-        return view('users.users.show', compact('currentUser', 'user', 'feeds'));
+        return view('users.users.show', compact('currentUser', 'user', 'friends', 'feeds'));
 
     }
 

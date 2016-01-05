@@ -12,13 +12,12 @@
 
         @if($user->is(Auth::user()->id))
         <ul class="friends">
-            @if(Auth::user()->friends()->count() == 0)
+            @if(count($friends) == 0)
                 <li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
             @else
-                {!! $friends = Auth::user()->friends()->take(8)->get() !!}
                 @foreach( $friends as $friend)
                 <li>
-                    <a href="#">
+                    <a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}">
                         <img src="{{ $friend->getAvatar() }}" alt="{{ $friend->getUsername() }}" class="img-responsive">
                     </a>
                 </li>
@@ -27,10 +26,9 @@
         </ul>
         @else
         <ul class="friends">
-            @if($user->friends()->count() == 0)
+            @if(count($friends) == 0)
                 <li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
             @else
-                {!! $friends = $user->friends()->take(8)->get() !!}
                 @foreach( $friends as $friend)
                 <li>
                     <a href="#">

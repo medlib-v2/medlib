@@ -43,13 +43,11 @@ class FriendController extends Controller {
      */
     public function store(Request $request, UserRepository $repository){
 
-        dd($request);
-
         $validator = Validator::make($request->all(), ['username' => 'required']);
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 500);
+            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         else
         {
@@ -63,7 +61,7 @@ class FriendController extends Controller {
 
             $friendRequestCount = $this->currentUser->friendRequests()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.']);
+            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], Response::HTTP_OK);
         }
 
     }
@@ -83,15 +81,15 @@ class FriendController extends Controller {
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         else
         {
-            $this->dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->username]);
+            $this->dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
 
             $friendsCount = $this->currentUser->friends()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed']);
+            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], Response::HTTP_OK);
         }
     }
 

@@ -15,41 +15,40 @@
                                 <img class="img-circle" src="{{ $user->getAvatar() }}" alt="...">
                                 <h4 data-fullname="{{ $user->getName() }}">{{ $user->getFirstName() }} <strong>{{ $user->getLastName() }}</strong></h4>
                                 <h4 data-profession="{{ $user->getProfession() }}"><strong>{{ $user->getProfession() }}</strong></h4>
+
                                 @if(Auth::user()->isFriendsWith($user->id))
-                                    <a href="{{ route('friends.del') }}" class="btn btn-danger" data-method="DELETE" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" role="button">
+                                    @include("messages.partials.send-email-button")
+                                    <a href="{{ route('friends.del') }}" class="btn btn-danger del-friend-button" data-method="DELETE" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" role="button">
                                         <i class="glyphicon glyphicon-remove"></i> Delete friend
                                     </a>
-                                    @include("messages.partials.send-email-button")
                                 @else
+                                    @include("messages.partials.send-email-button")
                                     @if(Auth::user()->sentFriendRequestTo($user->id))
-                                        <button class="btn btn-primary" disabled="disabled" type="submit"><i class="fa fa-check-circle fa-fw"></i> Requested</button>
+                                        <button class="btn btn-primary btn-success" disabled="disabled" type="submit"><i class="fa fa-check-circle fa-fw"></i> Requested</button>
                                     @elseif(Auth::user()->receivedFriendRequestFrom($user->id))
-                                        <a href="{{ route('friends.store') }}" data-method="POST" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" class="btn btn-success friend-request-button" role="button">
+                                        <a href="{{ route('friends.store') }}" data-method="POST" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" class="btn btn-success add-friend-request-button" role="button">
                                             <i class="fa fa-check-circle fa-fw"></i> Accept friend
                                         </a>
                                     @else
-                                        <a href="{{ route('request.post') }}" data-method="POST" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" class="btn btn-success" role="button"><i class="fa fa-check-circle fa-fw"></i> Add friend</a>
+                                        <a href="{{ route('request.post') }}" data-method="POST" data-username="{!! $user->getUsername() !!}" data-token="{{ Session::get('_token') }}" class="btn btn-success send-friend-request-button" role="button"><i class="fa fa-check-circle fa-fw"></i> Add friend</a>
                                     @endif
-                                    @include("messages.partials.send-email-button")
                                 @endif
                             @endif
                         </div>
                         <div class="profile-icons margin-none">
+                            <span><i class="fa fa-users"></i> {{ count($friends) }}</span>
+
                             @if($user->is(Auth::user()->id))
-                                <span><i class="fa fa-users"></i> {{ Auth::user()->friends()->count() }}</span>
                                 <span><i class="fa fa-photo"></i> 430</span>
-                                <span><i class="fa fa-video-camera"></i> {{ Auth::user()->feeds()->count() }}</span>
                                 <a href="{{ route('profile.show.settings') }}" class="btn btn-white btn-xs pull-righ"><i class="fa fa-pencil"></i></a>
                             @else
-                                <span><i class="fa fa-users"></i> {{ $user->friends()->count() }}</span>
                                 <span><i class="fa fa-photo"></i> 302</span>
-                                <span><i class="fa fa-video-camera"></i> {{ $user->feeds()->count() }}</span>
                             @endif
+                            <span><i class="fa fa-video-camera"></i> {{ count($feeds) }}</span>
                         </div>
                         <div class="panel-body-dashboard">
                             <div class="expandable expandable-indicator-white expandable-trigger">
                                 <div class="expandable-conten">
-
                                     <ul class="icon-list icon-list-block">
                                             <li class="padding-v-5">
                                                 <div class="row">
@@ -106,6 +105,7 @@
                     <!-- /Contact -->
                 </div>
             </div>
+            <!-- public info -->
             <div class="col-xs-12 col-sm-7 col-md-9 item">
                 <div class="tabbable">
                     <ul class="nav nav-tabs" style="overflow: hidden; outline: none;" tabindex="0">
@@ -218,7 +218,7 @@
                 <div class="panel panel-dashboard box-shadow">
                     <div class="panel-heading panel-heading-gray">
                         <div class="pull-right">
-                            <a href="#" class="btn btn-primary btn-xs">Add <i class="fa fa-plus"></i></a>
+                            <a href="{{ url('users/'.$user->getUsername().'/friends') }}" class="btn btn-primary btn-xs">Show all <i class="fa fa-group"></i></a>
                         </div>
                         <i class="icon-user-1"></i> Friends
                     </div>
@@ -228,7 +228,6 @@
                             @if(Auth::user()->friends()->count() == 0)
                                 <li><span class="group"><i class="fa fa-group" style="font-size: 70px;"></i></span></li>
                             @else
-                                 {{ $friends =  Auth::user()->friends()->get() }}
                                  @foreach($friends as $friend )
                                     <li><a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
                                  @endforeach
@@ -237,7 +236,6 @@
                             @if($user->friends()->count() == 0)
                                  <li><span href="#" class="group"><i class="fa fa-group" style="font-size: 70px;"></i></span></li>
                             @else
-                                {!! $friends =  $user->friends()->get() !!}
                                     @foreach($friends as $friend )
                                         <li><a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
                                     @endforeach
@@ -248,6 +246,7 @@
                 </div>
                 <!-- /friends  -->
             </div>
+            <!-- / public info -->
         </div>
     </div>
     <div class="tab-pane fade" id="feed">

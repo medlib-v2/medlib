@@ -14,213 +14,236 @@
 use Carbon\Carbon;
 use Medlib\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 
+// Manage Routes by different language
+Route::group(['middleware' => 'language'], function () {
 
-/**
- * Home Page
- */
-Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
-
-Route::get('/newuser', function(){
-
-
-    $user = User::where('username', '=', 'djandone')->first();
-
-    $account = [
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
-        'user_avatar' => $user->getAvatar(),
-        'confirmation_code' => $user->confirmation_code
-    ];
-    $token = $user->confirmation_code;
-
-    return view('auth.reminder', compact('token'));
     /**
-    Mail::queue('auth.email.verify', compact('account'), function($message) use ($user){
-        $message->to($user->email, $user->first_name."".$user->last_name)
-            ->subject('Activate your account');
+     * Home Page
+     */
+    Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
+
+    Route::get('/newuser', function(){
+
+        /**
+        $user = User::where('username', '=', 'djandone')->first();
+
+        $account = [
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'user_avatar' => $user->getAvatar(),
+            'confirmation_code' => $user->confirmation_code
+        ];
+        $token = $user->confirmation_code;
+
+        return view('auth.reminder', compact('token'));
+
+        Mail::queue('auth.email.verify', compact('account'), function($message) use ($user){
+            $message->to($user->email, $user->first_name."".$user->last_name)
+                ->subject('Activate your account');
+        });
+        return "Message sending";
+         */
+
     });
-    return "Message sending";
-     */
-
-});
-
-/**
- * Friends & Friends-requests
- */
-Route::group(['prefix' => 'friends', 'middleware' => 'auth', 'namespace' => 'Friends'], function(){
 
     /**
-     * Friends
+     * Friends & Friends-requests
      */
-    Route::get('/', ['as' => 'friends.show', 'uses' => 'FriendController@index']);
+    Route::group(['prefix' => 'friends', 'middleware' => 'auth', 'namespace' => 'Friends'], function(){
 
-    Route::post('/', ['as' => 'friends.store', 'uses' => 'FriendController@store']);
+        /**
+         * Friends
+         */
+        Route::get('/', ['as' => 'friends.show', 'uses' => 'FriendController@index']);
 
-    Route::delete('/', ['as' => 'friends.del', 'uses' => 'FriendController@destroy']);
+        Route::post('/', ['as' => 'friends.store', 'uses' => 'FriendController@store']);
+
+        Route::delete('/', ['as' => 'friends.del', 'uses' => 'FriendController@destroy']);
+
+        /**
+         * Friend-requests
+         */
+        Route::get('requests', ['as' => 'request.show', 'uses' => 'FriendRequestController@index']);
+
+        Route::post('requests', ['as' => 'request.post', 'uses' => 'FriendRequestController@store']);
+
+        Route::delete('requests', ['as' => 'request.del', 'uses' => 'FriendRequestController@destroy']);
+    });
 
     /**
-     * Friend-requests
+     * Messages & Messages-Responses
      */
-    Route::get('requests', ['as' => 'request.show', 'uses' => 'FriendRequestController@index']);
+    Route::group(['prefix' => 'messages', 'middleware' => 'auth', 'namespace' => 'Messages'], function(){
+        /**
+         * Messages
+         */
+        Route::get('/', ['as' => 'message.all', 'uses' => 'MessageController@index']);
 
-    Route::post('requests', ['as' => 'request.post', 'uses' => 'FriendRequestController@store']);
+        Route::post('/', ['as' => 'message.store', 'uses' => 'MessageController@store']);
 
-    Route::delete('requests', ['as' => 'request.del', 'uses' => 'FriendRequestController@destroy']);
-});
+        Route::get('/{username}', ['as' => 'message.show', 'uses' => 'MessageController@show'])->where('username', '[a-zA-Z]+');
 
+        Route::get('/compose/{username}', ['as' => 'message.compose', 'uses' => 'MessageController@create']);
 
+        Route::delete('delete', ['as' => 'message.delete', 'uses' => 'MessageController@destroy']);
 
-/**
- * Messages & Messages-Responses
- */
-Route::group(['prefix' => 'messages', 'middleware' => 'auth', 'namespace' => 'Messages'], function(){
-    /**
-     * Messages
-     */
-    Route::get('/', ['as' => 'message.all', 'uses' => 'MessageController@index']);
+        /**
+         * MessageResponses
+         */
+        Route::put('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@update']);
 
-    Route::post('/', ['as' => 'message.store', 'uses' => 'MessageController@store']);
+        Route::post('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@store']);
 
-    Route::get('/{username}', ['as' => 'message.show', 'uses' => 'MessageController@show'])->where('username', '[a-zA-Z]+');
-
-    Route::get('/compose/{username}', ['as' => 'message.compose', 'uses' => 'MessageController@create']);
-
-    Route::delete('delete', ['as' => 'message.delete', 'uses' => 'MessageController@destroy']);
+    });
 
     /**
-     * MessageResponses
+     * Authentification
      */
-    Route::put('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@update']);
+    Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function(){
+        Route::get('/login', ['uses' => 'AuthController@showLogin',  'as' => 'auth.login']);
 
-    Route::post('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@store']);
+        Route::post('/login', ['uses' => 'AuthController@doLogin']);
 
-});
+        Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
 
+        Route::post('/register', ['uses' => 'AuthController@doRegister']);
 
-/**
- * Authentification
- */
-Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function(){
-    Route::get('/login', ['uses' => 'AuthController@showLogin',  'as' => 'auth.login']);
+        Route::get('/register/verify/{confirmation_code}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
 
-    Route::post('/login', ['uses' => 'AuthController@doLogin']);
+        Route::get('/reg_birthday', [ 'uses' => 'AuthController@reg_birthday',  'as' => 'auth.reg_birthday' ]);
 
-    Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
+        // Password reset link request routes...
+        Route::get('/password/email', 'PasswordController@getEmail');
+        Route::post('/password/email', 'PasswordController@postEmail');
 
-    Route::post('/register', ['uses' => 'AuthController@doRegister']);
+        // Password reset routes...
+        Route::get('/password/reset/{token}', 'PasswordController@getReset');
+        Route::post('/password/reset', 'PasswordController@postReset');
+    });
+    Route::get('/logout', ['uses' => 'Auth\AuthController@doLogout','as' => 'auth.logout', 'middleware' => 'auth' ]);
 
-    Route::get('/register/verify/{confirmation_code}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
+    /**
+     * Recherche with yaz
+     */
+    Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
 
-    Route::get('/reg_birthday', [ 'uses' => 'Auth\AuthController@reg_birthday',  'as' => 'auth.reg_birthday' ]);
+        Route::get('/simple', ['uses' => 'SearchQueryController@doSimple', 'as' => 'search.simple']);
 
-    // Password reset link request routes...
-    Route::get('/password/email', 'PasswordController@getEmail');
-    Route::post('/password/email', 'PasswordController@postEmail');
+        Route::get('/advanced', ['uses' => 'SearchQueryController@doAdvanced', 'as' => 'search.advanced']);
+    });
 
-    // Password reset routes...
-    Route::get('/password/reset/{token}', 'PasswordController@getReset');
-    Route::post('/password/reset', 'PasswordController@postReset');
-});
-Route::get('/logout', ['uses' => 'Auth\AuthController@doLogout','as' => 'auth.logout', 'middleware' => 'auth' ]);
+    /**
+     * User settings
+     */
+    Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
 
-/**
- * Recherche with yaz
- */
-Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
+        Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
 
-    Route::get('/simple', ['uses' => 'SearchQueryController@doSimple', 'as' => 'search.simple']);
+        Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
 
-    Route::get('/advanced', ['uses' => 'SearchQueryController@doAdvanced', 'as' => 'search.advanced']);
-});
+        Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
 
-/**
- * User settings
- */
-Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+        Route::post('/admin', [ 'uses' => 'SettingsController@editAdmin', 'as' => 'profile.edit.admin' ]);
 
-    Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
+        Route::get('/email', [ 'uses' => 'SettingsController@showEmail', 'as' => 'profile.show.email' ]);
 
-    Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
+        Route::post('/email', [ 'uses' => 'SettingsController@editEmail', 'as' => 'profile.edit.email' ]);
 
-    Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
+        Route::post('/avatar', [ 'uses' => 'SettingsController@editAvatar', 'as' => 'profile.edit.avatar' ]);
 
-    Route::post('/admin', [ 'uses' => 'SettingsController@editAdmin', 'as' => 'profile.edit.admin' ]);
+        Route::post('/password', [ 'uses' => 'SettingsController@editPassword', 'as' => 'profile.edit.password' ]);
 
-    Route::get('/email', [ 'uses' => 'SettingsController@showEmail', 'as' => 'profile.show.email' ]);
+        Route::post('/username', [ 'uses' => 'SettingsController@editUsername', 'as' => 'profile.edit.username' ]);
 
-    Route::post('/email', [ 'uses' => 'SettingsController@editEmail', 'as' => 'profile.edit.email' ]);
+        Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
+    });
 
-    Route::post('/avatar', [ 'uses' => 'SettingsController@editAvatar', 'as' => 'profile.edit.avatar' ]);
+    /**
+     * Users
+     */
+    Route::group(['prefix' => 'users', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
 
-    Route::post('/password', [ 'uses' => 'SettingsController@editPassword', 'as' => 'profile.edit.password' ]);
+        Route::get('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.show' ]);
 
-    Route::post('/username', [ 'uses' => 'SettingsController@editUsername', 'as' => 'profile.edit.username' ]);
+        Route::get('/{username}', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
 
-    Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
-});
+        Route::get('/{username}/friends', function($username){
 
-/**
- * Users
- */
-Route::group(['prefix' => 'users', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+            return "all friends ". $username;
+        });
 
-    Route::get('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.show' ]);
+        Route::post('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
 
-    Route::get('/{username}', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+    });
 
-    Route::post('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
+    /**
+     * User settings
+     */
+    Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
 
-});
+        Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
 
-/**
- * User settings
- */
-Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+        Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
 
-    Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
+        Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
 
-    Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
+        Route::post('/admin', [ 'uses' => 'SettingsController@editAdmin', 'as' => 'profile.edit.admin' ]);
 
-    Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
+        Route::get('/email', [ 'uses' => 'SettingsController@showEmail', 'as' => 'profile.show.email' ]);
 
-    Route::post('/admin', [ 'uses' => 'SettingsController@editAdmin', 'as' => 'profile.edit.admin' ]);
+        Route::post('/email', [ 'uses' => 'SettingsController@editEmail', 'as' => 'profile.edit.email' ]);
 
-    Route::get('/email', [ 'uses' => 'SettingsController@showEmail', 'as' => 'profile.show.email' ]);
+        Route::post('/avatar', [ 'uses' => 'SettingsController@editAvatar', 'as' => 'profile.edit.avatar' ]);
 
-    Route::post('/email', [ 'uses' => 'SettingsController@editEmail', 'as' => 'profile.edit.email' ]);
+        Route::post('/password', [ 'uses' => 'SettingsController@editPassword', 'as' => 'profile.edit.password' ]);
 
-    Route::post('/avatar', [ 'uses' => 'SettingsController@editAvatar', 'as' => 'profile.edit.avatar' ]);
+        Route::post('/username', [ 'uses' => 'SettingsController@editUsername', 'as' => 'profile.edit.username' ]);
 
-    Route::post('/password', [ 'uses' => 'SettingsController@editPassword', 'as' => 'profile.edit.password' ]);
+        Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
+    });
 
-    Route::post('/username', [ 'uses' => 'SettingsController@editUsername', 'as' => 'profile.edit.username' ]);
+    /**
+     * Dashboard
+     */
+    Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
 
-    Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
-});
+        Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.home']);
 
-/**
- * Dashboard
- */
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
+        Route::get('/books', ['uses' => 'DashboardController@books', 'as' => 'dashboard.books']);
 
-    Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.home']);
+        Route::get('/history', ['uses' => 'DashboardController@history', 'as' => 'dashboard.history']);
 
-    Route::get('/books', ['uses' => 'DashboardController@books', 'as' => 'dashboard.books']);
+        Route::get('/viewed', ['uses' => 'DashboardController@viewed', 'as' => 'dashboard.viewed']);
 
-    Route::get('/history', ['uses' => 'DashboardController@history', 'as' => 'dashboard.history']);
+        Route::get('/search', ['uses' => 'SearchUserController@getResults', 'as' => 'dashboard.search']);
+    });
 
-    Route::get('/viewed', ['uses' => 'DashboardController@viewed', 'as' => 'dashboard.viewed']);
+    /**
+     * Helpers
+     */
+    Route::group(['prefix' => 'helpers', 'namespace' => 'Helpers'], function(){
 
-    Route::get('/search', ['uses' => 'SearchUserController@getResults', 'as' => 'dashboard.search']);
-});
+        Route::get('/', ['uses' => 'HelpersController@index', 'as' => 'helpers.home']);
 
-/**
- * Helpers
- */
-Route::group(['prefix' => 'helpers', 'namespace' => 'Helpers'], function(){
+        Route::get('/deleting', ['uses' => 'HelpersController@deletingAccount', 'as' => 'helpers.deleting.account']);
+    });
 
-    Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'helpers.home']);
+    // Manage Language
+    Route::any('lang/{lang}', ['as' => 'lang', 'uses' => function($lang) {
 
-    Route::get('/deleting', ['uses' => 'HelpersController@deletingAccount', 'as' => 'helpers.deleting.account']);
+        // Save in session to re use on middleware
+        //Cookie::make('lang', $lang, 360);
+        if(Session::has('lang') and (!Session::get('lang') === $lang)) {
+            Session::set('lang', $lang);
+        }
+        if(Request::ajax()) {
+            return Response::json(['response' => 'success', 'message' => 'Change with success']);
+        }
+        return redirect()->back();
+    }]);
+
 });

@@ -6,6 +6,7 @@
             protocole de communication Zebra (Z3959)">
         <meta name="keywords" content="Medlib : Search, Recherche, yaz, Z3950, Book, Books">
         <meta name="author" content="Patrick Luzolo, Aristide Djangone, Walid Fadlhaoui">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ url('favicon.ico') }}">
 

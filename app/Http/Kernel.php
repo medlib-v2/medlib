@@ -29,5 +29,6 @@ class Kernel extends HttpKernel
         'auth' => \Medlib\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Medlib\Http\Middleware\RedirectIfAuthenticated::class,
+        'language'      => \Medlib\Http\Middleware\Language::class,
     ];
 }

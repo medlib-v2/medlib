@@ -39,7 +39,7 @@
 					<div class="panel-footer">
 						<a href="{{ route('friends.store') }}" data-method="POST" data-username="{{ $user->getUsername() }}" data-token="{{ Session::get('_token') }}" class="btn btn-primary btn-success accept-friend-button btn-sm" role="button">
 							<i class="fa fa-check-circle fa-fw"></i>&nbsp;Accept</a>
-						<a href="{!! url('friend-requests') !!}" data-method="DELETE" data-username="{{ $user->getUsername() }}" data-token="{{ Session::get('_token') }}" class="btn btn-primary btn-danger btn-sm" role="button">
+						<a href="{!! route('request.del') !!}" data-method="DELETE" data-username="{{ $user->getUsername() }}" data-token="{{ Session::get('_token') }}" class="btn btn-primary btn-danger del-friend-button btn-sm" role="button">
 							<i class="glyphicon glyphicon-remove"></i>&nbsp;Decline</a>
 					</div>
 				</div>
@@ -50,5 +50,7 @@
 		{!! $usersWhoRequested->render() !!}
 	</div>
 @else
-	<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> You don't have any friend requests.</div>
+	<div class="alert alert-info" role="alert">
+		<span class="glyphicon glyphicon-info-sign"></span> You don't have any friend requests.
+	</div>
 @endif
