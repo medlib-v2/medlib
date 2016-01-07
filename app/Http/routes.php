@@ -29,24 +29,25 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/newuser', function(){
 
         /**
-        $user = User::where('username', '=', 'djandone')->first();
-
+         * $user = User::where('username', '=', 'djandone')->first();
+         *
+         */
         $account = [
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'user_avatar' => $user->getAvatar(),
-            'confirmation_code' => $user->confirmation_code
+            'first_name' => 'Patrick',
+            'last_name' => 'LUZOLO SIASIA',
+            'user_avatar' => 'http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+            'confirmation_code' => '205e460b479e2e5b48aec07710c08d50'
         ];
-        $token = $user->confirmation_code;
+        $token = '205e460b479e2e5b48aec07710c08d50';
 
-        return view('auth.reminder', compact('token'));
+        //return view('auth.reminder', compact('token'));
 
-        Mail::queue('auth.email.verify', compact('account'), function($message) use ($user){
-            $message->to($user->email, $user->first_name."".$user->last_name)
+        Mail::queue('auth.email.verify', compact('account'), function($message) {
+            $message->to("eldorplus@gmail.com", "Patrick LUZOLO SIASIA")
                 ->subject('Activate your account');
         });
         return "Message sending";
-         */
+
 
     });
 

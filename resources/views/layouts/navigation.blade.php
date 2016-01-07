@@ -27,8 +27,10 @@
                         <div class="connect">E-mail</div>
                         <input type="text" id="prepended-input" class="form-control" name="email" style="min-width:200px;" value="{{ old('email') }}" placeholder="Your email" required />
                         <div class="bas">
-                            <input type="checkbox" name="remember_me" class="checkbox-circle" {{ old('remember_me') ? ' checked' : '' }} />
-                            <span class="" style="font-size:12px;"> Remember me</span>
+                            <div class="checkbox checkbox-success" style="font-size:12px;">
+                                <input type="checkbox" name="remember_me" class="checkbox-circle"  id="remember_me" checked="{{ old('remember_me') ? ' checked' : '' }}"/>
+                                <label for="remember_me">Remember me</label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group @if ($errors->has('password')) has-error @endif" style="margin-top:0px;">

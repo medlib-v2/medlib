@@ -50,26 +50,33 @@
                                     <label><span> Options Avancées</span></label>
                                 </div>
                                 <div id="DescriptionOptions" class="description" style="display:none">
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class="">	<input name="title" value="ti" checked="checked" type="checkbox"> Titres</label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="title" value="ti" checked="checked" type="checkbox" id="title">
+                                        <label class="" for="title">Titres</label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="author" value="au" type="checkbox"> Auteurs</label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="author" value="au" type="checkbox" id="author">
+                                        <label class="" for="author">Auteurs</label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="publisher" value="pb" type="checkbox"> Editeurs</label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="publisher" value="pb" type="checkbox" id="publisher">
+                                        <label class="" for="publisher">Editeurs</label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="uniforme" value="ut" type="checkbox"> Titres uniformes</label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="uniforme" value="ut" type="checkbox" id="uniforme">
+                                        <label class="" for="uniforme">Titres uniformes</label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="dofpublisher" value="yr" type="checkbox"> Date  publication </label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="dofpublisher" value="yr" type="checkbox" id="dofpublisher">
+                                        <label class="" for="dofpublisher">Date  publication </label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="keywords" value="kw" type="checkbox"> Mots-clés</label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="keywords" value="kw" type="checkbox" id="keywords">
+                                        <label class="" for="keywords">Mots-clés</label>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label class=""><input name="abstract" value="nt" type="checkbox"> Résumé et notes </label>
+                                    <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
+                                        <input name="abstract" value="nt" type="checkbox" id="abstract">
+                                        <label class="" for="abstract">Résumé et notes </label>
                                     </div>
                                 </div>
                             </div>

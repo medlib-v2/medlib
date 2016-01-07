@@ -55,7 +55,7 @@ class SearchQueryController extends Controller
         if(!$record->fails()) {
 
             foreach($record->getRecords() as $result) {
-                print_r($result);
+
                 $parserResult = new QuiteSimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?>'. $result);
                 $parserResult->registerXPathNamespaces([ 'marc' => 'http://www.loc.gov/MARC21/slim' ]);
 

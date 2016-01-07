@@ -9,7 +9,27 @@
 /*                               Notices affichage                            */
 /* ---------------------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
-
+.checkbox label:before {
+	width: 15px;
+	height: 15px;
+	left: 0px;
+	margin-left: 0px;
+}
+.checkbox label:after {
+	width: 15px;
+	height: 15px;
+	left: 0;
+	top: 0;
+	margin-left: 0px;
+	padding-left: 2px;
+	padding-top: 1px;
+}
+.checkbox label {
+	padding-left: 20px;
+}
+.radio label, .checkbox label {
+	margin-bottom: 0px;
+}
 .bg-grey {
 	background-color: #eeeeee;
 	-moz-border-radius: 2px;
