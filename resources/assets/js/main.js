@@ -9,7 +9,6 @@
 	$('.profile-userpic').on('click', '.send-friend-request-button', handleAjaxRequests);
 	$('.profile-userpic').on('click', '.del-friend-button', handleAjaxRequests);
 
-
 	function handleAjaxRequests() {
 
 		event.preventDefault();
@@ -29,11 +28,13 @@
 
 		console.log('Name : '+ username +'\nUrl : '+ url +'\nMethod : '+ method +'\nTOKEN : ' + token +'\nClass :' + className + "\nImages : " + imgPath);
 
+		/**
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
+		*/
 
 		$.ajax({
 			type: method,
@@ -43,7 +44,7 @@
 				_token: token
 			}
 		})
-		.done(function(data, text, jqxhr){
+		.done(function(data){
 
 			if(data.response == 'success') {
 
@@ -167,7 +168,8 @@
 				});
 			}
 		})
-		.fail(function(data, jqxhr) {
+		.fail(function(data) {
+
 			if(data.response == 'failed') {
 				Messenger().post({
 					message: data.message,
@@ -175,6 +177,8 @@
 					showCloseButton: true
 				});
 			}
+			console.log(data);
+
 			Messenger().post({
 				message: 'Something went wrong. Please try again.',
 				type: 'error',

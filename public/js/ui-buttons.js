@@ -1,7 +1,1 @@
-$(function(){
-    function pageLoad(){
-        $('.widget').widgster();
-    }
-    pageLoad();
-    SingApp.onPageLoad(pageLoad);
-});
+$(function(){function i(){$(".widget").widgster()}i(),MedlibApp.onPageLoad(i)});

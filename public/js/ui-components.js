@@ -1,9 +1,1 @@
-$(function(){
-    function pageLoad(){
-        $('.widget').widgster();
-        $('[data-toggle=tooltip]').tooltip();
-        $('[data-toggle=popover]').popover();
-    }
-    pageLoad();
-    SingApp.onPageLoad(pageLoad);
-});
+$(function(){function o(){$(".widget").widgster(),$("[data-toggle=tooltip]").tooltip(),$("[data-toggle=popover]").popover()}o(),MedlibApp.onPageLoad(o)});
