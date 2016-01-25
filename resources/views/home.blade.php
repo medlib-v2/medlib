@@ -1,26 +1,30 @@
 @extends('layouts.master')
 
-@section('title', 'Bienvennu dans Medlib')
+@section('title', 'Bienvennu dans Media library')
 
 @section('content')
     <div id="content" class="content" role="main">
         <div id="page-content" class="container">
             <div class="col-md-2 col-xs-1 col-sm-1"></div>
             <div class="col-md-7 col-xs-10 col-sm-10 inpt-search">
-                <form method="GET" action="{{ url('search/simple') }}" name="search_input" onsubmit="if (search_input.query.value.length == 0) { return false; }" role="form">
+                <form method="GET" action="{{ url('search/simple') }}" name="search_input" role="form">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 col-md-12 input-group input-group-md">
-                                <input id="ssearch" type="search"  name="query" placeholder="Critère de recherche ..." class="search-query form-control" id="search" style="height:40px;">
+                                <input id="ssearch" type="search"
+                                       name="query"
+                                       placeholder="{{ trans('search.txt.criteria') }}"
+                                       class="search-query form-control"
+                                       style="height:40px;">
                                 <span class="input-group-btn">
 							        <button id="submitButton" class="btn btn-primary" style="height:40px;" type="submit">
-                                        <span class="visible-md visible-sm visible-lg hidden-xs">Rechercher</span>
+                                        <span class="visible-md visible-sm visible-lg hidden-xs">{{ trans('search.btn.find') }}</span>
                                         <i class="visible-xs hidden-sm fa fa-search text-white"></i>
                                     </button>
 						        </span>
                             </div>
                         </div>
-                        <div class="row">&nbsp</div>
+                        <div id="danger" class="row">&nbsp;</div>
                         <div class="row">
 
                             <div class="col-xs-12 col-md-8 col-sm-8">
@@ -47,36 +51,36 @@
                             <div class="form-group mt">
                                 <div id="AdvencedOptions" class="panel-title AdvencedOptions" >
                                     <img src="{{ asset('/images/tree_plus.gif') }}"/>
-                                    <label><span> Options Avancées</span></label>
+                                    <label><span> {{ trans('search.txt.advanced') }}</span></label>
                                 </div>
                                 <div id="DescriptionOptions" class="description" style="display:none">
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="title" value="ti" checked="checked" type="checkbox" id="title">
-                                        <label class="" for="title">Titres</label>
+                                        <label for="title">{{ trans('search.txt.title') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="author" value="au" type="checkbox" id="author">
-                                        <label class="" for="author">Auteurs</label>
+                                        <label for="author">{{ trans('search.txt.author') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="publisher" value="pb" type="checkbox" id="publisher">
-                                        <label class="" for="publisher">Editeurs</label>
+                                        <label for="publisher">{{ trans('search.txt.publisher') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="uniforme" value="ut" type="checkbox" id="uniforme">
-                                        <label class="" for="uniforme">Titres uniformes</label>
+                                        <label for="uniforme">{{ trans('search.txt.uniforme') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="dofpublisher" value="yr" type="checkbox" id="dofpublisher">
-                                        <label class="" for="dofpublisher">Date  publication </label>
+                                        <label for="dofpublisher">{{ trans('search.txt.dofpublisher') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="keywords" value="kw" type="checkbox" id="keywords">
-                                        <label class="" for="keywords">Mots-clés</label>
+                                        <label for="keywords">{{ trans('search.txt.keywords') }}</label>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                         <input name="abstract" value="nt" type="checkbox" id="abstract">
-                                        <label class="" for="abstract">Résumé et notes </label>
+                                        <label for="abstract">{{ trans('search.txt.abstract') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +88,11 @@
                         <!-- and advenced options -->
                     </div>
                 </form>
-                <div><span class="link" ><a href="{{ route('search.advanced') }}">Recherche avancée</a></span></div>
+                <div>
+                    <span class="link" >
+                        <a href="{{ route('search.advanced') }}">Recherche avancée</a>
+                    </span>
+                </div>
             </div>
             <div class="col-md-2 col-xs-1 col-sm-2"></div>
         </div>

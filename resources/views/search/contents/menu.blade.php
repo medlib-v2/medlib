@@ -1,62 +1,103 @@
-<div id="service-messages"></div>
-<ol id="breadcrumb" class="breadcrumb">
-    <!-- Browsing Search [ disabled ] -->
-    <li> <!-- Search Link -->
-        <a href="/search" id="search-link">Search</a>
-    </li>
-    <li class="active">Result List</li>
-    <!-- Serial Link -->
-    <!-- Result List/Saved Records Link -->
-</ol>
-<div id="list-result">
-    <div id="search-summary" class="alert alert-success hidden-xs hidden-sm">
-        Page : 1 to 2 of 2 items <br />
-        <p class="text-gray-dark">Searched:  {{ \Illuminate\Support\Facades\Input::get('query') }} </p>
+<td class="col-md-3 col-sm-3" id="records-actions">
+    <a id="record-select-all" class="record-select-all" href="javascript:listCheckAll();">
+        <span class="glyphicon glyphicon-check"></span><span>{{ trans('search.txt.select.check-all') }}</span>
+    </a>
+    <a id="record-select-none" href="javascript:listClearAll();">
+        <span class="glyphicon glyphicon-remove"></span><span>{{ trans('search.txt.select.clear-all') }}</span>
+    </a>
+</td>
+<!-- items per page dropdown -->
+<td class="col-md-8 col-sm-8">
+    <!-- ios button: show/hide panel -->
+    <div class="jplist-ios-button">
+        <i class="fa fa-sort"></i>
+        Pagination
     </div>
-</div>
-<!--  advanced menu -->
-<div id="result-list-options" class="well">
-    <div class="row">
-        <form action="/search/index" method="GET" name="resultsPerPage" class="form-inline col-md-12 col-sm-6" role="form" id="resultsPerPage">
-            <input type="hidden" name="offset" value="0" id="offset" />
-            <input type="hidden" name="isNewSearch" value="false" id="isNewSearch" />
-            <input type="hidden" name="sort" value="score" id="sort" />
-            <input type="hidden" name="order" value="desc" id="order" />
-            <input type="hidden" name="index" value="fk_col_keywords_title" id="index" />
-            <input type="hidden" name="q" value="vihsida" id="q" />
-            <input type="hidden" name="type" value="1" id="type" />
-            <input type="hidden" name="operator" value="NONE" id="operator" />
-            <input type="hidden" name="institutions" value="UkBaUB" id="institutions" />
-            <input type="hidden" name="firstpub" value="" id="firstpub" />
-            <input type="hidden" name="language" value="" id="language" />
-            <input type="hidden" name="serialType" value="0" id="serialType" />
-            <input type="hidden" name="isBrowsing" value="false" id="isBrowsing" />
-            <input type="hidden" name="browseTerm" value="" id="browseTerm" />
-            <input type="hidden" name="browseIndex" value="" id="browseIndex" />
-            <input type="hidden" name="browseOffset" value="" id="browseOffset" />
-            <input type="hidden" name="browseTotal" value="" id="browseTotal" />
-            <input type="hidden" name="filters" id="filters" />
-            <label for="max">Results per page:</label>
-            <select name="maxPerPage" class="form-control auto-width-size" id="max" >
-                <option value="10" selected="selected" >10</option>
-                <option value="25" >25</option>
-                <option value="50" >50</option>
-                <option value="100" >100</option>
-            </select>
-            <input type="submit" name="update" value="Update" class="btn btn-primary form-control auto-width-size" id="update" />
-        </form>
-        <div id="records-actions" class="col-md-12 col-sm-6 hidden-xs js-only">
-            <br />
-            <span>Records:</span>
-            <a id="record-select-all" class="record-select-all">
-                <span class="glyphicon glyphicon-check"></span>
-                <span>Select All</span>
-            </a>
-            <a id="record-select-none">
-                <span class="glyphicon glyphicon-remove"></span>
-                <span>Deselect All</span>
-            </a>
-        </div>
+
+    <!-- views -->
+    <!--
+    <div
+            class="jplist-views"
+            data-control-type="views"
+            data-control-name="views"
+            data-control-action="views"
+            data-default="jplist-grid-view">
+
+        <button type="button" class="jplist-view jplist-list-view" data-type="jplist-list-view"></button>
+        <button type="button" class="jplist-view jplist-grid-view" data-type="jplist-grid-view"></button>
+        <button type="button" class="jplist-view jplist-thumbs-view" data-type="jplist-thumbs-view"></button>
+    </div> -->
+
+    <!-- back button button -->
+    <button
+            type="button"
+            data-control-type="back-button"
+            data-control-name="back-button"
+            data-control-action="back-button">
+        <i class="fa fa-arrow-left"></i>&nbsp;{{ trans('search.txt.go-back') }}
+    </button>
+
+    <!-- reset button -->
+    <button
+            type="button"
+            class="jplist-reset-btn"
+            data-control-type="reset"
+            data-control-name="reset"
+            data-control-action="reset" style="width: auto;">
+        <i class="fa fa-share"></i>&nbsp;{{ trans('search.txt.reset') }}&nbsp;
+    </button>
+
+    <!-- items per page dropdown -->
+    <div
+            class="jplist-drop-down"
+            data-control-type="items-per-page-drop-down"
+            data-control-name="paging"
+            data-control-action="paging">
+        <ul>
+            <li><span data-number="10" data-default="true"> {{ trans('search.txt.number-pages.10-par-page') }} </span></li>
+            <li><span data-number="20"> {{ trans('search.txt.number-pages.20-par-page') }} </span></li>
+            <li><span data-number="50"> {{ trans('search.txt.number-pages.50-par-page') }} </span></li>
+            <li><span data-number="all"> {{ trans('search.txt.number-pages.all-page') }} </span></li>
+        </ul>
     </div>
-</div>
-<!--  End advanced menu -->
+
+    <!-- pagination info label -->
+    <!--
+        <small>{start} - {end} of {all}</small>
+        data-type="Page {current} {pages}"
+     -->
+    <div
+            class="jplist-label"
+            data-type="<strong>Page {current} {{ trans('search.txt.of') }} {pages}</strong>"
+            data-control-type="pagination-info"
+            data-control-name="paging"
+            data-control-action="paging">
+    </div>
+
+</td>
+<!-- / items per page dropdown -->
+
+<!-- panel -->
+<td class="col-sm-8 col-md-3">
+    <!-- sort dropdown -->
+    <div
+            class="jplist-drop-down"
+            data-control-type="sort-drop-down"
+            data-control-name="sort"
+            data-control-action="sort"
+            data-datetime-format="{year}">
+
+        <ul>
+            <li><span data-path="default">{{ trans('search.txt.sort-by.default') }} </span></li>
+            <li><span data-path=".title" data-order="asc" data-type="text">{{ trans('search.txt.sort-by.title-asc') }} </span></li>
+            <li><span data-path=".title" data-order="desc" data-type="text">{{ trans('search.txt.sort-by.title-desc') }} </span></li>
+            <li><span data-path=".author" data-order="asc" data-type="text">{{ trans('search.txt.sort-by.author-a-z') }} </span></li>
+            <li><span data-path=".author" data-order="desc" data-type="text">{{ trans('search.txt.sort-by.author-z-a') }} </span></li>
+            <li><span data-path=".number" data-order="asc" data-type="number" data-default="true">{{ trans('search.txt.sort-by.number-asc') }}</span></li>
+            <li><span data-path=".number" data-order="desc" data-type="number">{{ trans('search.txt.sort-by.number-desc') }}</span></li>
+            <li><span data-path=".date" data-order="asc" data-type="datetime">{{ trans('search.txt.sort-by.date-asc') }} </span></li>
+            <li><span data-path=".date" data-order="desc" data-type="datetime">{{ trans('search.txt.sort-by.date-desc') }} </span></li>
+        </ul>
+    </div>
+</td>
+<!-- /panel -->

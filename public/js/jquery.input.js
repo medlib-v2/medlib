@@ -1,0 +1,1 @@
+!function(n){n.fn.addHidden=function(t,i){return this.each(function(){var d=n("<input>").attr("id","hidden-input").attr("type","hidden").attr("name",t).val(i);n(this).append(n(d))})}}(jQuery);

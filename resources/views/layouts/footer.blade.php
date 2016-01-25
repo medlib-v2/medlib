@@ -81,9 +81,19 @@
 <script type="text/javascript" src="{{ asset('js/progressbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.input.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.param.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.progress.js') }}"></script>
 
 <!-- page specific js -->
 <script type="text/javascript" src="{{ asset('vendor/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/form-elements-home.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/jasny-bootstrap/js/fileinput.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/jquery.sparkline/dist/jquery.sparkline.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/tables-basic.js') }}"></script>
+
+<!-- page specific libs -->
+@yield('script')
+<!-- page specific js -->

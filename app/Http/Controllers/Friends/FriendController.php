@@ -47,7 +47,9 @@ class FriendController extends Controller {
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            if($request->ajax()){
+                return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
+            }
         }
         else
         {
@@ -61,7 +63,7 @@ class FriendController extends Controller {
 
             $friendRequestCount = $this->currentUser->friendRequests()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], Response::HTTP_OK);
+            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], 200);
         }
 
     }
@@ -81,7 +83,7 @@ class FriendController extends Controller {
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
         }
         else
         {
@@ -89,7 +91,7 @@ class FriendController extends Controller {
 
             $friendsCount = $this->currentUser->friends()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], Response::HTTP_OK);
+            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], 200);
         }
     }
 

@@ -13,11 +13,13 @@
         <!-- CSS -->
         <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
         <!--[if IE 9]>
-        <link href="{{ url('css/application-ie9-part2.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/application-ie9-part2.css') }}" rel="stylesheet">
         <![endif]-->
-        <link href="{{ url('css/application.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ url('css/style.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ url('css/progressbar.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/application.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/progressbar.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/jprogress.css') }}" rel="stylesheet" type="text/css">
+        @yield('sytle')
 
         <!-- TITLE -->
         <title>Medlib - @yield('title')</title>

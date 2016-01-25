@@ -26,12 +26,11 @@ Route::group(['middleware' => 'language'], function () {
      */
     Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
 
-    Route::get('/newuser', function(){
+    Route::get('/cookies/{lang}', function($lang){
 
         /**
-         * $user = User::where('username', '=', 'djandone')->first();
-         *
-         */
+        $user = User::where('username', '=', 'djandone')->first();
+
         $account = [
             'first_name' => 'Patrick',
             'last_name' => 'LUZOLO SIASIA',
@@ -48,7 +47,7 @@ Route::group(['middleware' => 'language'], function () {
         });
         return "Message sending";
 
-
+        */
     });
 
     /**
@@ -238,7 +237,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Save in session to re use on middleware
         //Cookie::make('lang', $lang, 360);
-        if(Session::has('lang') and (!Session::get('lang') === $lang)) {
+        if(Session::has('lang') === false or Session::get('lang') != $lang) {
             Session::set('lang', $lang);
         }
         if(Request::ajax()) {

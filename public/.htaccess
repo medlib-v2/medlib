@@ -1,30 +1,4 @@
 <IfModule mod_rewrite.c>
-    ### SEUL LE FICHIER index.php EST SERVI COMME PREMIER FICHIER PAR DEFAUT. LES AUTRES SONT INTERDITS
-    DirectoryIndex index.php
-
-    ### INTERDIRE LES AUTRES TYPES DE FICHIER INDEX
-    <Files ~ "^(index)\.(p?s?x?htm?|txt|aspx?|cfml?|cgi|pl|php[3-9]|jsp|xml)$">
-        order allow,deny
-        deny from all
-    </Files>
-
-    ### INTERDIRE L'AFFICHAGE DE CERTAINS FORMATS DE FICHIER
-    ### EXÉCUTÉS PAR LE SERVEUR MAIS INTERDIT D'AFFICHAGE PAR LE NAVIGATEUR WEB
-    <Files ~ "\.(inc|class|sql|ini|conf|exe|dll|bin|tpl|bkp|dat|c|h|py|spd|theme|module)$">
-        deny from all
-    </Files>
-    ### INTERDIRE L'AFFICHAGE DE CERTAINS FICHIERS COMME config, option, login, setup, install, admin.
-    ### A ADAPTER SI CELA POSE PROBLEME
-    <Files ~ "^((wp-)?config(\.inc)?|configure|configuration|login|options?\.inc|option|settings?(\.inc)?|functions?(\.inc)?|setup(\.inc)?|default|home|main|install?|admin|errors?|hacke?r?d?|[-_a-z0-9.]*mafia[-_a-z0-9.]*|[-_a-z0-9.]*power[-_a-z0-9.]*|[-_a-z0-9.]*jihad[-_a-z0-9.]*|php|shell|ssh|root|cmd|[0-9]{1,6}|test|data)\.(p?s?x?htm?l?|txt|aspx?|cfml?|cgi|pl|php[3-9]{0,1}|jsp?|sql|xml)$">
-        order allow,deny
-        deny from all
-    </Files>
-
-    ### DES FAUX URLS, ON LES NEUTRALISE
-    RedirectMatch gone ^/_vti.*
-    RedirectMatch gone ^/MSOffice.*
-    RedirectMatch gone ^[-_a-z0-9/\.]*//.*
-    RedirectMatch gone ^.*/etc/passwd.*
 
     <IfModule mod_negotiation.c>
         Options -MultiViews
@@ -32,11 +6,7 @@
 
     RewriteEngine On
 
-    RewriteCond %{HTTP:Authorization} ^(.*)
-    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
+    # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
     # Handle Front Controller...

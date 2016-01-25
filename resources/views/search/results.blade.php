@@ -1,20 +1,88 @@
 @extends('layouts.master')
 
-@section('title', 'Result of search')
+@section(
+    'title',
+    trans('search.txt.search_results'). " ".
+    trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.')
+)
+
+
 
 @section('content')
-    <div class="content">
-        <main id="content" class="content" role="main">
-            <div id="" class="page-container">
-                <div class="row">
-                    <!-- Starting filter -->
-                    @include('search.filters.mfilter')
-                    <!-- Ending filter -->
-                    <!-- Beginning content search -->
-                    @include('search.contents.content')
-                    <!-- Ending content search -->
+    <main id="content" class="content" role="main">
+        @if (!array_key_exists('error', $results))
+            <div>
+                <div class="widget-table-overflow">
+                    <table cellspacing="0" width="100%" class="table table-lg mt-lg mb-0">
+                        <tbody>
+                            <tr>
+                            <!-- Starting filter -->
+                            @include('search.filters.mfilter')
+                            <!-- Ending filter -->
+                            <!-- Beginning content search -->
+                            @include('search.contents.content')
+                            <!-- Ending content search -->
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </main>
-    </div>
+        @else
+            <div>
+                <div class="widget-table-overflow">
+                    <table cellspacing="0" width="100%" class="table table-lg mt-lg mb-0">
+                        <tbody>
+                        <tr>
+                            <!-- Starting filter -->
+                            @include('search.filters.mfilter')
+                                    <!-- Ending filter -->
+                            <!-- Beginning content search -->
+                            @include('search.contents.not-found')
+                                    <!-- Ending content search -->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+    </main>
+@endsection
+
+@section('sytle')
+    <link href="{{ asset('css/jplist/jplist.core.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/jplist/jplist.textbox-filter.min.css') }}" rel="stylesheet" type="text/css" />
+    <!--<link href="{{ asset('css/jplist/jplist.bootstrap.min.css') }}" rel="stylesheet" type="text/css" />-->
+    <link href="{{ asset('css/jplist/jplist.pagination-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/jplist/jplist.history-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/jplist/jplist.filter-toggle-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/jplist/jplist.views-control.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/jplist/jplist.core.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.sort-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.textbox-filter.min.js') }}"></script>
+    <!--<script src="{{ asset('js/jplist/jplist.bootstrap-pagination-bundle.min.js') }}"></script>-->
+   <script src="{{ asset('js/jplist/jplist.pagination-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.history-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.filter-toggle-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.views-control.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.shorten.js') }}"></script>
+
+    <script>
+        (function($){
+
+            $('#pagination').jplist({
+                itemsBox: '.list'
+                ,itemPath: '.list-item'
+                ,panelPath: '.jplist-panel'
+            });
+
+            $(".more").shorten({
+                "showChars" : 300,
+                "moreText"  : "{{ trans('search.txt.show') }}",
+                "lessText"  : "{{ trans('search.txt.hide') }}"
+            });
+        })(jQuery);
+    </script>
 @endsection

@@ -8,3 +8,7 @@ Homestead.json
 /composer.lock
 .DS_Store
 .idea/
+phpspec.yml
+phpunit.xml
+/resources/assets/js/
+/certificat

@@ -1,126 +1,177 @@
-<div class="col-md-3 col-lg-2">
-    <div id="side-bar" class="panel panel-default">
-        <div id="side-bar-panel" class="panel-body">
-            <div class="">Search</div>
-            <div class="side-nav list-group" role="navigation">
-                <a href="/search" id="side-basic" class="list-group-item active">Basic Search</a>
-                <a href="/search/advanced" id="side-advanced" class="list-group-item">Advanced Search</a>
-                <a href="/search/history" id="side-history" class="list-group-item">Search History<span id="total-history-tag" class="badge">2</span></a>
-                <a href="#" id="nav-li-saved" class="list-group-item hidden">Marked Records<span id="total-saved-tag" class="badge"></span></a>
-                <a href="#" id="nav-li-match" class="list-group-item hidden">Match Suggestion<span id="total-match-tag" class="badge"></span></a>
-            </div>
-            <div class="">Refine Search</div>
-            <div class="side-nav list-group" role="navigation">
-                <p><a href="#"><i class="glyphicon glyphicon-remove black"></i>Remove All Filters</a></p>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Format</div>
-                        <ul id="" class="list-group-item"><span class="badge">2</span><a href="#">Electronic</a></ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
+<td class="col-sm-2 faceted">
+    @if(isset($filter['format']))
+    <div class="box-shadow">
+        <div id="div-refinefm" class="expand-box">
+            <table cellspacing="0" width="100%" class="table-layout">
+                <tbody><tr><th onclick="collapsebox('div-refinefm')"><strong><a>{{ trans('search.txt.format') }}</a></strong></th></tr>
+                <tr class="facet-panel">
+                    <td class="box">
+                        <div id="format-refinement">
+                            <ul class="refinement">
+                                <li>
+                                    <input type="checkbox" id="format_all" name="format_all" value="format_all" checked="checked" class="facetcheckbox" disabled="">
+                                    <label for="format_all"><strong>Tous les formats</strong></label><label id="all_fm_count" style="display: inline;"> (<strong>2,185</strong>)</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="format_1" name="format_1" value="format_1" class="facetcheckbox">
+                                    <label for="format_1">Article (1022)</label>
+                                    <script>
+                                    </script>
+
+                                    <!-- Level 2 refinement -->
+                                    <ul class="refinement2">
+                                        <li>
+                                            <input type="checkbox" id="format_1_1" name="format_1_1" value="format_1_1" class="facetcheckbox">
+                                            <label for="format_1_1">Chapitre (852)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="format_1_2" name="format_1_2" value="format_1_2" class="facetcheckbox">
+                                            <label for="format_1_2">Article téléchargeable (35)</label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <input type="checkbox" id="format_2" name="format_2" value="format_2" class="facetcheckbox">
+                                    <label for="format_2">Livre (686)</label>
+
+                                    <!-- Level 2 refinement -->
+                                    <ul class="refinement2">
+                                        <li>
+                                            <input type="checkbox" id="format_2_1" name="format_2_1" value="format_2_1" class="facetcheckbox">
+                                            <label for="format_2_1">Print book (410)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="format_2_2" name="format_2_2" value="format_2_2" class="facetcheckbox">
+                                            <label for="format_2_2">Livre électronique (351)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="format_2_3" name="format_2_3" value="format_2_3" class="facetcheckbox">
+                                            <label for="format_2_3">Thèse/dissertation (61)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="format_2_4" name="format_2_4" value="format_2_4" class="facetcheckbox">
+                                            <label for="format_2_4">Microforme (1)</label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <input type="checkbox" id="format_3" name="format_3" value="format_3" class="facetcheckbox">
+                                    <label for="format_3">Vidéo (262)</label>
+                                    <!-- Level 2 refinement -->
+                                    <ul class="refinement2">
+                                        <li>
+                                            <input type="checkbox" id="format_3_1" name="format_3_1" value="format_3_1" class="facetcheckbox">
+                                            <label for="format_3_1">Vidéo électronique (258)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="format_3_2" name="format_3_2" value="format_3_2" class="facetcheckbox">
+                                            <label for="format_3_2">DVD (4)</label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <input type="checkbox" id="format_4" name="format_4" value="format_4" class="facetcheckbox">
+                                    <label for="format_4">Documents d'archives (173)</label>
+
+                                    <!-- Level 2 refinement -->
+                                    <ul class="refinement2">
+                                        <li>
+                                            <input type="checkbox" id="format_4_1" name="format_4_1" value="format_4_1" class="facetcheckbox">
+                                            <label for="format_4_1">Documents d'archives téléchargeables (172)</label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <input type="checkbox" id="format_5" name="format_5" value="format_5" class="facetcheckbox">
+                                    <label for="format_5">Fichier d’ordinateur (67)</label>
+                                </li>
+
+                                <li>
+                                    <input type="checkbox" id="format_6" name="format_6" value="format_6" class="facetcheckbox">
+                                    <label for="format_6">Trousse (2)</label>
+                                </li>
+
+                                <li class="facet_li" style="display:none">
+                                    <input type="checkbox" id="format_7" name="format_7" value="format_7" class="facetcheckbox">
+                                    <label for="format_7">Multimédia interactif (1)</label>
+                                </li>
+
+                                <li class="facet_li" style="display:none">
+                                    <input type="checkbox" id="format_8" name="format_8" value="format_8" class="facetcheckbox">
+                                    <label for="format_8">Périodique ou revue électroniques (1)</label>
+                                </li>
+
+                                <li class="facet_li" style="display:none">
+                                    <input type="checkbox" id="format_9" name="format_9" value="format_9" class="facetcheckbox">
+                                    <label for="format_9">Site Web (1)</label>
+                                </li>
+
+                                <li class="showmore_li">
+                                    <a href="javascript:showMoreFacets();"><strong>Plus ...</strong></a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Subject</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">Aids (disease) Canada Periodicals.</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">Electronic Journals.</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id="">
-                                <a href="#">[show more]</a>
-                            </div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Author</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                <a href="#">Agence De Santé Publique Du Canada.</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                <a href="#">Centre For Infectious Disease Prevention And Control (canada)</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Publisher</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                <a href="#">Canadian Aboriginal Aids Network</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                <a href="#">Public Health Agency Of Canada</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Year (first published)</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">1998</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">2006</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Place of publication</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">Ottawa</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-                <div id="" class="panel panel-default filter-panel">
-                        <div class="panel-heading">Language</div>
-                        <ul id="" class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">2</span>
-                                <a href="#">English</a>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                <a href="#">French</a>
-                            </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <div id=""></div>
-                            <div id=""></div>
-                        </div>
-                    </div>
-            </div>
+                    </td>
+                </tr>
+                </tbody></table>
         </div>
     </div>
-</div>
+    @endif
+    <div id="inpfacet"></div>
+    <div class="box-shadow">
+        <div id="div-refinefm" class="expand-box">
+            <table cellspacing="0" width="100%" class="table-layout">
+                <tbody>
+                    <tr>
+                        <th onclick="collapsebox('div-refine')">
+                            <strong><a>{{ trans('search.txt.refine') }}</a></strong>
+                        </th>
+                    </tr>
+                    <tr class="facet-panel">
+                        <td class="box">
+                            @if(isset($filter['creators']))
+                                @include('search.filters.creators')
+                            @endif
+                            @if(isset($filter['year']))
+                                @include('search.filters.year')
+                            @endif
+                            @if(isset($filter['language']))
+                            <div id="language-refinement">
+                                <div class="head"><strong>Langue</strong></div>
+                                <ul class="refinement">
+                                    <li><a rel="nofollow" title="Anglais" href="#">Anglais</a> (939)</li>
+                                    <li><a rel="nofollow" title="Chinois" href="#">Chinois</a> (81)</li>
+                                    <li><a rel="nofollow" title="Allemand" href="#">Allemand</a> (75)</li>
+                                    <li><a rel="nofollow" title="Finnois" href="#">Finnois</a> (64)</li>
+                                    <li><a rel="nofollow" title="Non déterminée" href="#">Non déterminée</a> (42)</li>
+                                    <li><a rel="nofollow" href="#"><strong>Plus ...</strong></a></li>
+                                </ul>
+                            </div>
+                            @endif
+                            @if(isset($filter['contenu']))
+                            <div id="content-refinement">
+                                <div class="head"><strong>Contenu</strong></div>
+                                <ul class="refinement">
+                                    <li><a rel="nofollow" title="Biographie" href="#">Biographie</a> (8)</li>
+                                    <li><a rel="nofollow" title="Fiction" href="#">Fiction</a> (3)</li>
+                                    <li><a rel="nofollow" title="Documentaire" href="#">Documentaire</a> (2182)</li>
+                                </ul>
+                            </div>
+                            @endif
+                            @if(isset($filter['placeOfPublication']))
+                                @include('search.filters.placeOfPublication')
+                            @endif
+                            @if(isset($filter['subjects']))
+                                @include('search.filters.subjects')
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</td>

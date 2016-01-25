@@ -26259,7 +26259,7 @@ input[type=search], input.search {
   background: url(../images/search.png) 5px 60% no-repeat white;
 }
 input[type=search], .input-group-lg > input[type=search], .input-group-sm > input[type=search], input.search, .input-group-lg > input.search, .input-group-sm > input.search {
-  padding-left: 26px;
+  padding-left: 35px;
 }
 
 /***********************/

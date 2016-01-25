@@ -9,6 +9,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Session;
 
 class Language {
+
+    /**
+     * @var $languages
+     */
+    protected $languages, $language;
     /**
      * @var \Illuminate\Foundation\Application
      */
@@ -47,7 +52,17 @@ class Language {
      */
     public function handle($request, Closure $next)
     {
-        $this->app->setLocale(Session::get('lang', 'en'));
+
+        if(Session::has('lang')){ $this->language = Session::get('lang'); }
+        elseif(!$request->header('accept-language') == "") {
+
+            $this->languages = $request->header('accept-language');
+            $this->language = substr($this->languages,0,2);
+
+        }
+        else { $this->language = 'en'; }
+
+        $this->app->setLocale($this->language);
         return $next($request);
     }
 }

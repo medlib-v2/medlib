@@ -2,6 +2,7 @@ var elixir  = require('laravel-elixir'),
     gulp 	= require('gulp'),
     uglify	= require('gulp-uglify'),
     concat	= require('gulp-concat'),
+    watch = require('gulp-watch'),
     prefix	= require('gulp-autoprefixer');
 
 /*
@@ -22,14 +23,11 @@ function errorLog(error)
     this.emit('end');
 }
 
-//script Task
-//uglify main js
 gulp.task('script', function(){
-    gulp.src('main.js')
+    gulp.src('resources/assets/js/*.js')
         .pipe(uglify())
         .on('error', errorLog)
         .pipe(gulp.dest('public/js'));
-
 });
 
 elixir(function(mix) {
@@ -37,7 +35,7 @@ elixir(function(mix) {
 });
 
 gulp.task('watch', function(){
-    gulp.watch('main.js', ['script']);
+    gulp.watch('*.js', ['script']);
 });
 
 //Default Task

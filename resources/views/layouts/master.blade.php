@@ -1,6 +1,6 @@
 <?php use Greggilbert\Recaptcha\Facades\Recaptcha; ?>
 <!DOCTYPE html>
-<html>
+<html id="load">
     <head>
 
         @include('layouts.head')
