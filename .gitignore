@@ -12,3 +12,4 @@ phpspec.yml
 phpunit.xml
 /resources/assets/js/
 /certificat
+/tests
