@@ -26,30 +26,6 @@ Route::group(['middleware' => 'language'], function () {
      */
     Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
 
-    Route::get('/cookies/{lang}', function($lang){
-
-        /**
-        $user = User::where('username', '=', 'djandone')->first();
-
-        $account = [
-            'first_name' => 'Patrick',
-            'last_name' => 'LUZOLO SIASIA',
-            'user_avatar' => 'http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
-            'confirmation_code' => '205e460b479e2e5b48aec07710c08d50'
-        ];
-        $token = '205e460b479e2e5b48aec07710c08d50';
-
-        //return view('auth.reminder', compact('token'));
-
-        Mail::queue('auth.email.verify', compact('account'), function($message) {
-            $message->to("eldorplus@gmail.com", "Patrick LUZOLO SIASIA")
-                ->subject('Activate your account');
-        });
-        return "Message sending";
-
-        */
-    });
-
     /**
      * Friends & Friends-requests
      */

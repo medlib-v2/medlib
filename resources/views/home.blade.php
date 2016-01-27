@@ -7,7 +7,7 @@
         <div id="page-content" class="container">
             <div class="col-md-2 col-xs-1 col-sm-1"></div>
             <div class="col-md-7 col-xs-10 col-sm-10 inpt-search">
-                <form method="GET" action="{{ url('search/simple') }}" name="search_input" role="form">
+                <form method="GET" action="{{ route('search.simple') }}" name="search_input" role="form">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 col-md-12 input-group input-group-md">
@@ -28,7 +28,7 @@
                         <div class="row">
 
                             <div class="col-xs-12 col-md-8 col-sm-8">
-                                <select name="qdb" data-placeholder="Select source database..." data-width="auto" data-minimum-results-for-search="10" tabindex="-1" class="select2 form-control select2-offscreen" id="default-select">
+                                <select name="qdb" data-placeholder="Selectionner une bibliothèque..." data-width="auto" data-minimum-results-for-search="10" tabindex="-1" class="select2 form-control select2-offscreen" id="default-select">
                                     <option value=""></option>
                                     @foreach($datasource as $name => $instance)
                                         <option value="{{ $name }}">{{ $instance['fullname'] }}</option>

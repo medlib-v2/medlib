@@ -8,7 +8,7 @@ return [
         'database' => [
             'hostname' => 'z3950.bnf.fr',
             'port' => 2211,
-            'name' => ['TOUT', 'TOUT-UTF8'],
+            'name' => ['TOUT-UTF8', 'TOUT'],
             'format' => 'unimarc',
             'elementset' => 'F',
         ],
@@ -39,6 +39,12 @@ return [
         ],
     ],
 
+    /**
+     * Address: z3950.copac.ac.uk
+     * Port: 210
+     * Database name: COPAC
+     * Record syntax: XML or SUTRS
+     *
     'COPAC' => [
         'fullname' => 'COPAC',
         'instance' => 'COPAC',
@@ -46,7 +52,7 @@ return [
             'hostname' => 'z3950.copac.ac.uk',
             'port' => 210,
             'name' => ['COPAC'],
-            'format' => 'UNIMARC',
+            'format' => 'XML',
             'elementset' => 'F',
 
         ],
@@ -57,7 +63,7 @@ return [
 
         ],
     ],
-
+    */
     'VOYAGE' => [
         'fullname' => 'Library Of Congress',
         'instance' => 'VOYAGE',
@@ -94,7 +100,7 @@ return [
 
         ],
     ],
-
+    /**
     'ULQC' => [
         'fullname' => 'Univ Laval (QC)',
         'instance' => 'ULQC',
@@ -113,7 +119,8 @@ return [
 
         ],
     ],
-
+    */
+    /**
     'UNOX' => [
         'fullname' => 'Univ Oxford',
         'instance' => 'UNOX',
@@ -134,5 +141,6 @@ return [
 
         ],
     ],
+    */
 
 ];

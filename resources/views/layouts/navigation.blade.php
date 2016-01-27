@@ -8,7 +8,7 @@
             <a class="navbar-brand header-xs" href="{{ route('home') }}">
                 <img  src="{{ asset('/images/logo.png') }}" class="hidden-xs thumbnail-logo" alt="Medlib">
             </a>
-            <button type="button" class="navbar-toggle visible-xs" data-toggle="dropdown" data-target=".user">
+            <button type="button" class="navbar-toggle visible-xs collapsed" data-toggle="collapse" data-target="#user" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Medlib</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -17,7 +17,7 @@
         </div>
         <!-- / .navbar-header contains links seen on xs & sm screens -->
         <!-- xs & sm screen logo -->
-        <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user open">
+        <ul id="user" class="nav navbar-nav collapse navbar-right m-n hidden-xs nav-user navbar-collapse" aria-expanded="false">
             @if (Auth::guest())
                     <!-- login user -->
             <li class="dropdown view-desktop" role="presentation">

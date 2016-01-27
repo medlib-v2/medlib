@@ -6,8 +6,6 @@
     trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.')
 )
 
-
-
 @section('content')
     <main id="content" class="content" role="main">
         @if (!array_key_exists('error', $results))
@@ -62,7 +60,6 @@
     <script src="{{ asset('js/jplist/jplist.core.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.sort-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.textbox-filter.min.js') }}"></script>
-    <!--<script src="{{ asset('js/jplist/jplist.bootstrap-pagination-bundle.min.js') }}"></script>-->
    <script src="{{ asset('js/jplist/jplist.pagination-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.history-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.filter-toggle-bundle.min.js') }}"></script>
