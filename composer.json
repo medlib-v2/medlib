@@ -12,7 +12,10 @@
         "danmichaelo/quitesimplexmlelement": "~0.2.4",
         "phpspec/phpspec": "~2.1",
         "intervention/image": "dev-master",
-        "wisembly/elephant.io": "3.0.0"
+        "wisembly/elephant.io": "3.0.0",
+        "medlib/yaz" : "dev-master",
+        "medlib/marcxml" : "dev-master",
+        "medlib/helpers" : "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -25,10 +28,7 @@
             "database"
         ],
         "psr-4": {
-            "Medlib\\": "app/",
-            "Medlib\\MarcXML\\": "src/MarcXML/",
-            "Medlib\\BookCover\\": "src/Cover",
-            "Yaz\\": "src/Yaz/"
+            "Medlib\\": "app/"
         }
     },
     "autoload-dev": {
