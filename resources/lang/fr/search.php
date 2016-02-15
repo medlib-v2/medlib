@@ -17,6 +17,7 @@ return [
         'find' => 'Rechercher',
     ],
     'txt' => [
+        'advanced-text' => 'Recherche avancée',
         'advanced' => 'Options avancées',
         'criteria' => 'Critère de recherche ...',
         'abstract' => 'Résumé et notes',

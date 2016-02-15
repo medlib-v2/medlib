@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use Medlib\Models\Feed;
 use Medlib\Models\User;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class FeedTableSeeder extends Seeder
 {
@@ -16,10 +15,10 @@ class FeedTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $userIds = User::lists('id');
+        $users = User::lists('id');
         $date = new DateTime();
         $day = 1;
-        $users = [10,12,13,14,15];
+        //$users = [10,12,13,14,15];
 
         foreach ($users as $user) {
 

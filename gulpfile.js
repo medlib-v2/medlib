@@ -35,10 +35,9 @@ elixir(function(mix) {
 });
 
 gulp.task('watch', function(){
-    gulp.watch('*.js', ['script']);
+    gulp.watch('resources/assets/js/*.js', ['script']);
 });
 
 //Default Task
 //gulp
 gulp.task('default', ['watch']);
-

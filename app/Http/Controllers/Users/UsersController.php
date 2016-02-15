@@ -2,11 +2,9 @@
 
 namespace Medlib\Http\Controllers\Users;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Medlib\Http\Controllers\Controller;
-use Medlib\Models\User;
 use Medlib\Repositories\Feed\FeedRepository;
 use Medlib\Repositories\User\UserRepository;
 
@@ -30,8 +28,17 @@ class UsersController extends Controller {
         $this->currentUser = Auth::user();
     }
 
-    public function index() {
-        return view('users.users.profile');
+    public function index(FeedRepository $feedRepository) {
+
+        $currentUser = $this->currentUser;
+
+        $user = $currentUser;
+
+        $friends = $user->friends()->take(8)->get();
+
+        $feeds = $feedRepository->getPublishedByUser($user);
+
+        return view('users.users.show', compact('currentUser', 'user', 'friends', 'feeds'));
     }
 
 

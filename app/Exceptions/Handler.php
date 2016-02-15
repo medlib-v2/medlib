@@ -3,9 +3,10 @@
 namespace Medlib\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Foundation\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -17,8 +18,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        AuthorizationException::class,
         HttpException::class,
         ModelNotFoundException::class,
+        ValidationException::class,
     ];
 
     /**
@@ -43,15 +46,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof TokenMismatchException){
-            //redirect to form an example of how I handle mine
-            return redirect($request->fullUrl())->with('error',"Opps! Seems you couldn't submit form for a longtime. Please try again");
-        }
-
-        if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
-        }
-
         return parent::render($request, $e);
     }
 }

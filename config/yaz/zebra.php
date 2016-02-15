@@ -64,6 +64,7 @@ return [
         ],
     ],
     */
+
     'VOYAGE' => [
         'fullname' => 'Library Of Congress',
         'instance' => 'VOYAGE',
@@ -100,6 +101,28 @@ return [
 
         ],
     ],
+
+    'LCDB' => [
+        'fullname' => 'Library of Congress Online Catalog',
+        'instance' => 'LCDB',
+        'database' => [
+            'hostname' => 'lx2.loc.gov',
+            'port' => 210,
+            'name' => ['LCDB'],
+            'format' => 'MARCXML',
+            'elementset' => 'F',
+
+        ],
+        'options' => [
+            'user' => 'SUNCAT',
+            'password' => 'SUNCAT',
+            'charset' => 'UTF-8',
+            'preferredMessageSize' => 10240,
+            'maximumRecordSize' => 10240,
+
+        ],
+    ],
+
     /**
     'ULQC' => [
         'fullname' => 'Univ Laval (QC)',
@@ -120,6 +143,7 @@ return [
         ],
     ],
     */
+
     /**
     'UNOX' => [
         'fullname' => 'Univ Oxford',
@@ -143,4 +167,39 @@ return [
     ],
     */
 
+    'UCL' => [
+        'fullname' => 'Libellule | Université Catholique de Louvain',
+        'instance' => 'UCL',
+        'database' => [
+            'hostname' => 'bib.sipr.ucl.ac.be',
+            'port' => 3590,
+            'name' => ['DEFAULT'],
+            'format' => 'unimarc',
+            'elementset' => 'F',
+        ],
+        'options' => [
+            'charset' => 'UTF-8',
+            'preferredMessageSize' => 10240,
+            'maximumRecordSize' => 10240,
+
+        ],
+    ],
+
+    'NLC' => [
+        'fullname' => 'Bibliothèque et Archives Canada',
+        'instance' => 'NLC',
+        'database' => [
+            'hostname' => 'amicus.collectionscanada.gc.ca',
+            'port' => 210,
+            'name' => ['ANY', 'UC', 'NL', 'LC', 'FS', 'NA', 'NFB', 'SE', 'AU'],
+            'format' => 'MARC21',
+            'elementset' => 'F',
+        ],
+        'options' => [
+            'charset' => 'UTF-8',
+            'preferredMessageSize' => 10240,
+            'maximumRecordSize' => 10240,
+
+        ],
+    ],
 ];

@@ -7,8 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class FriendRequestTableSeeder extends Seeder
-{
+class FriendRequestTableSeeder extends Seeder {
+
     /**
      * Run the database seeds.
      *
@@ -18,7 +18,6 @@ class FriendRequestTableSeeder extends Seeder
     {
         $faker = Faker::create();
         $userIds = DB::table('users')->where('id', '!=', 1)->lists('id');
-
 
         foreach (range(1, 25) as $index) {
 

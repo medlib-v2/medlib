@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => Medlib\User::class,
+        'model'  => Medlib\Models\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

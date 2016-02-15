@@ -218,7 +218,7 @@
                 <div class="panel panel-dashboard box-shadow">
                     <div class="panel-heading panel-heading-gray">
                         <div class="pull-right">
-                            <a href="{{ url('users/'.$user->getUsername().'/friends') }}" class="btn btn-primary btn-xs">Show all <i class="fa fa-group"></i></a>
+                            <a href="{{ url('profiles/'.$user->getUsername().'/friends') }}" class="btn btn-primary btn-xs">Show all <i class="fa fa-group"></i></a>
                         </div>
                         <i class="icon-user-1"></i> Friends
                     </div>
@@ -229,7 +229,7 @@
                                 <li><span class="group"><i class="fa fa-group" style="font-size: 70px;"></i></span></li>
                             @else
                                  @foreach($friends as $friend )
-                                    <li><a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
+                                    <li><a href="{{ url('/profiles', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
                                  @endforeach
                             @endif
                         @else
@@ -237,7 +237,7 @@
                                  <li><span href="#" class="group"><i class="fa fa-group" style="font-size: 70px;"></i></span></li>
                             @else
                                     @foreach($friends as $friend )
-                                        <li><a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
+                                        <li><a href="{{ url('/profiles', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
                                     @endforeach
                                 @endif
                         @endif

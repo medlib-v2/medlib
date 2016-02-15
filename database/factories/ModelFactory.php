@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(Medlib\User::class, function (Faker\Generator $faker) {
+$factory->define(Medlib\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,

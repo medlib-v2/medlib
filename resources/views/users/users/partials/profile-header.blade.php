@@ -17,7 +17,7 @@
             @else
                 @foreach( $friends as $friend)
                 <li>
-                    <a href="{{ url('/users', ['username' => $friend->getUsername() ]) }}">
+                    <a href="{{ url('/profiles', ['username' => $friend->getUsername() ]) }}">
                         <img src="{{ $friend->getAvatar() }}" alt="{{ $friend->getUsername() }}" class="img-responsive">
                     </a>
                 </li>

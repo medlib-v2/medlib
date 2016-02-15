@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+
     public function showLogin() {
         return View::make('auth.login');
     }
@@ -145,25 +147,6 @@ class AuthController extends Controller
                 'user_avatar' => $userProfileImage,
                 'confirmation_code' => self::generateToken()
             ]);
-
-            /**
-            $user = new User();
-            $user->email    = $request->get('email');
-            $user->username = $request->get('username');
-            $user->password = Hash::make($request->get('password'));
-            $user->first_name     = $request->get('first_name');
-            $user->last_name = $request->get('last_name');
-            $user->profession = $request->get('profession');
-            $user->location = "Paris, France";
-            $user->date_of_birth = $date_of_birth;
-            $user->gender = $request->get('gender');
-            $user->user_active = false;
-            $user->account_type = false;
-            $user->user_avatar = $userProfileImage;
-            $user->confirmation_code = self::generateToken();
-             *
-             * $user->save();
-             */
 
             $account = [
                 'first_name' => $user->getFirstName(),

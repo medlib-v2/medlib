@@ -46,7 +46,7 @@ class UserTableSeeder extends Seeder
      *
      * @return string
      */
-    protected static function generateToken() {
+    public static function generateToken() {
 
         return str_random(64).config('app.key');
     }

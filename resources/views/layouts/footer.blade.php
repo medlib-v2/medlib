@@ -93,7 +93,6 @@
 <script type="text/javascript" src="{{ asset('vendor/jasny-bootstrap/js/fileinput.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/jquery.sparkline/dist/jquery.sparkline.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/tables-basic.js') }}"></script>
-
 <!-- page specific libs -->
 @yield('script')
 <!-- page specific js -->

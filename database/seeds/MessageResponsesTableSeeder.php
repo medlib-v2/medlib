@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Factory as Faker;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Medlib\Models\MessageResponse;
 
 class MessageResponsesTableSeeder extends Seeder

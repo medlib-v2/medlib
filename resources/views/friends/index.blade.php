@@ -8,7 +8,7 @@
 					@foreach($friends as $friend)
 						<div class="media listed-object-close">
 							<div class="pull-left">		
-								<a href="{!! url('/users/'.$friend['username']) !!}"><img class="media-object avatar medium-avatar" src="{!! $friend['user_avatar'] !!}" alt="{!! $friend['first_name'] !!}"></a>
+								<a href="{!! url('/profiles/'.$friend['username']) !!}"><img class="media-object avatar medium-avatar" src="{!! $friend['user_avatar'] !!}" alt="{!! $friend['first_name'] !!}"></a>
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading">{!! $friend['first_name'] !!}</h4>

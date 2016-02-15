@@ -152,7 +152,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="glyphicon glyphicon-user"></i> &nbsp; My Account</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{ route('profile.show') }}"><i class="glyphicon glyphicon-user"></i> &nbsp; Profile</a></li>
+                        <li><a href="{{ url(Auth::user()->getUsername()) }}"><i class="glyphicon glyphicon-user"></i> &nbsp; Profile</a></li>
                         <li><a href="{{ route('profile.show.settings') }}"><i class="glyphicon glyphicon-lock"></i> &nbsp; Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out"></i> &nbsp; Se deconnecter</a></li>

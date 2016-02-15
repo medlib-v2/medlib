@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
+
     protected $tables = [
-        //'users',
-        //'feeds',
-        //'friend_requests',
+        'users',
+        'feeds',
+        'friend_requests',
         'messages',
         'message_user',
         'message_responses',
@@ -16,8 +17,8 @@ class DatabaseSeeder extends Seeder
     ];
 
     protected $seeders = [
-        //UserTableSeeder::class,
-        //FeedTableSeeder::class,
+        UserTableSeeder::class,
+        FeedTableSeeder::class,
         FriendRequestTableSeeder::class,
         MessagesTableSeeder::class,
         MessageUserTableSeeder::class,
@@ -30,20 +31,25 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
+
         Model::unguard();
 
         $this->cleanDatabase();
-
+        /*
         foreach ($this->seeders as $seedClass) {
-
             $this->call($seedClass);
         }
+        */
 
-        //$this->call(UserTableSeeder::class);
-
-        //$this->call(AuthorsTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(FeedTableSeeder::class);
+        $this->call(FriendRequestTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+        $this->call(MessageUserTableSeeder::class);
+        $this->call(MessageResponsesTableSeeder::class);
+        $this->call(MessageResponseUserTableSeeder::class);
+        $this->call(AuthorsTableSeeder::class);
 
         Model::reguard();
 
@@ -52,16 +58,16 @@ class DatabaseSeeder extends Seeder
     /**
      * Clean out the database for new seed generation
      */
-    public function cleanDatabase()
-    {
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0');
+    public function cleanDatabase() {
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         foreach ($this->tables as $table) {
 
             DB::table($table)->truncate();
         }
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }
 }

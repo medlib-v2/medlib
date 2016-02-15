@@ -46,6 +46,7 @@
     </main>
 @endsection
 
+
 @section('sytle')
     <link href="{{ asset('css/jplist/jplist.core.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/jplist/jplist.textbox-filter.min.css') }}" rel="stylesheet" type="text/css" />
@@ -57,10 +58,11 @@
 @endsection
 
 @section('script')
+    <script src="/js/common.js'" data-main="{{ asset('js/require.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.core.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.sort-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.textbox-filter.min.js') }}"></script>
-   <script src="{{ asset('js/jplist/jplist.pagination-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jplist/jplist.pagination-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.history-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.filter-toggle-bundle.min.js') }}"></script>
     <script src="{{ asset('js/jplist/jplist.views-control.min.js') }}"></script>
