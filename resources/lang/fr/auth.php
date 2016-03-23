@@ -25,4 +25,16 @@ return [
         'email' => 'E-mail',
         'password' => 'Mot de passe',
     ],
+    'account_created_success' => 'Votre compte a été créé avec succès!',
+    'email_was_sent' => 'Un e-mail a été envoyé',
+    'login' => [
+        'failed' => 'Nous avons été incapables de vous connecter. Merci vérifier vos informations d\'identification et réessayez à nouveau.'
+    ],
+    'validation' => [
+        'validation_code_does_not_exist' => 'Votre code de validation n\'existe pas, Merci de vérifier que votre compte n\'est pas déjà activé',
+        'validation_code_has_expired' => 'Votre code de validation a expiré. Le code de validation n\'est valable qu\'une heure. Merci d\'utilisez le nouveau lien d\'activation envoyé.',
+        'account_has_been_activated' => 'Success, your account has been activated.',
+        'need_validation_code' => 'Vous avez besoin d\'un code valide!'
+
+    ],
 ];

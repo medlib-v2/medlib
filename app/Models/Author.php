@@ -2,6 +2,7 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
@@ -25,7 +26,7 @@ class Author extends Model
      */
     public function books()
     {
-        return $this->belongsToMany('Medlib\Models\Book', 'book_author');
+        return $this->belongsToMany(Book::class, 'book_author');
         //return $this->hasMany('Medlib\Models\Book');
     }
 }

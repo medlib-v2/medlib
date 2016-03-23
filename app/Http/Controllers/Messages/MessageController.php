@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 use Medlib\Http\Requests;
 use Medlib\Http\Controllers\Controller;
 
-class MessageController extends Controller
-{
+class MessageController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return "ok";
     }
 
@@ -24,8 +23,7 @@ class MessageController extends Controller
      * @param  string  $username
      * @return \Illuminate\Http\Response
      */
-    public function create($username)
-    {
+    public function create($username) {
         dd($username);
     }
 
@@ -35,8 +33,7 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -46,8 +43,7 @@ class MessageController extends Controller
      * @param  string  $username
      * @return \Illuminate\Http\Response
      */
-    public function show($username)
-    {
+    public function show($username) {
         if($username == "compose") {
             dd("composition de message sans user");
         }
@@ -61,8 +57,7 @@ class MessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -73,8 +68,7 @@ class MessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -84,8 +78,7 @@ class MessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

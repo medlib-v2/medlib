@@ -10,9 +10,8 @@
 
         @include('layouts.navigation')
 
-        <div class="container-fluid" ng-app="app" style="margin-top:10px;">
+        <div class="container-fluid" style="margin-top:10px;">
             <div class="content">
-                @include('flash.message')
                 @yield('content')
             </div>
         </div>

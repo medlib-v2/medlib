@@ -2,6 +2,7 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -25,8 +26,8 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function books()
-    {
-        return $this->hasMany('Medlib\Models\Book');
+    public function books() {
+
+        return $this->hasMany(Book::class);
     }
 }

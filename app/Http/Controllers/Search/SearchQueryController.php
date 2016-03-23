@@ -460,8 +460,7 @@ class SearchQueryController extends Controller
 		}
     }
 
-	public function doAdvanced(Request $request) {
-		//dd($request);
+	public function doAdvanced() {
 		return View::make("search.advanced-search");
 	}
 

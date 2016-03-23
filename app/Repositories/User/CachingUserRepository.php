@@ -2,8 +2,8 @@
 
 namespace Medlib\Repositories\User;
 
-use Illuminate\Contracts\Cache\Repository as Cache;
 use Medlib\Models\User;
+use Illuminate\Contracts\Cache\Repository as Cache;
 
 class CachingUserRepository implements UserRepository
 {

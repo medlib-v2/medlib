@@ -2,10 +2,13 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\Author;
+use Medlib\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
-{
+class Book extends Model {
+
     /**
      * The database table used by the model.
      *
@@ -41,7 +44,7 @@ class Book extends Model
      */
     public function category()
     {
-        return $this->belongsTo('Medlib\Models\Category');
+        return $this->belongsTo(Category::class);
     }
 
     /**
@@ -51,6 +54,15 @@ class Book extends Model
      */
     public function authors()
     {
-        return $this->belongsToMany('Medlib\Models\Author', 'book_author');
+        return $this->belongsToMany(Author::class, 'book_author');
+    }
+
+    /**
+     * Return all information this book
+     * @param int $book_isbn
+     * @return mixed
+     */
+    public function getInformationBooksByISBN(int $book_isbn) {
+        return DB::table('friends')->where('book_isbn', $book_isbn)->first();
     }
 }

@@ -105,7 +105,40 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'                  => 'name',
+        'username'              => 'nickname',
+        'email'                 => 'e-mail',
+        'email_confirm'         => 'confirmation E-mail',
+        'first_name'            => 'first Name',
+        'last_name'             => 'last Name',
+        'password'              => 'password',
+        'password_confirm'      => 'password Confirmation',
+        'city'                  => 'city',
+        'country'               => 'country',
+        'address'               => 'address',
+        'phone'                 => 'phone',
+        'mobile'                => 'mobile',
+        'age'                   => 'age',
+        'sex'                   => 'sex',
+        'gender'                => 'gender',
+        'day'                   => 'day',
+        'month'                 => 'month',
+        'year'                  => 'year',
+        'hour'                  => 'hour',
+        'minute'                => 'minute',
+        'second'                => 'second',
+        'title'                 => 'title',
+        'content'               => 'content',
+        'description'           => 'description',
+        'excerpt'               => 'excerpt',
+        'date'                  => 'date',
+        'time'                  => 'time',
+        'available'             => 'available',
+        'size'                  => 'size',
+        'g-recaptcha-response'  => 'I am not a robot',
+    ],
     'recaptcha' => 'The :attribute field is not correct.',
+
 
 ];

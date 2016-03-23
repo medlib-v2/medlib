@@ -2,6 +2,7 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Feed extends Model {
@@ -19,13 +20,13 @@ class Feed extends Model {
      */
     public function user()
     {
-        return $this->belongsTo('Medlib\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
      *  Publish a new feed.
      *
-     *	@param string body
+     *	@param string $body
      *
      *	@param string $poster_firstname
      *

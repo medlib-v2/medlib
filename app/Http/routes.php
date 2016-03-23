@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => 'web'], function () {
     // Manage Routes by different language
     Route::group(['middleware' => 'language'], function () {
 
@@ -217,15 +217,11 @@ Route::group(['middleware' => ['web']], function () {
                 Session::set('lang', $lang);
             }
             if(Request::ajax()) {
-                return Response::json(['response' => 'success', 'message' => 'Change with success']);
-            }
-            return redirect()->back();
-        }]);
+            return Response::json(['response' => 'success', 'message' => 'Change with success']);
+        }
+        return redirect()->back();
+    }]);
 
     });
 });
 
-
-Route::group(['prefix' => 'api', 'middleware' => 'throttle:30,2'], function () {
-    // Routes
-});

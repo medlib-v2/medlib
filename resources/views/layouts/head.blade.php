@@ -24,8 +24,9 @@
         <!-- TITLE -->
         <title>Medlib - @yield('title')</title>
 
-        <!-- Fonts -->
+        <!-- Fonts
         <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,700,900' rel='stylesheet' type='text/css'>
+        -->
 
         <!-- SCRIPT -->
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

@@ -5,6 +5,7 @@
 @section('content')
     <div id="content" class="content" role="main">
         <div id="page-content" class="container">
+            @include('flash.message')
             <div class="col-md-2 col-xs-1 col-sm-1"></div>
             <div class="col-md-7 col-xs-10 col-sm-10 inpt-search">
                 <form method="GET" action="{{ route('search.simple') }}" name="search_input" role="form">
@@ -34,7 +35,7 @@
                                         <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
                                     @endforeach
                                 </select>
-                                @if ($errors->has('qdb')) <p class="help-block text-warning">{{ $errors->first('qdb') }}</p> @endif
+                                @if (isset($errors) && $errors->has('qdb')) <p class="help-block text-warning">{{ $errors->first('qdb') }}</p> @endif
                             </div>
 
                             <div class="col-xs-12 col-md-4 col-sm-4">

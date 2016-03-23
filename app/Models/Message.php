@@ -2,6 +2,8 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
+use Medlib\Models\MessageResponse;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model {
@@ -16,9 +18,9 @@ class Message extends Model {
      *
      * @return Collection
      */
-    public function users()
-    {
-        return $this->belongsToMany('Medlib\Models\User')->withTimestamps();
+    public function users() {
+
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     /**
@@ -49,7 +51,7 @@ class Message extends Model {
      */
     public function messageResponses()
     {
-        return $this->hasMany('Medlib\Models\MessageResponse')->orderBy('created_at', 'desc');
+        return $this->hasMany(MessageResponse::class)->orderBy('created_at', 'desc');
     }
 
     /**

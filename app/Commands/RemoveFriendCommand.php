@@ -8,8 +8,8 @@ use Medlib\Realtime\Events as SocketClient;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 
-class RemoveFriendCommand extends Command implements SelfHandling
-{
+class RemoveFriendCommand extends Command implements SelfHandling {
+
     /**
      * @var int
      */
@@ -24,9 +24,8 @@ class RemoveFriendCommand extends Command implements SelfHandling
     /**
      * Create a new command instance.
      *
-     * @param User $user
+     * @param int $userId
      *
-     * @return void
      */
     public function __construct($userId)
     {
@@ -38,9 +37,9 @@ class RemoveFriendCommand extends Command implements SelfHandling
     /**
      * Execute the command.
      *
-     * @param FriendRepository $friendRepository
+     * @param \Medlib\Repositories\User\UserRepository $userRepository
      *
-     * @return void
+     * @return boolean
      */
     public function handle(UserRepository $userRepository)
     {

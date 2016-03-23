@@ -2,194 +2,218 @@
 
 namespace Medlib\Http\Controllers\Auth;
 
+
 use Carbon\Carbon;
 use Medlib\Models\User;
-use Illuminate\Http\Request;
 use Medlib\Services\ProcessImage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
+use Medlib\Events\UserWasRegistered;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use Medlib\Realtime\Events as SocketClient;
+use Medlib\Http\Requests\RegisterUserRequest;
+use Medlib\Http\Requests\CreateSessionRequest;
 
-class AuthController extends Controller
-{
 
+use Medlib\Commands\LoginUserCommand;
 
+/**
+ * @Middleware("guest", except={"logout"})
+ */
+class AuthController extends Controller {
+
+    /**
+     * @var \Medlib\Realtime\Events
+     */
+    private $socketClient;
+
+    /**
+     * Create a new command instance.
+     */
+    public function __construct() {
+        $this->socketClient = new SocketClient;
+    }
+
+    /**
+     * Show the Login Page
+     *
+     * @Get("login", as="auth.login")
+     * @Middleware("guest")
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showLogin() {
         return View::make('auth.login');
     }
 
-    public function doLogin(Request $request) {
+    /**
+     * @param CreateSessionRequest $request
+     * @return mixed
+     */
+    public function doLogin(CreateSessionRequest $request) {
 
-        $rules = [
-            'email'    => 'required|email',
-            'password' => 'required|min:6'
-        ];
+        $response = $this->dispatchFrom(LoginUserCommand::class, $request);
 
-        /** run the validation rules on the inputs from the form */
-        $validator = Validator::make($request->all(), $rules);
+        if($response) return Redirect::route('home');
 
+        return Redirect::back()->withInput()->with('error', trans('auth.login.failed'));
 
-        /** if the validator fails, redirect back to the form */
-        if ($validator->fails()) {
-            return Redirect::to('login')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else {
-
-            // set the remember me cookie if the user check the box
-            //$remember = ($request->has('remember')) ? true : false;
-
-            // create our user data for the authentication
-            $userdata = [
-                'email'     => $request->get('email'),
-                'password'  => $request->get('password'),
-                //'user_active' => 1
-            ];
-
-            // attempt to do the login
-            if (Auth::attempt($userdata, $request->has('remember'))) {
-
-                // check if account is active
-                if (Auth::user()->user_active == 0) {
-                    Auth::logout();
-                    return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
-                }
-                // validation successful!
-                // redirect them to the secure section or whatever
-                return Redirect::to('/');
-
-            } else {
-
-                // validation not successful, send back to form
-                // return Redirect::to('login')->with('error', 'Could not sign you in with those details.');
-                // return Redirect::back()->withInput()->withErrors(['credentials' => 'We were unable to sign you in.']);
-                return Redirect::to('login');
-
-            }
-        }
-    }
-
-    public function showRegister() {
-
-        return View::make('auth.register');
-    }
-
-    public function doRegister(Request $request) {
-
-        $timestamp = strtotime('-15 years');
-
-        $rules = [
-            'first_name' => 'required|max:20',
-            'last_name' => 'required|max:20',
-            'username' => 'required|unique:users|alpha_dash|max:20',
-            'email' => 'required|unique:users|email|max:255',
-            'email_confirm' => 'required|max:255|same:email',
-            'profession' => 'not_in: ',
-            'password' => 'required|min:6',
-            'password_confirm' => 'required|min:6|same:password',
-            'day'	=>	'required|numeric|between:01,31',
-            'month'	=>	'required|numeric|between:01,12',
-            'year'	=>	'required|numeric|before:'.date('Y', $timestamp),
-            'gender' =>	'required',
-            'g-recaptcha-response' => 'required|recaptcha',
-        ];
-
-        /** create custom validation messages */
-        $messages = [
-            'required' => 'The :attribute is really really important.',
-            'same'  => 'The :others must match.'
+        /**
+         * Set the remember me cookie if the user check the box
+         * $remember = ($request->has('remember')) ? true : false;
+         *
+         * create our user data for the authentication
+         *
+        $userdata = [
+            'email'     => $request->get('email'),
+            'password'  => $request->get('password')
         ];
 
         /**
-         * Do the validation
-         * validate against the inputs from our form
-         */
-        $validator = Validator::make($request->all(), $rules, $messages);
+         * Attempt to do the login
+         *
+        if (! Auth::attempt($userdata, $request->has('remember'))) {
+            /**
+             * Validation not successful, send back to form
+             *
+            Auth::logout();
+            return Redirect::to('login');
 
-        // check if the validator failed
-        if ($validator->fails()) {
-
-            /** get the error messages from the validator */
-            $messages = $validator->messages();
-
-            /** redirect our user back to the form with the errors from the validator */
-            return Redirect::to('register')
-                ->withErrors($messages)
-                ->withInput(Input::except('password', 'password_confirm'));
-
-        } else {
-            $userProfileImage = $profileImagePath = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
-
-            $date_of_birth = Carbon::createFromDate(
-                $request->get('year'),
-                $request->get('month'),
-                $request->get('day')
-            )->toDateString();
-
-            $user = User::create([
-                'email' => $request->get('email'),
-                'username' => $request->get('username'),
-                'password' => Hash::make($request->get('password')),
-                'first_name' => $request->get('first_name'),
-                'last_name' => $request->get('last_name'),
-                'profession' => $request->get('profession'),
-                'location' => "",
-                'date_of_birth' => $date_of_birth,
-                'gender' => $request->get('gender'),
-                'user_active' => false,
-                'account_type' => false,
-                'user_avatar' => $userProfileImage,
-                'confirmation_code' => self::generateToken()
-            ]);
-
-            $account = [
-                'first_name' => $user->getFirstName(),
-                'last_name' => $user->getLastName(),
-                'user_avatar' => $user->getAvatar(),
-                'confirmation_code' => $user->getConfirmationCode()
-            ];
-
-            Mail::queue('auth.email.verify', compact('account'), function($message) use ($user) {
-                $message->to($user->getEmail(), $user->getFirstName()." ".$user->getLastName())
-                    ->subject('Activate your account');
-            });
-
-            unset($user);
-
-            return Redirect::route('home')->with('info', 'Your account has been created with success !')
-                ->with('success', 'A e-mail has been sended');
         }
+        $user = Auth::user();
+
+        /**
+         * Check if account is active
+         *
+        if (! $user->userAccountIsActive() == true) {
+            Auth::logout();
+            return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
+        }
+
+        /**
+         * validation successful!
+         * redirect them to the secure section or whatever
+         *
+
+        $friendsUserIds = $user->friends()->where('onlinestatus', 1)->lists('requester_id');
+        $relatedToId = $user->id;
+        $clientCode = 22;
+        $message = true;
+        //$this->socketClient->updateChatStatusBar($friendsUserIds, $clientCode, $relatedToId, $message);
+
+        $user->updateOnlineStatus(1);
+        return Redirect::route('home');
+        */
     }
 
+    /**
+     * Show the Register Page
+     * @Get("register", as="auth.register")
+     * @Middleware("guest")
+     *
+     * @return mixed
+     */
+    public function showRegister() {
+        return View::make('auth.register');
+    }
+
+    /**
+     * Register a new user in database end sending a confirmation email
+     *
+     * @param RegisterUserRequest $request
+     * @return mixed
+     */
+    public function doRegister(RegisterUserRequest $request) {
+
+        $userProfileImage = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
+
+        $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
+
+        $user = User::create([
+            'email' => $request->get('email'),
+            'username' => $request->get('username'),
+            'password' => Hash::make($request->get('password')),
+            'first_name' => $request->get('first_name'),
+            'last_name' => $request->get('last_name'),
+            'profession' => $request->get('profession'),
+            'location' => "",
+            'date_of_birth' => $date_of_birth,
+            'gender' => $request->get('gender'),
+            'user_active' => false,
+            'account_type' => false,
+            'user_avatar' => $userProfileImage,
+            'confirmation_code' => self::generateToken()
+        ]);
+
+        event(new UserWasRegistered($user));
+
+        unset($user);
+
+        return Redirect::route('home')->with('info', trans('auth.account_created_success'))
+            ->with('success', trans('auth.email_was_sent'));
+
+    }
+
+    /**
+     * @Get("reg_birthday", as="auth.reg_birthday")
+     * @Middleware("guest")
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function reg_birthday() {
         return View::make('auth.reg_birthday');
     }
 
+    /**
+     * Log the user out.
+     *
+     * @Get("logout", as="auth.verify")
+     * @Middleware("guest")
+     *
+     * @return Redirect
+     */
     public function doLogout() {
         Auth::logout();
-        return Redirect::to('/');
+        return Redirect::route('home');
     }
 
-    public function doVerify($confirmation_code) {
+    /**
+     * @Get("verify", as="logout")
+     * @Middleware("guest")
+     *
+     * @param string $confirmation_code
+     * @return mixed
+     *
+     */
+    public function doVerify(string $confirmation_code) {
 
         if(!$confirmation_code) {
-
-            return Redirect::route('home')->with('error', 'You need validation code!');
+            return Redirect::route('home')->with('error', trans('auth.validation.need_validation_code'));
         }
 
-        //$user = User::where('confirmation_code', '=', $confirmation_code)->first();
-
+        /**
+         * $user = User::where('confirmation_code', '=', $confirmation_code)->first();
+         */
         $user = User::whereConfirmationCode($confirmation_code)->first();
 
         if (!$user)  {
+            return Redirect::route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
+        }
 
-            return Redirect::route('auth.login')->with('error', 'Your validation code does not exist, check if your account is not already activated');
+        $timestamp_one_hour_ago = Carbon::now();
+        $created = new Carbon($user->updated_at);
+
+        if($created->diff($timestamp_one_hour_ago)->days >= 1 OR $created->diffInHours($timestamp_one_hour_ago) >= 1) {
+            $user->confirmation_code = self::generateToken();
+            $user->save();
+
+            event(new UserWasRegistered($user));
+
+            unset($user);
+            return Redirect::route('auth.login')->with('error', trans('auth.validation.validation_code_has_expired'));
         }
 
         $user->user_active = true;
@@ -198,7 +222,7 @@ class AuthController extends Controller
 
         unset($user);
 
-        return Redirect::route('auth.login')->with('success', 'Success, your account has been activated.');
+        return Redirect::route('auth.login')->with('success', trans('auth.validation.account_has_been_activated'));
     }
 
     /**

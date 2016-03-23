@@ -2,6 +2,7 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class FriendRequest extends Model {
@@ -21,7 +22,7 @@ class FriendRequest extends Model {
      */
     public function user()
     {
-        return $this->belongsTo('Medlib\Models\User');
+        return $this->belongsTo(User::class);
     }
 
 

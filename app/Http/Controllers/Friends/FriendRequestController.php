@@ -14,8 +14,7 @@ use Medlib\Commands\CreateFriendRequestCommand;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
 
-class FriendRequestController extends Controller
-{
+class FriendRequestController extends Controller {
 
     /**
      *  @var \Medlib\Models\User

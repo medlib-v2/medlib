@@ -23,17 +23,17 @@
             <li class="dropdown view-desktop" role="presentation">
                 <form class="navbar-form navbar-right" method="POST" action="{{ route('auth.login') }}" role="login">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group @if ($errors->has('email')) has-error @endif" style="margin-top:0px;">
+                    <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif" style="margin-top:0px;">
                         <div class="connect">{{ trans('auth.txt.email') }}</div>
-                        <input type="text" id="prepended-input" class="form-control" name="email" style="min-width:200px;" value="{{ old('email') }}" placeholder="{{ trans('auth.txt.email') }}" required />
+                        <input type="text" id="prepended-input" class="form-control" name="email" style="min-width:200px;" value="{{-- old('email') ? old('email'):'' --}}" placeholder="{{ trans('auth.txt.email') }}" required />
                         <div class="bas">
                             <div class="checkbox checkbox-success" style="font-size:12px;">
-                                <input type="checkbox" name="remember_me" class="checkbox-circle"  id="remember_me" checked="{{ old('remember_me') ? ' checked' : '' }}"/>
+                                <input type="checkbox" name="remember_me" class="checkbox-circle"  id="remember_me" checked="{{-- old('remember_me', '') ? ' checked' : '' --}}"/>
                                 <label for="remember_me">{{ trans('auth.txt.remember_me') }}</label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group @if ($errors->has('password')) has-error @endif" style="margin-top:0px;">
+                    <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif" style="margin-top:0px;">
                         <div class="connect">{{ trans('auth.txt.password') }}</div>
                         <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.txt.password') }}" required />
                         <div class="bas">
@@ -46,10 +46,8 @@
                     </div>
                     <div class="form-group" style="margin-top:15px;">
                         <div class="bas">
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-user"></span>
-                                {{ trans('auth.btn.login') }}
-                            </button>
+                            <button type="submit" class="btn btn-default">{{ trans('auth.btn.login') }}
+                                <span class="glyphicon glyphicon-user"></span></button>
                             <div class="bas" style="margin-top:10px;">
                                 <div class="link-sing-in">
                                     <span><a class="text-default" style="font-size:12px;" href="{{ route('auth.register') }}">{{ trans('auth.txt.sing_up') }}</a></span>

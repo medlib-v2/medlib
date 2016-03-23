@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('user_active', false);
             //$table->boolean('user_active')->default(false);
             $table->tinyInteger('account_type', false);
-            $table->string('user_avatar', 64);
+            $table->string('user_avatar');
             $table->string('confirmation_code');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);

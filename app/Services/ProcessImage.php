@@ -5,8 +5,7 @@ namespace Medlib\Services;
 use Faker\Factory as Faker;
 use Intervention\Image\Facades\Image;
 
-class ProcessImage
-{	
+class ProcessImage {
 	/**
 	 * Save Image to the public folder
 	 *
