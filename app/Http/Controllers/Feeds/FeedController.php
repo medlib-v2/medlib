@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\Feed\FeedRepository;
+use Medlib\Repositories\User\UserRepository;
 
 
 class FeedController extends Controller {
@@ -40,18 +41,32 @@ class FeedController extends Controller {
      * Display a listing of the resource.
      *
      * @param FeedRepository $feedRepository
+     * @param UserRepository $userRepository
      * @return mixed
      */
-    public function index(FeedRepository $feedRepository)
+    public function index($username, FeedRepository $feedRepository, UserRepository $userRepository)
     {
-        $user = $this->currentUser;
 
-        $feeds = $feedRepository->getPublishedByUserAndFriends($user);
+        if ($username == $this->currentUser->getUsername())
+        {
+            $user = $this->currentUser;
 
-        $friendsUserIds[] = $user->id;
+            $feeds = $feedRepository->getPublishedByUserAndFriends($user);
 
-        $feedsCount = Feed::getTotalCountFeedsForUser($friendsUserIds);
-        
+            $friendsUserIds[] = $user->id;
+
+            $feedsCount = Feed::getTotalCountFeedsForUser($friendsUserIds);
+        }
+        else {
+            $user = $userRepository->findByUsername($username);
+
+            $feeds = $feedRepository->getPublishedByUserAndFriends($user);
+
+            $friendsUserIds[] = $user->id;
+
+            $feedsCount = Feed::getTotalCountFeedsForUser($friendsUserIds);
+
+        }
         return view('feeds.index', compact('user', 'feeds', 'feedsCount'));
     }
 
