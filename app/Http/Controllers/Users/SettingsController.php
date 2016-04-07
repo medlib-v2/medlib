@@ -5,10 +5,8 @@ namespace Medlib\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Medlib\Http\Requests\DeleteUserRequest;
 
 /**
@@ -22,7 +20,7 @@ class SettingsController extends Controller {
      */
     public function showProfile() {
 
-        return view('profile.show.settings\'');
+        return view('users.settings.settings');
     }
 
     /**
@@ -112,7 +110,7 @@ class SettingsController extends Controller {
             // validation successful!
             // deleting user
             Auth::logout();
-            return Redirect::to('/');
+            return Redirect::route('home');
 
         } else {
             return Redirect::back()->withErrors('Could not delete your account in with those details.');

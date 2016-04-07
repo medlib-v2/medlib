@@ -5,8 +5,7 @@ namespace Medlib\Repositories\User;
 use Medlib\Models\User;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
-class CachingUserRepository implements UserRepository
-{
+class CachingUserRepository implements UserRepository {
 
 	/**
 	 * @var \Medlib\Repositories\User\UserRepository
@@ -24,18 +23,20 @@ class CachingUserRepository implements UserRepository
 	private $howMany;
 
 	/**
-	 * @var byFirstname
+	 * @var string $byFirstname
 	 */
 	private $byFirstname;
 
 
 	/**
 	 * Create a new instance of CachingUserRepository
+	 *
+	 * @param UserRepository $repository
+	 * @param  Cache $cache
 	 */
-	public function __construct(UserRepository $repository, Cache $cache)
-	{
-		$this->repository = $repository;
+	public function __construct(UserRepository $repository, Cache $cache) {
 
+		$this->repository = $repository;
 		$this->cache = $cache;
 	}
 
@@ -48,20 +49,15 @@ class CachingUserRepository implements UserRepository
 	 *
 	 *	@return mixed
 	 */
-	public function getPaginated($howMany = 10, $byFirstname = null)
-	{
-		$this->howMany = $howMany;
+	public function getPaginated($howMany = 10, $byFirstname = null) {
 
+		$this->howMany = $howMany;
 		$this->byFirstname = $byFirstname;
 
-		if(! $this->byFirstname)
-		{
-			return $this->cache->remember('users.all', 20, function(){
-
-			});	
+		if(! $this->byFirstname) {
+			return $this->cache->remember('users.all', 20, function(){});
 		}
-		else
-		{
+		else {
 			return $this->repository->getPaginated($this->howMany, $this->byFirstname);
 		}
 
@@ -74,8 +70,8 @@ class CachingUserRepository implements UserRepository
 	 *	
 	 * @return mixed
 	 */
-	public function findByUsername($username)
-	{
+	public function findByUsername($username) {
+		
 		return $this->repository->findByUsername($username);
 	}
 
@@ -86,21 +82,21 @@ class CachingUserRepository implements UserRepository
 	 *
 	 * @return mixed
 	 */
-	public function findById($id)
-	{
+	public function findById($id) {
+
 		return $this->repository->findById($id);
 	}
 
 	/**
 	 * Fetch a list of users by their ids
 	 *
-	 * @param  array $id
+	 * @param  array $ids
 	 *	
 	 * @return mixed
 	 */
-	public function findManyById(array $ids)
-	{
-		return $this->repository->findManyById($id);
+	public function findManyById(array $ids) {
+
+		return $this->repository->findManyById($ids);
 	}
 
 	/**
@@ -110,8 +106,8 @@ class CachingUserRepository implements UserRepository
 	 *	
 	 * @return mixed
 	 */
-	public function findByIdWithFeeds($id)
-	{
+	public function findByIdWithFeeds($id) {
+
 		return $this->repository->findByIdWithFeeds($id);
 	}
 
@@ -122,8 +118,8 @@ class CachingUserRepository implements UserRepository
 	 *	
 	 * @return mixed
 	 */
-	public function findByIdWithMessages($id)
-	{
+	public function findByIdWithMessages($id) {
+
 		return $this->repository->findByIdWithMessages($id);
 	}
 
@@ -134,8 +130,8 @@ class CachingUserRepository implements UserRepository
 	 *	
 	 * @return mixed
 	 */
-	public function findByIdWithFriendRequests($id)
-	{
+	public function findByIdWithFriendRequests($id) {
+
 		return $this->repository->findByIdWithFriendRequests($id);
 	}
 
@@ -146,8 +142,8 @@ class CachingUserRepository implements UserRepository
 	 *	
 	 * @return mixed
 	 */
-	public function findByIdWithFriends($id)
-	{
+	public function findByIdWithFriends($id) {
+
 		return $this->repository->findByIdWithFriends($id);
 	}
 

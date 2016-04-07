@@ -15,6 +15,14 @@ return array(
     |
     */
 
-    'driver' => 'gd'
+    'driver' => 'gd',
+    'upload_dir'  => 'uploads',
+    'upload_path' => public_path() . '/uploads/',
+    'quality' => 100,
+
+    'dimensions' => [
+        'thumb'  => [100, 100, true,  80],
+        'medium' => [600, 400, false, 90],
+   ] ,
 
 );

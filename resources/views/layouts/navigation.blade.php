@@ -25,7 +25,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif" style="margin-top:0px;">
                         <div class="connect">{{ trans('auth.txt.email') }}</div>
-                        <input type="text" id="prepended-input" class="form-control" name="email" style="min-width:200px;" value="{{-- old('email') ? old('email'):'' --}}" placeholder="{{ trans('auth.txt.email') }}" required />
+                        <input type="email" id="prepended-input" class="form-control" name="email" style="min-width:200px;" value="{{-- old('email') ? old('email'):'' --}}" placeholder="{{ trans('auth.txt.email') }}" required />
                         <div class="bas">
                             <div class="checkbox checkbox-success" style="font-size:12px;">
                                 <input type="checkbox" name="remember_me" class="checkbox-circle"  id="remember_me" checked="{{-- old('remember_me', '') ? ' checked' : '' --}}"/>

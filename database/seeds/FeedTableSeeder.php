@@ -18,8 +18,7 @@ class FeedTableSeeder extends Seeder
         $users = User::lists('id');
         $date = new DateTime();
         $day = 1;
-        //$users = [10,12,13,14,15];
-
+        
         foreach ($users as $user) {
 
             foreach (range(1, 30) as $index) {

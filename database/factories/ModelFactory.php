@@ -30,3 +30,15 @@ $factory->define(Medlib\Models\User::class, function (Faker\Generator $faker) {
         'confirmation_code' => UserTableSeeder::generateToken()
     ];
 });
+
+$factory->define(Medlib\Models\Message::class, function (Faker\Generator $faker) {
+
+    $userIds = DB::table('users')->where('id', '!=', 1)->lists('id');
+
+    return [
+        'body'		=> $faker->sentence(),
+        'senderprofileimage' => $faker->imageUrl($width = 180, $height = 180),
+        'senderid' => $faker->randomElement($userIds),
+        'sendername' => $faker->firstName,
+    ];
+});

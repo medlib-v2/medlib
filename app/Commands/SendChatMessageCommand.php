@@ -39,10 +39,11 @@ class SendChatMessageCommand extends Command implements SelfHandling {
     /**
      * Execute the command.
      *
-     * @return void
+     * @return boolean
      */
     public function handle() {
         $senderId = Auth::user()->id;
         $this->socketClient->sendMessageTo($this->receiverId, 23, $senderId, $this->message);
+        return true;
     }
 }

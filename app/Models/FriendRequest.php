@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FriendRequest extends Model {
 
     /**
+     * The database table used by the model.
+     * @var string
+     */
+    protected $table = 'friend_requests';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

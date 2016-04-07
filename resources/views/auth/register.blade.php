@@ -34,7 +34,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group @if (isset($errors) and $errors->has('first_name')) has-error @endif">
                             {{ Form::label('First Name', null, ['class' => 'control-label sr-only', 'for' => 'first_name']) }}
-                            {!! Form::text('first_name', old('first_name'), [
+                            {!! Form::text('first_name', request()->hasSession() ? old('first_name') : '', [
                                 'placeholder' => 'First name',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '[a-zA-Z]{3,64}',
@@ -48,7 +48,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group @if (isset($errors) and $errors->has('last_name')) has-error @endif" >
                             {{ Form::label('Last Name', null, ['class' => 'control-label sr-only', 'for' => 'last_name']) }}
-                            {!! Form::text('last_name', old('last_name'), [
+                            {!! Form::text('last_name', request()->hasSession() ? old('last_name') : '', [
                                 'placeholder' => 'First name',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '[a-zA-Z]{3,64}',
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group @if (isset($errors) and $errors->has('username')) has-error @endif">
-                            {!! Form::text('username', old('username'), [
+                            {!! Form::text('username', request()->hasSession() ? old('username'): '', [
                                 'placeholder' => 'login',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '[a-zA-Z0-9]{2,64}',
@@ -71,7 +71,7 @@
                             @if (isset($errors) and $errors->has('username')) <p class="help-block">{{ $errors->first('username') }}</p> @endif
                         </div>
                         <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif">
-                            {!! Form::email('email', old('email'), [
+                            {!! Form::email('email', request()->hasSession() ? old('email') : '', [
                                 'placeholder' => 'Email super@cool.com',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
@@ -81,7 +81,7 @@
                             @if (isset($errors) and $errors->has('email')) <p class="help-block">{{ $errors->first('email') }}</p> @endif
                         </div>
                         <div class="form-group @if (isset($errors) and $errors->has('email_confirm')) has-error @endif">
-                            {!! Form::email('email_confirm', old('email_confirm'), [
+                            {!! Form::email('email_confirm', request()->hasSession() ? old('email_confirm'): '', [
                                 'placeholder' => 'Confirm email super@cool.com',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
@@ -94,7 +94,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif">
                             {!! Form::password('password', [
-                                'value' => old('password'),
+                                'value' => request()->hasSession() ? old('password') : '',
                                 'placeholder' => 'Your password',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '.{6,}',
@@ -108,7 +108,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group @if (isset($errors) and $errors->has('password_confirm')) has-error @endif">
                             {!! Form::password('password_confirm', [
-                                'value' => old('password_confirm'),
+                                'value' => request()->hasSession() ? old('password_confirm') : '',
                                 'placeholder' => 'Confirm your password',
                                 'class' => 'form-control input-lg',
                                 'pattern'=> '.{6,}',
@@ -126,7 +126,7 @@
                                 <div class="form-group @if (isset($errors) and  $errors->has('profession')) has-error @endif">
                                     {!! Form::select('profession', [
                                         //'' => '---Selectonner une prefession---',
-                                        'studiant' => 'Etudaint',
+                                        'student' => 'Etudaint',
                                         'teacher' => 'Professeur',
                                         'researcher' => 'Chercheur'], null,
                                         [

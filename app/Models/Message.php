@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model {
 
     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'messages';
+
+    /**
      * These fields could be mass assigned
      */
     protected $fillable = ['user_id', 'body', 'senderid', 'senderprofileimage', 'sendername'];
@@ -16,7 +23,7 @@ class Message extends Model {
     /**
      * A message belongs to Many Users.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function users() {
 
@@ -26,10 +33,10 @@ class Message extends Model {
     /**
      *  Create a new message object.
      *
-     *	@param string body
-     *	@param int senderId
-     *	@param string senderProfileImage
-     *	@param string senderName
+     *	@param string $body
+     *	@param int $senderId
+     *	@param string $senderProfileImage
+     *	@param string $senderName
      *
      *	@return static
      */
@@ -47,7 +54,7 @@ class Message extends Model {
     /**
      * A Message has a many message responses.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function messageResponses()
     {

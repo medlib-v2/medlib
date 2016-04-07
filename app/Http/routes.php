@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => ['web']], function () {
     // Manage Routes by different language
     Route::group(['middleware' => 'language'], function () {
 
@@ -141,18 +141,35 @@ Route::group(['middleware' => 'web'], function () {
         /**
          * Users
          */
-        Route::group(['prefix' => 'profiles', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+        Route::group(['prefix' => 'profiles', 'middleware' => 'auth'], function() {
 
-            Route::get('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.show' ]);
+            Route::group(['namespace' => 'Users'], function() {
 
-            Route::get('/{username}', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+                Route::get('/', ['uses' => 'UsersController@index', 'as' => 'profile.show' ]);
 
-            Route::get('/{username}/friends', function($username){
-
-                return "all friends ". $username;
+                Route::post('/', ['uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
             });
 
-            Route::post('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
+            Route::group(['prefix' => '{username}'], function($username){
+
+                Route::group(['namespace' => 'Users'], function(){
+                    Route::get('/', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+                });
+
+                Route::group(['namespace' => 'Friends'], function(){
+                    Route::get('/friends', ['uses' => 'FriendController@index', 'as' => 'user.friends.show']);
+                });
+
+                Route::group(['namespace' => 'Feeds'], function(){
+
+                    Route::get('/feeds', ['uses' => 'FeedController@index', 'as' => 'user.feeds.show']);
+
+                    Route::post('/feeds', ['uses' => 'FeedController@store', 'as' => 'user.feeds.store']);
+
+                    Route::get('/feeds/more', ['uses' => 'FeedController@more', 'as' => 'user.feeds.more']);
+                });
+    
+            });
 
         });
 

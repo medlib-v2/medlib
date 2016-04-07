@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 class MessageResponse extends Model {
 
     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'message_responses';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -19,7 +26,7 @@ class MessageResponse extends Model {
     /**
      * Many Responses belong to many users.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function users() {
         return $this->belongsToMany(User::class)->withTimestamps();
@@ -29,7 +36,7 @@ class MessageResponse extends Model {
     /**
      * Many Responses belong to one Message
      *
-     * @return Email
+     * @return \Medlib\Models\Message
      */
     public function message() {
         return $this->belongsTo(Message::class)->withTimestamps();
@@ -38,12 +45,13 @@ class MessageResponse extends Model {
     /**
      *  Create a new response object.
      *
-     *	@param string $body
-     *	@param int $senderId
-     *	@param string $senderProfileImage
-     *	@param string $senderName
+     * @param string $body
+     * @param int $senderId
+     * @param int $receiverId
+     * @param string $senderProfileImage
+     * @param string $senderName
      *
-     *	@return static
+     * @return static
      */
     public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName) {
         $response = new static([
@@ -70,7 +78,7 @@ class MessageResponse extends Model {
     /**
      *  Determine if message response was opened by current user.
      *
-     *	@param int userId
+     *	@param int $userId
      *
      *	@return boolean
      */
@@ -82,7 +90,7 @@ class MessageResponse extends Model {
     /**
      *  Determine if message response was sent by a user.
      *
-     *	@param int userId
+     *	@param int $userId
      *
      *	@return boolean
      */

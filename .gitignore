@@ -8,6 +8,7 @@ gulpfile.js
 phpunit.xml
 common.js
 .env
+.env.testing
 .DS_Store
 .idea
 .idea/php.xml
@@ -18,3 +19,4 @@ readme.md
 /lamp
 /mobile
 /certificat
+database/migrations/2016_03_26_000458_create_likes_table.php2

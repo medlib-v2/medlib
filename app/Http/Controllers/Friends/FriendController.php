@@ -15,6 +15,14 @@ use Medlib\Repositories\User\UserRepository;
 class FriendController extends Controller {
 
 
+    /**
+     * @var \Medlib\Models\User;
+     */
+    private $currentUser;
+
+    /**
+     * FriendController constructor.
+     */
     public function __construct() {
 
         $this->currentUser = Auth::user();
@@ -23,6 +31,8 @@ class FriendController extends Controller {
     /**
      * Display a listing of the resource.
      *
+     * @param UserRepository $repository
+     * 
      * @return Response
      */
     public function index(UserRepository $repository) {
@@ -38,6 +48,7 @@ class FriendController extends Controller {
      * Store a newly created friend
      *
      * @param Request $request
+     * @param UserRepository $repository
      *
      * @return Response
      */

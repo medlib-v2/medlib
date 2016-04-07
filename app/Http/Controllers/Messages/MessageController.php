@@ -2,43 +2,101 @@
 
 namespace Medlib\Http\Controllers\Messages;
 
-use Illuminate\Http\Request;
-
 use Medlib\Http\Requests;
+use Medlib\Models\Message;
+use Illuminate\Http\Request;
+use Medlib\Models\MessageResponse;
+use Illuminate\Support\Facades\Auth;
+use Medlib\Commands\CreateMessageCommand;
 use Medlib\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Medlib\Repositories\User\UserRepository;
+use Medlib\Repositories\Message\MessageRepository;
 
+/**
+ * @Middleware("auth")
+ */
 class MessageController extends Controller {
 
+    private $currentUser;
+
+    public function __construct() {
+        $this->currentUser = Auth::user();
+    }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the message.
+     * @Get("message", as="message.all")
+     * @Middleware("auth")
      *
-     * @return \Illuminate\Http\Response
+     * @param \Medlib\Repositories\User\UserRepository $userRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index() {
-        return "ok";
+    public function index(UserRepository $userRepository) {
+
+        $user = $this->currentUser;
+
+        $messages = $userRepository->findByIdWithMessages($this->currentUser->id);
+
+        return view('messages.index', compact('messages', 'user'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new message.
+     * @Get("message", as="message.compose")
+     * @Middleware("auth")
+     *
      * @param  string  $username
-     * @return \Illuminate\Http\Response
+     * @param \Medlib\Repositories\User\UserRepository $userRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($username) {
-        dd($username);
+    public function create($username, UserRepository $userRepository) {
+
+        $currentUser = $this->currentUser;
+        $user = $userRepository->findByUsername($username);
+
+        return view('messages.create', compact('currentUser', 'user'));
     }
 
     /**
      * Store a newly created resource in storage.
+     * @Post("message", as="message.store")
+     * @Middleware("auth")
      *
+     * @param UserRepository $userRepository
+     * @param MessageRepository $messageRepository
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        //
+    public function store(Request $request, UserRepository $userRepository, MessageRepository $messageRepository) {
+
+        $validator = Validator::make($request->all(), ['body' => 'required']);
+
+        if($validator->fails())  {
+            return response()->json(['response' => 'failed', 'message' => $validator->messages()->first('body')]);
+        }
+        else  {
+
+            /**
+             * $this->dispatchFrom(CreateMessageCommand::class, $request);
+             */
+            $message = Message::createMessage($request->get('body'), $request->get('senderId'), $request->get('senderProfileImage'), $request->get('senderName'));
+
+            $response = MessageResponse::createMessageResponse($request->get('body'), $request->get('senderId'), $request->get('receiverId'), $request->get('senderProfileImage'), $request->get('senderName'));
+
+            $userRepository->findById($request->get('receiverId'))->messages()->save($message);
+
+            $messageRepository->findById($message->id)->messageResponses()->save($response);
+
+            $userRepository->findById($request->get('receiverId'))->messageResponses()->save($response);
+
+            return response()->json(['response' => 'success', 'message' => 'Your message was sent.']);
+        }
     }
 
     /**
      * Display the specified resource.
+     * @Get("message/{username}", as="message.show")
+     * @Middleware("auth")
      *
      * @param  string  $username
      * @return \Illuminate\Http\Response
@@ -52,33 +110,14 @@ class MessageController extends Controller {
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
+     * @Delete("message/delete", as="message.delete")
+     * @Middleware("auth")
      *
-     * @param  int  $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(Request $request) {
+        dd($request);
     }
 }

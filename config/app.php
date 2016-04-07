@@ -219,7 +219,7 @@ return [
         'Yaz'       => Yaz\Facades\Yaz::class,
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
-        'Image' => Intervention\Image\Facades\Image::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];

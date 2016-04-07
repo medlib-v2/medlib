@@ -55,18 +55,18 @@ class AuthController extends Controller {
      */
     public function doLogin(CreateSessionRequest $request) {
 
-        $response = $this->dispatchFrom(LoginUserCommand::class, $request);
-
-        if($response) return Redirect::route('home');
-
-        return Redirect::back()->withInput()->with('error', trans('auth.login.failed'));
+        /**
+         * $response = $this->dispatch(LoginUserCommand::class, $request);
+         * if($response) return Redirect::route('home');
+         * return Redirect::back()->with('error', trans('auth.login.failed'));
+         */
 
         /**
          * Set the remember me cookie if the user check the box
          * $remember = ($request->has('remember')) ? true : false;
          *
          * create our user data for the authentication
-         *
+         */
         $userdata = [
             'email'     => $request->get('email'),
             'password'  => $request->get('password')
@@ -74,20 +74,20 @@ class AuthController extends Controller {
 
         /**
          * Attempt to do the login
-         *
+         */
         if (! Auth::attempt($userdata, $request->has('remember'))) {
             /**
              * Validation not successful, send back to form
-             *
+             */
             Auth::logout();
-            return Redirect::to('login');
+            return Redirect::to('login')->with('error', trans('auth.login.failed'));
 
         }
         $user = Auth::user();
 
         /**
          * Check if account is active
-         *
+         */
         if (! $user->userAccountIsActive() == true) {
             Auth::logout();
             return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
@@ -96,7 +96,7 @@ class AuthController extends Controller {
         /**
          * validation successful!
          * redirect them to the secure section or whatever
-         *
+         */
 
         $friendsUserIds = $user->friends()->where('onlinestatus', 1)->lists('requester_id');
         $relatedToId = $user->id;
@@ -106,7 +106,6 @@ class AuthController extends Controller {
 
         $user->updateOnlineStatus(1);
         return Redirect::route('home');
-        */
     }
 
     /**
@@ -122,6 +121,8 @@ class AuthController extends Controller {
 
     /**
      * Register a new user in database end sending a confirmation email
+     * @Post("register")
+     * @Middleware("guest")
      *
      * @param RegisterUserRequest $request
      * @return mixed
@@ -170,8 +171,8 @@ class AuthController extends Controller {
     /**
      * Log the user out.
      *
-     * @Get("logout", as="auth.verify")
-     * @Middleware("guest")
+     * @Get("logout", as="auth.logout")
+     * @Middleware("auth")
      *
      * @return Redirect
      */
@@ -181,7 +182,7 @@ class AuthController extends Controller {
     }
 
     /**
-     * @Get("verify", as="logout")
+     * @Get("verify", as="auth.verify")
      * @Middleware("guest")
      *
      * @param string $confirmation_code

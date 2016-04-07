@@ -61,7 +61,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * A User can have many feeds.
      *
-     * @return collection
+     * @return mixed
      */
     public function feeds() {
 
@@ -71,7 +71,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * A User can have many friend requests.
      *
-     * @return collection
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function friendRequests() {
 
@@ -80,8 +80,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     /**
      * A user can have many friends.
-     * @return Collection
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function friends() {
         return $this->belongsToMany(Self::class, 'friends', 'requested_id', 'requester_id')->withTimestamps();
@@ -89,7 +89,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     /**
      * A user belons to many messages.
-     * @return Collection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function messages() {
         return $this->belongsToMany(Message::class)->withTimestamps();
@@ -97,7 +98,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     /**
      * A user has many message responses.
-     * @return Collection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function messageResponses() {
 
@@ -270,7 +272,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function getNameOrUsername() {
 
-        return $this->getName() ?: $this->username;
+        return $this->getName() ?: $this->getUsername();
     }
 
     /**
@@ -288,7 +290,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @return mixed
      */
     public function getFirstNameOrUsername() {
-        return $this->first_name ?: $this->username;
+        return $this->getFirstName() ?: $this->getUsername();
     }
 
     /**
@@ -371,5 +373,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function getGender() {
         return Str::ucfirst($this->gender);
+    }
+
+    /**
+     * Return the statement query
+     * @param $username
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function whereUsername($username){
+        return self::where('username', $username);
     }
 }

@@ -30,7 +30,6 @@ class FriendRequestWasSent extends Event {
     public function __construct(User $requestedUser, User $requesterUser) {
 
         $this->requestedUser = $requestedUser;
-
         $this->requesterUser = $requesterUser;
     }
 
