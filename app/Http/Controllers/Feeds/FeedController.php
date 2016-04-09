@@ -40,6 +40,7 @@ class FeedController extends Controller {
     /**
      * Display a listing of the resource.
      *
+     * @param $username
      * @param FeedRepository $feedRepository
      * @param UserRepository $userRepository
      * @return mixed
@@ -101,9 +102,9 @@ class FeedController extends Controller {
         $validator = Validator::make($request->all(), ['body'	=> 'required']);
 
         if($validator->fails()) return response()->json(['response' => 'failed']);
-
+        
         $feed = Feed::publish($request->get('body'), $this->currentUser->getFirstName(), $this->currentUser->getAvatar());
-
+        
         Auth::user()->feeds()->save($feed);
 
         return response()->json([

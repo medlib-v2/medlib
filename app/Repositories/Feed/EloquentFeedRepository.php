@@ -19,7 +19,7 @@ class EloquentFeedRepository implements FeedRepository
 		$friendsUserIds = $user->friends()->lists('requester_id');
 
 		$friendsUserIds[] = $user->id;
-
+		
 		return Feed::whereIn('user_id', $friendsUserIds)->latest()->take(10)->get();
 
 	}

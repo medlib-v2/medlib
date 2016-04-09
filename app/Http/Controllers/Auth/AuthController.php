@@ -97,12 +97,13 @@ class AuthController extends Controller {
          * validation successful!
          * redirect them to the secure section or whatever
          */
-
+        /**
         $friendsUserIds = $user->friends()->where('onlinestatus', 1)->lists('requester_id');
         $relatedToId = $user->id;
         $clientCode = 22;
         $message = true;
-        //$this->socketClient->updateChatStatusBar($friendsUserIds, $clientCode, $relatedToId, $message);
+        $this->socketClient->updateChatStatusBar($friendsUserIds, $clientCode, $relatedToId, $message);
+        */
 
         $user->updateOnlineStatus(1);
         return Redirect::route('home');
@@ -177,6 +178,13 @@ class AuthController extends Controller {
      * @return Redirect
      */
     public function doLogout() {
+        /**
+        $user = Auth::user();
+        $user->updateOnlineStatus(0);
+        $friendsUserIds = $this->user->friends()->where('onlinestatus', 1)->lists('requester_id');
+        $relatedToId = $user->id;
+        $this->socketClient->updateChatStatusBar($friendsUserIds, 22, $relatedToId, false);
+        */
         Auth::logout();
         return Redirect::route('home');
     }

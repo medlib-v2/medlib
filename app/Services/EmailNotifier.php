@@ -37,7 +37,7 @@ abstract class EmailNotifier implements EmailNotifierInterface {
             'confirmation_code' => $user->getConfirmationCode()
         ];
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
     /**

@@ -19,7 +19,6 @@
         </div>
 
     @elseif(isset($sendingResponseMessage))
-
         <div class="form-group">
             {!! Form::hidden('responseId', $messageResponseId, ['class' => 'form-control']) !!}
         </div>
@@ -39,8 +38,9 @@
         <div class="form-group">
             {!! Form::hidden('senderName', $senderName, ['class' => 'form-control']) !!}
         </div>
-
-
+    @elseif(isset($postingFeed))
+        {!! Form::hidden('senderName', $senderName, ['class' => 'form-control']) !!}
+        {!! Form::hidden('senderProfileImage', $senderProfileImage, ['class' => 'form-control']) !!}
     @endif
 
     <div class="btn-toolbar">

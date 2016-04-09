@@ -28,11 +28,11 @@ class SendConfirmationEmail extends Event {
      * Handle the event.
      *
      * @param  \Medlib\Events\UserWasRegistered $event
-     * @return void
+     * @return \Illuminate\Mail\Mailer
      */
     public function handle(UserWasRegistered $event) {
 
-        $this->emailNotifier->sendRegistrationConfirmation($event->user);
+        return $this->emailNotifier->sendRegistrationConfirmation($event->user);
 
     }
 }

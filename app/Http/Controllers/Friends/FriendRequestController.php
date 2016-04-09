@@ -34,7 +34,9 @@ class FriendRequestController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param FriendRequestRepository $friendRequest
+     * @param UserRepository $repository
+     * @return mixed
      */
     public function index(FriendRequestRepository $friendRequest, UserRepository $repository) {
         $user = $this->currentUser;
@@ -62,7 +64,7 @@ class FriendRequestController extends Controller {
      *
      * @param Request $request
      *
-     * @return Response
+     * @return mixed
      */
     public function store(Request $request) {
 
@@ -85,7 +87,7 @@ class FriendRequestController extends Controller {
      * @param Request $request
      *
      *
-     * @return Response
+     * @return mixed
      */
     public function destroy(Request $request) {
 

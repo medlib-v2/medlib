@@ -21,15 +21,15 @@ class EmailFriendRequest extends Event {
     public function __construct(UserMailer $mailer) {
         $this->mailer = $mailer;
     }
-
+    
     /**
      * Handle the event.
      *
      * @param \Medlib\Events\FriendRequestWasSent $event
-     * @return void
+     * @return \Illuminate\Mail\Mailer
      */
     public function handle(FriendRequestWasSent $event) {
-        $this->mailer->sendFriendRequestAlertTo($event->requestedUser, $event->requesterUser);
+        return $this->mailer->sendFriendRequestAlertTo($event->requestedUser, $event->requesterUser);
     }
 
 
