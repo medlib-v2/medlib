@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     var bs3Wysihtml5Templates = {
         "emphasis": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';

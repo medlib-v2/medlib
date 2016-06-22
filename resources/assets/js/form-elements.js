@@ -1,5 +1,4 @@
-$(function(){
-
+(function($){
     $('.widget').widgster();
     var bs3Wysihtml5Templates = {
         "emphasis": function(locale, options) {
@@ -93,4 +92,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

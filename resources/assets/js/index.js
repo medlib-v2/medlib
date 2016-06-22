@@ -1,4 +1,4 @@
-$(function(){
+(function($){
 
     function initAnimations(){
         $('#geo-locations-number, #percent-1, #percent-2, #percent-3').each(function(){
@@ -23,4 +23,4 @@ $(function(){
     pjaxPageLoad();
     MedlibApp.onPageLoad(pjaxPageLoad);
 
-});
+})(jQuery);

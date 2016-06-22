@@ -8,12 +8,12 @@
                        value="{{ trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.') }}"
                        class="search-query form-control"
                        style="height:40px;">
-                                    <span class="input-group-btn">
-							        <button id="submitButton" class="btn btn-primary" style="height:40px;" type="submit">
-                                        <span class="visible-md visible-sm visible-lg hidden-xs">{{ trans('search.btn.find') }}</span>
-                                        <i class="visible-xs hidden-sm fa fa-search text-white"></i>
-                                    </button>
-						        </span>
+                <span class="input-group-btn">
+                    <button id="submitButton" class="btn btn-primary" style="height:40px;" type="submit">
+                        <span class="visible-md visible-sm visible-lg hidden-xs">{{ trans('search.btn.find') }}</span>
+                        <i class="visible-xs hidden-sm fa fa-search text-white"></i>
+                    </button>
+                </span>
             </div>
             <input type="hidden" name="qdb" value="{{ \Illuminate\Support\Facades\Input::get('qdb') }}">
         </div>
@@ -31,7 +31,7 @@
                 <img src="{{ asset('/images/tree_plus.gif') }}"/>
                 <label><span> {{ trans('search.txt.advanced') }}</span></label>
             </div>
-            <!-- and advenced options -->
+            <!-- begin advenced options -->
             <div id="DescriptionOptions" class="description" style="display:none">
                 <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                     <input name="title" value="ti" checked="checked" type="checkbox" id="title">

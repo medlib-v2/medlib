@@ -1,8 +1,6 @@
 <td class="spacer"></td>
 <td class="content">
-    <div class="">
-        @include('search.header')
-    </div>
+    <div class="">@include('search.header')</div>
     <div id="pagination" class="jplist">
         <div class="jplist-panel panel-top">
         <!-- Begin results info -->

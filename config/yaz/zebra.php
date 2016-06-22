@@ -2,6 +2,7 @@
 
 return [
 
+    /**
     'BNF' => [
         'fullname' => 'BN Fance',
         'instance' => 'BNF',
@@ -39,7 +40,7 @@ return [
         ],
     ],
 
-    /**
+    **
      * Address: z3950.copac.ac.uk
      * Port: 210
      * Database name: COPAC
@@ -142,7 +143,7 @@ return [
 
         ],
     ],
-    */
+    *
 
     /**
     'UNOX' => [
@@ -165,7 +166,7 @@ return [
 
         ],
     ],
-    */
+    *
 
     'UCL' => [
         'fullname' => 'Libellule | Université Catholique de Louvain',
@@ -202,4 +203,6 @@ return [
 
         ],
     ],
+
+    */
 ];

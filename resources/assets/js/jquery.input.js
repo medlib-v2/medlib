@@ -5,7 +5,5 @@
             var input = $("<input>").attr("id", "hidden-input").attr("type", "hidden").attr("name", name).val(value);
             $(this).append($(input));
         });
-
-        return this;
     }
 })(jQuery);

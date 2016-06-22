@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function initGmap(){
         var map = new GMaps({
             el: '#gmap',
@@ -31,4 +31,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

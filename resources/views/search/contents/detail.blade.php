@@ -6,7 +6,11 @@
     <div class="block">
         <div class="row" id="bibdata">
             <div class="col-md-1">
-                <label class="pull-right number" for="list-item-{{ $counter }}">{{ $counter }}.</label>
+                <!-- style="display:none"  -->
+                <div class="checkbox checkbox-success" style="display: inline-block">
+                    <input type="checkbox" name="item" class="checkbox-circle" id="list-item-{{ $counter }}">
+                    <label class="pull-right number" for="list-item-{{ $counter }}" data-item="{{ $counter }}">{{ $counter }}.</label>
+                </div>
             </div>
             @include('search.contents.detail.cover')
             <div class="col-md-9">

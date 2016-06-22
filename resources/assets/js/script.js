@@ -1,4 +1,4 @@
-$(document).ready(function(){
+(function($){
 	
 	// The small arrow that marks the active search icon:
 	var arrow = $('<span>',{class:'arrow'}).appendTo('ul.icons');
@@ -26,4 +26,4 @@ $(document).ready(function(){
 	
 	// Focusing the input text box:
 	$('#s').focus();
-});
+})(jQuery);

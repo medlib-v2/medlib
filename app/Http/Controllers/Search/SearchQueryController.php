@@ -419,6 +419,7 @@ class SearchQueryController extends Controller
             $this->_results[] = MarcXML::parse($parserResult);
         }
         $filter = FilterRecord::traverseStructure($this->_results);
+
 		*/
 
         // La requête utilisateur à parser
@@ -426,7 +427,8 @@ class SearchQueryController extends Controller
 
         $record = Yaz::from($request->query('qdb'))
 			->where($query)
-			->limit(1, 10)
+			->limit(1, 10240)
+			//->orderBy('au ASC')
 			->all(YazRecords::TYPE_XML);
 
         Yaz::close();
@@ -449,10 +451,8 @@ class SearchQueryController extends Controller
 			];
 			$filter = [];
 		}
-
-
+		
 		if($request->ajax()) {
-
 			return View::make("search.ajax.results", [ 'results' => $this->_results,  'filter' => $filter]);
 		}
 		else {
@@ -460,7 +460,8 @@ class SearchQueryController extends Controller
 		}
     }
 
-	public function doAdvanced() {
+	public function doAdvanced(Request $request) {
+
 		return View::make("search.advanced-search");
 	}
 
@@ -492,8 +493,6 @@ class SearchQueryController extends Controller
 			->all(YazRecords::TYPE_XML);
 
 		Yaz::close();
-
-		dd($record);
 
 		if(!$record->fails() or $record->hasError() == 1005) {
 

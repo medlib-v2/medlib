@@ -14,10 +14,9 @@ return array(
     | Supported: "gd", "imagick"
     |
     */
-
     'driver' => 'gd',
     'upload_dir'  => 'uploads',
-    'upload_path' => public_path() . '/uploads/',
+    'upload_path' => public_path('uploads/'),
     'quality' => 100,
 
     'dimensions' => [

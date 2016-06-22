@@ -55,7 +55,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password',
         'remember_token',
-        'confirmation_code'
+        'confirmation_code',
+        'created_at',
+        'updated_at',
+        'user_active'
     ];
 
     /**
@@ -94,6 +97,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function messages() {
         return $this->belongsToMany(Message::class)->withTimestamps();
+    }
+
+    /**
+     * A user belons to many comments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function comments() {
+        return $this->belongsToMany(Comment::class)->withTimestamps();
     }
 
     /**

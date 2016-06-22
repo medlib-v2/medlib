@@ -7,7 +7,7 @@
                 <td align="justify">
                     <div>
                         @foreach($result->isbns as $isbn)
-                        <span>{{ $isbn }}</span>
+                        <span data-isbn="{{ cleanIsbn($isbn) }}">{{ $isbn }}</span>
                         @endforeach
                     </div>
                 </td>

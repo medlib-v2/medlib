@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProcessImage {
 
@@ -20,7 +21,7 @@ class ProcessImage {
 
 		$filename = $this->rename($file);
 		Image::make($file)->resize($width, $height)->save($path.$filename);
-		return asset('avatars/'.$filename);
+		return asset($path.$filename);
 	}
 
 	/**
@@ -124,30 +125,29 @@ class ProcessImage {
 	/**
 	 * Upload an image to the public storage
 	 *
-	 * @param  File $file
+	 * @param  UploadedFile $file
 	 * @param string $dir
 	 * @param boolean $createDimensions
 	 * @return string
 	 */
-	public function upload($file, $dir = null, $createDimensions = false)
-	{
+	public function upload(UploadedFile $file, $dir = null, $createDimensions = false) {
 
 		if ($file) {
 
 			// Generate random dir
-			if (!$dir) $dir = str_random(8);
+			if (!$dir) $dir = Config::get('image.upload_path').'images/';
 
 			// Get file info and try to move
-			$destination = Config::get('image.upload_path') . $dir;
-			$filename = $file->getClientOriginalName();
-			$path = Config::get('image.upload_dir') . '/' . $dir . '/' . $filename;
+			$destination = $dir;
+			$filename = $this->rename($file);
+			$path = $dir . '/' . $filename;
 			$uploaded = $file->move($destination, $filename);
 
 			if ($uploaded) {
 
 				if ($createDimensions) $this->createDimensions($path);
 
-				return $path;
+				return asset('uploads/images/'.$filename);
 			}
 		}
 	}

@@ -2,7 +2,7 @@ var csauthositepath="http://www.coupay.com.sg/";
 
 function CsauthGetXmlHttpObject(handler) {
 
-	var objXmlHttp=null;
+	var objXmlHttp = null;
 
 	if (navigator.userAgent.indexOf("Opera") >= 0) {
 

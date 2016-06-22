@@ -12,11 +12,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 col-md-12 input-group input-group-md">
-                                <input id="ssearch" type="search"
-                                       name="query"
-                                       placeholder="{{ trans('search.txt.criteria') }}"
-                                       class="search-query form-control"
-                                       style="height:40px;">
+                                <input id="ssearch" type="search" name="query" placeholder="{{ trans('search.txt.criteria') }}" class="search-query form-control" style="height:40px;">
                                 <span class="input-group-btn">
 							        <button id="submitButton" class="btn btn-primary" style="height:40px;" type="submit">
                                         <span class="visible-md visible-sm visible-lg hidden-xs">{{ trans('search.btn.find') }}</span>
@@ -37,7 +33,6 @@
                                 </select>
                                 @if (isset($errors) && $errors->has('qdb')) <p class="help-block text-warning">{{ $errors->first('qdb') }}</p> @endif
                             </div>
-
                             <div class="col-xs-12 col-md-4 col-sm-4">
                                 <ul class="icons">
                                     <li class="all" title="Web Search" data-searchType="all">All</li>
@@ -86,14 +81,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- and advenced options -->
+                        <!-- / and advenced options -->
                     </div>
                 </form>
-                <div>
-                    <span class="link" >
-                        <a href="{{ route('search.advanced') }}">Recherche avancée</a>
-                    </span>
-                </div>
+                <!--<div><span class="link" ><a href="{{ route('search.advanced') }}">Recherche avancée</a></span></div> -->
             </div>
             <div class="col-md-2 col-xs-1 col-sm-2"></div>
         </div>

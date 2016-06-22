@@ -27,4 +27,20 @@ class VerifyCsrfToken extends BaseVerifier
     public function handle($request, Closure $next) {
         return parent::handle($request, $next);
     }
+
+    /**
+     * Override to disable validation when testing.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return bool
+     */
+    protected function tokensMatch($request)
+    {
+        // Don't validate CSRF when testing.
+        if(env('APP_ENV') === 'testing') {
+            return true;
+        }
+
+        return parent::tokensMatch($request);
+    }
 }

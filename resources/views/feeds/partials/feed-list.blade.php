@@ -1,14 +1,8 @@
 <section class="event" id="feedid{!! $feed->id !!}">
-	<span class="thumb-sm avatar pull-xs-left mr-sm">
-		<img class="img-circle" src="{!! $feed->user->getAvatar() !!}" alt="{!! $feed->user->getUsername() !!}">
-	</span>
-	<h5 class="event-heading">
-		<a href="{!! url('/profiles/'.$feed->user->getUsername()) !!}">{!! $feed->user->getName() !!}</a>
-	</h5>
+	<span class="thumb-sm avatar pull-xs-left mr-sm"><img class="img-circle" src="{!! $feed->user->getAvatar() !!}" alt="{!! $feed->user->getUsername() !!}"></span>
+	<h5 class="event-heading"><a href="{!! url('/profiles/'.$feed->user->getUsername()) !!}">{!! $feed->user->getName() !!}</a></h5>
 	<p class="text-muted">{!! $feed->created_at->diffForHumans() !!}</p>
-	<p>
-		{!! $feed->getContent() !!}
-	</p>
+	<p>{!! $feed->getContent() !!}</p>
 	<footer>
 		<div class="clearfix">
 			<ul class="post-links mt-sm pull-xs-left">
@@ -18,9 +12,7 @@
 			</ul>
 
 			<span class="thumb thumb-sm pull-xs-right">
-				<a href="#">
-					<img class="img-circle" src="demo/img/people/a1.jpg">
-				</a>
+				<a href="#"><img class="img-circle" src="demo/img/people/a1.jpg"></a>
 			</span>
 			<span class="thumb thumb-sm pull-xs-right">
 				<a href="#"><img class="img-circle" src="demo/img/people/a5.jpg"></a>

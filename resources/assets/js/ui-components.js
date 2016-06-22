@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function pageLoad(){
         $('.widget').widgster();
         $('[data-toggle=tooltip]').tooltip();
@@ -6,4 +6,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

@@ -1,1 +1,0 @@
-$(function(){function i(){$(".widget").widgster()}i(),MedlibApp.onPageLoad(i)});

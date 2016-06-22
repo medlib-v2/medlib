@@ -197,7 +197,7 @@ class AuthController extends Controller {
      * @return mixed
      *
      */
-    public function doVerify(string $confirmation_code) {
+    public function doVerify($confirmation_code) {
 
         if(!$confirmation_code) {
             return Redirect::route('home')->with('error', trans('auth.validation.need_validation_code'));

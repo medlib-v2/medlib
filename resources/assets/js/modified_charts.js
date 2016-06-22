@@ -1,4 +1,4 @@
-$(function(){
+(function($){
 
     function initSparkline2(){
         $('#sparkline2').sparkline([2,4,8],{
@@ -122,4 +122,4 @@ $(function(){
     }
     pageLoad();
     //MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

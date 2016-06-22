@@ -112,6 +112,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/detail', ['uses' => 'SearchQueryController@doDetail', 'as' => 'search.detail']);
         });
 
+        Route::group(['prefix' => 'search', 'namespace' => 'Templates'], function (){
+
+            Route::get('/advanced/templates-input', ['uses' => 'TemplateAdvancedSearchController@getQueryForm', 'as' => 'search.advanced.templates-input']);
+        });
+
         /**
          * User settings
          */

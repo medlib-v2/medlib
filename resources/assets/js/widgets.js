@@ -1,4 +1,4 @@
-$(function(){
+(function($){
 
     function initPointSparkline($el, data){
         $el.sparkline(data, {
@@ -442,4 +442,4 @@ $(function(){
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
 
-});
+})(jQuery);

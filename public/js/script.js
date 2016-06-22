@@ -1,1 +1,0 @@
-$(document).ready(function(){var i=$("<span>",{"class":"arrow"}).appendTo("ul.icons");$("ul.icons li").click(function(){var a=$(this);return a.hasClass("active")?!1:(a.siblings().removeClass("active"),a.addClass("active"),void i.stop().animate({left:a.position().left,marginLeft:a.width()/2-4}))}),$("li.all").click(),$("#s").focus()});

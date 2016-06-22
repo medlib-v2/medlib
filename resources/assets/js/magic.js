@@ -1,4 +1,4 @@
-$(document).ready(function(){
+(function($){
 	// submit the form
 	$('form').submit(function(event){
 		
@@ -36,4 +36,4 @@ $(document).ready(function(){
 		
 		event.preventDefault();
 	});
-});
+})(jQuery);

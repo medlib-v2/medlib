@@ -59,40 +59,12 @@
 </div>
 
 <!-- common libraries. required for every page-->
-<script type="text/javascript" src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jquery-pjax/jquery.pjax.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/button.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jQuery-slimScroll/jquery.slimscroll.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/widgster/widgster.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/pace.js/pace.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
-
-<!-- common app js -->
-<script type="text/javascript" src="{{ asset('js/settings-app.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/progressbar.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.input.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.param.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.progress.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/scripts.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/lodash.min.js') }}"></script>
 
 <!-- page specific js -->
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/form-elements-home.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jasny-bootstrap/js/fileinput.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jquery.sparkline/dist/jquery.sparkline.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/tables-basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/form-elements-home.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/tables-basic.min.js') }}"></script>
 <!-- page specific libs -->
 @yield('script')
 <!-- page specific js -->

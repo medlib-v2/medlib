@@ -5,8 +5,7 @@ namespace Medlib\Models;
 use Medlib\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
-{
+class Author extends Model {
     /**
      * The database table used by the model.
      *

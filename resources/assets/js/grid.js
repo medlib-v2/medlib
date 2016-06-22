@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function pageLoad(){
         $(".widget-container").sortable({
             connectWith: '.widget-container',
@@ -99,4 +99,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

@@ -1,4 +1,4 @@
-$(function(){
+(function($){
 
     function call_check_uncheck_all(chk)
     {
@@ -95,4 +95,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

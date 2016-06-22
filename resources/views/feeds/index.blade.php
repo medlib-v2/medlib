@@ -25,24 +25,22 @@
 					'senderProfileImage' => Auth::user()->getAvatar()
 					])
 
-						<div class="feed-list" data-feedcount="{!! $feedsCount !!}">
+					<div class="feed-list" data-feedcount="{!! $feedsCount !!}">
 						<div id="loader"></div>
 
-							@if($feeds->count())
+						@if($feeds->count())
 
-								@foreach($feeds as $feed)
+							@foreach($feeds as $feed)
 
-									@include('feeds.partials.feed-list')
+								@include('feeds.partials.feed-list')
 
-								@endforeach
-							@else
-								<div class="alert alert-info no-feeds-info" role="alert">
-									<span class="glyphicon glyphicon-info-sign"></span> You haven't posted anything yet.
-								</div>
-
-							@endif
-
-						</div>
+							@endforeach
+						@else
+							<div class="alert alert-info no-feeds-info" role="alert">
+								<span class="glyphicon glyphicon-info-sign"></span> You haven't posted anything yet.
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
 		</main>

@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif" style="margin-top:0px;">
-                        <div class="connect">{{ trans('auth.txt.password') }}</div>
+                        <div class="connect" style="margin-top: -2px;">{{ trans('auth.txt.password') }}</div>
                         <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.txt.password') }}" required />
                         <div class="bas">
                             <div class="link-forgot-my-password">

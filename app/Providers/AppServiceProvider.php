@@ -2,9 +2,12 @@
 
 namespace Medlib\Providers;
 
+
 use Medlib\Services\ProcessImage;
 use Medlib\Services\EmailNotifier;
 use Medlib\Services\EmailNotifierInterface;
+use Medlib\Repositories\Comment\CommentRepository;
+use Medlib\Repositories\Comment\EloquentCommentRepository;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
 use Medlib\Repositories\FriendRequest\EloquentFriendRequestRepository;
 use Medlib\Repositories\User\UserRepository;
@@ -46,6 +49,8 @@ class AppServiceProvider extends ServiceProvider {
 
         $this->app->bind(FriendRequestRepository::class, EloquentFriendRequestRepository::class);
 
+        $this->app->bind(CommentRepository::class, EloquentCommentRepository::class);
+        
         $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
 
         $this->app->bind('MessageRequest',  CreateMessageRequest::class);

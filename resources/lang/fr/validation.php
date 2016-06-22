@@ -76,6 +76,7 @@ return [
     'timezone'             => 'Le champ :attribute doit être un fuseau horaire valide.',
     'unique'               => 'La valeur du champ :attribute est déjà utilisée.',
     'url'                  => "Le format de l'URL de :attribute n'est pas valide.",
+    'url_video'            => "Le format de l'URL de :attribute n'est pas valide.",
 
     /*
     |--------------------------------------------------------------------------

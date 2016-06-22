@@ -62,8 +62,7 @@ class FriendController extends Controller {
                 return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
             }
         }
-        else
-        {
+        else  {
             $friend = User::whereUsername($request->get('username'))->first();
 
             $this->currentUser->createFriendShipWith($friend->id);
