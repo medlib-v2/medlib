@@ -12,21 +12,25 @@ class DatabaseSeeder extends Seeder {
         'books_media',
         'books_subject',
         'categories',
+        'comments',
         'editions',
         'favorites',
         'feeds',
         'friends',
         'friend_requests',
+        'languages',
+        'likes',
         'messages',
         'message_responses',
         'message_response_user',
         'message_user',
         'password_resets',
         'publishers',
-        'users'
+        'users',
     ];
 
     protected $seeders = [
+        UserTableSeeder::class,
         AuthorsTableSeeder::class,
         BookTableSeeder::class,
         CategoryTableSeeder::class,
@@ -38,7 +42,7 @@ class DatabaseSeeder extends Seeder {
         MessageUserTableSeeder::class,
         MessagesTableSeeder::class,
         PublisherTableSeeder::class,
-        UserTableSeeder::class
+        LanguageSeeder::class
     ];
 
     /**
@@ -55,17 +59,7 @@ class DatabaseSeeder extends Seeder {
         foreach ($this->seeders as $seedClass) {
             $this->call($seedClass);
         }
-
-        /**
-        $this->call(UserTableSeeder::class);
-        $this->call(FeedTableSeeder::class);
-        $this->call(FriendRequestTableSeeder::class);
-        $this->call(MessagesTableSeeder::class);
-        $this->call(MessageUserTableSeeder::class);
-        $this->call(MessageResponsesTableSeeder::class);
-        $this->call(MessageResponseUserTableSeeder::class);
-        $this->call(AuthorsTableSeeder::class);
-        */
+        
         Model::reguard();
 
     }

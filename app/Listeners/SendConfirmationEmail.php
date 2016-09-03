@@ -1,12 +1,14 @@
 <?php
 
-namespace Medlib\Events;
+namespace Medlib\Listeners;
 
-use Medlib\Events\Event;
 use Medlib\Services\UserMailer;
 use Medlib\Events\UserWasRegistered;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendConfirmationEmail extends Event {
+
+class SendConfirmationEmail {
 
     /**
      * @var EmailNotifierInterface

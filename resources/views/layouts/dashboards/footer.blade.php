@@ -22,16 +22,16 @@
     <script src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
 
     <!-- common app js -->
-    <script src="{{ asset('js/settings-app.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/autocomplete.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/settings-app.min.js') }}"></script>
+    <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="{{ asset('js/autocomplete.min.js') }}"></script>
+    <script src="{{ asset('js/main.min.js') }}"></script>
     <script src="{{ asset('vendor/underscore/underscore-min.js') }}"></script>
     <script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
     <script src="{{ asset('vendor/messenger/build/js/messenger.js') }}"></script>
     <script src="{{ asset('vendor/messenger/build/js/messenger-theme-flat.js') }}"></script>
     <script src="{{ asset('/vendor/messenger/docs/welcome/javascripts/location-sel.js') }}"></script>
-    <script src="{{ asset('js/ui-notifications.js') }}"></script>
+    <script src="{{ asset('js/ui-notifications.min.js') }}"></script>
 
 
     <!-- page specific libs -->

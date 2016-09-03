@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Response;
 use Medlib\Commands\RemoveFriendCommand;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Bus;
 
 class FriendController extends Controller {
 
@@ -97,7 +98,7 @@ class FriendController extends Controller {
         }
         else
         {
-            $this->dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
+            Bus::dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
 
             $friendsCount = $this->currentUser->friends()->count();
 

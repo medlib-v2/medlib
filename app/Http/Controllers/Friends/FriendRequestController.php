@@ -2,10 +2,10 @@
 
 namespace Medlib\Http\Controllers\Friends;
 
-
 use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Medlib\Models\FriendRequest;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -74,7 +74,7 @@ class FriendRequestController extends Controller {
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 500);
         }
         else  {
-            $this->dispatchFrom(CreateFriendRequestCommand::class, $request, [ 'requestedName'	=> $request->get('username') ]);
+            Bus::dispatchFrom(CreateFriendRequestCommand::class, $request, [ 'requestedName'	=> $request->get('username') ]);
 
             return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
 

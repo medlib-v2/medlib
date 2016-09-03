@@ -2,13 +2,12 @@
 
 namespace Medlib\Events;
 
-
 use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserWasRegistered extends Event {
+class UserRegistrationConfirmation extends Event {
 
     use SerializesModels;
 
@@ -35,4 +34,5 @@ class UserWasRegistered extends Event {
     public function broadcastOn() {
         return [];
     }
+
 }

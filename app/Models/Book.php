@@ -65,4 +65,33 @@ class Book extends Model {
     public function getInformationBooksByISBN(int $book_isbn) {
         return DB::table('friends')->where('book_isbn', $book_isbn)->first();
     }
+
+    /**
+     * Return the title this current book
+     *
+     * @return mixed
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * Return the isbn this current book
+     *
+     * @return mixed
+     */
+    public function getIsbn() {
+
+        return $this->isbn;
+    }
+
+    /**
+     * Return the issn this current book
+     *
+     * @return mixed
+     */
+    public function getIssn() {
+
+        return $this->issn;
+    }
 }

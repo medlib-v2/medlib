@@ -51,6 +51,7 @@ class LoginUserCommand extends Command implements SelfHandling {
      * @return boolean
      */
     public function handle() {
+
         /**
          * Attempt to do the login
          */
@@ -59,7 +60,7 @@ class LoginUserCommand extends Command implements SelfHandling {
              * Validation not successful, send back to form
              */
             Auth::logout();
-            return false;
+            return Redirect::to('login')->with('error', trans('auth.login.failed'));
 
         }
 

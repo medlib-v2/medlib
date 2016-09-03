@@ -129,7 +129,7 @@ return [
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Bus\BusServiceProvider::class,
+        #Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
@@ -154,6 +154,7 @@ return [
          */
         Medlib\Providers\AppServiceProvider::class,
         Medlib\Providers\AuthServiceProvider::class,
+        Medlib\Providers\BusServiceProvider::class,
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
@@ -162,9 +163,13 @@ return [
         Medlib\MarcXML\ParserServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         /*
          * Laravel Collective Service Providers...
          */
+        Collective\Bus\BusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
     ],
 
@@ -220,6 +225,7 @@ return [
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

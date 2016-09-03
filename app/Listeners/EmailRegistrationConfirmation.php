@@ -1,20 +1,21 @@
 <?php
 
-namespace Medlib\Events;
+namespace Medlib\Listeners;
 
-use Medlib\Events\Event;
 use Medlib\Services\UserMailer;
-use Medlib\Events\UserWasRegistered;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Medlib\Events\UserRegistrationConfirmation;
 
-class EmailRegistrationConfirmation extends Event {
-
+class EmailRegistrationConfirmation
+{
     /**
      * @var \Medlib\Services\UserMailer
      */
     public $mailer;
 
     /**
-     * Create the event handler.
+     * Create the event listener.
      *
      * @param \Medlib\Services\UserMailer $mailer
      */
@@ -25,11 +26,10 @@ class EmailRegistrationConfirmation extends Event {
     /**
      * Handle the event.
      *
-     * @param  UserWasRegistered  $event
+     * @param  UserRegistrationConfirmation  $event
      * @return \Illuminate\Mail\Mailer
      */
-    public function handle(UserWasRegistered $event) {
+    public function handle(UserRegistrationConfirmation $event) {
         return $this->mailer->sendWelcomeMessageTo($event->user);
     }
-
 }

@@ -124,6 +124,42 @@ return [
         ],
     ],
 
+    'BVIV' => [
+        'fullname' => 'University of Victoria - McPherson Library',
+        'instance' => 'BVIV',
+        'database' => [
+            'hostname' => 'voyager.law.uvic.ca',
+            'port' => 7590,
+            'name' => ['VOYAGER'],
+            'format' => 'MARC21',
+            'elementset' => 'F',
+        ],
+        'options' => [
+            'charset' => 'UTF-8',
+            'preferredMessageSize' => 10240,
+            'maximumRecordSize' => 10240,
+
+        ],
+    ],
+
+    'OLUC' => [
+        'fullname' => 'WorldCat',
+        'instance' => 'OLUC',
+        'database' => [
+            'hostname' => 'zcat.oclc.org',
+            'port' => 210,
+            'name' => ['OLUCWorldCat'],
+            'format' => 'MARCXML',
+            'elementset' => 'F',
+
+        ],
+        'options' => [
+            'charset' => 'UTF-8',
+            'preferredMessageSize' => 10240,
+            'maximumRecordSize' => 10240,
+        ],
+    ],
+
     /**
     'ULQC' => [
         'fullname' => 'Univ Laval (QC)',
@@ -143,9 +179,8 @@ return [
 
         ],
     ],
-    *
-
-    /**
+    */
+    
     'UNOX' => [
         'fullname' => 'Univ Oxford',
         'instance' => 'UNOX',
@@ -166,8 +201,8 @@ return [
 
         ],
     ],
-    *
 
+     /**
     'UCL' => [
         'fullname' => 'Libellule | Université Catholique de Louvain',
         'instance' => 'UCL',

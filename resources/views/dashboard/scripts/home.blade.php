@@ -13,5 +13,5 @@
     <script src="{{ url('vendor/jquery-animateNumber/jquery.animateNumber.min.js') }}"></script>
 
     <!-- page specific js -->
-    <script src="{{ url('js/index.js') }}"></script>
+    <script src="{{ url('js/index.min.js') }}"></script>
 @endsection

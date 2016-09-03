@@ -1,27 +1,28 @@
 <?php
 
-namespace Medlib\Events;
+namespace Medlib\Listeners;
 
-use Medlib\Events\Event;
 use Medlib\Services\UserMailer;
 use Medlib\Events\FriendRequestWasSent;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailFriendRequest extends Event {
-
+class EmailFriendRequest
+{
     /**
      * @var \Medlib\Services\UserMailer
      */
     public $mailer;
 
     /**
-     * Create the event handler.
+     * Create the event listener.
      *
      * @param \Medlib\Services\UserMailer $mailer
      */
     public function __construct(UserMailer $mailer) {
         $this->mailer = $mailer;
     }
-    
+
     /**
      * Handle the event.
      *
@@ -31,6 +32,4 @@ class EmailFriendRequest extends Event {
     public function handle(FriendRequestWasSent $event) {
         return $this->mailer->sendFriendRequestAlertTo($event->requestedUser, $event->requesterUser);
     }
-
-
 }

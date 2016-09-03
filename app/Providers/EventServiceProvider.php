@@ -3,9 +3,11 @@
 namespace Medlib\Providers;
 
 use Medlib\Events\UserWasRegistered;
-use Medlib\Events\EmailFriendRequest;
 use Medlib\Events\FriendRequestWasSent;
-use Medlib\Events\SendConfirmationEmail;
+use Medlib\Listeners\EmailFriendRequest;
+use Medlib\Listeners\SendConfirmationEmail;
+use Medlib\Events\UserRegistrationConfirmation;
+use Medlib\Listeners\EmailRegistrationConfirmation;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -19,6 +21,7 @@ class EventServiceProvider extends ServiceProvider {
         //'Medlib\Events\SomeEvent' => [ 'Medlib\Listeners\EventListener',],
         UserWasRegistered::class => [ SendConfirmationEmail::class ],
         FriendRequestWasSent::class => [ EmailFriendRequest::class ],
+        UserRegistrationConfirmation::class => [ EmailRegistrationConfirmation::class ],
     ];
 
     /**

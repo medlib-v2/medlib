@@ -35,7 +35,6 @@ class FeedController extends Controller {
      * Create a new instance of FeedController.
      */
     public function __construct() {
-
         $this->currentUser = Auth::user();
         $this->middleware('auth');
     }
@@ -54,7 +53,7 @@ class FeedController extends Controller {
 
 
         $currentUser = $this->currentUser;
-
+        
         if ($username == $currentUser->getUsername())  {
 
             $user = $this->currentUser;

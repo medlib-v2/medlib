@@ -35,7 +35,7 @@ class ProcessImage {
 
 		$faker = Faker::create();
 		switch(exif_imagetype($file)) {
-
+			
 			 case IMAGETYPE_GIF : return $faker->sha1.'.gif';
 				 break;
 			 case IMAGETYPE_JPEG : return $faker->sha1.'.jpg';

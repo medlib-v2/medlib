@@ -2,9 +2,9 @@
 
 namespace Medlib\Providers;
 
-
 use Medlib\Services\ProcessImage;
 use Medlib\Services\EmailNotifier;
+use Collective\Bus\BusServiceProvider;
 use Medlib\Services\EmailNotifierInterface;
 use Medlib\Repositories\Comment\CommentRepository;
 use Medlib\Repositories\Comment\EloquentCommentRepository;

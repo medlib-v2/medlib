@@ -119,7 +119,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Register a new Medlib user.
+     * Register a new Medlib User.
      *
      * @param string $username
      * @param string $email

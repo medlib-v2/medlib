@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Response;
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -231,19 +227,10 @@ Route::group(['middleware' => ['web']], function () {
         });
 
         // Manage Language
-        Route::any('lang/{lang}', ['as' => 'lang', 'uses' => function($lang) {
-
-            // Save in session to re use on middleware
-            //Cookie::make('lang', $lang, 360);
-            if(Session::has('lang') === false or Session::get('lang') != $lang) {
-                Session::set('lang', $lang);
-            }
-            if(Request::ajax()) {
-            return Response::json(['response' => 'success', 'message' => 'Change with success']);
-        }
-        return redirect()->back();
-    }]);
-
+        Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function (){
+            Route::any('/{lang}', ['as' => 'lang', 'uses' => 'LangController@doLang']);
+        });
+        
     });
 });
 
