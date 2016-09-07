@@ -6,12 +6,7 @@
     </head>
     <body>
         @include('layouts.navigation')
-        <div class="container-fluid" style="margin-top:10px;">
-            <div class="content">
-                @yield('content')
-            </div>
-        </div>
+            @yield('content')
         @include('layouts.footer')
-
     </body>
 </html>

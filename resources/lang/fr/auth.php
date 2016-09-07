@@ -16,12 +16,12 @@ return [
     'failed'   => 'Ces identifiants ne correspondent pas à nos enregistrements',
     'throttle' => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
     'btn'=> [
-        'login' => 'Connexion',
+        'login' => 'Se connecter',
     ],
     'txt' => [
         'remember_me' => 'Se souvenir de moi',
-        'forgot_passwd' => 'Mot de passe oublié ?',
-        'sing_up' => 'S\'inscrire',
+        'forgot_passwd' => 'oublié votre mot de passe',
+        'sing_up' => 'Créer un compte',
         'email' => 'E-mail',
         'password' => 'Mot de passe',
     ],

@@ -4,11 +4,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="description" content="Medlib : Application de recherche bibliothécaire utilisant le
             protocole de communication Zebra (Z3959)">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-touch-fullscreen" content="yes">
         <meta name="keywords" content="Medlib : Search, Recherche, yaz, Z3950, Book, Books">
         <meta name="author" content="Patrick Luzolo, Walid Fadlhaoui">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ url('favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ url('favicons/favicon.ico') }}">
+        <link rel="apple-touch-icon" href="{{ url('favicons/favicon.ico') }}">
 
         <!-- CSS -->
         <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
