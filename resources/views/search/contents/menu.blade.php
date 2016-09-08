@@ -1,4 +1,4 @@
-<td class="col-md-3 col-sm-3" id="records-actions">
+<td class="col-md-4 col-sm-4" id="records-actions">
     <a id="record-select-all" class="record-select-all" href="javascript:listCheckAll();">
         <span class="glyphicon glyphicon-check"></span><span>{{ trans('search.txt.select.check-all') }}</span>
     </a>
@@ -7,18 +7,9 @@
     </a>
 </td>
 <!-- items per page dropdown -->
-<td class="col-md-8 col-sm-8">
+<td class="col-md-7 col-sm-7">
     <!-- ios button: show/hide panel -->
     <div class="jplist-ios-button"><i class="fa fa-sort"></i>Pagination</div>
-
-    <!-- views -->
-    <!--
-    <div class="jplist-views" data-control-type="views" data-control-name="views" data-control-action="views" data-default="jplist-grid-view">
-        <button type="button" class="jplist-view jplist-list-view" data-type="jplist-list-view"></button>
-        <button type="button" class="jplist-view jplist-grid-view" data-type="jplist-grid-view"></button>
-        <button type="button" class="jplist-view jplist-thumbs-view" data-type="jplist-thumbs-view"></button>
-    </div> -->
-
     <!-- back button button -->
     <button type="button" data-control-type="back-button" data-control-name="back-button" data-control-action="back-button">
         <i class="fa fa-arrow-left"></i>&nbsp;{{ trans('search.txt.go-back') }}
@@ -41,15 +32,11 @@
 
     <!-- pagination info label -->
     <!--
-        <small>{start} - {end} of {all}</small>
-        data-type="Page {current} {pages}"
-     -->
     <div class="jplist-label" data-type="<strong>Page {current} {{ trans('search.txt.of') }} {pages}</strong>" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging">
-    </div>
+    </div> -->
 
 </td>
 <!-- / items per page dropdown -->
-
 <!-- panel -->
 <td class="col-sm-8 col-md-3">
     <!-- sort dropdown -->

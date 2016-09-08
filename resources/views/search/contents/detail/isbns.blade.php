@@ -10,6 +10,29 @@
                         <span data-isbn="{{ cleanIsbn($isbn) }}">{{ $isbn }}</span>
                         @endforeach
                     </div>
+                    <div id="GoogleBooksPreview-{{ cleanIsbn($isbn) }}" class="hidden">
+                        <div id="viewerCanvas" style="height: 600px;"></div>
+                    </div>
+                    <script type="text/javascript">
+                        var gbsWidget = document.getElementById("GoogleBooksPreview-{{ cleanIsbn($isbn) }}");
+
+                        function gbsFound() {
+                            
+                        }
+                        function gbsNotFound() {
+                            gbsWidget.className = "hidden";
+                        }
+                        function initialize() {
+                            gbsWidget.className = "";
+                            var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'), {
+                                showLinkChrome: false
+                            });
+                        viewer.load(["ISBN:{{ cleanIsbn($isbn) }}"], gbsNotFound, gbsFound);
+                        }
+
+                        google.load("books", "0");
+                        google.setOnLoadCallback(initialize);        
+                    </script>
                 </td>
             </tr>
             </tbody>

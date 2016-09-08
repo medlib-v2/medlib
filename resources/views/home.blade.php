@@ -1,4 +1,8 @@
-@extends('layouts.master') @section('title', 'Bienvennu dans Media library') @section('content')
+@extends('layouts.master') 
+
+@section('title', 'Bienvennu dans Media library') 
+
+@section('content')
 <section class="content-search" role="search">
     <header class="search">
         <h1 class="search-title"><span>Medlib<br>Recherche bibliographique</span></h1>
@@ -98,7 +102,6 @@
                     <div class="images-social">
                         <img src="{{ asset('images/reader-no-bg.png') }}" alt="social icone">
                     </div>
-
                 </div>
             </div>
         </div>

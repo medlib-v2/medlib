@@ -61,7 +61,7 @@ class SearchQueryController extends Controller
 			$record = Yaz::from($request->query('qdb'))
 				->where($query)
 				//->limit(1, 10240)
-				->limit(1, 100)
+				->limit(1, 20)
 				->orderBy('au ASC')
 				->all(YazRecords::TYPE_XML);
 			
