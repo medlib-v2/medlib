@@ -55,13 +55,11 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script>
     (function($) {
-
         $('#pagination').jplist({
             itemsBox: '.list',
             itemPath: '.list-item',
             panelPath: '.jplist-panel'
         });
-
         $(".more").shorten({
             "showChars": 300,
             "moreText": "{{ trans('search.txt.show') }}",
