@@ -4,6 +4,93 @@
 
 
 // Select container
+.select2-container {
+    &.form-control {
+        background: transparent;
+        -webkit-tap-highlight-color: transparent;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        position: relative;
+        cursor: pointer;
+        display: block;
+        clear: both;
+        height: auto;
+    }
+    &,.select2-drop,
+    .select2-search,
+    .select2-search input {
+        /*
+            Force border-box so that % widths fit the parent
+            container without overlap because of margin/padding.
+            More Info : http://www.quirksmode.org/css/box.html
+        */
+        -webkit-box-sizing: border-box; /* webkit */
+            -moz-box-sizing: border-box; /* firefox */
+                box-sizing: border-box; /* css3 */
+    }
+
+    // Select wrapper
+    .select2-choice {
+      width: 100%;
+      display: inline-block;
+      position: relative;
+      border: none;
+      font-size: @select-font-size-base;
+      font-weight: @select-font-weight;
+      line-height: @select-line-height-base;
+      border-radius: @border-radius-base;
+      padding: 10px 39px 10px 15px;
+      transition: border .25s linear, color .25s linear, background-color .25s linear;
+
+      //display: block;
+      height: 40px;
+      background-color: #fff;
+
+      padding-left: 18px;
+      padding-right: 30px;
+      top: -2px;
+      overflow: hidden;
+      position: relative;
+
+      border-radius: 5px;
+      border: solid 2px #e8e8e8;
+      white-space: nowrap;
+      color: #444;
+      text-decoration: none;
+
+      background-clip: padding-box;
+
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      //-webkit-transition: all 0.2s ease-in-out;
+      //transition: all 0.2s ease-in-out;
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
+      &:active {
+        outline: none;
+        box-shadow: none;
+      }
+      .select2-container-disabled & {
+        .opacity(@select-disabled-opacity);
+      }
+    }
+
+    &.select2-choices .select2-search-field input,
+    &.select2-choice,
+    &.select2-choices {
+        background: none;
+        padding: 0;
+        .bootstrap-input-defaults();
+    }
+}
 .select {
   position: relative;
   display: inline-block;
@@ -22,32 +109,6 @@
     border: none;
     padding: 0;
     height: auto;
-  }
-}
-
-// Select wrapper
-.select2-choice {
-  width: 100%;
-  display: inline-block;
-  position: relative;
-  border: none;
-  font-size: @select-font-size-base;
-  font-weight: @select-font-weight;
-  line-height: @select-line-height-base;
-  border-radius: @border-radius-base;
-  padding: 10px 39px 10px 15px;
-  transition: border .25s linear, color .25s linear, background-color .25s linear;
-
-  &:hover,
-  &:focus {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-    box-shadow: none;
-  }
-  .select2-container-disabled & {
-    .opacity(@select-disabled-opacity);
   }
 }
 
@@ -301,16 +362,10 @@
   .multiple-select-variant(@brand-primary, @select-inverse-hover-bg, @brand-primary);
 }
 
-
-// Select dropdown
-//
-// ##
-
 // Dropdown container
 .select2-drop {
   &:extend(.dropdown-menu);
   min-width: 220px;
-  margin-top: 9px;
   visibility: visible;
   opacity: 1;
   filter: none;
@@ -320,6 +375,7 @@
   z-index: 9999;
   top: 100%;
   transition: none;
+  padding: 0;
 
   &.select2-drop-above {
     margin-top: -9px;

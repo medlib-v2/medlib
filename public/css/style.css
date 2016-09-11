@@ -6,19 +6,13 @@
 }
 
 
-/* ---------------------------------------------------------------------------*/
+/*******************************************************************************
+*                                Notices affichage                             *
+********************************************************************************/
 
-
-/* ---------------------------------------------------------------------------*/
-
-
-/*                               Notices affichage                            */
-
-
-/* ---------------------------------------------------------------------------*/
-
-
-/* ---------------------------------------------------------------------------*/
+.checkbox label {
+    padding-left: 20px;
+}
 
 .checkbox label:before {
     width: 15px;
@@ -35,10 +29,6 @@
     margin-left: 0;
     padding-left: 2px;
     padding-top: 1px;
-}
-
-.checkbox label {
-    padding-left: 20px;
 }
 
 .radio label,
@@ -293,17 +283,17 @@ footer .subFooter ul {
     padding: 0;
 }
 
-footer .subFooter ul > li {
+footer .subFooter ul>li {
     float: left;
 }
 
-footer .subFooter ul > li {
+footer .subFooter ul>li {
     display: block;
     position: relative;
     margin: 0;
 }
 
-footer .subFooter ul > li a {
+footer .subFooter ul>li a {
     margin-left: 15px;
 }
 
@@ -336,16 +326,16 @@ footer .subFooter ul > li a {
     box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
 }
 
-.nav.navbar-nav > li > a {
+.nav.navbar-nav>li>a {
     position: relative;
 }
 
-.nav.navbar-nav > li > a:hover,
-.nav.navbar-nav > li > a:focus {
+.nav.navbar-nav>li>a:hover,
+.nav.navbar-nav>li>a:focus {
     background-color: transparent;
 }
 
-.nav.navbar-nav > li > a > .quote {
+.nav.navbar-nav>li>a>.quote {
     position: absolute;
     right: 20px;
     bottom: 0;
@@ -358,15 +348,15 @@ footer .subFooter ul > li a {
     color: #fff;
 }
 
-.nav.navbar-nav > li.active > a > .quote {
+.nav.navbar-nav>li.active>a>.quote {
     opacity: 1;
 }
 
-.nav.navbar-nav > li > a > img {
+.nav.navbar-nav>li>a>img {
     box-shadow: 0 0 0 5px #13c0ba;
 }
 
-.nav.navbar-nav > li > a > img {
+.nav.navbar-nav>li>a>img {
     max-width: 100%;
     opacity: .3;
     -webkit-transform: scale(.8, .8);
@@ -375,9 +365,9 @@ footer .subFooter ul > li a {
     transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.nav.navbar-nav > li.active > a > img,
-.nav.navbar-nav > li:hover > a > img,
-.nav.navbar-nav > li:focus > a > img {
+.nav.navbar-nav>li.active>a>img,
+.nav.navbar-nav>li:hover>a>img,
+.nav.navbar-nav>li:focus>a>img {
     opacity: 1;
     -webkit-transform: none;
     transform: none;
@@ -385,7 +375,7 @@ footer .subFooter ul > li a {
     transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.navbar-default .navbar-nav > li {
+.navbar-default .navbar-nav>li {
     padding: 0 10px;
 }
 
@@ -477,12 +467,12 @@ footer .subFooter ul > li a {
     margin-top: 15px;
 }
 
-.media-grid > .media-left {
+.media-grid>.media-left {
     padding-right: 20px;
 }
 
 .media-left,
-.media > .pull-left {
+.media>.pull-left {
     padding-right: 10px;
 }
 
@@ -494,7 +484,7 @@ footer .subFooter ul > li a {
 }
 
 .media-left,
-.media > .pull-left {
+.media>.pull-left {
     padding-right: 10px;
 }
 
@@ -1366,7 +1356,7 @@ div.list-item {
 }
 
 
-/* The UL that contains the search type icons */
+/* The UL that contains the search type icons 
 
 .icons {
     list-style: none;
@@ -1383,9 +1373,10 @@ div.list-item {
     cursor: pointer;
     margin-right: 5px;
 }
+*/
 
 
-/* Styling each icon */
+/* Styling each icon 
 
 li.all {
     width: 15px;
@@ -1425,9 +1416,11 @@ li.videos.active,
 li.videos:hover {
     background-position: right bottom;
 }
+*/
 
+
+/* The little arrow that moves below the icons 
 span.arrow {
-    /* The little arrow that moves below the icons */
     width: 11px;
     height: 6px;
     margin: 21px 0 0 5px;
@@ -1435,11 +1428,7 @@ span.arrow {
     background: url('../images/arrow.png') no-repeat;
     left: 0;
 }
-
-.welcome {
-    min-height: 286px;
-    background: url('../images/carte_monde.png') no-repeat 5px;
-}
+*/
 
 .fond-register {
     background-image: url('../images/carte_monde.png');
@@ -1888,9 +1877,9 @@ address {
     top: -1px
 }
 
-.icon-addon .form-control:focus + .glyphicon,
+.icon-addon .form-control:focus+.glyphicon,
 .icon-addon:hover .glyphicon,
-.icon-addon .form-control:focus + .fa,
+.icon-addon .form-control:focus+.fa,
 .icon-addon:hover .fa {
     color: #2580db;
 }
@@ -2558,7 +2547,7 @@ address {
     background-color: #3e0309;
 }
 
-#footer > .container {
+#footer>.container {
     padding-left: 15px;
     padding-right: 15px;
     color: #3b5998;
@@ -2566,7 +2555,7 @@ address {
     text-align: right;
 }
 
-#footer > .link {
+#footer>.link {
     padding-right: 25px;
     color: #3b5998;
     font-weight: 400;
