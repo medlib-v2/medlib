@@ -18,8 +18,11 @@ class CreateFeedsTable extends Migration
             $table->integer('user_id')->index()->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('body');
-            $table->string('poster_firstname');
+            $table->string('poster_username');
             $table->string('poster_profile_image');
+            $table->string('image_url')->nullable();
+            $table->string('video_url')->nullable();
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

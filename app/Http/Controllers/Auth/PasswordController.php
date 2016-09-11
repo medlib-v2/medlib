@@ -5,8 +5,7 @@ namespace Medlib\Http\Controllers\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class PasswordController extends Controller
-{
+class PasswordController extends Controller {
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller

@@ -4,8 +4,8 @@ namespace Medlib\Repositories\User;
 
 use Medlib\Models\User;
 
-interface UserRepository
-{	
+interface UserRepository {
+
 	public function getPaginated($howMany, $byKeyword);
 	public function findByUsername($username);
 	public function findById($id);
@@ -13,4 +13,5 @@ interface UserRepository
 	public function findByIdWithFeeds($id);
 	public function findByIdWithMessages($id);
 	public function findByIdWithFriends($userId);
+	public function findByIdWithFriendRequests($id);
 }

@@ -25,4 +25,15 @@ return [
         'email' => 'Email',
         'password' => 'Password',
     ],
+    'account_created_success' => 'Your account has been created with success !',
+    'email_was_sent' => 'A email has been sent',
+    'login' => [
+        'failed' => 'We were unable to sign you in. Please check your credentials and try again.'
+    ],
+    'validation' => [
+        'validation_code_does_not_exist' => 'Your validation code does not exist, check if your account is not already activated',
+        'validation_code_has_expired' => 'Your validation code has expired. Please use the reset link within one hour.',
+        'account_has_been_activated' => 'Success, your account has been activated.',
+        'need_validation_code' => 'You need validation code!'
+    ],
 ];

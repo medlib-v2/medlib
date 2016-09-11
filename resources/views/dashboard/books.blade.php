@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard Books')
 
-    @section('content')
+@section('content')
     <div class="content-wrap">
         <main id="content" class="content" role="main">
             <ol class="breadcrumb">
@@ -187,7 +187,7 @@
             </div>
         </main>
     </div>
-    @endsection
+@endsection
 
 @section('script')
     @include('dashboard.scripts.books')

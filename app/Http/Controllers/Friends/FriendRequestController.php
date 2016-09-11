@@ -2,10 +2,10 @@
 
 namespace Medlib\Http\Controllers\Friends;
 
-
 use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Medlib\Models\FriendRequest;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -14,8 +14,7 @@ use Medlib\Commands\CreateFriendRequestCommand;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
 
-class FriendRequestController extends Controller
-{
+class FriendRequestController extends Controller {
 
     /**
      *  @var \Medlib\Models\User
@@ -35,7 +34,9 @@ class FriendRequestController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param FriendRequestRepository $friendRequest
+     * @param UserRepository $repository
+     * @return mixed
      */
     public function index(FriendRequestRepository $friendRequest, UserRepository $repository) {
         $user = $this->currentUser;
@@ -63,7 +64,7 @@ class FriendRequestController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return mixed
      */
     public function store(Request $request) {
 
@@ -73,7 +74,7 @@ class FriendRequestController extends Controller
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 500);
         }
         else  {
-            $this->dispatchFrom(CreateFriendRequestCommand::class, $request, [ 'requestedName'	=> $request->get('username') ]);
+            Bus::dispatchFrom(CreateFriendRequestCommand::class, $request, [ 'requestedName'	=> $request->get('username') ]);
 
             return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
 
@@ -86,7 +87,7 @@ class FriendRequestController extends Controller
      * @param Request $request
      *
      *
-     * @return Response
+     * @return mixed
      */
     public function destroy(Request $request) {
 

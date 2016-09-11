@@ -1,1 +1,0 @@
-$(function(){function n(){$("#print").click(function(){window.print()})}n(),MedlibApp.onPageLoad(n)});

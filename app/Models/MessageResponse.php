@@ -2,10 +2,19 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
+use Medlib\Models\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class MessageResponse extends Model {
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'message_responses';
 
     /**
      * The attributes that are mass assignable.
@@ -17,36 +26,34 @@ class MessageResponse extends Model {
     /**
      * Many Responses belong to many users.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function users()
-    {
-        return $this->belongsToMany('Medlib\Models\User')->withTimestamps();
+    public function users() {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
 
     /**
      * Many Responses belong to one Message
      *
-     * @return Email
+     * @return \Medlib\Models\Message
      */
-    public function message()
-    {
-        return $this->belongsTo('Medlib\Models\Message')->withTimestamps();
+    public function message() {
+        return $this->belongsTo(Message::class)->withTimestamps();
     }
 
     /**
      *  Create a new response object.
      *
-     *	@param string body
-     *	@param int senderId
-     *	@param string senderProfileImage
-     *	@param string senderName
+     * @param string $body
+     * @param int $senderId
+     * @param int $receiverId
+     * @param string $senderProfileImage
+     * @param string $senderName
      *
-     *	@return static
+     * @return static
      */
-    public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName)
-    {
+    public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName) {
         $response = new static([
 
             'body' => $body,
@@ -63,8 +70,7 @@ class MessageResponse extends Model {
      *
      * @return string
      */
-    public function getMessageResponseSubject()
-    {
+    public function getMessageResponseSubject() {
         return substr($this->body, 0, 35)."...";
     }
 
@@ -72,12 +78,11 @@ class MessageResponse extends Model {
     /**
      *  Determine if message response was opened by current user.
      *
-     *	@param int userId
+     *	@param int $userId
      *
      *	@return boolean
      */
-    public function hasBeenOpenedBy($userId)
-    {
+    public function hasBeenOpenedBy($userId) {
         return DB::table('message_response_user')->where('user_id', $userId)->where('message_response_id', $this->id)->pluck('open');
     }
 
@@ -85,12 +90,11 @@ class MessageResponse extends Model {
     /**
      *  Determine if message response was sent by a user.
      *
-     *	@param int userId
+     *	@param int $userId
      *
      *	@return boolean
      */
-    public function wasSentByThisUser($userId)
-    {
+    public function wasSentByThisUser($userId) {
         return ($this->senderid == $userId) ? true : false;
     }
 

@@ -1,4 +1,6 @@
-@extends('layouts.default')
+@extends('layouts.master')
+
+@section('title', 'Message composition')
 
 @section('content')
 
@@ -40,10 +42,6 @@
 								     	<a data-message-response-id="{!! $message->messageResponses()->first()->id !!}" class="open-message" href="{!! url('messages', $message->id) !!}"> <span class="text-muted glyphicon glyphicon-eye-open pull-right"></span></a>
 								     	<span class="text-muted pull-right"> {!! $message->messageResponses()->first()->created_at->diffForHumans() !!}  </span>
 
-
-								 
-
-
 									@else
 
 								     	<a data-message-id ="{!! $message->id !!}" class="delete-message" href="#"> <span class="glyphicon glyphicon-trash pull-right"></span></a>
@@ -60,8 +58,6 @@
 						<div class="paginator text-center">
 						 	{!! $messages->render() !!}	
 						</div>
-				
-
 			@else
 
 				<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Your inbox is empty.</div>

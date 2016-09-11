@@ -1,1 +1,0 @@
-$(function(){function e(){$(".widget").widgster(),$(".sparkline").each(function(){$(this).sparkline("html",$(this).data())}),$(".js-progress-animate").animateProgressBar(),$("#datetimepicker1").datetimepicker({pickTime:!1}),$("#datetimepicker2").datetimepicker({pickTime:!1})}e(),MedlibApp.onPageLoad(e)});

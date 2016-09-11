@@ -45,7 +45,7 @@ function lookup() {
     $('#ip').val('127.0.0.1');
 }
 
-$(function(){
+(function($){
     function pageLoad(){
         $('.widget').widgster();
         $("#destination").inputmask({mask: "99999"});
@@ -207,4 +207,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

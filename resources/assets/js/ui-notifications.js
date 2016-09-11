@@ -33,7 +33,7 @@
 
 }).call(this);
 
-$(function(){
+(function($){
     function pageLoad(){
         $('.widget').widgster();
 
@@ -123,4 +123,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

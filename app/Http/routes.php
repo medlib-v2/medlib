@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Response;
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -112,6 +108,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/detail', ['uses' => 'SearchQueryController@doDetail', 'as' => 'search.detail']);
         });
 
+        Route::group(['prefix' => 'search', 'namespace' => 'Templates'], function (){
+
+            Route::get('/advanced/templates-input', ['uses' => 'TemplateAdvancedSearchController@getQueryForm', 'as' => 'search.advanced.templates-input']);
+        });
+
         /**
          * User settings
          */
@@ -141,18 +142,35 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * Users
          */
-        Route::group(['prefix' => 'profiles', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+        Route::group(['prefix' => 'profiles', 'middleware' => 'auth'], function() {
 
-            Route::get('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.show' ]);
+            Route::group(['namespace' => 'Users'], function() {
 
-            Route::get('/{username}', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+                Route::get('/', ['uses' => 'UsersController@index', 'as' => 'profile.show' ]);
 
-            Route::get('/{username}/friends', function($username){
-
-                return "all friends ". $username;
+                Route::post('/', ['uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
             });
 
-            Route::post('/', [ 'uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
+            Route::group(['prefix' => '{username}'], function($username){
+
+                Route::group(['namespace' => 'Users'], function(){
+                    Route::get('/', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+                });
+
+                Route::group(['namespace' => 'Friends'], function(){
+                    Route::get('/friends', ['uses' => 'FriendController@index', 'as' => 'user.friends.show']);
+                });
+
+                Route::group(['namespace' => 'Feeds'], function(){
+
+                    Route::get('/feeds', ['uses' => 'FeedController@index', 'as' => 'user.feeds.show']);
+
+                    Route::post('/feeds', ['uses' => 'FeedController@store', 'as' => 'user.feeds.store']);
+
+                    Route::get('/feeds/more', ['uses' => 'FeedController@more', 'as' => 'user.feeds.more']);
+                });
+    
+            });
 
         });
 
@@ -209,23 +227,10 @@ Route::group(['middleware' => ['web']], function () {
         });
 
         // Manage Language
-        Route::any('lang/{lang}', ['as' => 'lang', 'uses' => function($lang) {
-
-            // Save in session to re use on middleware
-            //Cookie::make('lang', $lang, 360);
-            if(Session::has('lang') === false or Session::get('lang') != $lang) {
-                Session::set('lang', $lang);
-            }
-            if(Request::ajax()) {
-                return Response::json(['response' => 'success', 'message' => 'Change with success']);
-            }
-            return redirect()->back();
-        }]);
-
+        Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function (){
+            Route::any('/{lang}', ['as' => 'lang', 'uses' => 'LangController@doLang']);
+        });
+        
     });
 });
 
-
-Route::group(['prefix' => 'api', 'middleware' => 'throttle:30,2'], function () {
-    // Routes
-});

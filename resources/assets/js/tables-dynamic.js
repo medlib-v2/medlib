@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function initBackgrid(){
         Backgrid.InputCellEditor.prototype.attributes.class = 'form-control input-sm';
 
@@ -251,4 +251,4 @@ $(function(){
 
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

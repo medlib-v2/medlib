@@ -1,4 +1,4 @@
-$(function(){
+(function($){
 
     $('select.select2').select2();
 
@@ -10,4 +10,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

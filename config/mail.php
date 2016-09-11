@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'noreply@medlib.fr', 'name' => 'Medlib Team'],
+    'from' => ['address' => 'noreply.medlib@gmail.com', 'name' => 'Medlib Team'],
 
     /*
     |--------------------------------------------------------------------------

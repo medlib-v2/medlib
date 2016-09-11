@@ -204,6 +204,13 @@ fieldset[disabled] .btn-inverse.active {
     line-height: 40px;
     margin-bottom: 10px;
 }
+
+span.error {
+    color:red;
+}
+span.error_message {
+    color:blue;
+}
 .profile-icons {
     font-size: 14px;
     font-weight: bold;
@@ -1042,6 +1049,14 @@ fieldset[disabled] .cover.overlay .btn-cover.active {
 .cover.overlay .cover-nav li.active a {
     background: rgba(0, 0, 0, 0.54);
 }
+/*Custom*/
+.mg-top{
+    margin-top: 10%;
+}
+.map_canvas{
+    height: 150px;
+}
+
 @media (max-width: 480px) {
     .cover.overlay .cover-nav {
         bottom: -40px;

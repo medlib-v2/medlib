@@ -1,5 +1,5 @@
 
-$(function(){
+(function($){
     /**
      * A global object containing theme specific colors, screen variables & color functions.
      * @type Object
@@ -159,4 +159,4 @@ $(function(){
     };
 
     window.MedlibSettings = new MedlibSettingsBundle();
-});
+})(jQuery);

@@ -10,7 +10,7 @@ class EloquentFeedRepository implements FeedRepository
 	/**
 	 * Get feeds posted by current user and friends.
 	 *
-	 * 	@param User $user
+	 * 	@param \Medlib\Models\User $user
 	 *
 	 *	@return mixed
 	 */
@@ -19,7 +19,7 @@ class EloquentFeedRepository implements FeedRepository
 		$friendsUserIds = $user->friends()->lists('requester_id');
 
 		$friendsUserIds[] = $user->id;
-
+		
 		return Feed::whereIn('user_id', $friendsUserIds)->latest()->take(10)->get();
 
 	}
@@ -34,19 +34,19 @@ class EloquentFeedRepository implements FeedRepository
 	/**
 	 * Get feeds posted by current user and friends via ajax.
 	 *
-	 * 	@param User $user
+	 * 	@param \Medlib\Models\User $user
 	 *
 	 * 	@param int $startingPoint
 	 *
 	 *	@return mixed
 	 */
-	public function getPublishedByUserAndFriendsAjax(User $user, $skipQty)
+	public function getPublishedByUserAndFriendsAjax(User $user, $startingPoint)
 	{
 		$friendsUserIds = $user->friends()->lists('requester_id');
 
 		$friendsUserIds[] = $user->id;
 
-		return Feed::whereIn('user_id', $friendsUserIds)->latest()->skip($skipQty)->take(10)->get();
+		return Feed::whereIn('user_id', $friendsUserIds)->latest()->skip($startingPoint)->take(10)->get();
 	}
 		
 }

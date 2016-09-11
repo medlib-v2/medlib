@@ -8,7 +8,7 @@
         <meta name="description" content="Medlib : Application de recherche bibliothécaire utilisant le
             protocole de communication Zebra (Z3959)">
         <meta name="keywords" content="Medlib : Search, Recherche, yaz, Z3950, Book, Books">
-        <meta name="author" content="Patrick Luzolo, Aristide Djangone, Walid Fadlhaoui">
+        <meta name="author" content="Patrick Luzolo, Walid Fadlhaoui">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ url('favicon.ico') }}">
@@ -21,7 +21,7 @@
         <link href="{{ url('css/application.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url('css/progressbar.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url('css/dashboard.css') }}" rel="stylesheet" type="text/css">
-
+        @yield('stylesheet')
         <!-- TITLE -->
         <title>Medlib - @yield('title')</title>
 
@@ -30,7 +30,7 @@
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
         <![endif]-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>-->
         <script src="{{ url('js/jquery.min.js') }}"></script>
     </head>
     <body>

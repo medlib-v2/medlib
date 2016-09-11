@@ -7,13 +7,12 @@ use Medlib\Repositories\User\UserRepository;
 use Medlib\Realtime\Events as SocketClient;
 use Illuminate\Contracts\Bus\SelfHandling;
 
+class RemoveFriendCommand extends Command implements SelfHandling {
 
-class RemoveFriendCommand extends Command implements SelfHandling
-{
     /**
      * @var int
      */
-    protected $userId;
+    protected $username;
 
     /**
      * @var Object
@@ -24,35 +23,34 @@ class RemoveFriendCommand extends Command implements SelfHandling
     /**
      * Create a new command instance.
      *
-     * @param User $user
+     * @param int $username
      *
-     * @return void
      */
-    public function __construct($userId)
+    public function __construct($username)
     {
-        $this->userId = $userId;
+        $this->username = $username;
 
-        $this->socketClient = new SocketClient;
+        #$this->socketClient = new SocketClient;
     }
 
     /**
      * Execute the command.
      *
-     * @param FriendRepository $friendRepository
+     * @param \Medlib\Repositories\User\UserRepository $userRepository
      *
-     * @return void
+     * @return boolean
      */
     public function handle(UserRepository $userRepository)
     {
-        $otherUser = $userRepository->findById($this->userId);
+        $otherUser = $userRepository->findByUsername($this->username);
 
         $currentUser = Auth::user();
 
-        $currentUser->finishFriendshipWith($this->userId);
+        $currentUser->finishFriendshipWith($this->username);
 
         $otherUser->finishFriendshipWith(Auth::user()->id);
 
-        $this->socketClient->updateChatListFriendRemoved($otherUser->id, 24, $currentUser->id, $otherUser->friends()->count());
+        #$this->socketClient->updateChatListFriendRemoved($otherUser->id, 24, $currentUser->id, $otherUser->friends()->count());
 
         return true;
 

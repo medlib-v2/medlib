@@ -13,5 +13,6 @@ return [
         'nt' => '1=1010',	//Notes
         'kw' => '1=1016',	//Tous les champs
         'yr' => '1=31',	//Date de publication
+        'ln' => '1=54' // Lang
     ],
 ];

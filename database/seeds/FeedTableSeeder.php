@@ -18,8 +18,7 @@ class FeedTableSeeder extends Seeder
         $users = User::lists('id');
         $date = new DateTime();
         $day = 1;
-        //$users = [10,12,13,14,15];
-
+        
         foreach ($users as $user) {
 
             foreach (range(1, 30) as $index) {
@@ -31,8 +30,11 @@ class FeedTableSeeder extends Seeder
                 Feed::create([
                     'user_id'	=> $user,
                     'body'		=> $faker->sentence(),
-                    'poster_firstname' => $faker->firstName,
+                    'poster_username' => $faker->userName,
                     'poster_profile_image' => $faker->imageUrl($width = 180, $height = 180),
+                    'image_url' => $faker->imageUrl($width = 280, $height = 280),
+                    'video_url' => null,
+                    'location' => $faker->latitude.",".$faker->longitude,
                     'created_at'=> $date->format('Y-m-d H:i:s'),
                     'updated_at'=> $date->format('Y-m-d H:i:s')
                 ]);

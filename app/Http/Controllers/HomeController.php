@@ -4,10 +4,14 @@ namespace Medlib\Http\Controllers;
 
 use Illuminate\Support\Facades\Config;
 
-
-
 class HomeController extends Controller
 {
+    /**
+     * Show the Index Page
+     * @Get("/", as="index", middleware="guest")
+     *
+     * @return mixed
+     */
     public function index()
     {
         $config = Config::get('yaz.zebra');

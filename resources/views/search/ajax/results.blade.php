@@ -44,14 +44,9 @@
 @endif
 
 <div class="script" id="script">
-    <script src="{{ asset('js/jplist/jplist.core.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.sort-bundle.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.textbox-filter.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.pagination-bundle.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.history-bundle.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.filter-toggle-bundle.min.js') }}"></script>
-    <script src="{{ asset('js/jplist/jplist.views-control.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.shorten.js') }}"></script>
+    <script src="{{ asset('js/scripts.min.js') }}"></script>
+    <script src="{{ asset('js/jplist.scripts.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.shorten.min.js') }}"></script>
 
     <script>
         (function($){
@@ -67,6 +62,7 @@
                 "moreText"  : "{{ trans('search.txt.show') }}",
                 "lessText"  : "{{ trans('search.txt.hide') }}"
             });
+            $('.isbns').books();
         })(jQuery);
     </script>
 </div>

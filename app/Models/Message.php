@@ -2,9 +2,18 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
+use Medlib\Models\MessageResponse;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model {
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'messages';
 
     /**
      * These fields could be mass assigned
@@ -14,20 +23,20 @@ class Message extends Model {
     /**
      * A message belongs to Many Users.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function users()
-    {
-        return $this->belongsToMany('Medlib\Models\User')->withTimestamps();
+    public function users() {
+
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     /**
      *  Create a new message object.
      *
-     *	@param string body
-     *	@param int senderId
-     *	@param string senderProfileImage
-     *	@param string senderName
+     *	@param string $body
+     *	@param int $senderId
+     *	@param string $senderProfileImage
+     *	@param string $senderName
      *
      *	@return static
      */
@@ -45,11 +54,11 @@ class Message extends Model {
     /**
      * A Message has a many message responses.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function messageResponses()
     {
-        return $this->hasMany('Medlib\Models\MessageResponse')->orderBy('created_at', 'desc');
+        return $this->hasMany(MessageResponse::class)->orderBy('created_at', 'desc');
     }
 
     /**

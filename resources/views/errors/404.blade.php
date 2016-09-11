@@ -18,9 +18,6 @@
                         <div class="form-group">
                             <!--<input class="form-control input-no-border" type="text" placeholder="Search Pages">-->
                         </div>
-                        <!--<a href="search.html" class="btn btn-inverse">
-                            Search <i class="fa fa-search text-warning ml-xs"></i>
-                        </a> -->
                     </div>
                 </div>
             </div>

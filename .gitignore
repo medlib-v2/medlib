@@ -5,12 +5,13 @@ composer.json
 composer.lock
 package.json
 gulpfile.js
+gulpfile.old.js
 phpunit.xml
 common.js
 .env
+.env.testing
 .DS_Store
 .idea
-.idea/php.xml
 readme.md
 /tests
 /vendor
@@ -18,3 +19,7 @@ readme.md
 /lamp
 /mobile
 /certificat
+save-config.txt
+/bower
+public/images/select2/select2.old.png
+public/images/.DS_Store

@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 
     var type;
     var parentType;
@@ -11,7 +11,7 @@
 
     $('#submitButton').on('click', submitSearch);
 
-    function submitSearch() {
+    function submitSearch(event) {
 
         event.preventDefault();
         $('#submitButton').attr("disabled","disabled");
@@ -51,7 +51,6 @@
                     html.empty();
                     html.append(data);
                     html.appendTo(content);
-                    console.log(response);
                     })
                 .fail(function(xhr, status, responseText ){
                     jProgress.done();
@@ -72,13 +71,12 @@
                         location.reload();
                     }
                 });
-
             //form.submit();
             //setTimeout(function(){jProgress.done();}, 9000);
         }
     }
 
-    function isset(variable){
-        return (variable !== "" && variable != null && variable !== undefined && typeof(variable) != "undefined") ? true : false;
+    function isset(variable) {
+        return !!(variable !== "" && variable != null && variable !== undefined && typeof(variable) != "undefined");
     }
 })(jQuery);

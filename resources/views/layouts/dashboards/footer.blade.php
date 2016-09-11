@@ -22,18 +22,28 @@
     <script src="{{ asset('vendor/jquery-touchswipe/jquery.touchSwipe.js') }}"></script>
 
     <!-- common app js -->
-    <script src="{{ asset('js/settings-app.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/autocomplete.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/settings-app.min.js') }}"></script>
+    <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="{{ asset('js/autocomplete.min.js') }}"></script>
+    <script src="{{ asset('js/main.min.js') }}"></script>
     <script src="{{ asset('vendor/underscore/underscore-min.js') }}"></script>
     <script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
     <script src="{{ asset('vendor/messenger/build/js/messenger.js') }}"></script>
     <script src="{{ asset('vendor/messenger/build/js/messenger-theme-flat.js') }}"></script>
     <script src="{{ asset('/vendor/messenger/docs/welcome/javascripts/location-sel.js') }}"></script>
-    <script src="{{ asset('js/ui-notifications.js') }}"></script>
+    <script src="{{ asset('js/ui-notifications.min.js') }}"></script>
 
 
     <!-- page specific libs -->
     @yield('script')
     <!-- page specific js -->
+     <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-80732713-1', 'auto');
+         ga('send', 'pageview');
+
+     </script>

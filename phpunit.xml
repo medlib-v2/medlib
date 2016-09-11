@@ -7,10 +7,12 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="true">
     <testsuites>
-        <testsuite name="Application Test Suite">
+        <testsuite name="Medlib Application Test Suite">
             <directory>./tests/</directory>
+            <directory>./tests/fuctionality/</directory>
+            <directory>./tests/mailers/</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -23,5 +25,7 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_PATH" value="storage/database.sqlite"/>
     </php>
 </phpunit>

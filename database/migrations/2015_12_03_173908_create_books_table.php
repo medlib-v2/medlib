@@ -23,9 +23,9 @@ class CreateBooksTable extends Migration
             $table->integer('edition_id')->foreign('edition_id')->references('edition_id')->on('editions');
             $table->date('publication');
             $table->text('notes')->nullable();
-            $table->integer('author_id')->foreign('author_id')->references('author_id')->on('authors');
-            $table->integer('publisher_id')->foreign('publisher_id')->references('publisher_id')->on('publishers');
-            $table->integer('categorie_id')->foreign('categorie_id')->references('categorie_id')->on('categories');
+            $table->integer('author_id')->index('author_id')->foreign('author_id')->references('author_id')->on('authors');
+            $table->integer('publisher_id')->index('publisher_id')->foreign('publisher_id')->references('publisher_id')->on('publishers');
+            $table->integer('category_id')->index('category_id')->foreign('category_id')->references('category_id')->on('categories');
         });
 
         DB::unprepared('ALTER TABLE `books` DROP PRIMARY KEY, ADD PRIMARY KEY (  `book_id` ,  `isbn` )');

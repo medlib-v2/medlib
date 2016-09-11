@@ -1,1 +1,0 @@
-$(function(){function e(){$("#geo-locations-number, #percent-1, #percent-2, #percent-3").each(function(){$(this).animateNumber({number:$(this).text().replace(/ /gi,""),numberStep:$.animateNumber.numberStepFactories.separator(" "),easing:"easeInQuad"},1e3)}),$(".js-progress-animate").animateProgressBar()}function n(){$(".widget").widgster(),e()}n(),MedlibApp.onPageLoad(n)});

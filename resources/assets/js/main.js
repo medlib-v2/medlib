@@ -1,15 +1,14 @@
-(function(){
+(function($){
 
 	// Ajax friend activity
 	$('.add-friend-request-button').click(handleAjaxRequests);
 
-	//$('.accept-friend-button').click(handleAjaxRequests);
 	$('.users-list').on('click', '.accept-friend-button', handleAjaxRequests);
 	$('.users-list').on('click', '.del-friend-button', handleAjaxRequests);
 	$('.profile-userpic').on('click', '.send-friend-request-button', handleAjaxRequests);
 	$('.profile-userpic').on('click', '.del-friend-button', handleAjaxRequests);
 
-	function handleAjaxRequests() {
+	function handleAjaxRequests(event) {
 
 		event.preventDefault();
 

@@ -2,9 +2,16 @@
 
 namespace Medlib\Models;
 
+use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class FriendRequest extends Model {
+
+    /**
+     * The database table used by the model.
+     * @var string
+     */
+    protected $table = 'friend_requests';
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +28,7 @@ class FriendRequest extends Model {
      */
     public function user()
     {
-        return $this->belongsTo('Medlib\Models\User');
+        return $this->belongsTo(User::class);
     }
 
 

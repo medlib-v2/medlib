@@ -4,9 +4,9 @@
 <div id="site-container" class="context-loader-container">
     <div id="page-content" class="container">
         <div id="section_header"></div>
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        @if (isset($errors) and $errors->has())
+            <div class="alert alert-danger" role="alert">
+                <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>

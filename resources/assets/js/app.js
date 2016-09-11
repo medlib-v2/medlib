@@ -19,7 +19,7 @@ window.DEBUG = true;
  */
 $.fn.widgster.Constructor.DEFAULTS.bodySelector = '.widget-body';
 
-$(function(){
+(function($){
 
     /**
      * Main app class that handles page switching, async script loading, resize & pageLoad callbacks.
@@ -540,7 +540,7 @@ $(function(){
     initAppFunctions();
     initAppFixes();
     initDemoFunctions();
-});
+})(jQuery);
 
 /**
  * Theme functions extracted to independent plugins.
@@ -766,7 +766,7 @@ function initAppFunctions(){
 
             var $currentMessageList = $('.chat-sidebar-chat.open .message-list'),
                 $message = $('<li class="message from-me">' +
-                    '<span class="thumb-sm"><img class="img-circle" src="img/avatar.png" alt="..."></span>' +
+                    '<span class="thumb-sm"><img class="img-circle" src="images/avatar.png" alt="..."></span>' +
                     '<div class="message-body"></div>' +
                     '</li>');
             $message.appendTo($currentMessageList).find('.message-body').text(val);
@@ -808,15 +808,12 @@ function initAppFunctions(){
     }(jQuery);
 }
 
-
-
 /**
  * Medlib browser fixes. It's always something broken somewhere
  */
 function initAppFixes(){
     var isWebkit = 'WebkitAppearance' in document.documentElement.style;
-    if (isWebkit){
-    }
+    if (isWebkit){}
 }
 
 /**
@@ -841,7 +838,6 @@ function initDemoFunctions(){
             }, 1000)
         });
 
-        /*
         setTimeout(function(){
             var $chatNotification = $('#chat-notification');
             $chatNotification.removeClass('hide').addClass('animated fadeIn')
@@ -855,7 +851,6 @@ function initDemoFunctions(){
                     }, 4000);
                 });
             $chatNotification.siblings('[data-toggle="chat-sidebar"]').append('<i class="chat-notification-sing animated bounceIn"></i>')
-        }, 4000)
-        */
+        }, 4000);
     }(jQuery);
 }

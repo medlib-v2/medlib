@@ -5,110 +5,118 @@ namespace Medlib\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use Medlib\Http\Requests\DeleteUserRequest;
 
+/**
+ * @Middleware("auth")
+ */
 class SettingsController extends Controller {
 
-
+    /**
+     * @Get("settings/profile", as="profile.show.settings")
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showProfile() {
 
         return view('users.settings.settings');
     }
 
+    /**
+     * @Post("settings/profile", as="profile.edit.settings")
+     * @param Request $request
+     */
     public function editProfile(Request $request) {
 
         dd($request);
     }
 
+    /**
+     * @Get("settings/admin", as="profile.show.admin")
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showAdmin() {
 
         return view('users.settings.profile');
     }
 
+    /**
+     * @Post("settings/admin", as="profile.edit.admin")
+     * @param Request $request
+     */
     public function editAdmin(Request $request) {
 
         dd($request);
     }
 
+    /**
+     * @Get("settings/email", as="profile.show.email")
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showEmail() {
 
         return view('users.settings.email');
     }
 
+    /**
+     * @Post("settings/email", as="profile.edit.email")
+     * @param Request $request
+     */
     public function editEmail(Request $request) {
 
         dd($request);
     }
 
+    /**
+     * @Post("settings/avatar", as="profile.edit.avatar")
+     * @param Request $request
+     */
     public function editAvatar(Request $request) {
 
         dd($request);
     }
 
+    /**
+     * @Post("settings/password", as="profile.edit.password")
+     * @param Request $request
+     */
     public function editPassword(Request $request) {
 
         dd($request);
 
     }
 
+    /**
+     * @Post("settings/username", as="profile.edit.username")
+     * @param Request $request
+     */
     public function editUsername(Request $request) {
 
         dd($request);
     }
 
-    public function deleteUsername($username, Request $request) {
+    /**
+     * @Post("settings/username", as="profile.delete.username")
+     * @param $username
+     * @param DeleteUserRequest $request
+     * @return mixed
+     */
+    public function deleteUsername($username, DeleteUserRequest $request) {
 
-        $rules = [
-            'email' => 'required|email|max:255',
-            'password' => 'required|min:6',
-            'g-recaptcha-response' => 'required|recaptcha',
-        ];
+        dd($username);
 
-        /** create custom validation messages */
-        $messages = [
-            'required' => 'The :attribute is really really important.'
-        ];
-
-        /**
-         * Do the validation
-         * validate against the inputs from our form
-         */
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        // check if the validator failed
-        if ($validator->fails()) {
-
-            /** get the error messages from the validator */
-            $messages = $validator->messages();
-
-            /** redirect our user back to the form with the errors from the validator */
-            return Redirect::back()
-                ->withErrors($messages)
-                ->withInput(Input::except('password'));
+        if ($request) {
+            // validation successful!
+            // deleting user
+            Auth::logout();
+            return Redirect::route('home');
 
         } else {
-
-            dd($username);
-            /** attempt to do the login
-            if () {
-
-                // validation successful!
-                // deleting user
-                dd($username);
-                Auth::logout();
-                return Redirect::to('/');
-
-            } else {
-
-                // validation not successful, send back to form
-                // return Redirect::to('login')->with('error', 'Could not sign you in with those details.');
-                return Redirect::back()->withErrors('Could not delete your account in with those details.');
-
-            }
-            */
+            return Redirect::back()->withErrors('Could not delete your account in with those details.');
         }
+
+
+
     }
 }

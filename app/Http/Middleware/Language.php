@@ -35,7 +35,6 @@ class Language {
      * @param \Illuminate\Routing\Redirector $redirector
      * @param \Illuminate\Http\Request $request
      *
-     * @return void
      */
     public function __construct(Application $app, Redirector $redirector, Request $request) {
         $this->app = $app;

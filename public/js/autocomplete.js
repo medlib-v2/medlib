@@ -1,1 +1,0 @@
-$(document).ready(function(){$(".search-db1").keyup(function(){var a=$(this).val(),c="searchword="+a;return""==a||$.ajax({type:"GET",source:"/dashboard/search",data:c,cache:!1,success:function(a){$("#display").html(a).show()}}),!1})});

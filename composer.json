@@ -1,33 +1,27 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "medlib-v2/medlib",
+    "description": "A librarian application for researchers and students",
+    "keywords": [
+        "library",
+        "book",
+        "search"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-<<<<<<< HEAD
+        "laravelcollective/bus": "5.2.*",
+        "laravelcollective/html": "^5.2",
         "medlib/helpers": "dev-master",
         "medlib/yaz": "dev-master",
         "medlib/marcxml": "dev-master",
-=======
-        "greggilbert/recaptcha": "dev-master",
-        "nesbot/Carbon": "1.*",
->>>>>>> e91fd0688ad1c76bacaee872ecb756126bf01fbd
         "danmichaelo/quitesimplexmlelement": "~0.2.4",
         "greggilbert/recaptcha": "^2.1",
         "nesbot/Carbon": "^1.21",
         "phpspec/phpspec": "^2.4",
         "intervention/image": "dev-master",
-<<<<<<< HEAD
-        "wisembly/elephant.io": "^3.0"
-=======
-        "wisembly/elephant.io": "3.0.0",
-        "medlib/yaz" : "dev-master",
-        "medlib/marcxml" : "dev-master",
-        "medlib/helpers" : "dev-master"
->>>>>>> e91fd0688ad1c76bacaee872ecb756126bf01fbd
+        "wisembly/elephant.io": "3.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -35,7 +29,9 @@
         "phpunit/phpunit": "5.2.*",
         "laracasts/testdummy": "~2.0",
         "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "symfony/dom-crawler": "2.8.*|3.0.*",
+        "barryvdh/laravel-ide-helper": "~2.2",
+        "barryvdh/laravel-debugbar": "~2.2"
     },
     "autoload": {
         "classmap": [

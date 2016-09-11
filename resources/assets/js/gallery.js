@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function pageLoad(){
         var DEMO = (function( $ ) {
             'use strict';
@@ -100,4 +100,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

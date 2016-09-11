@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function initVMap(){
         $('#vmap').vectorMap({
             map: 'world_mill_en',
@@ -75,4 +75,4 @@ $(function(){
 
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

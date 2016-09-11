@@ -8,9 +8,10 @@
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @if ($errors->has())
-                    <div class="alert alert-danger">
-                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    @include('flash.message')
+                    @if (isset($errors) and $errors->has())
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -26,7 +27,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="list-group">
                                 <div class="list-group-item">
-                                    <input type="email" placeholder="Email" class="form-control no-border" name="email" value="{{ old('email') }}">
+                                    <input type="email" placeholder="Email" class="form-control no-border" name="email" value="{{-- old('email') --}}">
                                     </div>
                                     <div class="list-group-item">
                                         <input type="password" placeholder="Password" class="form-control no-border" name="password">

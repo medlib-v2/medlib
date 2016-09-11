@@ -1,1 +1,0 @@
-$(document).ready(function(){$("form").submit(function(o){$(".form-group").removeClass(),$(".help-block").remove();var e=".search_input",n=e.attr("action")+"?"+e.serialize();$("#"+id).html(n),$.get({type:"GET",url:action,data:e,dataType:"json",encode:!0}).done(function(o){console.log(o)}).fail(function(o){console.log(o)}),o.preventDefault()})});

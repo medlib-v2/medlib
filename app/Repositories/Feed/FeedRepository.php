@@ -4,8 +4,8 @@ namespace Medlib\Repositories\Feed;
 
 use Medlib\Models\User;
 
-interface FeedRepository
-{
+interface FeedRepository  {
+
 	public function getPublishedByUserAndFriends(User $user);
 
 	public function getPublishedByUser(User $user);

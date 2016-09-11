@@ -54,9 +54,9 @@
         @endif
         <div class="tabbable">
             <ul class="nav cover-nav" style="overflow: hidden; outline: none;" tabindex="0">
-                <li class="active"><a href="#profile" data-toggle="tab"><i class="fa fa-fw icon-user-1"></i> About</a></li>
-                <li class=""><a href="#feed" data-toggle="tab"><i class="fa fa-fw icon-ship-wheel"></i> Timeline</a></li>
-                <li class=""><a href="#friends" data-toggle="tab"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class="active"><a href="#feed" ><i class="fa fa-fw icon-ship-wheel"></i> Timeline</a></li>
+                <li class=""><a href="#friends"><i class="fa fa-fw fa-users"></i> Friends</a></li>
+                <li class=""><a href="#profile"><i class="fa fa-fw icon-user-1"></i> About</a></li>
             </ul>
         </div>
     </div>

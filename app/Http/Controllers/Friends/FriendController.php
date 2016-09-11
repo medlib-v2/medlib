@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\Response;
 use Medlib\Commands\RemoveFriendCommand;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Bus;
 
 class FriendController extends Controller {
 
 
+    /**
+     * @var \Medlib\Models\User;
+     */
+    private $currentUser;
+
+    /**
+     * FriendController constructor.
+     */
     public function __construct() {
 
         $this->currentUser = Auth::user();
@@ -23,6 +32,8 @@ class FriendController extends Controller {
     /**
      * Display a listing of the resource.
      *
+     * @param UserRepository $repository
+     * 
      * @return Response
      */
     public function index(UserRepository $repository) {
@@ -38,6 +49,7 @@ class FriendController extends Controller {
      * Store a newly created friend
      *
      * @param Request $request
+     * @param UserRepository $repository
      *
      * @return Response
      */
@@ -51,8 +63,7 @@ class FriendController extends Controller {
                 return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
             }
         }
-        else
-        {
+        else  {
             $friend = User::whereUsername($request->get('username'))->first();
 
             $this->currentUser->createFriendShipWith($friend->id);
@@ -87,7 +98,7 @@ class FriendController extends Controller {
         }
         else
         {
-            $this->dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
+            Bus::dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
 
             $friendsCount = $this->currentUser->friends()->count();
 

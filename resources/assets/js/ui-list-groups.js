@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function pageLoad(){
         $('.widget').widgster();
         $("#sortable").sortable({
@@ -14,4 +14,4 @@ $(function(){
     }
     pageLoad();
     MedlibApp.onPageLoad(pageLoad);
-});
+})(jQuery);

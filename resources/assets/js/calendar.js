@@ -1,4 +1,4 @@
-$(function(){
+(function($){
     function pageLoad(){
         $('#external-events').find('div.external-event').each(function() {
 
@@ -40,8 +40,7 @@ $(function(){
                 $btn.click(function () {
                     var title = $("#event-name").val();
                     if (title) {
-                        $calendar.fullCalendar('renderEvent',
-                            {
+                        $calendar.fullCalendar('renderEvent', {
                                 title: title,
                                 start: start,
                                 end: end,

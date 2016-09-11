@@ -1,0 +1,1 @@
+!function(i){function e(){i(".widget").widgster(),i("#validation-form").parsley()}e(),MedlibApp.onPageLoad(e)}(jQuery);
