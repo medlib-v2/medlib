@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td class="content-block" itemprop="handler" itemscope itemtype="{{ url('register/verify/' . $confirmation_code ) }}" align="center">
-                                    <a href="{{ url('register/verify/' . $confirmation_code ) }}" class="btn btn-primary" itemprop="url">Activate my account</a>
+                                    <a href="{{ url('register/verify/' . $confirmation_code ) }}" class="btn btn-primary" itemprop="url">Activater mon compte</a>
                                 </td>
                             </tr>
                             <tr>

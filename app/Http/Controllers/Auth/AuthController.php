@@ -89,8 +89,6 @@ class AuthController extends Controller {
      */
     public function doRegister(RegisterUserRequest $request) {
 
-        dd($request->file('profileimage'));
-
         $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
 
 

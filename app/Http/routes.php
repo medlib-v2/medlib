@@ -230,6 +230,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function (){
             Route::any('/{lang}', ['as' => 'lang', 'uses' => 'LangController@doLang']);
         });
+
+        // About
+        Route::group(['prefix' => 'site', 'namespace' => 'About'], function (){
+            Route::get('contact', ['as' => 'contact.show', 'uses' => 'AboutController@create']);
+            Route::post('contact', ['as' => 'contact.store', 'uses' => 'AboutController@store']);
+        });
         
     });
 });

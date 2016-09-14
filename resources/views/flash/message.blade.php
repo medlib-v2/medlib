@@ -37,3 +37,13 @@
         <p>{{ Session::get('error') }}</p>
     </div>
 @endif
+
+ @if(Session::has('message'))
+    <div class="alert alert-info" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign"></span> <strong>Info Message</strong>
+            <hr class="message-inner-separator">
+
+            <p>{{Session::get('message')}}</p>
+    </div>
+@endif
