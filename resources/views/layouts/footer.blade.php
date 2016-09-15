@@ -14,14 +14,14 @@
                 <h4>Help &amp; Support</h4>
                 <ul class="list-unstyled">
                     <li><a href="{{url('/site/faq')}}">FAQ</a></li>
-                    <li><a href="{{url('/site/payment')}}">Payment Rates</a></li>
-                    <li><a href="{{url('/site/contact')}}">Contact Support</a></li>
+                    <li><a href="https://docs.google.com/a/etna-alternance.net/forms/d/e/1FAIpQLSdgXfiOGKYGp0Vy-ARTEX7ny0lHsXmAa315HQDyN3f-giyQqQ/viewform" target="_blank">Questionnaire de satisfaction</a></li>
+                    <li><a href="{{url('/site/contact')}}">Nous contacter</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <h4>Resources</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{url('/blog')}}">Blog</a></li>
+                    <li><a href="https://medlibsite.wordpress.com" target="_blank">Blog</a></li>
                     <li><a href="{{url('/blog/resources')}}">Resource List</a></li>
                     <li><a href="{{url('/blog/category/tutorials')}}">Tutorials</a></li>
                 </ul>
@@ -29,10 +29,10 @@
             <div class="col-xs-12 col-sm-3">
                 <h4>Social</h4>
                 <ul class="list-unstyled">
-                    <li><a href="https://www.facebook.com/medlib" target="_blank">Facebook</a></li>
-                    <li><a href="https://twitter.com/medlib" target="_blank">Twitter</a></li>
-                    <li><a href="http://www.youtube.com/user/medlib" target="_blank">YouTube</a></li>
-                    <li><a href="https://plus.google.com/+medlib/posts" target="_blank">Google+</a></li>
+                    <li><a href="https://www.facebook.com/Medlib-475747165961654/?ref=ts&fref=ts" target="_blank">Facebook</a></li>
+                    <!--<li><a href="https://twitter.com/medlib" target="_blank">Twitter</a></li>-->
+                    <li><a href="https://www.youtube.com/channel/UCiWrU8r3dvCKg15No-W15mA" target="_blank">YouTube</a></li>
+                    <!--<li><a href="https://plus.google.com/+medlib/posts" target="_blank">Google+</a></li>-->
                 </ul>
             </div>
         </div>
