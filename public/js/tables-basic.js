@@ -1,0 +1,1 @@
+!function(a){function e(){a(".widget").widgster(),a(".sparkline").each(function(){a(this).sparkline("html",a(this).data())}),a(".js-progress-animate").animateProgressBar()}e(),MedlibApp.onPageLoad(e)}(jQuery);
