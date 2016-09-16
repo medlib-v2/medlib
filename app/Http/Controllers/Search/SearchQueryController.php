@@ -37,7 +37,7 @@ class SearchQueryController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         /** if the validator fails, redirect back to the form */
-        /**
+
         if ($validator->fails()) {
 
 		if($request->ajax()){
@@ -46,9 +46,6 @@ class SearchQueryController extends Controller
 			return Redirect::to('/')->withErrors($validator)->withInput();
 		}
         }
-        **/
-
-
 		if (Cache::has($request->get('query') . $request->get('qdb'))) {
 
 			$this->_results = Cache::get($request->get('query') . $request->get('qdb'));
