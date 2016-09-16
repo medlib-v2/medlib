@@ -1,4 +1,7 @@
-@extends('layouts.master') @section('title', trans('search.txt.search_results'). " ". trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.')) @section('content')
+@extends('layouts.master') 
+
+@section('title', trans('search.txt.search_results'). " ". trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.')) 
+@section('content')
 <section class="content-search" role="search">
     <header class="result">
         <div class="row">
