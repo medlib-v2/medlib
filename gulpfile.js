@@ -125,7 +125,8 @@ gulp.task('vendor', function() {
             settings.assetsPlugins + 'jQuery-slimScroll/jquery.slimscroll.min.js',
             settings.assetsPlugins + 'widgster/widgster.js',
             settings.assetsPlugins + 'pace.js/pace.min.js',
-            settings.assetsPlugins + 'jquery-touchswipe/jquery.touchSwipe.js'
+            settings.assetsPlugins + 'jquery-touchswipe/jquery.touchSwipe.js',
+            settings.assetsPlugins + 'select2/select2.js'
         ])
         .pipe(uglify())
         .pipe(concat('vendor.min.js'))
