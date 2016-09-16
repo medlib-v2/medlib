@@ -62,5 +62,9 @@
         });
         $('.isbns').books();
     })(jQuery);
+    
+    function goBack() {
+        window.history.back();
+    }
 </script>
 @endsection
