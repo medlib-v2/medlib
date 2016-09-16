@@ -13,9 +13,7 @@
             </a>
             <button type="button" class="navbar-toggle visible-xs collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Medlib</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <i class="fa fa-bars fa-lg"></i>
                 </button> @else
             <ul class="nav navbar-nav">
                 <li>
@@ -89,9 +87,7 @@
                                 <div class="col-md-4 col-sm-4">
                                     <ul class="login-via">
                                         <li class="info">
-                                            <span>
-                                                        Si vous ne possédez pas déjà un compte cliquez sur le bouton ci-dessous pour créer votre compte.
-                                                    </span>
+                                            <span>Si vous ne possédez pas déjà un compte cliquez sur le bouton ci-dessous pour créer votre compte.</span>
                                         </li>
                                         <li class="">
                                             <a class="btn btn-primary" type="button" href="{{ route('auth.register') }}" id="sign-in">{{ trans('auth.txt.sing_up') }}</a>

@@ -1,4 +1,7 @@
-@extends('layouts.master') @section('title', 'Bienvennu dans Media library') @section('content')
+@extends('layouts.master') 
+@section('title', 'Bienvennu dans Media library') 
+
+@section('content')
 <section class="content-search" role="search">
     <header class="search">
         <h1 class="search-title"><span>Medlib<br>Recherche bibliographique</span></h1>
@@ -106,7 +109,9 @@
         <div id="danger" class="row">&nbsp;</div>
     </div>
 </main>
-@endsection @section('script')
+@endsection 
+
+@section('script')
 <script>
     $(".select2 .form-control .select2-offscreen").select2();
 </script>

@@ -3,7 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
-<div class="container-fluid animated fadeInUp">
+<div class="container-fluid animated fadeInUp" style="margin-top: 20px;">
     <div class="row">
         <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-default">
@@ -34,22 +34,22 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="checkbox">
-                                            <input id="checkbox1" type="checkbox" name="remember" class="form-control no-border">
-                                            <label for="checkbox1">
-                                                Remember me
-                                            </label>
+                                            <input id="checkbox1" type="checkbox" name="remember" class="no-border">
+                                            <label for="checkbox1">Remember me</label>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
-                                <div class="text-center m-t m-b">
-                                    <a href="{{ url('/password/email') }}" class="btn btn-link">
-                                        <small>Forgot Your Password?</small>
-                                    </a>
+                                <div class="list-group">
+                                    <button type="submit" class="btn btn-lg btn-success btn-block" style="width: 525px;">Sign in</button>
+                                    <div class="text-center m-t m-b">
+                                        <a href="{{ url('/password/email') }}" class="btn btn-link">
+                                            <small>Forgot Your Password?</small>
+                                        </a>
+                                    </div>
+                                    <div class="line line-dashed"></div>
+                                    <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                                    <a href="{{ route('auth.register') }}" class="btn btn-lg btn-default btn-block">Create an account</a>
                                 </div>
-                                <div class="line line-dashed"></div>
-                                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                                <a href="{{ route('auth.register') }}" class="btn btn-lg btn-default btn-block">Create an account</a>
                             </form>
                     </section>
                 </div>

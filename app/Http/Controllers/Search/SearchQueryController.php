@@ -153,10 +153,13 @@ class SearchQueryController extends Controller
 				'error' => $record->hasError(),
 				'message' => $record->errorMessage()
 			];
-
 		}
 
-		dd($this->_results);
-
+		if($request->ajax()) {
+			return View::make("search.ajax.details", [ 'results' => $this->_results]);
+		}
+		else {
+        	return View::make("search.details", [ 'results' => $this->_results]);
+		}
 	}
 }
