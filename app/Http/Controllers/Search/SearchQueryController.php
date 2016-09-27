@@ -37,16 +37,15 @@ class SearchQueryController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         /** if the validator fails, redirect back to the form */
+
         if ($validator->fails()) {
 
-			if($request->ajax()){
-				return response()->json(['require' => $validator->errors()], 422);
-			}else {
-				return Redirect::to('/')->withErrors($validator)->withInput();
-			}
+		if($request->ajax()){
+			return response()->json(['require' => $validator->errors()], 422);
+		}else {
+			return Redirect::to('/')->withErrors($validator)->withInput();
+		}
         }
-
-
 		if (Cache::has($request->get('query') . $request->get('qdb'))) {
 
 			$this->_results = Cache::get($request->get('query') . $request->get('qdb'));
@@ -61,7 +60,7 @@ class SearchQueryController extends Controller
 			$record = Yaz::from($request->query('qdb'))
 				->where($query)
 				//->limit(1, 10240)
-				->limit(1, 20)
+				->limit(1, 100)
 				->orderBy('au ASC')
 				->all(YazRecords::TYPE_XML);
 			
