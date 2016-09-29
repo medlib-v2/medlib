@@ -1,0 +1,14 @@
+{
+    "name": "medlib",
+    "version": "0.1.0",
+    "author": "Patrick LUZOLO SIASIA",
+    "description": "Medlib : Application de recherche bibliothécaire utilisant le protocole de communication Zebra(Z3959)",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/medliv-v2/medlib"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-jshint": "~0.6.3"
+    }
+}
