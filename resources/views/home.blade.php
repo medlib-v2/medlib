@@ -1,5 +1,5 @@
-@extends('layouts.master') 
-@section('title', 'Bienvennu dans Media library') 
+@extends('layouts.master')
+@section('title', 'Bienvennu dans Media library')
 
 @section('content')
 <section class="content-search" role="search">
@@ -109,11 +109,10 @@
         <div id="danger" class="row">&nbsp;</div>
     </div>
 </main>
-@endsection 
+@endsection
 
 @section('script')
-<script>
-    $(".select2 .form-control .select2-offscreen").select2();
-</script>
+<script type="text/javascript" src="{{ asset('js/arrow.min.js') }}"></script>
 <script data-main="js/books/app" src="{{ asset('js/require.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/form-elements-home.min.js') }}"></script>
 @endsection

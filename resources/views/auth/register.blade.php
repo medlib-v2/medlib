@@ -236,6 +236,7 @@
                         <!-- /Image profile -->
                         <!-- ReCaptcha -->
                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            <?php use Greggilbert\Recaptcha\Facades\Recaptcha; ?>
                             {!! Recaptcha::render() !!}
                         </div>
                         <!--  /ReCaptcha -->
@@ -254,4 +255,9 @@
         </div>
     </section>
 </main>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="{{ asset('js/form-elements.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/tables-basic.min.js') }}"></script>
 @endsection

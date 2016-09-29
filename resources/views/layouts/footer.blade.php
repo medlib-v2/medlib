@@ -60,14 +60,8 @@
 
 <!-- common libraries. required for every page-->
 <script type="text/javascript" src="{{ asset('js/vendor.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/script.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/password.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/lodash.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/arrow.min.js') }}"></script>
-
-<!-- page specific js -->
-<script type="text/javascript" src="{{ asset('js/form-elements-home.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/tables-basic.min.js') }}"></script>
 <!-- page specific js -->
 <script type="text/javascript">
     $(window).load(function() {

@@ -7,33 +7,10 @@
                 <td align="justify">
                     <div>
                         @foreach($result->isbns as $isbn)
-                        <span data-isbn="{{ cleanIsbn($isbn) }}">{{ $isbn }}</span> @endforeach
+                        <span data-isbn="{{ cleanIsbn($isbn) }}">{{ $isbn }}</span>
+                        @endforeach
                     </div>
-                    <div id="GoogleBooksPreview-{{cleanIsbn($isbn)}}" class="hidden">
-                        <div id="viewerCanvas-{{cleanIsbn($isbn)}}" style="width: 600px; height: 500px;"></div>
-                    </div>
-                    <script type="text/javascript">
-                        var selector = "GoogleBooksPreview-{{cleanIsbn($isbn)}}",
-                        googleBooksWidget = document.getElementById(selector), viewerCanvas = "viewerCanvas-{{cleanIsbn($isbn)}}";
-                        
-                        function BooksFound() {
-                           /** googleBooksWidget.className = ""; **/
-                            console.log("BooksFound %o", selector);
-                        }
-                        
-                        function BooksNotFound() {
-                            console.log("BooksNotFound %o", selector);
-                        }
-                        google.books.load({"language": "fr"});
-
-                        function initialize() {
-                            var googleViewerCanvas = document.getElementById(viewerCanvas);
-                            var viewer = new google.books.DefaultViewer(googleViewerCanvas, {showLinkChrome: false}),
-                            valueIsbn = "{{cleanIsbn($isbn)}}";
-                            viewer.load('ISBN:'+ valueIsbn , BooksNotFound, BooksFound);
-                        }
-                        google.books.setOnLoadCallback(initialize);
-                    </script>
+                    <div id="books-{{cleanIsbn($isbn)}}" data-isbn="{{ cleanIsbn($isbn) }}" class="hidden"></div>
                 </td>
             </tr>
         </tbody>

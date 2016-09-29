@@ -1,12 +1,7 @@
 Homestead.yaml
 Homestead.json
-web.config
-composer.json
 composer.lock
-package.json
-gulpfile.js
 gulpfile.old.js
-phpunit.xml
 common.js
 .env
 .env.testing

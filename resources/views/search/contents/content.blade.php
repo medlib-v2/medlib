@@ -19,7 +19,9 @@
                 <?php $counter = 0; ?>
                 <!-- ==================== Beginning result ================== -->
                 @foreach ($results as $result)
-                <?php $counter++; ?> @include('search.contents.detail') @endforeach
+                <?php $counter++; ?>
+                @include('search.contents.detail')
+                @endforeach
                 <!-- ==================== Ending result ================== -->
             </div>
             <!-- Begin results info -->

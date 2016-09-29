@@ -1,6 +1,7 @@
 (function($){
 
-    $('select.select2').select2();
+    //$('select.select2').select2();
+    $(".select2 .form-control .select2-offscreen").select2();
 
     function pageLoad(){
         $('#tooltip-enabled, #max-length').tooltip();
