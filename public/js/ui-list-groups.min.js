@@ -1,1 +1,0 @@
-!function(e){function l(){e(".widget").widgster(),e("#sortable").sortable({placeholder:"list-group-item list-group-item-placeholder",forcePlaceholderSize:!0}),e("#nestable1").nestable({group:1}),e("#nestable2").nestable({group:1})}l(),MedlibApp.onPageLoad(l)}(jQuery);

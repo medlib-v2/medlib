@@ -45,6 +45,7 @@
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/progressbar.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/jprogress.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/cookiebar.css') }}" rel="stylesheet" type="text/css">
         @yield('sytle')
 
         <!-- TITLE -->

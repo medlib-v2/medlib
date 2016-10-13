@@ -2,10 +2,13 @@ Homestead.yaml
 Homestead.json
 composer.lock
 gulpfile.old.js
+gulpfile2.js
 common.js
 .env
 .env.testing
 .DS_Store
+._.DS_Store
+._*
 .idea
 readme.md
 /tests

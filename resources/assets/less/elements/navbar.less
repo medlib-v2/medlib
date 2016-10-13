@@ -142,6 +142,10 @@
     padding-left: 21px;
     padding-right: 21px;
 
+    &.navbar-brand {
+      margin-top: 5px;
+    }
+
     > .navbar-header,
     > .navbar-collapse {
       margin-right: -21px;
@@ -197,9 +201,11 @@
   float: left;
   font-size: floor((@component-font-size-base * 1.6)); // ~24px
   line-height: 1.042;  // ~25px
-  //height: @navbar-height-base;
+  height: @navbar-height-base;
+  margin-right: @navbar-padding-horizontal;
   font-weight: 700;
-  padding: ((@navbar-height-base - 25px) / 2) 21px;
+  margin-top: ((@navbar-height-base - 35px) / 2);
+  margin-left: ((@navbar-height-base - 35px) / 2);
 
   &:hover,
   &:focus {
@@ -217,6 +223,9 @@
     .navbar > .container-fluid & {
       margin-left: -21px;
       //margin-left: -@navbar-padding-horizontal;
+      &.navbar-brand {
+        margin-top: 5px;
+      }
     }
   }
 }
@@ -240,17 +249,7 @@
   border-radius: @border-radius-base;
   line-height: @navbar-height-base;
 
-  &:before {
-    color: @link-color;
-    content: "\e61a";
-    font-family: "Glyphicons Halflings";
-    font-size: floor((@component-font-size-base * 1.467)); // ~22px
-    font-style: normal;
-    font-weight: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: color .25s linear;
-  }
+  &:before { }
   &:hover,
   &:focus {
     outline: none;

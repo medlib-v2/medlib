@@ -1,1 +1,0 @@
-!function(o){function t(){o(".widget").widgster(),o("[data-toggle=tooltip]").tooltip(),o("[data-toggle=popover]").popover()}t(),MedlibApp.onPageLoad(t)}(jQuery);

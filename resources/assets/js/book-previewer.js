@@ -27,9 +27,9 @@
     google.books.setOnLoadCallback(function() { initialize(isbn) });
 }
 
-  google.books.setOnLoadCallback(initialize);
+  //google.books.setOnLoadCallback(initialize);
 
   $.books = $.fn.books = function(options){
-    console.log("chargement");
+    console.log("chargement", this);
   };
 })(jQuery, undefined);
