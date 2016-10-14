@@ -3,7 +3,11 @@ language: php
 php:
   - 5.6
   - 7.0
+  - hhvm
 
+matrix:
+  allow_failures:
+    - php: hhvm
 env:
   APP_ENV: testing
   CACHE_DRIVER: array
@@ -38,6 +42,7 @@ services:
 # Setting up pre-requirements
 before_install:
   - git clone git://github.com/medlib-v2/test-unit.git tests
+  - cp .env.travis .env
   - touch database/database.sqlite
   - mysql -e 'create database medlib_test;'
 
@@ -48,6 +53,8 @@ install:
   - npm install
   - composer self-update
   - composer install --no-scripts --no-interaction
+  - php artisan migrate
+  - php artisan db:seed
 
 script:
   - phpunit
