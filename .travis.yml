@@ -38,6 +38,10 @@ addons:
     - mysql-client-core-5.6
     - mysql-client-5.6
 
+#Start MySQL
+services:
+  - mysql
+
 # Setting up pre-requirements
 before_install:
   - git clone git://github.com/medlib-v2/test-unit.git tests
