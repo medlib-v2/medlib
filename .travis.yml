@@ -30,8 +30,6 @@ branches:
 # Setting up pre-requirements
 before_install:
   - git clone git://github.com/medlib-v2/test-unit.git tests
-  - pwd
-  - ls -l
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -39,7 +37,8 @@ install:
   - nvm use stable
   - npm install
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer install --no-scripts
+  #- composer install --prefer-source --no-interaction
 
 script:
   - phpunit
