@@ -20,8 +20,14 @@ env:
 before_script:
   - git clone git://github.com/medlib-v2/test-unit.git tests
 
+## Cache composer bits
+cache:
+  directories:
+    - $HOME/.composer/cache
+    
 branches:
   - master
+  - develop
 
 install:
   - . $HOME/.nvm/nvm.sh
