@@ -15,8 +15,7 @@ env:
   QUEUE_DRIVER: sync
   DB_CONNECTION: mysql
   DB_DATABASE: medlib_test
-  DB_USERNAME: root
-  DB_PASSWORD: root
+  DB_USERNAME: travis
   APP_KEY: 16efa6c23c2e8c705826b0e66778fbe7
   ADMIN_EMAIL: admin@medlib.fr
   ADMIN_NAME: Admin
