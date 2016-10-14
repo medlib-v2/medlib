@@ -30,6 +30,7 @@ branches:
 # Setting up pre-requirements
 before_install:
   - git clone git://github.com/medlib-v2/test-unit.git tests
+  - touch database/database.sqlite
 
 install:
   - . $HOME/.nvm/nvm.sh
