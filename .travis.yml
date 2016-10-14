@@ -18,7 +18,6 @@ env:
 
 # Setting up pre-requirements
 before_script:
-  - cd ..
   - git clone git://github.com/medlib-v2/test-unit.git tests
 
 branches:
