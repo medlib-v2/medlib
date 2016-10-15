@@ -23,12 +23,11 @@ env:
   ADMIN_PASSWORD: SoSecurEvinr0rd
   BROADCAST_DRIVER: log
 
-## Cache composer bits
+## Cache composer directories
 cache:
-  bundler: true
   directories:
-  - node_modules # NPM packages
-  - vendor
+    - node_modules # NPM packages
+    - vendor
     
 branches:
   - master
