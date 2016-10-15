@@ -3,21 +3,47 @@ language: php
 php:
   - 5.6
   - 7.0
+  - hhvm
 
+matrix:
+  allow_failures:
+    - php: hhvm
 env:
   APP_ENV: testing
   CACHE_DRIVER: array
   SESSION_DRIVER: array
   QUEUE_DRIVER: sync
-  DB_CONNECTION: sqlite
+  DB_CONNECTION: mysql
+  DB_DATABASE: medlib_test
+  DB_USERNAME: travis
+  DB_PASSWORD:
   APP_KEY: 16efa6c23c2e8c705826b0e66778fbe7
   ADMIN_EMAIL: admin@medlib.fr
   ADMIN_NAME: Admin
   ADMIN_PASSWORD: SoSecurEvinr0rd
   BROADCAST_DRIVER: log
 
+## Cache composer directories
+cache:
+  directories:
+    - node_modules # NPM packages
+    - vendor
+    
 branches:
   - master
+  - develop
+
+#Start MySQL
+sudo: required
+services:
+  - mysql
+
+# Setting up pre-requirements
+before_install:
+  - git clone git://github.com/medlib-v2/test-unit.git tests
+  - cp .env.travis .env
+  - touch database/database.sqlite
+  - mysql -e 'create database if not exists medlib_test;'
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -25,7 +51,9 @@ install:
   - nvm use stable
   - npm install
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer install --no-scripts --no-interaction
+  - php artisan migrate
+  - php artisan db:seed
 
 script:
   - phpunit
