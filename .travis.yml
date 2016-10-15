@@ -40,10 +40,11 @@ services:
 
 # Setting up pre-requirements
 before_install:
+  - id -un #Show current user
   - git clone git://github.com/medlib-v2/test-unit.git tests
   - cp .env.travis .env
   - touch database/database.sqlite
-  - mysql -u root -e 'create database if not exists medlib_test;'
+  - mysql -e 'create database if not exists medlib_test;'
 
 install:
   - . $HOME/.nvm/nvm.sh
