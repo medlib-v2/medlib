@@ -16,7 +16,7 @@ env:
   DB_CONNECTION: mysql
   DB_DATABASE: medlib_test
   DB_USERNAME: travis
-  DB_PASSWORD: travis
+  DB_PASSWORD:
   APP_KEY: 16efa6c23c2e8c705826b0e66778fbe7
   ADMIN_EMAIL: admin@medlib.fr
   ADMIN_NAME: Admin
