@@ -12,7 +12,8 @@
   font-size: floor((@component-font-size-base * 1.067)); // ~16px
   font-weight: normal;
   min-height: @navbar-height-base;
-  margin-bottom: @navbar-margin-bottom;
+  //margin-bottom: @navbar-margin-bottom;
+  margin-bottom: 3px;
   border: 1px solid transparent;
   &:extend(.clearfix all);
   // Prevent floats from breaking the navbar
@@ -221,10 +222,11 @@
   @media (min-width: @grid-float-breakpoint) {
     .navbar > .container &,
     .navbar > .container-fluid & {
-      margin-left: -21px;
+      margin-left: 0;
+      margin-top: 5px;
       //margin-left: -@navbar-padding-horizontal;
-      &.navbar-brand {
-        margin-top: 5px;
+      .navbar-brand {
+        margin-top: 15px;
       }
     }
   }

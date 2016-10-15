@@ -41,11 +41,9 @@
         <!--[if IE 9]>
         <link href="{{ asset('css/application-ie9-part2.css') }}" rel="stylesheet">
         <![endif]-->
-        <link href="{{ asset('css/application.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/progressbar.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/jprogress.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/cookiebar.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ App::rev('css/application.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ App::rev('css/vendors.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ App::rev('css/style.css') }}" rel="stylesheet" type="text/css">
         @yield('sytle')
 
         <!-- TITLE -->

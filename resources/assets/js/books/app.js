@@ -5,7 +5,7 @@
 requirejs.config({
     baseUrl: "js/books/",
     paths: {
-        lodash: "../lodash.min",
+        lodash: "../vendors",
         backbone: "vendor/backbone-min",
         //jquery: "vendor/jquery-3.1.0.min",
         jquery: "vendor/jquery",

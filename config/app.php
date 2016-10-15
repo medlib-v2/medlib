@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'http://medlib-v2.lan',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +109,8 @@ return [
     */
 
     'log' => env('APP_LOG', 'single'),
+    
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,12 +167,14 @@ return [
 
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        
         /*
          * Laravel Collective Service Providers...
          */
         Collective\Bus\BusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        //BladeSvg\BladeSvgServiceProvider::class,
     ],
 
     /*
@@ -226,6 +230,10 @@ return [
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'BlogCache' => Blog\Facades\BlogCache::class,
     ],
 
 ];

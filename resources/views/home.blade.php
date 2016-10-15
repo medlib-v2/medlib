@@ -112,7 +112,7 @@
 @endsection
 
 @section('script')
-<script type="text/javascript" src="{{ asset('js/arrow.min.js') }}"></script>
-<script data-main="js/books/app" src="{{ asset('js/require.min.js') }}"></script>
+<script type="text/javascript" src="{{ App::rev('js/search-commons.min.js') }}"></script>
+<script data-main="js/books/app" src="{{ App::rev('js/require.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/form-elements-home.min.js') }}"></script>
 @endsection

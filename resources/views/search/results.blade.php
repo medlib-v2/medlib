@@ -47,18 +47,12 @@
 </main>
 @endsection
 @section('sytle')
-<link href="{{ asset('css/jplist/jplist.core.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/jplist/jplist.textbox-filter.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/jplist/jplist.pagination-bundle.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/jplist/jplist.history-bundle.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/jplist/jplist.filter-toggle-bundle.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/jplist/jplist.views-control.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ App::rev('css/jplist-commons.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('script')
 <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-<script type="text/javascript" src="{{ asset('js/book-previewer.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/arrow.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jplist.scripts.min.js') }}"></script>
+<script type="text/javascript" src="{{ App::rev('js/search-commons.min.js') }}"></script>
+<script type="text/javascript" src="{{ App::rev('js/jplist-common.min.js') }}"></script>
 <script>
     (function($) {
       $('.list-item a').books();

@@ -59,10 +59,13 @@
 </div>
 <div id="cookiebar"></div>
 <!-- common libraries. required for every page-->
-<script type="text/javascript" src="{{ asset('js/vendor.min.js') }}"></script>
+<script type="text/javascript" src="{{ App::rev('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ App::rev('js/vendors.js') }}"></script>
+<!--
 <script type="text/javascript" src="{{ asset('js/password.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/lodash.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/cookiebar.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/cookiebar.js') }}"></script> 
+-->
 <!-- page specific js -->
 <script type="text/javascript">
     $(window).load(function() {
@@ -215,6 +218,6 @@ if (cookie !== "") {
 
 @if ( config('app.debug') )
   <script type="text/javascript">
-    document.write('<script src="//localhost:35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+    document.write('<script src="http://localhost:35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
   </script> 
 @endif
