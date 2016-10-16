@@ -40,7 +40,9 @@ before_install:
   - mysql -e 'create database if not exists medlib_test;'
   - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - npm i maildev
   - travis_retry composer self-update
+  - travis_retry node_modules/maildev/bin/maildev
 
 install:
   - . $HOME/.nvm/nvm.sh
