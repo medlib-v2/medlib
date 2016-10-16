@@ -217,9 +217,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $id
      * @return boolean
      */
+    /**
     public function is($id) {
         return $this->id == $id;
     }
+    **/
 
     /**
      * Determine if current user is available to chat.

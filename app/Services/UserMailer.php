@@ -14,7 +14,7 @@ class UserMailer extends EmailNotifier {
 	public function sendWelcomeMessageTo(User $user) {
 
 		$subject = trans("emails.title_welcome_message");
-		$view = 'auth.email.welcome';
+		$view = 'emails.send.welcome';
 		$data = [
 			'first_name' => $user->getFirstName(),
 			'last_name' => $user->getLastName(),
@@ -37,7 +37,7 @@ class UserMailer extends EmailNotifier {
 
 		$subject = 'Someone would like to be your friend';
 
-		$view = 'auth.email.friend-request';
+		$view = 'emails.send.friend-request';
 
 		$data = ['userFirstname' => $requestedUser->getName(), 'requesterFirstname' => $requesterUser->getName()];
 

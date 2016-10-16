@@ -4,7 +4,7 @@
 <div id="site-container" class="context-loader-container">
     <div id="page-content" class="container">
         <div id="section_header"></div>
-        @if (isset($errors) and $errors->has())
+        @if (isset($errors) and $errors->any())
             <div class="alert alert-danger" role="alert">
                 <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                 <ul>

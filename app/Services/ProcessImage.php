@@ -19,9 +19,12 @@ class ProcessImage {
 	 */
 	public function execute($file, $path, $width, $height) {
 
-		$filename = $this->rename($file);
-		Image::make($file)->resize($width, $height)->save($path.$filename);
-		return asset($path.$filename);
+	    $filename = $this->rename($file);
+        $full_path = public_path($path);
+
+		Image::make($file)->resize($width, $height)->save($full_path.$filename);
+		//return asset($path.$filename);
+        return $path.$filename;
 	}
 
 	/**

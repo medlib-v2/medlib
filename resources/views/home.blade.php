@@ -20,8 +20,10 @@
                             @foreach($datasource as $name => $instance)
                                 <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
                             @endforeach
-                        </select> @if (isset($errors) && $errors->has('qdb'))
-                    <p class="help-block text-warning">{{ $errors->first('qdb') }}</p> @endif
+                        </select>
+                    @if (isset($errors) && $errors->has('qdb'))
+                    <p class="help-block text-warning">{{ $errors->first('qdb') }}</p>
+                    @endif
                 </div>
                 <div class="col-xs-12 col-md-4 col-sm-4">
                     <ul class="icons">

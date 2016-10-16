@@ -2,12 +2,12 @@
 
 namespace Medlib\Commands;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Realtime\Events as SocketClient;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class RemoveFriendCommand extends Command implements SelfHandling {
+class RemoveFriendCommand extends Command {
 
     /**
      * @var int
@@ -23,12 +23,13 @@ class RemoveFriendCommand extends Command implements SelfHandling {
     /**
      * Create a new command instance.
      *
-     * @param int $username
+     * @param Request $request
      *
      */
-    public function __construct($username)
+    public function __construct(Request $request)
     {
-        $this->username = $username;
+
+        $this->username = $request->get('username');
 
         #$this->socketClient = new SocketClient;
     }

@@ -2,13 +2,13 @@
 
 namespace Medlib\Commands;
 
-use Illuminate\Support\Facades\Bus;
+use Medlib\Http\Requests\Request;
 use Medlib\Models\User;
+use Illuminate\Support\Facades\Bus;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class RegisterUserCommand extends Command implements SelfHandling {
+class RegisterUserCommand extends Command {
 
     protected $email;
     protected $username;
@@ -28,41 +28,26 @@ class RegisterUserCommand extends Command implements SelfHandling {
 
     /**
      * Create a new command instance.
-     *
+     * @param Request $request
      * @return void
      */
-    public function __construct(
-        $email,
-        $username,
-        $password,
-        $first_name,
-        $last_name,
-        $profession,
-        $location = "Paris",
-        $date_of_birth,
-        $gender,
-        $user_active = false,
-        $account_type = false,
-        $user_avatar,
-        $confirmation_code,
-        $onlinestatus = false,
-        $chatstatus = true
-    ) {
-        $this->email = $email;
-        $this->username = $username;
-        $this->password = $password;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->profession = $profession;
-        $this->location = $location;
-        $this->date_of_birth = $date_of_birth;
-        $this->gender = $gender;
-        $this->user_active = $user_active;
-        $this->account_type = $account_type;
-        $this->user_avatar = $user_avatar;
-        $this->confirmation_code = $confirmation_code;
-        $this->onlinestatus = $onlinestatus;
-        $this->chatstatus = $chatstatus;
+    public function __construct(Request $request) {
+
+        $this->email = $request->get('email');
+        $this->username = $request->get('username');
+        $this->password = $request->get('password');
+        $this->first_name = $request->get('first_name');
+        $this->last_name = $request->get('last_name');
+        $this->profession = $request->get('profession');
+        $this->location = $request->get('location') ? $request->get('location') : "Paris, Ile-de-France";
+        $this->date_of_birth = $request->get('date_of_birth');
+        $this->gender = $request->get('gender');
+        $this->user_active = false;
+        $this->account_type = false;
+        $this->user_avatar = $request->get('user_avatar');
+        $this->confirmation_code = $request->get('confirmation_code');
+        $this->onlinestatus = false;
+        $this->chatstatus = true;
     }
 
     /**

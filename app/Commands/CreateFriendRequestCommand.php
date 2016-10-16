@@ -3,14 +3,14 @@
 namespace Medlib\Commands;
 
 
+use Illuminate\Http\Request;
 use Medlib\Commands\Command;
 use Medlib\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Events\FriendRequestWasSent;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Medlib\Repositories\User\UserRepository;
 
-class CreateFriendRequestCommand extends Command implements SelfHandling {
+class CreateFriendRequestCommand extends Command {
 
     /**
      *  @var string
@@ -19,10 +19,11 @@ class CreateFriendRequestCommand extends Command implements SelfHandling {
 
     /**
      * Create a new command instance.
+     * @param Request $request
      *
      */
-    public function __construct($requestedName) {
-        $this->requestedName = $requestedName;
+    public function __construct(Request $request) {
+        $this->requestedName = $request->get('username');
     }
 
     /**

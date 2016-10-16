@@ -37,7 +37,7 @@ $factory->define(Medlib\Models\Message::class, function (Faker\Generator $faker)
 
     return [
         'body'		=> $faker->sentence(),
-        'senderprofileimage' => $faker->imageUrl($width = 180, $height = 180),
+        'senderprofileimage' => $faker->imageUrl($width = 200, $height = 200),
         'senderid' => $faker->randomElement($userIds),
         'sendername' => $faker->firstName,
     ];

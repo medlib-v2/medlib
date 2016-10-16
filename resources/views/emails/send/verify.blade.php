@@ -7,7 +7,7 @@
 @section('content')
     <td class="container" width="600">
         <div class="content">
-            <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="{{url('avatars/'. $user_avatar) }}">
+            <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="{{ url($user_avatar) }}">
                 <tr>
                     <td class="content-wrap">
                         <meta itemprop="name" content="Confirm Account"/>
@@ -15,7 +15,7 @@
                             <tr>
                                 <td class="content-block">
                                     <!-- USER IMAGE -->
-                                    <p><img src="{{ url('avatars/'. $user_avatar) }}" style="width:90px; height:auto;" alt="{{ $last_name }}" /></p>
+                                    <p><img src="{{ url($user_avatar) }}" style="width:90px; height:auto;" alt="{{ $last_name }}" /></p>
                                     <!-- / USER IMAGE -->
                                     <h3>Hi {{ $first_name." ". $last_name }},</h3>
                                 </td>

@@ -74,7 +74,7 @@ class FriendRequestController extends Controller {
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 500);
         }
         else  {
-            Bus::dispatchFrom(CreateFriendRequestCommand::class, $request, [ 'requestedName'	=> $request->get('username') ]);
+            Bus::dispatch(new CreateFriendRequestCommand($request));
 
             return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
 

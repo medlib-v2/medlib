@@ -1,16 +1,16 @@
 <div class="cover profile">
     <div class="wrapper">
-        @if($user->is(Auth::user()->id))
+        @if($user->is(Auth::user()))
         <div class="image">
-            <img src="/avatars/profile-cover.jpg" alt="{{ Auth::user()->getUsername() }}">
+            <img src="{{ url('/avatars/profile-cover.jpg') }}" alt="{{ Auth::user()->getUsername() }}">
         </div>
         @else
         <div class="image">
-            <img src="/avatars/profile-cover.jpg" alt="{{ $user->getUsername() }}">
+            <img src="{{ url('/avatars/profile-cover.jpg') }}" alt="{{ $user->getUsername() }}">
         </div>
         @endif
 
-        @if($user->is(Auth::user()->id))
+        @if($user->is(Auth::user()))
         <ul class="friends">
             @if(count($friends) == 0)
                 <li><a href="#" class="group"><i class="fa fa-group"></i></a></li>
@@ -41,7 +41,7 @@
         @endif
     </div>
     <div class="cover-info">
-        @if($user->is(Auth::user()->id))
+        @if($user->is(Auth::user()))
         <div class="avatar">
             <img src="{{ Auth::user()->getAvatar() }}" alt="{{ Auth::user()->getUsername() }}" id="img-{{ Auth::user()->getUsername() }}">
         </div>

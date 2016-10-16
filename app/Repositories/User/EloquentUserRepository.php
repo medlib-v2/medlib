@@ -3,6 +3,7 @@
 namespace Medlib\Repositories\User;
 
 use Medlib\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class EloquentUserRepository implements UserRepository {
@@ -52,11 +53,11 @@ class EloquentUserRepository implements UserRepository {
 	/**
 	 * Fetch many users by id
 	 *
-	 * @param array $ids
+	 * @param Collection $ids
 	 *	
 	 * @return mixed
 	 */
-	public function findManyById(array $ids) {
+	public function findManyById(Collection $ids) {
 
 		$users = [];
 

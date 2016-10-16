@@ -9,21 +9,21 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <dl class="form password-confirmation-form">
                     <dt><label for="reset_input_passwor_old">Ancien mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_current')) has-error @endif">
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_current')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input id="reset_input_passwor_old" class="form-control" name="password_current" required="required" type="password" autocomplete="off">
                     </dd>
                 </dl>
                 <dl class="form password-confirmation-form">
                     <dt><label for="reset_input_password_new">Nouveau mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_new')) has-error @endif">
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_new')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input  id="reset_input_password_new" class="form-control" name="password_new" required="required" type="password" autocomplete="off">
                     </dd>
                 </dl>
                 <dl class="form password-confirmation-form">
                     <dt><label for="reset_input_password_repeat">Confirmer le nouveau mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_confirm')) has-error @endif">
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_confirm')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input id="reset_input_password_repeat" class="form-control" name="password_confirm" required="required" type="password" autocomplete="off">
                     </dd>
@@ -92,15 +92,15 @@
                             <form accept-charset="UTF-8" action="{{ route('profile.delete.username', ['username' => Auth::user()->getUsername()]) }}" method="post">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="modal-body">
-                                    <div class="form-group @if ($errors->has('email')) has-error @endif">
+                                    <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif">
                                         <label for="user_emal" class="control-label">Enter your username:</label>
                                         <input id="user_emal" name="email" class="form-control" required="" type="email" autocomplete="off">
                                     </div>
-                                    <div class="form-group @if ($errors->has('password')) has-error @endif">
+                                    <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif">
                                         <label for="user_password" class="control-label">Confirm your password:</label>
                                         <input class="form-control" id="user_password" name="password" value="" type="password">
                                     </div>
-                                    <div class="form-group @if ($errors->has('g-recaptcha-response')) has-error @endif">
+                                    <div class="form-group @if (isset($errors) and $errors->has('g-recaptcha-response')) has-error @endif">
                                         {!! Recaptcha::render() !!}
                                     </div>
                                 </div>

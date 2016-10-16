@@ -15,7 +15,7 @@
             <div class="col-md-1"></div>
             <div id="registration-form" class="col-md-6">
                 <div class="row">
-                    @if (isset($errors) and $errors->has())
+                    @if (isset($errors) and $errors->any())
                         <div class="alert alert-danger" role="alert">
                             <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                             <ul>

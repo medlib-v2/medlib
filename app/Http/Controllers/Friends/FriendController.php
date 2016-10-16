@@ -98,7 +98,7 @@ class FriendController extends Controller {
         }
         else
         {
-            Bus::dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
+            Bus::dispatch(new RemoveFriendCommand($request));
 
             $friendsCount = $this->currentUser->friends()->count();
 

@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     @include('flash.message')
-                    @if (isset($errors) and $errors->has())
+                    @if (isset($errors) and $errors->any())
                     <div class="alert alert-danger" role="alert">
                         <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                         <ul>

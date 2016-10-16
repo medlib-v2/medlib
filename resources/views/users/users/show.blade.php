@@ -1,6 +1,6 @@
 @extends('layouts.dashboards.dashboard')
 
-@if($user->is(Auth::user()->id))
+@if($user->is(Auth::user()))
 	@section('title', 'Profile ' . Auth::user()->getName())
 @else
 	@section('title', 'Profile ' . $user->getName())

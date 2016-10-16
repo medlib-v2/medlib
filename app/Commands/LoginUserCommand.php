@@ -3,13 +3,13 @@
 namespace Medlib\Commands;
 
 use Medlib\Commands\Command;
+use Medlib\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Medlib\Realtime\Events as SocketClient;
-use Illuminate\Contracts\Bus\SelfHandling;
 
 
-class LoginUserCommand extends Command implements SelfHandling {
+class LoginUserCommand extends Command {
 
     /**
      * @var string
@@ -33,15 +33,13 @@ class LoginUserCommand extends Command implements SelfHandling {
     /**
      * Create a new command instance.
      *
-     * @param string $email
-     * @param string $password
-     * @param boolean $remember
+     * @param Request $request
      */
-    public function __construct($email, $password, $remember = false) {
+    public function __construct(Request $request) {
 
-        $this->email = $email;
-        $this->password = $password;
-        $this->remember = $remember;
+        $this->email = $request->get('email');
+        $this->password = $request->get('password');
+        $this->remember = $request->get('remember');
         $this->socketClient = new SocketClient;
     }
 

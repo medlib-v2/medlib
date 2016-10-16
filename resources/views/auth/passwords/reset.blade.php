@@ -8,7 +8,7 @@
                 <div class="panel-heading">Reset Password</div>
                 <div class="panel-body">
                     @include('flash.message')
-                    @if (isset($errors) and $errors->has())
+                    @if (isset($errors) and $errors->any())
                     <div class="alert alert-danger" role="alert">
                         <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                         <ul>
@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">E-Mail Address</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{-- old('email') --}}">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
 

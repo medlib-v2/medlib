@@ -61,7 +61,7 @@ class AuthController extends Controller {
      */
     public function doLogin(CreateSessionRequest $request) {
 
-        $response = Bus::dispatchFrom(LoginUserCommand::class, $request);
+        $response = Bus::dispatch(new LoginUserCommand($request));
 
         if($response) return Redirect::route('home');
 
@@ -89,17 +89,17 @@ class AuthController extends Controller {
      */
     public function doRegister(RegisterUserRequest $request) {
 
-        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
-
-
+        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 200, 200);
 
         $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 
-        Bus::dispatchFrom(RegisterUserCommand::class, $request, [
+        $request->merge([
             'date_of_birth' => $date_of_birth,
             'user_avatar' => $user_avatar,
             'confirmation_code' => self::generateToken()
         ]);
+
+        Bus::dispatch(new RegisterUserCommand($request));
 
         return Redirect::route('home')->with('info', trans('auth.account_created_success'))
             ->with('success', trans('auth.email_was_sent'));
@@ -126,7 +126,7 @@ class AuthController extends Controller {
      */
     public function doLogout() {
         #$request = new Request(['username' => Auth::user()->getUsername]);
-        #$response = Bus::dispatchFrom(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
+        #$response = Bus::dispatch(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
         #if($response) response()->json(['response' => 'success']);
         Auth::logout();
         return Redirect::route('home');

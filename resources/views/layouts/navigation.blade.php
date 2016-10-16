@@ -164,7 +164,7 @@
             <ul class="nav navbar-nav collapse visible-xs nav-user navbar-collapse" aria-expanded="false">
                 <form class="form-group visible-xs" method="POST" action="{{ route('auth.login') }}" role="login">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group @if ($errors->has('email')) has-error @endif" style="margin-top:0px;">
+                    <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif" style="margin-top:0px;">
                         <div class="connect">{{ trans('auth.txt.email') }}</div>
                         <input type="text" id="prepended-input" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.txt.email') }}" required />
                         <div class="bas">
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group @if ($errors->has('password')) has-error @endif" style="margin-top:0px;">
+                    <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif" style="margin-top:0px;">
                         <div class="connect">{{ trans('auth.txt.password') }}</div>
                         <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.txt.password') }}" required />
                         <div class="bas">

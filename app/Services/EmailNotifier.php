@@ -29,7 +29,7 @@ abstract class EmailNotifier implements EmailNotifierInterface {
     public function sendRegistrationConfirmation(User $user) {
 
         $subject = trans("emails.title_confirmation_email");
-        $view = 'auth.email.verify';
+        $view = 'emails.send.verify';
         $data = [
             'first_name' => $user->getFirstName(),
             'last_name' => $user->getLastName(),

@@ -12,6 +12,7 @@ class DeleteUserRequest extends Request {
      * @return bool
      */
     public function authorize() {
+
         return true;
     }
 

@@ -5,6 +5,7 @@ var elixir = require('laravel-elixir'),
     gutils = require('gulp-util');
 
 //require('laravel-elixir-livereload');
+//require('laravel-elixir-vue-2');
 
 require('laravel-elixir-uglify');
 require('laravel-elixir-browserify-official');
