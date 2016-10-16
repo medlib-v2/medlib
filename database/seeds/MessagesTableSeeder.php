@@ -16,7 +16,7 @@ class MessagesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $userIds = DB::table('users')->where('id', '!=', 1)->pluck('id');
+        $userIds = DB::table('users')->where('id', '!=', 1)->pluck('id')->toArray();
 
         foreach (range(1, 25) as $index) {
 

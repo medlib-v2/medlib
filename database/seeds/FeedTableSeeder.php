@@ -16,15 +16,16 @@ class FeedTableSeeder extends Seeder
     {
         $faker = Faker::create();
         $users = User::pluck('id');
+
         $date = new DateTime();
         $day = 1;
-        
+
         foreach ($users as $user) {
 
             foreach (range(1, 30) as $index) {
 
                 $day++;
-
+            
                 $date->setDate(2015, 1, $day);
 
                 Feed::create([
@@ -39,7 +40,6 @@ class FeedTableSeeder extends Seeder
                     'updated_at'=> $date->format('Y-m-d H:i:s')
                 ]);
             }
-
         }
     }
 }
