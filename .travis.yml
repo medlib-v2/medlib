@@ -42,7 +42,7 @@ before_install:
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - npm i maildev
   - travis_retry composer self-update
-  - travis_retry node_modules/maildev/bin/maildev
+  - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
 
 install:
   - . $HOME/.nvm/nvm.sh
