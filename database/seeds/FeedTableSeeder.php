@@ -15,7 +15,7 @@ class FeedTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $users = User::lists('id');
+        $users = User::pluck('id');
         $date = new DateTime();
         $day = 1;
         

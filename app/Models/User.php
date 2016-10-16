@@ -210,19 +210,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return in_array($otherUser_id, $friendRequestsReceivedByCurrentUser);
     }
 
-
-    /**
-     * Determine if the current user is the same as the given one.
-     *
-     * @param int $id
-     * @return boolean
-     */
-    /**
-    public function is($id) {
-        return $this->id == $id;
-    }
-    **/
-
     /**
      * Determine if current user is available to chat.
      * @return boolean
