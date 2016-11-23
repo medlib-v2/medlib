@@ -191,12 +191,7 @@
   -ms-transform: rotate(@degrees); // IE9 only
   transform: rotate(@degrees);
 }
-.scale(@ratio...) {
-  -webkit-transform: scale(@ratio);
-  -ms-transform: scale(@ratio); // IE9 only
-  -o-transform: scale(@ratio);
-  transform: scale(@ratio);
-}
+
 .scale(@ratio; @ratio-y...) {
   -webkit-transform: scale(@ratio, @ratio-y);
   -ms-transform: scale(@ratio, @ratio-y); // IE9 only
@@ -248,12 +243,6 @@
   -webkit-perspective-origin: @perspective;
   -moz-perspective-origin: @perspective;
   perspective-origin: @perspective;
-}
-.transform-origin(@origin) {
-  -webkit-transform-origin: @origin;
-  -moz-transform-origin: @origin;
-  -ms-transform-origin: @origin; // IE9 only
-  transform-origin: @origin;
 }
 
 // Animations

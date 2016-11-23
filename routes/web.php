@@ -26,20 +26,20 @@ Route::group(['middleware' => 'language'], function () {
         /**
          * Friends
          */
-        Route::get('/', ['as' => 'friends.show', 'uses' => 'FriendController@index']);
+        Route::get('/', ['uses' => 'FriendController@index', 'as' => 'friends.show']);
 
-        Route::post('/', ['as' => 'friends.store', 'uses' => 'FriendController@store']);
+        Route::post('/', ['uses' => 'FriendController@store', 'as' => 'friends.store']);
 
-        Route::delete('/', ['as' => 'friends.del', 'uses' => 'FriendController@destroy']);
+        Route::delete('/', ['uses' => 'FriendController@destroy', 'as' => 'friends.del']);
 
         /**
          * Friend-requests
          */
-        Route::get('requests', ['as' => 'request.show', 'uses' => 'FriendRequestController@index']);
+        Route::get('requests', ['uses' => 'FriendRequestController@index', 'as' => 'request.show']);
 
-        Route::post('requests', ['as' => 'request.post', 'uses' => 'FriendRequestController@store']);
+        Route::post('requests', ['uses' => 'FriendRequestController@store', 'as' => 'request.post']);
 
-        Route::delete('requests', ['as' => 'request.del', 'uses' => 'FriendRequestController@destroy']);
+        Route::delete('requests', ['uses' => 'FriendRequestController@destroy', 'as' => 'request.del']);
     });
 
     /**
@@ -49,22 +49,22 @@ Route::group(['middleware' => 'language'], function () {
         /**
          * Messages
          */
-        Route::get('/', ['as' => 'message.all', 'uses' => 'MessageController@index']);
+        Route::get('/', ['uses' => 'MessageController@index', 'as' => 'message.all']);
 
-        Route::post('/', ['as' => 'message.store', 'uses' => 'MessageController@store']);
+        Route::post('/', ['uses' => 'MessageController@store', 'as' => 'message.store']);
 
-        Route::get('/{username}', ['as' => 'message.show', 'uses' => 'MessageController@show'])->where('username', '[a-zA-Z]+');
+        Route::get('/{username}', ['uses' => 'MessageController@show', 'as' => 'message.show'])->where('username', '[a-zA-Z]+');
 
-        Route::get('/compose/{username}', ['as' => 'message.compose', 'uses' => 'MessageController@create']);
+        Route::get('/compose/{username}', ['uses' => 'MessageController@create', 'as' => 'message.compose']);
 
-        Route::delete('delete', ['as' => 'message.delete', 'uses' => 'MessageController@destroy']);
+        Route::delete('delete', ['uses' => 'MessageController@destroy', 'as' => 'message.delete']);
 
         /**
          * MessageResponses
          */
-        Route::put('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@update']);
+        Route::put('response', ['uses' => 'MessageResponseController@update', 'as' => 'message.response']);
 
-        Route::post('response', ['as' => 'message.response', 'uses' => 'MessageResponseController@store']);
+        Route::post('response', ['uses' => 'MessageResponseController@store', 'as' => 'message.response']);
 
     });
 
@@ -74,23 +74,26 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function(){
         Route::get('/login', ['uses' => 'AuthController@showLogin',  'as' => 'auth.login']);
 
-        Route::post('/login', ['uses' => 'AuthController@doLogin']);
+        Route::post('/login', ['uses' => 'AuthController@doLogin', 'as' => 'auth.submit']);
 
         Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
 
-        Route::post('/register', ['uses' => 'AuthController@doRegister']);
+        Route::post('/register', ['uses' => 'AuthController@doRegister', 'as' => 'auth.register.submit']);
 
         Route::get('/register/verify/{confirmation_code}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
 
         Route::get('/reg_birthday', [ 'uses' => 'AuthController@reg_birthday',  'as' => 'auth.reg_birthday' ]);
 
-        // Password reset link request routes...
-        //Route::get('/password/email', 'PasswordController@getEmail');
+        /**
+         * Password reset link request routes...
+         */
         Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
 
-        // Password reset routes...
-        Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm');
-        Route::post('/password/reset', 'ResetPasswordController@reset');
+        /**
+         * Password reset routes...
+         */
+        Route::get('/password/reset', ['uses' => 'ForgotPasswordController@showLinkRequestForm', 'as' => 'password.reset']);
+        Route::post('/password/reset', ['uses' => 'ResetPasswordController@reset', 'as' => 'password.submit']);
         Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
 
     });
@@ -142,19 +145,20 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * Users
      */
-    Route::group(['prefix' => 'profiles', 'middleware' => 'auth'], function() {
+    Route::group(['prefix' => 'u', 'middleware' => 'auth'], function() {
 
-        Route::group(['namespace' => 'Users'], function() {
+        Route::group(['prefix' => '{username}'], function(){
 
-            Route::get('/', ['uses' => 'UsersController@index', 'as' => 'profile.show' ]);
 
-            Route::post('/', ['uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
-        });
-
-        Route::group(['prefix' => '{username}'], function($username){
+            /**
+            Route::group(['namespace' => 'Users'], function() {
+                Route::get('/', ['uses' => 'UsersController@index', 'as' => 'profile.show' ]);
+            });
+            **/
 
             Route::group(['namespace' => 'Users'], function(){
                 Route::get('/', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
+                Route::post('/', ['uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
             });
 
             Route::group(['namespace' => 'Friends'], function(){
@@ -228,13 +232,14 @@ Route::group(['middleware' => 'language'], function () {
 
     // Manage Language
     Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function (){
-        Route::any('/{lang}', ['as' => 'lang', 'uses' => 'LangController@doLang']);
+        Route::any('/{lang}', ['uses' => 'LangController@doLang', 'as' => 'lang']);
     });
 
     // About
     Route::group(['prefix' => 'site', 'namespace' => 'About'], function (){
-        Route::get('contact', ['as' => 'contact.show', 'uses' => 'AboutController@create']);
-        Route::post('contact', ['as' => 'contact.store', 'uses' => 'AboutController@store']);
+        Route::get('about', ['uses' => 'AboutController@index', 'as' => 'contact.index']);
+        Route::get('contact', ['uses' => 'AboutController@create', 'as' => 'contact.show']);
+        Route::post('contact', ['uses' => 'AboutController@store', 'as' => 'contact.store']);
     });
 
 });

@@ -384,4 +384,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public static function whereUsername($username){
         return self::where('username', $username);
     }
+    
+    /**
+     * Boot the model.
+     */
+    public static function boot(){
+        parent::boot();
+        
+        static::creating(function ($user){
+            $user->confirmation_code = self::generateToken();
+        });
+    }
+    
+    /**
+     * Generate the verification token.
+     *
+     * @return string
+     */
+    public static function generateToken() {
+
+        return str_random(64).config('app.key');
+    }
 }

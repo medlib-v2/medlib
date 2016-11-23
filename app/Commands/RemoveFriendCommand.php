@@ -28,6 +28,7 @@ class RemoveFriendCommand extends Command {
      */
     public function __construct(Request $request)
     {
+        parent::__construct();
 
         $this->username = $request->get('username');
 

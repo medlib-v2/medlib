@@ -3,82 +3,75 @@
 */
 
 fieldset {
-	padding: 0;
-	margin: 0;
-	border: 0;
-	// Chrome and Firefox set a `min-width: -webkit-min-content;` on fieldsets,
-	// so we reset that to ensure it behaves more like a standard block element.
-	// See https://github.com/twbs/bootstrap/issues/12359.
-	min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    // Chrome and Firefox set a `min-width: -webkit-min-content;` on fieldsets,
+    // so we reset that to ensure it behaves more like a standard block element.
+    // See https://github.com/twbs/bootstrap/issues/12359.
+    min-width: 0;
 }
 legend {
-	display: block;
-	width: 100%;
-	padding: 0;
-	margin-bottom: @line-height-computed / 2;
-	font-size: (@component-font-size-base * 1.6); // ~24px
-	line-height: inherit;
-	color: @legend-color;
-	border-bottom: none;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: @line-height-computed / 2;
+    font-size: (@component-font-size-base * 1.6); // ~24px
+    line-height: inherit;
+    color: @legend-color;
+    border-bottom: none;
 }
 label{
-	display: inline-block;
-	margin-bottom: 5px;
-	font-weight: normal;
-	font-size: @component-font-size-base;
-	line-height: 2.3; // ~36px
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: normal;
+    font-size: @component-font-size-base;
+    line-height: 2.3; // ~36px
 }
 textarea {
-	font-size: ceil((@font-size-base * 1.071)); // ~15px
-	line-height: 24px;
-	padding: 5px 11px;
-	resize: none;
+    font-size: ceil((@font-size-base * 1.071)); // ~15px
+    line-height: 24px;
+    padding: 5px 11px;
+    resize: none;
 }
 input[type="search"]{
-	-webkit-appearance: none !important; // removes rounded corners for searchfields on iOS
-	.box-sizing(border-box);
+    -webkit-appearance: none !important; // removes rounded corners for searchfields on iOS
+    .box-sizing(border-box);
 }
-input[type="date"]{
-	line-height: @input-height-base;
-}
+input[type="date"]{ line-height: @input-height-base; }
 input[type="radio"],
 input[type="checkbox"]{
-	margin: 4px 0 0;
-	margin-top: 1px \9; /* IE8-9 */
-	line-height: normal;
+    margin: 4px 0 0;
+    margin-top: 1px \9; /* IE8-9 */
+    line-height: normal;
 }
-input[type="file"]{
-	display: block;
-}
+input[type="file"]{ display: block; }
 input[type="range"]{
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 select[multiple],
 select[size]{
-	height: auto;
+    height: auto;
 }
 input[type="file"]:focus,
 input[type="radio"]:focus,
-input[type="checkbox"]:focus{
-	.tab-focus();
-}
+input[type="checkbox"]:focus{ .tab-focus(); }
 output{
-	display: block;
-	padding-top: (@padding-base-vertical + 1);
-	font-size: @font-size-base;
-	line-height: @line-height-base;
-	color: @input-color;
+    display: block;
+    padding-top: (@padding-base-vertical + 1);
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    color: @input-color;
 }
-
 
 //
 // Typography
 // --------------------------------------------------
 
 .blockquote-sm{
-	padding: 3px 15px;
-	font-size: @font-size-base;
+    padding: 3px 15px;
+    font-size: @font-size-base;
 }
 
 // Headings
@@ -86,57 +79,53 @@ output{
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6{
-	small,
-	.small {
-		font-weight: @headings-font-weight;
-	}
+    small, .small { font-weight: @headings-font-weight; }
 }
 
 .form-group{
-	position: relative;
-	margin-bottom: 15px;
+    position: relative;
+    margin-bottom: 15px;
 }
 
 .form-control{
-	.box-shadow(none);
-	.placeholder(desaturate(lighten(@brand-primary, 45%), 15%));
+    .box-shadow(none);
+    .placeholder(desaturate(lighten(@brand-primary, 45%), 15%));
 }
 .form-control{
-	display: block;
-	width: 100%;
-	height: @input-height-base;
-	box-sizing: border-box;
-	border: 1px solid @brand-primary;
-	//border-bottom: 1px solid @border-color;
-	background-image: none;
-	background: @white;
-	color: @brand-primary;
-	font-family: @font-family-base;
-	font-size: @input-font-size-base;
-	line-height: @input-line-height-base;
-	padding: @padding-base-vertical @padding-base-horizontal;
-	border-radius: @input-border-radius;
-	clear: both;
-	.box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
-	.transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
+    display: block;
+    width: 100%;
+    height: @input-height-base;
+    box-sizing: border-box;
+    border: 1px solid @brand-primary;
+    //border-bottom: 1px solid @border-color;
+    background-image: none;
+    background: @white;
+    color: @brand-primary;
+    font-family: @font-family-base;
+    font-size: @input-font-size-base;
+    line-height: @input-line-height-base;
+    padding: @padding-base-vertical @padding-base-horizontal;
+    border-radius: @input-border-radius;
+    clear: both;
+    .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+    .transition(~"border-color ease-in-out .15s, box-shadow ease-in-out .15s");
 
-	// Customize the `:focus` state
-	.form-control-focus();
-
-	// Placeholder
-	.placeholder();
-
-	&[disabled],
-	&[readonly],
-	fieldset[disabled] & {
-		background-color: @input-bg-disabled;
-		border-color: mix(@gray, white, 40%);
-		color: mix(@gray, white, 40%);
-		cursor: default;
-		.opacity(.7);
-	}
-
-	// Reset height for `textarea`s
+    // Customize the `:focus` state
+    .form-control-focus();
+    
+    // Placeholder
+    .placeholder();
+    &[disabled],
+    &[readonly],
+    fieldset[disabled] & {
+        background-color: @input-bg-disabled;
+	border-color: mix(@gray, white, 40%);
+	color: mix(@gray, white, 40%);
+	cursor: default;
+	.opacity(.7);
+    }
+    
+    // Reset height for `textarea`s
 	textarea& {
 		height: auto;
 	}
@@ -163,60 +152,60 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .form-search{
-	padding: 3px 45px 3px 17px;
-	width: 100%;
-	font-size: 1.25em;
-	line-height: 1.5em;
-	height: 50px;
-	font-family: @font-family-base;
-	border: 2px solid #B7BBC0;
-	background-color: #f6f6f6;
-	background: @white;
+    padding: 3px 45px 3px 17px;
+    width: 100%;
+    font-size: 1.25em;
+    line-height: 1.5em;
+    height: 50px;
+    font-family: @font-family-base;
+    border: 2px solid #B7BBC0;
+    background-color: #f6f6f6;
+    background: @white;
     -webkit-border-radius: 4px;
-	border-radius: 4px;
-
-	&:focus {
-		box-shadow: none;
-		border: 2px solid #4A9DFE;
-		background-color: #f6f6f6;
-	}
-
+    border-radius: 4px;
+    outline: none;
+    &:focus {
+	box-shadow: none;
+	border: 2px solid #4A9DFE;
+	background-color: #f6f6f6;
+    }
 }
 
 .radio,
 .checkbox{
-	display: block;
-	min-height: @line-height-computed; // clear the floating input if there is no label text
-	margin-top: 10px;
-	margin-bottom: 10px;
+    display: block;
+    //min-height: @line-height-computed; // clear the floating input if there is no label text
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    label {
+	display: inline;
+	font-weight: normal;
+	cursor: pointer;
 	padding-left: 20px;
-	label {
-		display: inline;
-		font-weight: normal;
-		cursor: pointer;
-	}
+    }
 }
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"]{
-	float: left;
-	margin-left: -20px;
+    float: left;
+    margin-left: -20px;
 }
 .radio + .radio,
 .checkbox + .checkbox{
-	margin-top: -5px; // Move up sibling radios or checkboxes for tighter spacing
+    margin-top: -5px; // Move up sibling radios or checkboxes for tighter spacing
 }
 
 // Radios and checkboxes on same line
 .radio-inline,
 .checkbox-inline{
-	display: inline-block;
-	padding-left: 20px;
-	margin-bottom: 0;
-	vertical-align: middle;
-	font-weight: normal;
-	cursor: pointer;
+    display: inline-block;
+    padding-left: 20px;
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-weight: normal;
+    cursor: pointer;
 }
 .radio-inline + .radio-inline,
 .checkbox-inline + .checkbox-inline{
@@ -1259,13 +1248,12 @@ select{
 
 // Radio Elements
 .radioer{
-	position: relative;
-	display: block;
-
-	input[type="radio"] {
-		display: none;
-
-		+ label{
+    position: relative;
+    display: block;
+    
+    input[type="radio"] {
+        display: none;
+        + label{
 			position: relative;
 			display: inline-block;
 			margin: 5px 20px 15px 36px;
@@ -1392,43 +1380,41 @@ select{
 
 // Maps input
 #pac-input{
-	padding: 0 15px 0 15px;
-	width: 90%;
-	font-size: 16px;
-	font-weight: 300;
-	text-overflow: ellipsis;
-	color: #333;
+    padding: 0 15px 0 15px;
+    width: 90%;
+    font-size: 16px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    color: #333;
 
-	margin-top: 20px;
-	border: 1px solid transparent;
-	border-radius: 2px;
-	height: 36px;
-	outline: none;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-
-	&:focus{
-		border-color: #4d90fe;
-	}
+    margin-top: 20px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    height: 36px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    
+    &:focus{ border-color: #4d90fe; }
 }
 
 #type-selector{
-	color: #fff;
-	background-color: #4d90fe;
-	padding: 5px 11px 0px 11px;
-
-	label{
-		font-size: 13px;
-		font-weight: 300;
-	}
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+    
+    label{
+        font-size: 13px;
+        font-weight: 300;
+    }
 }
 
 .form-actions{
-	margin: @line-height-computed 0 0;
-	padding: @line-height-computed;
-	background-color: @well-bg;
-
-	.form-horizontal & .row{
-		margin-left: (@grid-gutter-width/-2) - @line-height-computed;
-		margin-right: (@grid-gutter-width/-2) - @line-height-computed;
-	}
+    margin: @line-height-computed 0 0;
+    padding: @line-height-computed;
+    background-color: @well-bg;
+    
+    .form-horizontal & .row{
+        margin-left: (@grid-gutter-width/-2) - @line-height-computed;
+        margin-right: (@grid-gutter-width/-2) - @line-height-computed;
+    }
 }

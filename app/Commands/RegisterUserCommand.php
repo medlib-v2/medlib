@@ -29,9 +29,10 @@ class RegisterUserCommand extends Command {
     /**
      * Create a new command instance.
      * @param Request $request
-     * @return void
      */
     public function __construct(Request $request) {
+
+        parent::__construct();
 
         $this->email = $request->get('email');
         $this->username = $request->get('username');
@@ -75,9 +76,6 @@ class RegisterUserCommand extends Command {
         ]);
 
         event(new UserWasRegistered($user));
-        #$job = (new UserWasRegistered($user))->delay(60);
-
-        #Bus::dispatch($job);
 
         unset($user);
     }

@@ -1,3 +1,4 @@
+;
 (function($, window, document, undefined) {
     var dataKey = 'hideShowPassword', 
     defaults = {
@@ -16,20 +17,30 @@
         change: function() { },
         states: {
 
-          // These settings are applied when the password text is
-          // visible (show: true).
+          /**
+           * These settings are applied when the password text is
+           * visible (show: true).
+           */
           shown: {
 
-            // Class to apply to the input element.
+            /**
+             * Class to apply to the input element.
+             */
             inputClass: 'password-shown',
 
-            // Event to trigger on the input.
+            /**
+             * Event to trigger on the input.
+             */
             eventName: 'passwordShown',
 
-            // Class to apply to the toggle.
+            /**
+             * Class to apply to the toggle.
+             */
             toggleClass: 'glyphicon-eye-close',
 
-            // Property values to apply to the input element.
+            /**
+             * Property values to apply to the input element.
+             */
             attr: {
               'type': 'text',
               'autocapitalize': 'off',
@@ -39,7 +50,9 @@
             }
           },
 
-          // Settings when text is hidden (show: false).
+          /**
+           * Settings when text is hidden (show: false).
+           */
           hidden: {
             inputClass: 'password-hidden',
             eventName: 'passwordHidden',
@@ -51,14 +64,25 @@
         heightMethod: ($.fn.outerHeight === undefined) ? 'height' : 'outerHeight'
     };
 
-    // Constructor
+    /**
+     * Constructor
+     * 
+     * @param {type} element
+     * @param {type} options
+     * @returns {passwordL#1.Password}
+     */
     function Password(element, options) {
         this.element = $(element);
         this.init(options);
     }
     
     Password.prototype = {
-        // Initialization logic (only runs first time)
+        /**
+         * Initialization logic (only runs first time)
+         * 
+         * @param {type} options
+         * @returns {undefined}
+         */
         init: function (options) {
             this.update(options, defaults, (this.element.prop('type') === 'password'));
             if (this.options.innerToggle) {
@@ -66,27 +90,44 @@
             }
         },
         
-        // Processes fresh options and updates the input state
+        /**
+         * Processes fresh options and updates the input state
+         * 
+         * @param {type} options
+         * @param {type} base
+         * @param {type} toggleFallback
+         * @returns {undefined}
+         */
         update: function (options, base, toggleFallback) {
           base = base || this.options;
           toggleFallback = toggleFallback || !this.options.show;
-          // Allow show/hide shorthand
+          /**
+           * Allow show/hide shorthand
+           */
           if (typeof options !== 'object') {
             options = { show: options };
           }
-          // Update the options
+          /**
+           * Update the options
+           */
           this.options = $.extend({}, base, options);
-          // Interpret strings
+          /**
+           * Interpret strings
+           */
           if (this.options.show === 'toggle') {
             this.options.show = toggleFallback;
           }
           if (this.options.show === 'infer') {
             this.options.show = (this.element.prop('type') !== 'password');
           }
-          // Apply and remove attributes based on the new state
+          /**
+           * Apply and remove attributes based on the new state
+           */
           this.ifCurrentOrNot($.proxy(function (state) {
-            // This is a loop because Zepto's prop method does not
-            // support an object of key/value pairs.
+            /**
+             * This is a loop because Zepto's prop method does not
+             * support an object of key/value pairs.
+             */
             $.each(state.attr, $.proxy(function (key, value) {
               this.element.prop(key, value);
             }, this));
@@ -96,18 +137,31 @@
           }, this));
         },
         
-        // Toggle shorthand
+        /**
+         * Toggle shorthand
+         * 
+         * @returns {undefined}
+         */
         toggle: function () {
           this.update('toggle');
         },
         
-        // Return the current state key
+        /**
+         * Return the current state key
+         * @returns {String}
+         */
         currentStateKey: function () {
           return this.options.show ? 'shown' : 'hidden';
         },
         
-        // Loop through all states, perform one action for
-        // the current state and another for others.
+        /**
+         * Loop through all states, perform one action for
+         * the current state and another for others.
+         * 
+         * @param {type} ifCurrent
+         * @param {type} ifNot
+         * @returns {undefined}
+         */
         ifCurrentOrNot: function (ifCurrent, ifNot) {
           var currentKey = this.currentStateKey();
           $.each(this.options.states, function (thisKey, state) {
@@ -115,7 +169,13 @@
           });
         },
         
-        // Build the inner toggle, wrapper, and associated events
+        /**
+         * Build the inner toggle, wrapper, and associated events
+         * 
+         * @param {type} el
+         * @param {type} options
+         * @returns {undefined}
+         */
         initInnerToggle: function (el, options) {
 
           var attachment = (el.css('direction') === 'rtl') ? 'left' : 'right', elWidth = el[options.widthMethod](), 
@@ -194,7 +254,14 @@
           }
         },
         
-        // Update the inner toggle (text, class, etc.)
+        /**
+         * Update the inner toggle (text, class, etc.)
+         * 
+         * @param {type} el
+         * @param {type} currentKey
+         * @param {type} states
+         * @returns {undefined}
+         */
         updateInnerToggle: function (el, currentKey, states) {
           this.ifCurrentOrNot(function (state) {
             el.addClass(state.toggleClass);
@@ -204,8 +271,11 @@
           });
         }
     };
-    
-    // The main function, reuses previous instance if it exists
+    /**
+     * The main function, reuses previous instance if it exists
+     * @param {type} options
+     * @returns {passwordL#1.$.fn@call;each}
+     */
     $.fn.Password = function (options) {
         return this.each(function () {
             var $this = $(this), data = $this.data(dataKey);
@@ -217,10 +287,12 @@
         });
     };
     
-    // Shorthand plugins
+    /**
+     * Shorthand plugins
+     */
     $.each({ 'show':true, 'hide':false, 'toggle':'toggle' }, function (verb, showVal) {
         $.fn[verb + 'Password'] = function (options) {
             return this.Password($.extend({}, options, { show: showVal }));
         };
     });
-})(jQuery, window, document);
+})(jQuery, window, document, undefined);

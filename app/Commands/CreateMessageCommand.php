@@ -1,14 +1,14 @@
 <?php
 
 namespace Medlib\Commands;
+
 use Medlib\Models\Message;
 use Medlib\Commands\Command;
 use Medlib\Models\MessageResponse;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Repositories\Message\MessageRepository;
 
-class CreateMessageCommand extends Command implements SelfHandling {
+class CreateMessageCommand extends Command {
 
 	/**
 	 * @var int
@@ -36,6 +36,8 @@ class CreateMessageCommand extends Command implements SelfHandling {
 	 * Create a new command instance.
 	 */
 	public function __construct($receiverId, $body, $senderId, $senderProfileImage, $senderName) {
+
+        parent::__construct();
 
 		$this->receiverId = $receiverId;
 		$this->body = $body;

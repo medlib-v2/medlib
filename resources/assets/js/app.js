@@ -10,10 +10,6 @@ window.PJAX_ENABLED = true;
 window.DEBUG = true;
 
 /**
- * Plugins configuration options
- */
-
-/**
  * Setting Widgster's body selector to theme specific
  * @type {string}
  */
@@ -339,7 +335,7 @@ $.fn.widgster.Constructor.DEFAULTS.bodySelector = '.widget-body';
             view.$loaderWrap.removeClass('hide');
             setTimeout(function(){
                 view.$loaderWrap.removeClass('hiding');
-            }, 0)
+            }, 0);
         }, 200);
     };
 
@@ -349,7 +345,7 @@ $.fn.widgster.Constructor.DEFAULTS.bodySelector = '.widget-body';
         var view = this;
         this.$loaderWrap.one($.support.transition.end, function () {
             view.$loaderWrap.addClass('hide');
-        }).emulateTransitionEnd(200)
+        }).emulateTransitionEnd(200);
     };
 
     /**

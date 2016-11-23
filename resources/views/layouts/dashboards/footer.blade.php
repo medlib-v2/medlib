@@ -2,7 +2,7 @@
     <div class="loader-wrap hiding hide">
         <i class="fa fa-circle-o-notch fa-spin-fast"></i>
         <footer class="footer">
-            Medlib v1.0.0 &copy; Copyright {{ date('Y') }} <a href="{{route('home')}}" rel="nofollow"><strong>MedLib Project - EIP ETNA.</strong></a>
+            Medlib v2.0.1 &copy; Copyright {{ date('Y') }} <a href="{{route('home')}}" rel="nofollow"><strong>MedLib Project - EIP ETNA.</strong></a>
         </footer>
     </div>
 

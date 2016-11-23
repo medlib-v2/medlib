@@ -1,20 +1,16 @@
-define(function(require) {
-    'use strict';
-    var Backbone = require('backbone'),
-        BookModel;
+var Backbone = require('backbone');
 
-    BookModel = Backbone.Model.extend({
-        defaults: {
-            "volumeInfo": [{
-                "description": "",
-                "title": "",
-                "imageLinks": [{
-                    "smallThumbnail": "http://placehold.it/128x195/ffffff/999999",
-                    "thumbnail": "http://placehold.it/128x195/ffffff/999999"
-                }]
+const BookModel = Backbone.Model.extend({
+    defaults: {
+        "volumeInfo": [{
+            "description": "",
+            "title": "",
+            "imageLinks": [{
+                "smallThumbnail": "http://placehold.it/128x195/ffffff/999999",
+                "thumbnail": "http://placehold.it/128x195/ffffff/999999"
             }]
-        }
-    });
-
-    return BookModel;
+        }]
+    }
 });
+
+module.exports =  BookModel;

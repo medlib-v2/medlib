@@ -38,7 +38,7 @@ class FriendController extends Controller {
      */
     public function index(UserRepository $repository) {
 
-        $user = $this->currentUser;
+        $user = $this->currentUser = Auth::user();
 
         $friends = $repository->findByIdWithFriends($user->id);
 
@@ -56,6 +56,8 @@ class FriendController extends Controller {
     public function store(Request $request, UserRepository $repository){
 
         $validator = Validator::make($request->all(), ['username' => 'required']);
+
+        $this->currentUser = Auth::user();
 
         if($validator->fails())
         {
@@ -91,6 +93,8 @@ class FriendController extends Controller {
     public function destroy(Request $request) {
 
         $validator = Validator::make($request->all(), ['username' => 'required']);
+
+        $this->currentUser = Auth::user();
 
         if($validator->fails())
         {

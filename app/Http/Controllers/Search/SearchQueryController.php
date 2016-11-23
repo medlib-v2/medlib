@@ -27,7 +27,7 @@ class SearchQueryController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
     public function doSimple(Request $request) {
-
+      
         $rules = [
             'query' => 'required|min:3',
             'qdb' => 'required|not_in: '
@@ -63,7 +63,7 @@ class SearchQueryController extends Controller
 				->limit(1, 100)
 				->orderBy('au ASC')
 				->all(YazRecords::TYPE_XML);
-			
+
 			if(!$record->fails() or $record->hasError() == 1005 or $record->hasError() == 213) {
 
 				foreach($record->getRecords() as $result) {

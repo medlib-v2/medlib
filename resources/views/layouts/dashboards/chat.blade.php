@@ -1,4 +1,4 @@
-    <!-- NAV CHAT -->
+    <!-- NAV CHAT --
     <div class="chat-sidebar" id="chat">
         <div class="chat-sidebar-content">
             <header class="chat-sidebar-header">

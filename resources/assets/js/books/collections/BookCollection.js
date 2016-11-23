@@ -1,15 +1,11 @@
-define(function(require) {
-    'use strict';
-    var Backbone = require('backbone'),
-        BookModel = require('app/models/BookModel'),
-        BookCollection;
+var Backbone = require('backbone'),
+    BookModel = require('../models/BookModel');
 
-    BookCollection = Backbone.Collection.extend({
-        model: BookModel,
-        parse: function(response) {
-            return response.items;
-        }
-    });
-
-    return BookCollection;
+const BookCollection = Backbone.Collection.extend({
+    model: BookModel,
+    parse: function(response) {
+        return response.items;
+    }
 });
+
+module.exports =  BookCollection;

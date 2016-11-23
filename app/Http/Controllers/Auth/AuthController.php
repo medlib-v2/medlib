@@ -5,8 +5,7 @@ namespace Medlib\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Medlib\Models\User;
-use Illuminate\Http\Request;
-
+use Medlib\Http\Requests\Request;
 use Medlib\Services\ProcessImage;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\App;
@@ -18,7 +17,6 @@ use Medlib\Commands\LogoutUserCommand;
 use Medlib\Http\Controllers\Controller;
 use Medlib\Commands\RegisterUserCommand;
 use Illuminate\Support\Facades\Redirect;
-use Medlib\Realtime\Events as SocketClient;
 use Medlib\Http\Requests\RegisterUserRequest;
 use Medlib\Http\Requests\CreateSessionRequest;
 use Medlib\Events\UserRegistrationConfirmation;
@@ -27,18 +25,6 @@ use Medlib\Events\UserRegistrationConfirmation;
  * @Middleware("guest", except={"logout"})
  */
 class AuthController extends Controller {
-
-    /**
-     * @var \Medlib\Realtime\Events
-     */
-    private $socketClient;
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct() {
-        $this->socketClient = new SocketClient;
-    }
 
     /**
      * Show the Login Page
@@ -125,11 +111,16 @@ class AuthController extends Controller {
      * @return Redirect
      */
     public function doLogout() {
-        #$request = new Request(['username' => Auth::user()->getUsername]);
-        #$response = Bus::dispatch(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
-        #if($response) response()->json(['response' => 'success']);
-        Auth::logout();
-        return Redirect::route('home');
+        $response = Bus::dispatch(new LogoutUserCommand());
+        if(!$response) return Redirect::route('home');
+
+        /**
+         * $request = new Request(['username' => Auth::user()->getUsername]);
+         * $response = Bus::dispatch(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
+         * #if($response) response()->json(['response' => 'success']);
+         * Auth::logout();
+         * return Redirect::route('home');
+         **/
     }
 
     /**

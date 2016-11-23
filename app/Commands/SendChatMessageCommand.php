@@ -4,10 +4,9 @@ namespace Medlib\Commands;
 
 use Medlib\Commands\Command;
 use Medlib\Realtime\Chat as SocketClient;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\Facades\Auth;
 
-class SendChatMessageCommand extends Command implements SelfHandling {
+class SendChatMessageCommand extends Command {
 
     /**
      * @var int
@@ -31,6 +30,9 @@ class SendChatMessageCommand extends Command implements SelfHandling {
      * @param string $message
      */
     public function __construct($receiverId, $message) {
+
+        parent::__construct();
+
         $this->receiverId = $receiverId;
         $this->message = $message;
         $this->socketClient = new SocketClient;

@@ -23,7 +23,6 @@ class UsersController extends Controller {
     public function __construct() {
 
         $this->middleware('auth');
-        $this->currentUser = Auth::user();
     }
 
     /**
@@ -34,11 +33,11 @@ class UsersController extends Controller {
      */
     public function index(FeedRepository $feedRepository) {
 
-        $currentUser = $this->currentUser;
+        $this->currentUser = Auth::user();
 
-        $user = User::find($currentUser->id);
+        $user = User::find($this->currentUser->id);
 
-        return $this->showFriendsAndFeeds($user, $feedRepository, $currentUser);
+        return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
     }
 
     /**
@@ -51,16 +50,24 @@ class UsersController extends Controller {
      */
     public function show($username, UserRepository $userRepository, FeedRepository $feedRepository) {
 
-        $currentUser = $this->currentUser;
+        $this->currentUser = Auth::user();
 
-        $user = $userRepository->findByUsername($username);
+        if($this->currentUser->getUsername() == $username) {
 
-        if (!$user == null) {
+            $user = User::find($this->currentUser->id);
 
-            return $this->showFriendsAndFeeds($user, $feedRepository, $currentUser);
+            return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+
+        } else {
+            $user = $userRepository->findByUsername($username);
+
+            if (!$user == null) {
+
+                return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+            }
+
+            return Redirect::back()->withErrors("User does not exist $username");
         }
-
-        return Redirect::back()->withErrors("User does not exist $username");
 
 
     }

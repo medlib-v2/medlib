@@ -7,7 +7,7 @@
             <dl class="form edit-profile-avatar">
                 <dt><label for="upload-profile-picture">Photo du profil</label></dt>
                 <div class="avatar-upload-container clearfix">
-                    <div class="col-md-3"><img alt="img_{{ Auth::user()->getFirstNameOrUsername() }}_here" class="img-thumbnail" src="{{ Auth::user()->getAvatar() }}"  width="50%"></div>
+                    <div class="col-md-3"><img alt="img_{{ Auth::user()->getFirstNameOrUsername() }}_here" class="img-thumbnail" src="{{url( Auth::user()->getAvatar()) }}"  width="50%"></div>
                     <div class="avatar-upload">
                         <!-- avatar-upload -->
                         <form action="{{ route('profile.edit.avatar') }}" method="post" enctype="multipart/form-data">

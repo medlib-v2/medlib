@@ -37,6 +37,8 @@ class LoginUserCommand extends Command {
      */
     public function __construct(Request $request) {
 
+        parent::__construct();
+
         $this->email = $request->get('email');
         $this->password = $request->get('password');
         $this->remember = $request->get('remember');
@@ -54,6 +56,7 @@ class LoginUserCommand extends Command {
          * Attempt to do the login
          */
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+
             /**
              * Validation not successful, send back to form
              */
@@ -67,7 +70,8 @@ class LoginUserCommand extends Command {
         /**
          * Check if account is active
          */
-        if (! $user->userAccountIsActive() == true) {
+
+        if (! $user->userAccountIsActive() === true) {
             Auth::logout();
             return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
         }
@@ -76,7 +80,7 @@ class LoginUserCommand extends Command {
          * validation successful!
          * redirect them to the secure section or whatever
          */
-        $friendsUserIds = $user->friends()->where('onlinestatus', 1)->lists('requester_id');
+        $friendsUserIds = $user->friends()->where('onlinestatus', 1)->pluck('requester_id');
         $relatedToId = $user->id;
         $clientCode = 22;
         $message = true;

@@ -79,8 +79,7 @@
         <div class="now">
             <div id="wrapper" class="col-sm-6 col-md-6">
                 <div id="book-details"></div>
-                <div id="books" class="books-items">
-                </div>
+                <div id="books" class="books-items"></div>
                 <div id="more-books"></div>
                 <div class="information">
                     <h6>Explorez <strong>notre univer</strong></h6>
@@ -115,6 +114,8 @@
 
 @section('script')
 <script type="text/javascript" src="{{ App::rev('js/search-commons.min.js') }}"></script>
-<script data-main="js/books/app" src="{{ App::rev('js/require.min.js') }}"></script>
+<script data-main="js/books/app" src="{{ App::rev('js/books/app.min.js') }}"></script>
+<!--
 <script type="text/javascript" src="{{ asset('js/form-elements-home.min.js') }}"></script>
+-->
 @endsection

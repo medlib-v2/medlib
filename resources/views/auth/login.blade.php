@@ -23,7 +23,7 @@
                         <header class="wrapper text-center">
                             <strong>Sign in to get in touch</strong>
                         </header>
-                        <form role="form" method="POST" action="{{ url('/login') }}" accept-charset="UTF-8">
+                        <form role="form" method="POST" action="{{ route('auth.submit') }}" accept-charset="UTF-8">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="list-group">
                                 <div class="list-group-item">
@@ -42,7 +42,7 @@
                                 <div class="list-group">
                                     <button type="submit" class="btn btn-lg btn-success btn-block" style="width: 525px;">Sign in</button>
                                     <div class="text-center m-t m-b">
-                                        <a href="{{ url('/password/email') }}" class="btn btn-link">
+                                        <a href="{{ route('password.reset') }}" class="btn btn-link">
                                             <small>Forgot Your Password?</small>
                                         </a>
                                     </div>

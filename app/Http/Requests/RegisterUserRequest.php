@@ -25,8 +25,8 @@ class RegisterUserRequest extends Request {
 		$timestamp = strtotime('-15 years');
 
 		return [
-			'first_name' => 'required|alpha|min:3|max:20',
-			'last_name' => 'required|alpha|min:3|max:20',
+			'first_name' => 'required|regex:/^[a-zA-Z\s]{3,64}$/i|min:3|max:20',
+			'last_name' => 'required|regex:/^[a-zA-Z\s]{3,64}$/i|min:3|max:20',
 			'username' => 'required|unique:users|alpha_dash|min:3|max:20',
 			'email' => 'required|unique:users|email|max:255',
 			'email_confirm' => 'required|max:255|same:email',

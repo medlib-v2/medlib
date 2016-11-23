@@ -51,10 +51,9 @@ class FeedController extends Controller {
      */
     public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, CommentRepository $commentRepository) {
 
+        $this->currentUser = Auth::user();
 
-        $currentUser = $this->currentUser;
-        
-        if ($username == $currentUser->getUsername())  {
+        if ($username == $this->currentUser->getUsername())  {
 
             $user = $this->currentUser;
 
@@ -87,6 +86,8 @@ class FeedController extends Controller {
 
         if($validator->fails()) return abort(403);
 
+        $this->currentUser = Auth::user();
+
         $feeds = $feedRepository->getPublishedByUserAndFriendsAjax($this->currentUser, $request->skipQty);
 
         return Response::json(['response' => 'success', 'feeds' => $feeds]);
@@ -104,6 +105,8 @@ class FeedController extends Controller {
         $validator = Validator::make($request->all(), ['body'	=> 'required']);
 
         if($validator->fails()) return Response::json([$validator->messages()], 400);
+
+        $this->currentUser = Auth::user();
 
         $file = $request->file('image');
         $videoUrl = $request->input('videoUrl');

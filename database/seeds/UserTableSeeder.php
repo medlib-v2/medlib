@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
                 'user_active' => true,
                 'account_type' => false,
                 'user_avatar' => $faker->imageUrl($width = 180, $height = 180),
-                'confirmation_code' => self::generateToken()
+                //'confirmation_code' => self::generateToken()
             ]);
         }
     }

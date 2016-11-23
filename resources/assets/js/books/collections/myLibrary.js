@@ -1,14 +1,10 @@
-define(function(require) {
-    'use strict';
-    var Backbone = require('backbone'),
-        ls = require('localstorage'),
-        BookModel = require('app/models/BookModel'),
-        myLibrary;
+var Backbone = require('backbone'),
+    ls = require("backbone.localstorage"),
+    BookModel = require('../models/BookModel');
 
-    myLibrary = Backbone.Collection.extend({
-        model: BookModel,
-        localStorage: new Backbone.LocalStorage("myBooks")
-    });
-
-    return myLibrary;
+const myLibrary = Backbone.Collection.extend({
+    model: BookModel,
+    localStorage: new Backbone.LocalStorage("myBooks")
 });
+
+module.exports = myLibrary;

@@ -113,7 +113,7 @@
     }
     .navbar-nav.navbar-right:last-child {
       margin-right: 0;
-      padding-top: 15px;
+      //padding-top: 15px;
 
       > .dropdown:last-child > a {
         border-radius: 0 @navbar-border-radius @navbar-border-radius 0;
@@ -282,34 +282,18 @@
 // the nav the full height of the horizontal nav (above 768px).
 
 .navbar-nav {
-  margin: (@navbar-padding-vertical) -@navbar-padding-horizontal;
+  //margin: (@navbar-padding-vertical) -@navbar-padding-horizontal;
 
   > li > a {
     font-size: floor((@component-font-size-base * 1.067)); // ~16px
     padding: ((@navbar-height-base - 23px) / 2) 21px;
-    line-height: 23px;
-    //font-weight: 700;
-    //padding-top:    10px;
-    //padding-bottom: 10px;
-    //line-height: @line-height-computed;
+    line-height: @line-height-computed;
   }
   > li > a:hover,
   > li > a:focus,
   .open > a:focus,
   .open > a:hover {
     background-color: transparent;
-  }
-
-  [class^="fui-"] {
-    line-height: 20px;
-    position: relative;
-    top: 1px;
-  }
-  .visible-sm,
-  .visible-xs {
-    > [class^="fui-"] {
-      margin-left: 12px;
-    }
   }
 
   @media (max-width: @grid-float-breakpoint-max) {
@@ -452,10 +436,10 @@
     //margin-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    &.animated {margin-top: 23px;}
+    &.animated {margin-top: 15px;}
 
     &.login-dropdown-menu {
-      margin-top: 23px;
+      margin-top: 15px;
       width: 650px;
       height: 296px;
       border-bottom-left-radius: 0;
@@ -465,7 +449,7 @@
   &.open > .dropdown-menu {
     @media (max-width: @grid-float-breakpoint-max) {
       margin-top: 0 !important;
-      &.animated {margin-top: 23px}
+      &.animated {margin-top: 15px}
     }
   }
 }

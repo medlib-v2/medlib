@@ -1,40 +1,6 @@
-.content {
-    margin: 10px;
-    outline: none;
-    padding: 0;
-    width: auto;
-}
-
-
 /*******************************************************************************
 *                                Notices affichage                             *
 ********************************************************************************/
-
-.checkbox label {
-    padding-left: 20px;
-}
-
-.checkbox label:before {
-    width: 15px;
-    height: 15px;
-    left: 0;
-    margin-left: 0;
-}
-
-.checkbox label:after {
-    width: 15px;
-    height: 15px;
-    left: 0;
-    top: 0;
-    margin-left: 0;
-    padding-left: 2px;
-    padding-top: 1px;
-}
-
-.radio label,
-.checkbox label {
-    margin-bottom: 0;
-}
 
 .bg-grey {
     background-color: #eeeeee;
@@ -162,23 +128,8 @@
     font-weight: bold;
 }
 
-.header.navbar,
-.footer.navbar {
-    border-radius: 0;
-    border: none;
-    margin-bottom: 0;
-    padding: 0;
-    position: relative;
-    z-index: 1000;
-}
-
 .box-shadow {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
-}
-
-.bg-white {
-    background-color: #fff;
-    color: #788288;
 }
 
 .logo-sm {
@@ -324,59 +275,6 @@ footer .subFooter ul>li a {
     -webkit-box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
     -moz-box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
     box-shadow: 0 1px 1px rgba(90, 90, 90, 0.1);
-}
-
-.nav.navbar-nav>li>a {
-    position: relative;
-}
-
-.nav.navbar-nav>li>a:hover,
-.nav.navbar-nav>li>a:focus {
-    background-color: transparent;
-}
-
-.nav.navbar-nav>li>a>.quote {
-    position: absolute;
-    right: 20px;
-    bottom: 0;
-    opacity: 0;
-    width: 30px;
-    height: 30px;
-    padding: 5px;
-    background-color: #13c0ba;
-    border-radius: 15px;
-    color: #fff;
-}
-
-.nav.navbar-nav>li.active>a>.quote {
-    opacity: 1;
-}
-
-.nav.navbar-nav>li>a>img {
-    box-shadow: 0 0 0 5px #13c0ba;
-}
-
-.nav.navbar-nav>li>a>img {
-    max-width: 100%;
-    opacity: .3;
-    -webkit-transform: scale(.8, .8);
-    transform: scale(.8, .8);
-    -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.nav.navbar-nav>li.active>a>img,
-.nav.navbar-nav>li:hover>a>img,
-.nav.navbar-nav>li:focus>a>img {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-    -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.navbar-default .navbar-nav>li {
-    padding: 0 10px;
 }
 
 .centered {

@@ -23,6 +23,7 @@ class CreateFriendRequestCommand extends Command {
      *
      */
     public function __construct(Request $request) {
+        parent::__construct();
         $this->requestedName = $request->get('username');
     }
 

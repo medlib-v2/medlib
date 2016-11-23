@@ -20,7 +20,15 @@ window.DEBUG = true;
 $.fn.widgster.Constructor.DEFAULTS.bodySelector = '.widget-body';
 
 $(function(){
-
+    
+   /**
+     * Main app class that handles page switching, async script loading, resize & pageLoad callbacks.
+     * Events:
+     *   Medlib:loaded - fires after pjax request is made and ALL scripts are trully loaded
+     *   Medlib:content-resize - fires when .content changes its size (e.g. switching between static & collapsing
+     *     navigation states)
+     * @constructor
+     */
     var Medlib = function(){
         this.pjaxEnabled = window.PJAX_ENABLED;
         this.debug = window.DEBUG;

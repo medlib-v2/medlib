@@ -4,11 +4,11 @@ namespace Medlib\Commands;
 
 use Medlib\Models\User;
 use Medlib\Commands\Command;
+use Medlib\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Medlib\Realtime\Events as SocketClient;
 
-class LogoutUserCommand extends Command implements SelfHandling {
+class LogoutUserCommand extends Command {
 
 	/**
 	 * @var User
@@ -22,13 +22,13 @@ class LogoutUserCommand extends Command implements SelfHandling {
 
 	/**
 	 * Create a new command instance.
-	 *
-	 * @param int $username
 	 */
-	public function __construct($username) {
+	public function __construct() {
+
+        parent::__construct();
+
 		$this->user = Auth::user();
-		#$this->user = User::find($username);
-		#$this->socketClient = new SocketClient;
+		$this->socketClient = new SocketClient;
 	}
 
 	/**
@@ -38,10 +38,10 @@ class LogoutUserCommand extends Command implements SelfHandling {
 	 */
 	public function handle() {
 
-		#$this->user->updateOnlineStatus(0);
-		#$friendsUserIds = $this->user->friends()->where('onlinestatus', 1)->lists('requester_id');
-		#$relatedToId = $this->user->id;
-		#$this->socketClient->updateChatStatusBar($friendsUserIds, 22, $relatedToId, false);
+		$this->user->updateOnlineStatus(0);
+		//$friendsUserIds = $this->user->friends()->where('onlinestatus', 1)->pluck('requester_id');
+		//$relatedToId = $this->user->id;
+		//$this->socketClient->updateChatStatusBar($friendsUserIds, 22, $relatedToId, false);
 		Auth::logout();
 
 		return Auth::check();
