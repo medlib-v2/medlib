@@ -20,6 +20,7 @@
         "greggilbert/recaptcha": "^2.1",
         "nesbot/Carbon": "^1.21",
         "phpspec/phpspec": "^2.5",
+        "sebastian/exporter": "~1.0",
         "intervention/image": "dev-master",
         "wisembly/elephant.io": "3.0.0",
         "james-heinrich/getid3": "^1.9",
