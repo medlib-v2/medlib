@@ -1,4 +1,4 @@
-<!-- NAV LEFT -->
+<!-- NAV LEFT --
 <nav id="sidebar" class="sidebar" role="navigation">
     <div class="js-sidebar-content">
         <header class="logo">
