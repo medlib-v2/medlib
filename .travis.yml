@@ -51,6 +51,7 @@ install:
   - nvm install stable
   - nvm use stable
   #- npm install
+  - composer require --dev sebastian/exporter
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
@@ -59,7 +60,7 @@ install:
 
 script:
   - phpunit
-  - npm test
+  #- npm test
 
 
 matrix:
