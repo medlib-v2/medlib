@@ -22,7 +22,7 @@ cache:
   directories:
     - node_modules # NPM packages
     - vendor
-    
+
 branches:
   - master
   - develop
@@ -40,6 +40,8 @@ before_install:
   - mysql -e 'create database if not exists medlib_test;'
   - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo apt-get install yaz libyaz4 libyaz4-dev
+  - printf "\n" | pecl install yaz
   - npm i maildev
   - travis_retry composer self-update
   - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
@@ -49,7 +51,7 @@ install:
   - nvm install stable
   - nvm use stable
   #- npm install
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-scripts --no-interaction --prefer-dist --no-suggest; fi
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
   - php artisan migrate
@@ -65,4 +67,3 @@ matrix:
     - php: 7.1
     - php: hhvm
   fast_finish: true
-
