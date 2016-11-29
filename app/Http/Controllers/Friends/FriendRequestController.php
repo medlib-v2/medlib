@@ -27,8 +27,6 @@ class FriendRequestController extends Controller {
     public function __construct() {
 
         $this->middleware('auth');
-
-        $this->currentUser = Auth::user();
     }
 
     /**
@@ -39,9 +37,9 @@ class FriendRequestController extends Controller {
      * @return mixed
      */
     public function index(FriendRequestRepository $friendRequest, UserRepository $repository) {
-        $user = $this->currentUser;
+       $this->currentUser = Auth::user();
 
-        $requesterIds = $friendRequest->getIdsThatSentRequestToCurrentUser($user->id);
+        $requesterIds = $friendRequest->getIdsThatSentRequestToCurrentUser($this->currentUser->id);
 
         $userObjects = $repository->findManyById($requesterIds);
 
@@ -91,7 +89,7 @@ class FriendRequestController extends Controller {
      */
     public function destroy(Request $request) {
 
-        $user = $this->currentUser;
+        $this->currentUser = Auth::user();
 
         $validator = Validator::make($request->all(), ['username' => 'required']);
 
@@ -103,7 +101,7 @@ class FriendRequestController extends Controller {
         {
             $friend = User::whereUsername($request->get('username'))->first();
 
-            FriendRequest::where('user_id', $user->id)->where('requester_id', $friend->id)->delete();
+            FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
 
             $friendRequestCount = $this->currentUser->friendRequests()->count();
 

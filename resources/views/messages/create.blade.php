@@ -11,15 +11,15 @@
 		<br><br><br><br>
 		<div id="center-column" class="col-md-6">
 			@include('messages.partials.center-form', [
-            'placeholder' => 'Send a private message to ' .$user->firstname.'...',
+            'placeholder' => 'Send a private message to ' .$user->getName().'...',
             'formType' => 'message-form',
             'button' => 'Submit',
             'path' => 'message.store',
             'sendingMessage' => true,
             'userId' => $user->id,
             'currentUserId' => $currentUser->id,
-            'currentUserProfileimage' => $currentUser->profileimage,
-            'currentUserFirstname' => $currentUser->firstname
+            'currentUserProfileimage' => $currentUser->getAvatar(),
+            'currentUsername' => $currentUser->getUsername()
             ])
 
 		</div>

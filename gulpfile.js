@@ -30,6 +30,14 @@ require('laravel-elixir-browserify-hmr');
  *      options : {}
  *   });
  * }
+ *
+ * require('laravel-elixir-vueify');
+ * elixir.config.js.browserify.plugins.push({
+ *   name: 'vueify-extract-css',
+ *   options: {
+ *       out: 'path/to/extracted/bundle.css'
+ *   }
+ * });
  **/
 
 /**
@@ -69,7 +77,7 @@ elixir(function(mix) {
             'pace.js/pace.min.js',
             'jquery-touchswipe/jquery.touchSwipe.js',
             'select2/select2.js'
-        ], 'public/js/vendors.min.js', './bower/')
+        ], 'public/js/vendors.min.js', './bower')
         .scripts([
             'js/book-previewer.js',
             'js/arrow.js'
@@ -97,14 +105,12 @@ elixir(function(mix) {
         .styles(['css/dashboard.css'], 'public/css/dashboard.css', './resources/assets')
         .styles(['css/email.css'], 'public/css/email.css', './resources/assets')
         .styles(['css/style.css'], 'public/css/style.css', './resources/assets')
-        .styles(['css/jplist/*.css'], 'public/css/jplist-commons.css', './resources/assets');
-
-    mix.uglify(['**/*.js', '!**/*.min.js', '!**/*.map'], 'public/js', {
-        mangle: true,
-        suffix: '.min.js'
-    });
-
-    mix.version([
+        .styles(['css/jplist/*.css'], 'public/css/jplist-commons.css', './resources/assets')
+        .uglify(['**/*.js', '!**/*.min.js', '!**/*.map'], 'public/js', {
+            mangle: true,
+            suffix: '.min.js'
+        })
+        .version([
         'css/application.css',
         'css/application-ie9-part2.css',
         'css/vendors.css',
@@ -120,7 +126,11 @@ elixir(function(mix) {
         'js/search-commons.min.js',
         'js/jplist-common.min.js'])
         .copy('resources/assets/images', 'public/images')
-        .copy('resources/assets/fonts', 'public/build/fonts');
+        .copy('resources/assets/fonts', 'public/build/fonts')
+        .clean([
+            'public/css',
+            'public/js'
+        ]);
 
     if (process.env.NODE_ENV !== 'production') {
         mix.artisanServe({
@@ -138,7 +148,7 @@ elixir(function(mix) {
                 elixir.config.get('public.versioning.buildFolder') + '/rev-manifest.json',
                 'resources/views/**\/*.php'
             ],
-            browser: ['chrome']
+            browser: ['google chrome']
         });
     }
 });

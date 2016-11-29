@@ -149,6 +149,16 @@ class Feed extends Model {
     }
 
     /**
+     * Get formatted post date
+     *
+     * @return string
+     */
+    public function publishAt() {
+
+        return $this->created_at->format('d/m/Y');
+    }
+
+    /**
      * Used to fetch youtube video id
      * @param $url
      */

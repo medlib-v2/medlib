@@ -21,7 +21,7 @@ class MessageController extends Controller {
     private $currentUser;
 
     public function __construct() {
-        $this->currentUser = Auth::user();
+
     }
     /**
      * Display a listing of the message.
@@ -33,9 +33,9 @@ class MessageController extends Controller {
      */
     public function index(UserRepository $userRepository) {
 
-        $user = $this->currentUser;
+        $user = Auth::user();
 
-        $messages = $userRepository->findByIdWithMessages($this->currentUser->id);
+        $messages = $userRepository->findByIdWithMessages($user->id);
 
         return view('messages.index', compact('messages', 'user'));
     }
@@ -51,7 +51,7 @@ class MessageController extends Controller {
      */
     public function create($username, UserRepository $userRepository) {
 
-        $currentUser = $this->currentUser;
+        $currentUser = Auth::user();
         $user = $userRepository->findByUsername($username);
 
         return view('messages.create', compact('currentUser', 'user'));

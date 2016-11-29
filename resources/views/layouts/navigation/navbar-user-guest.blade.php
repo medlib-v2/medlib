@@ -11,9 +11,9 @@
         <!-- login user -->
         <li class="dropdown view-desktop" role="presentation">
             <a href="#" class="dropdown-toggle dropdown-toggle-notifications" id="notifications-dropdown-toggle" data-toggle="dropdown">
-                <span class="thumb-sm avatar pull-left"><img class="img-circle" src="{{asset('images/user-avatar.png')}}" alt="...">
-                </span>&nbsp;ESPACE PERSONNEL<span></span>
-                <b class="caret"></b>
+                <span class="thumb-sm avatar pull-left">
+                  <img class="img-circle" src="{{asset('images/user-avatar.png')}}" alt="..."/>
+                </span>&nbsp;ESPACE PERSONNEL<b class="caret"></b>
             </a>
             <ul class="dropdown-menu animated fadeInUp login-dropdown-menu" id="login-dropdown-menu">
                 <li>

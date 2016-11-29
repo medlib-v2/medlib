@@ -184,7 +184,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @return boolean
      */
     public function isFriendsWith($otherUser_id) {
-        $currentUserFriends = DB::table('friends')->where('requester_id', $this->id)->lists('requested_id');
+        $currentUserFriends = DB::table('friends')->where('requester_id', $this->id)->pluck('requested_id')->toArray();
         return in_array($otherUser_id, $currentUserFriends);
     }
 
@@ -195,7 +195,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @return boolean
      */
     public function sentFriendRequestTo($otherUser_id) {
-        $friendRequestedByCurrentUser = DB::table('friend_requests')->where('requester_id', $this->id)->lists('user_id');
+        $friendRequestedByCurrentUser = DB::table('friend_requests')->where('requester_id', $this->id)->pluck('user_id')->toArray();
         return in_array($otherUser_id, $friendRequestedByCurrentUser);
     }
 
@@ -206,7 +206,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @return boolean
      */
     public function receivedFriendRequestFrom($otherUser_id) {
-        $friendRequestsReceivedByCurrentUser = DB::table('friend_requests')->where('user_id', $this->id)->lists('requester_id');
+        $friendRequestsReceivedByCurrentUser = DB::table('friend_requests')->where('user_id', $this->id)->pluck('requester_id')->toArray();
         return in_array($otherUser_id, $friendRequestsReceivedByCurrentUser);
     }
 
@@ -384,18 +384,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public static function whereUsername($username){
         return self::where('username', $username);
     }
-    
+
     /**
      * Boot the model.
      */
     public static function boot(){
         parent::boot();
-        
+
         static::creating(function ($user){
             $user->confirmation_code = self::generateToken();
         });
     }
-    
+
     /**
      * Generate the verification token.
      *

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>ce74624c-8a64-4855-97eb-f54b5c6c92dc</OriginalElement>
+  <nodes>
+    <node x="41.0" y="553.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.friend_requests</node>
+    <node x="511.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.categories</node>
+    <node x="499.5" y="820.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.comments</node>
+    <node x="0.0" y="1049.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.message_responses</node>
+    <node x="60.5" y="0.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.users</node>
+    <node x="310.0" y="498.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.feeds</node>
+    <node x="1223.0" y="1322.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.books_subject</node>
+    <node x="0.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.languages</node>
+    <node x="1071.0" y="1049.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.books_media</node>
+    <node x="1359.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.favorites</node>
+    <node x="314.0" y="1322.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.friends</node>
+    <node x="1095.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.migrations</node>
+    <node x="902.0" y="1322.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.publishers</node>
+    <node x="708.0" y="1049.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.authors</node>
+    <node x="810.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.editions</node>
+    <node x="608.0" y="1322.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.message_user</node>
+    <node x="813.5" y="0.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.books</node>
+    <node x="53.89285714285711" y="798.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.likes</node>
+    <node x="254.0" y="1529.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.password_resets</node>
+    <node x="0.0" y="1322.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.message_response_user</node>
+    <node x="374.0" y="1049.0">ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.messages</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.likes" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.users">
+      <point x="-77.25" y="-103.0" />
+      <point x="131.1428571428571" y="773.0" />
+      <point x="30.5" y="773.0" />
+      <point x="30.5" y="473.0" />
+      <point x="126.625" y="473.0" />
+      <point x="-198.375" y="224.0" />
+    </edge>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.comments" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.feeds">
+      <point x="-67.25" y="-81.0" />
+      <point x="566.75" y="773.0" />
+      <point x="571.75" y="773.0" />
+      <point x="87.25" y="125.0" />
+    </edge>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.feeds" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.users">
+      <point x="0.0" y="-125.0" />
+      <point x="484.5" y="473.0" />
+      <point x="391.125" y="473.0" />
+      <point x="66.125" y="224.0" />
+    </edge>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.likes" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.feeds">
+      <point x="77.25" y="-103.0" />
+      <point x="285.6428571428571" y="773.0" />
+      <point x="397.25" y="773.0" />
+      <point x="-87.25" y="125.0" />
+    </edge>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.comments" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.users">
+      <point x="67.25" y="-81.0" />
+      <point x="701.25" y="773.0" />
+      <point x="682.875" y="773.0" />
+      <point x="682.875" y="473.0" />
+      <point x="523.375" y="473.0" />
+      <point x="198.375" y="224.0" />
+    </edge>
+    <edge source="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.friend_requests" target="ce74624c-8a64-4855-97eb-f54b5c6c92dc.TABLE:medlib-dev.users">
+      <point x="0.0" y="-70.0" />
+      <point x="165.5" y="473.0" />
+      <point x="258.875" y="473.0" />
+      <point x="-66.125" y="224.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8544072948328266" x="415.7122020633227" y="612.1721807186055" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

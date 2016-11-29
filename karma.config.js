@@ -1,7 +1,7 @@
 // Karma configuration
-
+/**
 var webpackConf = require('./webpack.config.js');
-delete webpackConf.entry
+delete webpackConf.entry;
 
 module.exports = function(config) {
     config.set({
@@ -35,16 +35,16 @@ module.exports = function(config) {
          * base path that will be used to resolve all patterns (eg. files, exclude)
          * This should be your JS Folder where all source javascript
          * files are located.
-         */
+         *\/
         basePath: './resources/assets/js/',
 
         /**
          * list of files / patterns to load in the browser
          * The pattern just says load all files within a
          * tests directory including subdirectories
-         **/
+         **\/
         files: [
-            {pattern: 'tests/**/*.js', watched: false},
+            {pattern: 'tests/**\/*.js', watched: false},
         ],
 
         // list of files to exclude
@@ -57,10 +57,70 @@ module.exports = function(config) {
         * stored under the tests directory in your basePath also this expects
         * you to save your tests with a .spec.js file extension. This assumes we
         * are writing in ES6 and would run our file through babel before webpack.
-        */
+        *\/
         preprocessors: {
             'app.js': ['webpack', 'babel'],
-            'tests/**/*.spec.js': ['babel', 'webpack']
+            'tests/**\/*.spec.js': ['babel', 'webpack']
         },
     })
-}
+};
+**/
+/**
+ * npm install --save-dev karma-browserify browserify watchify
+ * @param karma
+ */
+
+module.exports = function(karma) {
+    karma.set({
+
+        // include browserify first in used frameworks
+        frameworks: [ 'browserify', 'jasmine' ],
+
+        colors: true,
+
+        // see what is going on
+        logLevel: karma.LOG_DEBUG,
+
+        // use autoWatch=true for quick and easy test re-execution once files change
+        autoWatch: true,
+
+        browsers: ['Chrome'], //'PhantomJS', 'Firefox',
+
+        /**
+         * base path that will be used to resolve all patterns (eg. files, exclude)
+         * This should be your JS Folder where all source javascript
+         * files are located.
+         */
+         basePath: './resources/assets/js/',
+
+        // add all your files here,
+        // including non-commonJS files you need to load before your test cases
+        // 'tests/**\/*.js'
+        files: [
+            {pattern: 'tests/**/*.js', watched: false}
+        ],
+
+        // add additional browserify configuration properties here
+        // such as transform and/or debug=true to generate source maps
+        browserify: {
+            debug: true,
+            transform: [ ['reactify', {'es6': true}], 'coffeeify', 'brfs' ],
+            configure: function(bundle) {
+                bundle.on('prebundle', function() {
+                    bundle.external('foobar');
+                    bundle.transform('babelify').plugin('proxyquireify/plugin');
+                });
+            },
+            plugin: [require('proxyquireify').plugin]
+        },
+         // list of files to exclude
+        exclude: [
+        ],
+
+        // add preprocessor to the files that should be
+        // processed via browserify
+        preprocessors: {
+            'tests/**/*.spec.js': [ 'browserify', 'babel' ]
+        }
+    });
+};

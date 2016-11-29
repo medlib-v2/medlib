@@ -38,7 +38,9 @@ class Test extends Command
     public function handle()
     {
         $this->info('Running the phpunit');
-        system('./vendor/bin/phpunit');
+        $result = system('./vendor/bin/phpunit');
+        list($tests, $assertions, $status) = explode(",", $result);
+        dd($status);
         $this->comment('KTHXBYE.');
     }
 }
