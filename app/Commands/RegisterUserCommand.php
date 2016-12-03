@@ -2,9 +2,8 @@
 
 namespace Medlib\Commands;
 
-use Medlib\Http\Requests\Request;
 use Medlib\Models\User;
-use Illuminate\Support\Facades\Bus;
+use Medlib\Http\Requests\Request;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Hash;
 

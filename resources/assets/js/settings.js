@@ -1,5 +1,4 @@
-$(function() {
-
+$(function(){
     /**
      * A global object containing theme specific colors, screen variables & color functions.
      * @type Object
@@ -14,8 +13,8 @@ $(function() {
             rippledButtons: true,
 
             paths: {
-                images: "../images",
-                css: "../css",
+                images: "../../assets/medlib/images",
+                css: "../assets/medlib/css",
                 plugins: "assets/medlib/plugins"
             }
         },
@@ -101,8 +100,8 @@ $(function() {
         /**
          * Detect the browser
          */
-        checkTouchScreen: function() {
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        checkTouchScreen: function () {
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                 $('body').addClass('touch-screen');
                 return true;
             } else {
@@ -110,12 +109,12 @@ $(function() {
                 return false;
             }
         },
-        isScreen: function(size) {
+        isScreen: function(size){
             var screenPx = window.innerWidth;
             return (screenPx >= this.screens[size + '-min'] || size == 'xs') && (screenPx <= this.screens[size + '-max'] || size == 'lg');
         },
 
-        getScreenSize: function() {
+        getScreenSize: function(){
             var screenPx = window.innerWidth;
             if (screenPx <= this.screens['xs-max']) return 'xs';
             if ((screenPx >= this.screens['sm-min']) && (screenPx <= this.screens['sm-max'])) return 'sm';
@@ -124,13 +123,13 @@ $(function() {
         },
 
         // If window viewports change, call defined functions in callOnResize array
-        handleElementsOnResizing: function() {
+        handleElementsOnResizing: function () {
             var resizing;
-            $(window).resize(function() {
-                if (resizing) {
+            $(window).resize(function () {
+                if(resizing) {
                     clearTimeout(resizing);
                 }
-                resizing = setTimeout(function() {
+                resizing = setTimeout(function () {
                     //Pleasure.toggleSidebarMenu();
                     for (var i = 0; i < Pleasure.callOnResize.length; i++) {
                         Pleasure.callOnResize[i].call();
@@ -140,51 +139,51 @@ $(function() {
         },
 
         // Go to top
-        goToTop: function() {
-            $('a[href="#top"]').click(function() {
+        goToTop: function () {
+            $('a[href="#top"]').click(function () {
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
                 return false;
             });
         },
 
         // Handle Dropdown Menu
-        handleDropdownMenu: function() {
+        handleDropdownMenu: function () {
             // Hold dropdown on click
-            $('body').on('click', '.dropdown-menu.keep-open', function(e) {
+            $('body').on('click', '.dropdown-menu.keep-open', function (e) {
                 e.stopPropagation();
             });
         },
 
-        listenPanelEvents: function() {
-            $('.card a[data-toggle="fake-reload"]').on('click', function() {
+        listenPanelEvents: function () {
+            $('.card a[data-toggle="fake-reload"]').on('click',function() {
                 var $this = $(this),
                     card = $this.parents('.card');
 
                 card.append('<div class="refresh-container"><div class="loading-bar indeterminate"></div></div>');
-                setTimeout(function() {
+                setTimeout(function(){
                     card.find('.refresh-container').fadeOut(500, function() { card.find('.refresh-container').remove(); });
                 }, 2000);
             });
 
-            $('.panel-action a[data-toggle="panel"]').on('click', function() {
+            $('.panel-action a[data-toggle="panel"]').on('click',function() {
                 $(this).parents('.panel:first').toggleClass('collapsed');
             });
 
-            $('.panel-action a[data-toggle="remove"]').on('click', function() {
+            $('.panel-action a[data-toggle="remove"]').on('click',function() {
                 $(this).parents('.panel:first').remove();
             });
 
-            $('.panel-action a[data-toggle="fake-reload"]').on('click', function() {
+            $('.panel-action a[data-toggle="fake-reload"]').on('click',function() {
                 var $this = $(this),
                     par = $this.parents('.panel');
 
                 par.find('.panel-body').append('<div class="refresh-container"><div class="loading-bar indeterminate"></div></div>');
-                setTimeout(function() {
+                setTimeout(function(){
                     par.find('.refresh-container').fadeOut(500, function() { par.find('.refresh-container').remove(); });
                 }, 2000);
             });
 
-            $('.panel-action a[data-toggle="reload"]').on('click', function() {
+            $('.panel-action a[data-toggle="reload"]').on('click',function(){
                 // Define the panel variables
                 var $this = $(this),
                     par = $this.parents('.panel:first'),
@@ -195,7 +194,7 @@ $(function() {
                 ajax_notify_sound = $this.data('ajax-notify-sound');
 
                 // Loading ajax content
-                if (ajax_target) {
+                if(ajax_target) {
                     var jqxhr = $.ajax({
                         cache: false,
                         url: ajax_target,
@@ -210,20 +209,20 @@ $(function() {
                         $this.removeClass('fa-spin');
 
                         // Handle the ajax selector
-                        if (ajax_selector === 'prepend') {
+                        if(ajax_selector === 'prepend') {
                             par.find('.panel-body').prepend(data);
-                        } else if (ajax_selector === 'append') {
+                        } else if(ajax_selector === 'append') {
                             par.find('.panel-body').append(data);
-                        } else if (ajax_selector === 'inside') {
+                        } else if(ajax_selector === 'inside') {
                             par.find('.panel-body').html(data);
                         } else {
                             $(ajax_selector).html(data);
                         }
 
                         // Handle notification types
-                        if (ajax_notify === 'toastr')
-                            toastr.success('The ' + ajax_target + ' content successfully loaded.');
-                        if (ajax_notify_sound)
+                        if(ajax_notify === 'toastr')
+                            toastr.success('The '+ajax_target+' content successfully loaded.');
+                        if(ajax_notify_sound)
                             ion.sound.play(ajax_notify_sound);
 
                     }).fail(function(jqXHR, textStatus) {
@@ -231,12 +230,12 @@ $(function() {
                         $this.removeClass('fa-spin');
 
                         // Handle notification types
-                        if (ajax_notify === 'toastr') {
-                            toastr.error('There was a problem while loading the ' + ajax_target + ' content.');
+                        if(ajax_notify === 'toastr') {
+                            toastr.error('There was a problem while loading the '+ajax_target+' content.');
                         } else {
-                            par.find('.panel-body').prepend('<div class="alert alert-danger alert-block" role="alert">There was a problem while loading the ' + ajax_target + ' content.</div>');
+                            par.find('.panel-body').prepend('<div class="alert alert-danger alert-block" role="alert">There was a problem while loading the '+ajax_target+' content.</div>');
                         }
-                        if (ajax_notify_sound)
+                        if(ajax_notify_sound)
                             ion.sound.play(ajax_notify_sound);
                     });
                 }
@@ -247,7 +246,7 @@ $(function() {
 
         },
 
-        draggablePortlets: function() {
+        draggablePortlets: function () {
             $('.draggable-portlets').sortable({
                 connectWith: '.portlets',
                 handle: '.portlet-handle',
@@ -256,7 +255,7 @@ $(function() {
                 opacity: 0.5,
                 dropOnEmpty: true,
                 forcePlaceholderSize: true,
-                update: function(event, ui) {
+                update: function (event, ui) {
                     var sorted = $(this).sortable('toArray').toString();
                     //console.log(sorted);
                     /* POST to server using $.post or $.ajax
@@ -269,58 +268,59 @@ $(function() {
             });
         },
 
-        handleLoadingButtons: function() {
-            $('.demo-btn-loading').click(function() {
+        handleLoadingButtons: function () {
+            $('.demo-btn-loading').click(function () {
                 var btn = $(this);
                 btn.button('loading');
-                setTimeout(function() {
+                setTimeout(function () {
                     btn.button('reset');
                 }, 1500); // Simulate for real loading 1,5 second
             });
         },
 
-        handleTooltipsAndPopovers: function() {
+        handleTooltipsAndPopovers: function () {
             $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
             $('body').popover({ selector: '[data-toggle="popover"]' });
         },
 
-        handleTabs: function() {
+        handleTabs: function () {
             var hash = document.location.hash;
             var prefix = "tab_";
             if (hash) {
-                $('.nav a[href=' + hash.replace(prefix, "") + ']').trigger('click');
+                $('.nav a[href='+hash.replace(prefix,"")+']').trigger('click');
             }
             // Change hash for page-reload
-            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
+            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
                 window.location.hash = e.target.hash.replace("#", "#" + prefix);
             });
         },
 
-        handleAccordionAndToggles: function() {
-            $('.accordion a[data-toggle="collapse"]').click(function() {
+        handleAccordionAndToggles: function () {
+            $('.accordion a[data-toggle="collapse"]').click(function () {
                 $(this).parents('.accordion').find('.panel-heading').removeClass('active');
-                if ($(this).parent().next().hasClass('in')) {
+                if ( $(this).parent().next().hasClass('in') ) {
                     $(this).parents('.panel-heading').removeClass('active');
-                } else  {
+                }
+                else {
                     $(this).parents('.panel-heading').addClass('active');
                 }
             });
-            $('.toggle a[data-toggle="collapse"]').click(function() {
+            $('.toggle a[data-toggle="collapse"]').click(function () {
                 $(this).parents('.panel-heading').toggleClass('active');
             });
         },
 
-        handleToastrSettings: function(closeButton, positionClass, sticky, type, closeOthers, title, notification) {
+        handleToastrSettings: function (closeButton, positionClass, sticky, type, closeOthers, title, notification) {
 
-            closeButton = (closeButton != false) ? true : false;
+            closeButton = (closeButton !=false) ? true : false;
             positionClass = (!positionClass) ? 'toast-top-right' : positionClass;
-            sticky = (sticky != true) ? timeOut = 5000 : timeOut = 0;
+            sticky = (sticky !=true) ? timeOut = 5000 : timeOut = 0;
 
-            if (closeOthers == true)
+            if(closeOthers == true)
                 toastr.remove();
-            if (!title)
+            if(!title)
                 title = '';
-            if (!notification) {
+            if(!notification){
                 notification = 'Sample Notification';
             }
 
@@ -333,11 +333,11 @@ $(function() {
                 'hideDuration': '500'
             };
 
-            if (type === 'success') {
+            if(type === 'success') {
                 toastr.success(notification, title);
-            } else if (type === 'warning') {
+            } else if(type === 'warning') {
                 toastr.warning(notification, title);
-            } else if (type === 'error') {
+            } else if(type === 'error') {
                 toastr.error(notification, title);
             } else {
                 toastr.info(notification, title);
@@ -345,8 +345,8 @@ $(function() {
 
         },
 
-        listenToastrNotification: function() {
-            $('body').on('click', '.toastr-notify', function() {
+        listenToastrNotification: function () {
+            $('body').on('click', '.toastr-notify', function () {
                 var $this = $(this),
                     closeButton = $this.data('toastr-close-button'),
                     positionClass = $this.data('toastr-position'),
@@ -359,27 +359,27 @@ $(function() {
             });
         },
 
-        handleFastClick: function() {
-            window.addEventListener('load', function() {
+        handleFastClick: function () {
+            window.addEventListener('load', function () {
                 FastClick.attach(document.body);
             }, false);
         },
 
-        initSelectPicker: function() {
+        initSelectPicker: function () {
             // Find select elements with "selecter" class
             $('select.selecter').selectpicker();
         },
 
-        initAutoSizeTextarea: function() {
+        initAutoSizeTextarea: function () {
             // Find textarea elements with "js-auto-size" class
             $('.js-auto-size').textareaAutoSize();
         },
 
-        listenInputs: function() {
+        listenInputs: function () {
             // Find input and textarea elements with "inputer" class
-            $('.inputer').on('keyup', function() {
+            $('.inputer').on('keyup', function () {
                 var $formControl = $(this).find('.form-control');
-                if ($formControl.val().length > 0)
+                if($formControl.val().length > 0)
                     $formControl.addClass('valid');
                 else
                     $formControl.removeClass('valid');
@@ -390,25 +390,25 @@ $(function() {
 
         },
 
-        initInputerBorders: function() {
+        initInputerBorders: function () {
             // Disabled
             $('.inputer>.input-wrapper>.form-control:disabled').parents('.input-wrapper').addClass('disabled');
 
             // Readonly
             $('.inputer>.input-wrapper>.form-control[readonly]').parents('.input-wrapper').addClass('readonly');
 
-            $('.inputer>.input-wrapper>.form-control').on('focus', function() {
+            $('.inputer>.input-wrapper>.form-control').on('focus', function () {
                 $('.input-wrapper.active').removeClass('active');
                 $(this).parents('.input-wrapper').addClass('active');
             });
-            $('.inputer>.input-wrapper>.form-control').on('blur', function() {
+            $('.inputer>.input-wrapper>.form-control').on('blur', function () {
                 $('.input-wrapper.active').removeClass('active');
             });
         },
 
-        handleRippledButtons: function() {
+        handleRippledButtons: function () {
 
-            if (this.settings.rippledButtons) {
+            if( this.settings.rippledButtons ) {
 
                 // Thanks to Andrew Tunnecliffe http://codepen.io/atunnecliffe/pen/VYayGp
                 var element, ripple, d, x, y;
@@ -417,7 +417,7 @@ $(function() {
 
                 $('.btn').addClass('btn-ripple');
 
-                $(document).on('click', '.btn-ripple', function(e) {
+                $(document).on('click', '.btn-ripple', function (e) {
                     element = $(this);
 
                     // remove old items from queue and DOM
@@ -441,45 +441,45 @@ $(function() {
                     ripple = element.find('._' + i);
 
                     // Make it big enough to cover whole parent
-                    if (!ripple.height() && !ripple.width()) {
+                    if(!ripple.height() && !ripple.width()) {
                         d = Math.max(element.outerWidth(), element.outerHeight());
-                        ripple.css({ height: d, width: d });
+                        ripple.css({height: d, width: d});
                     }
 
                     // Get origin
                     x = e.pageX - element.offset().left - ripple.width() / 2;
-                    y = e.pageY - element.offset().top - ripple.height() / 2;
+                    y = e.pageY - element.offset().top - ripple.height() / 2 ;
 
                     // Set location and animate
-                    ripple.css({ top: y + 'px', left: x + 'px' }).addClass('animate');
+                    ripple.css({top: y+'px', left: x+'px'}).addClass('animate');
                 });
 
             }
         },
 
         // Material Meaningful Animation
-        handleMaterialAnimation: function() {
+        handleMaterialAnimation: function () {
             // inspired by Kupletsky Sergey http://codepen.io/zavoloklom/pen/wtApI
             var speed = 2000;
-            var container = $('.display-animation');
+            var container =  $('.display-animation');
             container.each(function() {
                 var elements = $(this).find('.material-animate');
                 elements.each(function() {
                     var elementOffset = $(this).offset();
-                    var offset = elementOffset.left * 0.8 + elementOffset.top;
-                    var delay = parseFloat(offset / speed).toFixed(2);
+                    var offset = elementOffset.left*0.8 + elementOffset.top;
+                    var delay = parseFloat(offset/speed).toFixed(2);
 
                     $(this)
-                        .css("-webkit-animation-delay", delay + 's')
-                        .css("-o-animation-delay", delay + 's')
-                        .css("animation-delay", delay + 's');
+                        .css("-webkit-animation-delay", delay+'s')
+                        .css("-o-animation-delay", delay+'s')
+                        .css("animation-delay", delay+'s');
 
-                    makeWatcher($(this));
+                    makeWatcher( $(this) );
                 });
             });
 
-            function makeWatcher(element) {
-                var watcher = scrollMonitor.create(element);
+            function makeWatcher( element ) {
+                var watcher = scrollMonitor.create( element );
 
                 function addClass() {
                     if (watcher.enterViewport) {
@@ -494,61 +494,61 @@ $(function() {
         },
 
         // Listen Card Events
-        listenCardEvents: function() {
+        listenCardEvents: function () {
             // Toggle Card News More
-            $('.toggle-card-news-more').on('click', function() {
+            $('.toggle-card-news-more').on('click', function () {
                 $(this).parents('.card').toggleClass('card-active');
             });
         },
 
         // Clickable Cards Animations
-        listenClickableCards: function() {
+        listenClickableCards: function () {
             // inspired by Balapa http://codepen.io/balapa/pen/embYYB
 
-            $('.floating-open').on('click', function() {
+            $('.floating-open').on('click', function () {
                 var $this = $(this);
                 $this.parents('.clickable-button').addClass('clicked');
                 $this.parents('.clickable-button').next('.layered-content').addClass('active');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $this.parents('.card-heading').css('overflow', 'hidden');
                 }, 100);
 
             });
 
-            $('.floating-close').on('click', function() {
+            $('.floating-close').on('click', function () {
                 var $this = $(this);
                 $this.parents('.layered-content').prev('.clickable-button').removeClass('clicked');
                 $this.parents('.layered-content').removeClass('active');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $this.parents('.card-heading').css('overflow', 'initial');
                 }, 600);
 
             });
         },
 
-        scrollableTabs: function() {
+        scrollableTabs: function () {
             var $scrollableTabs = $('.scrollable-tabs');
-            $scrollableTabs.each(function()  {
+            $scrollableTabs.each( function () {
                 var $navtabs = $(this).find('.nav-tabs'),
                     calculatedWidth = 0;
                 $navtabs.children().each(function() { calculatedWidth += $(this).width(); });
 
-                $navtabs.width(calculatedWidth + 5);
+                $navtabs.width(calculatedWidth+5);
             });
         },
 
-        stickyHeader: function() {
+        stickyHeader: function () {
             var $sticky = $('.sticky');
 
-            if ($sticky.length > 0) {
+            if( $sticky.length > 0 ) {
                 var stickyOffset = $sticky.offset().top;
 
-                $(window).scroll(function() {
+                $( window ).scroll(function() {
                     var scroll = $(window).scrollTop();
 
-                    if ($('body').hasClass('layout-device')) {
+                    if($('body').hasClass('layout-device')) {
                         if (scroll + 61 >= stickyOffset)
                             $sticky.addClass('fixed');
                         else
@@ -563,7 +563,7 @@ $(function() {
             }
         },
 
-        init: function() {
+        init: function () {
 
             this.checkTouchScreen();
 
@@ -628,7 +628,7 @@ $(function() {
 
             // Calculate ratio
             var difference = Math.round(ratio * 256) * (darker ? -1 : 1),
-                // Determine if input is RGB(A)
+            // Determine if input is RGB(A)
                 rgb = color.match(new RegExp('^rgba?\\(\\s*' +
                     '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
                     '\\s*,\\s*' +
@@ -637,11 +637,12 @@ $(function() {
                     '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
                     '(?:\\s*,\\s*' +
                     '(0|1|0?\\.\\d+))?' +
-                    '\\s*\\)$', 'i')),
+                    '\\s*\\)$'
+                    , 'i')),
                 alpha = !!rgb && rgb[4] != null ? rgb[4] : null,
 
-                // Convert hex to decimal
-                decimal = !!rgb ? [rgb[1], rgb[2], rgb[3]] : color.replace(
+            // Convert hex to decimal
+                decimal = !!rgb? [rgb[1], rgb[2], rgb[3]] : color.replace(
                     /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
                     function() {
                         return parseInt(arguments[1], 16) + ',' +
@@ -653,18 +654,18 @@ $(function() {
 
             // Return RGB(A)
             return !!rgb ?
-                'rgb' + (alpha !== null ? 'a' : '') + '(' +
-                Math[darker ? 'max' : 'min'](
-                    parseInt(decimal[0], 10) + difference, darker ? 0 : 255
-                ) + ', ' +
-                Math[darker ? 'max' : 'min'](
-                    parseInt(decimal[1], 10) + difference, darker ? 0 : 255
-                ) + ', ' +
-                Math[darker ? 'max' : 'min'](
-                    parseInt(decimal[2], 10) + difference, darker ? 0 : 255
-                ) +
-                (alpha !== null ? ', ' + alpha : '') +
-                ')' :
+            'rgb' + (alpha !== null ? 'a' : '') + '(' +
+            Math[darker ? 'max' : 'min'](
+                parseInt(decimal[0], 10) + difference, darker ? 0 : 255
+            ) + ', ' +
+            Math[darker ? 'max' : 'min'](
+                parseInt(decimal[1], 10) + difference, darker ? 0 : 255
+            ) + ', ' +
+            Math[darker ? 'max' : 'min'](
+                parseInt(decimal[2], 10) + difference, darker ? 0 : 255
+            ) +
+            (alpha !== null ? ', ' + alpha : '') +
+            ')' :
                 // Return hex
                 [
                     '#',

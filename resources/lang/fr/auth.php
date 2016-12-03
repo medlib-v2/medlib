@@ -24,6 +24,8 @@ return [
         'sing_up' => 'Créer un compte',
         'email' => 'E-mail',
         'password' => 'Mot de passe',
+        'forgot_email' => 'Vous ne vous souvenez plus de votre email?',
+        'forgot_email_end' => 'Contacter nous.',
     ],
     'account_created_success' => 'Votre compte a été créé avec succès!',
     'email_was_sent' => 'Un e-mail a été envoyé',

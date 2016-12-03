@@ -1,77 +1,97 @@
-<div class="navbar-header">
-    <ul>
-        <li>
-            <a class="hidden-sm hidden-xs" id="nav-state-toggle" href="#" title="Show/hide sidebar" data-placement="bottom">
-                <i class="fa fa-bars fa-lg"></i>
+<!-- navbar header -->
+<div class="navbar-header aside-md bg-dark">
+    <!-- brand logo -->
+    <div class="navbar-brand text-lt">
+        <a href="{{ route('home') }}" ><img class="be-logo" alt="Medlib"/></a>
+    </div>
+    <!-- / brand logo -->
+</div>
+<!-- / navbar header -->
+
+<!-- navbar collapse -->
+<div id="navbar" class="be-right-navbar collapse navbar-collapse bg-white-only">
+    <!-- buttons -->
+    <ul class="nav navbar-nav be-navbar-toggle hidden-xs">
+        <li><a class="be-toggle-left-sidebar" href="#"
+               data-sn-action="toggle-navigation-state"
+               title="" data-placement="bottom"
+               data-tooltip=""
+               data-original-title="Turn on/off sidebar collapsing"><i class="fa fa-bars fa-lg"></i></a></li>
+    </ul>
+    <!-- / buttons -->
+
+    <ul class="nav navbar-nav navbar-right be-user-nav">
+        <!-- user profile -->
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
+                <img class="img-circle" data-src="js/holder.js/32%x32%" src="{{ url(Auth::user()->getAvatar()) }}" alt="{{ Auth::user()->getFirstName() }}">
+                <span class="user-name">{{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong></span>
             </a>
-            <a class="visible-sm visible-xs" id="nav-collapse-toggle" href="#" title="Show/hide sidebar" data-placement="bottom">
-                <span class="visible-xs"><i class="fa fa-bars fa-lg"></i></span>
-                <i class="fa fa-bars fa-lg hidden-xs"></i>
+            <ul role="menu" class="dropdown-menu animated fadeInUp" id="notifications-dropdown-menu">
+                @include('users.profiles.lists')
+            </ul>
+        </li>
+        <!-- / user profile -->
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right be-icons-nav">
+        <li class="dropdown">
+            <a href="#" role="button" aria-expanded="false" class="be-toggle-right-sidebar">
+                <span class="icon fa fa-cog" aria-hidden="true"></span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('home') }}" class="navbar-brand btn btn-link visible-xs">
-                <img src="{{ asset('/images/logo_a.png') }}" class="m-r-sm thumb-sm" alt="Medlib">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle">
+                <span class="icon fa fa-bell" aria-hidden="true"></span><span class="indicator"></span>
             </a>
+            <ul class="dropdown-menu be-notifications animated fadeInUp">
+                <li>
+                    <div class="title">Notifications<span class="badge">3</span></div>
+                    <div class="list">
+                        <div class="be-scroller">
+                            <div class="content">
+                                <ul>
+                                    <li class="notification notification-unread">
+                                        <a href="#">
+                                            <div class="image"><img src="{{ asset('images/people/a2.jpg') }}" alt="Avatar"></div>
+                                            <div class="notification-info">
+                                                <div class="text"><span class="user-name">Jessica Caruso</span> accepted your invitation to join the team.</div><span class="date">2 min ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification">
+                                        <a href="#">
+                                            <div class="image"><img src="{{ asset('images/people/a3.jpg') }}" alt="Avatar"></div>
+                                            <div class="notification-info">
+                                                <div class="text"><span class="user-name">Joel King</span> is now following you</div><span class="date">2 days ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification">
+                                        <a href="#">
+                                            <div class="image"><img src="{{ asset('images/people/a4.jpg') }}" alt="Avatar"></div>
+                                            <div class="notification-info">
+                                                <div class="text"><span class="user-name">John Doe</span> is watching your main repository</div><span class="date">2 days ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification">
+                                        <a href="#">
+                                            <div class="image"><img src="{{ asset('images/people/a5.jpg') }}" alt="Avatar"></div>
+                                            <div class="notification-info">
+                                                <span class="text"><span class="user-name">Emily Carter</span> is now following you</span><span class="date">5 days ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer"> <a href="#">View all notifications</a></div>
+                </li>
+            </ul>
         </li>
     </ul>
 
-<!--
-<ul class="nav navbar-nav navbar-left visible-xs">
-    <li>
-        <!-- toggles chat --
-        <a href="#" data-toggle="chat-sidebar">
-            <span class="rounded rounded-lg bg-gray text-white"><i class="fa fa-globe fa-lg"></i></span>
-        </a>
-    </li>
-</ul>
--->
 </div>
-<div id="navbar" class="navbar-collapse collapse">
-    <ul id="auth-form" class="nav navbar-nav navbar-right m-n hidden-xs  navbar-collapse">
-        <!-- user profile -->
-        <li class="dropdown view-desktop" role="presentation">
-            <a href="#" class="dropdown-toggle dropdown-toggle-notifications" id="notifications-dropdown-toggle" data-toggle="dropdown">
-                <span class="thumb-sm avatar pull-left"><img class="img-circle" data-src="js/holder.js/80%x80%" width="65" src="{{ url(Auth::user()->getAvatar()) }}" alt="..."/>
-                </span>&nbsp;{{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong>&nbsp;<span class="circle bg-warning fw-bold">13</span>
-                <b class="caret"></b>
-            </a>
-            <div class="dropdown-menu animated fadeInUp" id="notifications-dropdown-menu">
-                @include('notifications.master')
-            </div>
-        </li>
-        <!-- user profile /-->
-        <li class="dropdown view-desktop" role="presentation">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('profile.user.show', Auth::user()->getUsername()) }}" class="text-small"><span class="glyphicon glyphicon-cog"></span>&nbsp;Afficher mon profil</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;Mon Compte</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Bibliothèque</a></li>
-                <li><a href="#">Messages&nbsp;&nbsp;<span class="badge badge-danger animated bounceIn">9</span></a></li>
-                <li><a href="{{ route('dashboard.home') }}" class="text-small"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashbord</a></li>
-                <li class="divider"></li>
-                <li><a href="{{ route('profile.show.settings') }}"><span class="glyphicon glyphicon-lock"></span>&nbsp;Paramètres</a></li>
-                <li><a href="{{ route('auth.logout') }}"><!-- <i class="fa fa-sign-out"></i> --><i class="glyphicon glyphicon-off"></i>&nbsp;Se déconnecter</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" data-toggle="chat-sidebar">
-                <i class="glyphicon glyphicon-comment"></i>
-                <i class="chat-notification-sing animated bounceIn"></i>
-            </a>
-            <div id="chat-notification" class="chat-notification animated fadeOut hide">
-                <div class="chat-notification-inner">
-                    <h6 class="title">
-                                        <span class="thumb-xs">
-                                            <img src="{{ asset('images/people/a6.jpg') }}" class="img-circle mr-xs pull-left">
-                                        </span>Jess Smith
-                    </h6>
-                    <p class="text">Hey! What's up?</p>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+<!-- / navbar collapse -->

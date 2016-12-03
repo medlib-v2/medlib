@@ -1,84 +1,52 @@
-//
-// Grid system
-// --------------------------------------------------
+/*------------------------------------------------------------------
+  [Grid]
+*/
+.bs-grid-block{
+	border: 2px dashed darken(@body-background, 16.8%);
+	font-weight: 300;
+	font-size: 20px;
+	color: lighten(@dark-color, 26%);
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	margin-bottom: 40px;
 
+	.content{
+		display: table-cell;
+		height: 177px;
+		text-align: center;
+		vertical-align: middle;
 
-// Container widths
-//
-// Set the container width, and override it for fixed navbars in media queries.
+		.size{
+			display: block;
+		}
 
-.container {
-  .container-fixed();
+		.device{
+			line-height: 0;
 
-  @media (min-width: @screen-sm-min) {
-    width: @container-sm;
-  }
-  @media (min-width: @screen-md-min) {
-    width: @container-md;
-  }
-  @media (min-width: @screen-lg-min) {
-    width: @container-lg;
-  }
-}
+			&:after{
+				font-size: 15px;
 
+				@media @desktop{
+					content: 'Desktop';
+					color: @primary-color;
+				}
 
-// Fluid container
-//
-// Utilizes the mixin meant for fixed width containers, but without any defined
-// width for fluid, full width layouts.
+				@media @laptop{
+					content: 'Laptop';
+					color: @primary-color;
+				}
 
-.container-fluid {
-  .container-fixed();
-}
+				@media @tablet{
+					content: 'Tablet';
+					color: @success-color;
+				}
 
-
-// Row
-//
-// Rows contain and clear the floats of your columns.
-
-.row {
-  .make-row();
-}
-
-
-// Columns
-//
-// Common styles for small and large grid columns
-
-.make-grid-columns();
-
-
-// Extra small grid
-//
-// Columns, offsets, pushes, and pulls for extra small devices like
-// smartphones.
-
-.make-grid(xs);
-
-
-// Small grid
-//
-// Columns, offsets, pushes, and pulls for the small device range, from phones
-// to tablets.
-
-@media (min-width: @screen-sm-min) {
-  .make-grid(sm);
-}
-
-
-// Medium grid
-//
-// Columns, offsets, pushes, and pulls for the desktop device range.
-
-@media (min-width: @screen-md-min) {
-  .make-grid(md);
-}
-
-
-// Large grid
-//
-// Columns, offsets, pushes, and pulls for the large desktop device range.
-
-@media (min-width: @screen-lg-min) {
-  .make-grid(lg);
+				@media @phone{
+					content: 'Phone';
+					color: @success-color;
+				}
+			}
+		}
+	}
 }

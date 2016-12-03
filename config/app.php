@@ -169,7 +169,6 @@ return [
          */
         Medlib\Providers\AppServiceProvider::class,
         Medlib\Providers\AuthServiceProvider::class,
-        //Medlib\Providers\BusServiceProvider::class,
         Medlib\Providers\BroadcastServiceProvider::class,
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
@@ -182,6 +181,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         
         /*
          * Laravel Collective Service Providers...
@@ -248,6 +248,7 @@ return [
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

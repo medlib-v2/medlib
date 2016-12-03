@@ -4,6 +4,7 @@ namespace Medlib\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Medlib\Commands\Command;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\Init::class,
         Commands\Inspire::class,
         Commands\Test::class,
+        Commands\DeleteExpiredConfirmationTokens::class,
     ];
 
     /**

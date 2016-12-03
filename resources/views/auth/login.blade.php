@@ -2,59 +2,56 @@
 
 @section('title', 'Register')
 
+@section('class') container-fluid @endsection
+
 @section('content')
-<div class="container-fluid animated fadeInUp" style="margin-top: 20px;">
-    <div class="row">
-        <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    @include('flash.message')
-                    @if (isset($errors) and $errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    <section class="m-b-lg">
-                        <header class="wrapper text-center">
-                            <strong>Sign in to get in touch</strong>
-                        </header>
-                        <form role="form" method="POST" action="{{ route('auth.submit') }}" accept-charset="UTF-8">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <div class="list-group">
-                                <div class="list-group-item">
-                                    <input type="email" placeholder="Email" class="form-control no-border" name="email" value="{{-- old('email') --}}">
-                                    </div>
-                                    <div class="list-group-item">
-                                        <input type="password" placeholder="Password" class="form-control no-border" name="password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <input id="checkbox1" type="checkbox" name="remember" class="no-border">
-                                            <label for="checkbox1">Remember me</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group">
-                                    <button type="submit" class="btn btn-lg btn-success btn-block" style="width: 525px;">Sign in</button>
-                                    <div class="text-center m-t m-b">
-                                        <a href="{{ route('password.reset') }}" class="btn btn-link">
-                                            <small>Forgot Your Password?</small>
-                                        </a>
-                                    </div>
-                                    <div class="line line-dashed"></div>
-                                    <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                                    <a href="{{ route('auth.register') }}" class="btn btn-lg btn-default btn-block">Create an account</a>
-                                </div>
-                            </form>
-                    </section>
+<main id="content" class="content" role="main">
+    <section class="splash-container animated fadeInUp">
+        <div class="panel panel-default panel-border-color panel-border-color-primary">
+            <div class="panel-heading">
+                <header class="wrapper text-center">
+                    <strong>Sign in to get in touch</strong>
+                </header>
+                <span class="splash-description">Please enter your user information.</span>
+            </div>
+            <div class="panel-body">
+                @include('flash.message')
+                @if (isset($errors) and $errors->any())
+                <div class="alert alert-danger" role="alert">
+                    <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                         @endforeach
+                    </ul>
                 </div>
+                @endif
+                <form role="form" method="POST" action="{{ route('auth.submit') }}" accept-charset="UTF-8">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <div class="form-group">
+                        <input id="username" type="email" placeholder="Username"  autocomplete="off" class="form-control no-border" name="email" value="{{-- old('email') --}}">
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" placeholder="Password" class="form-control no-border" name="password">
+                    </div>
+                    <div class="form-group row login-tools">
+                        <div class="col-xs-6 login-remember">
+                            <div class="checkbox">
+                                <label for="remember" class="be-checks">
+                                    <input type="checkbox" name="remember_me" id="remember">
+                                    <i class="remember"></i>Se souvenir de moi</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 login-forgot-password"><a href="{{ route('password.reset') }}" class="btn btn-link">Forgot Password?</a></div>
+                    </div>
+                    <div class="form-group login-submit">
+                        <button data-dismiss="modal" type="submit" class="btn btn-success btn-block btn-xl">Sign me in</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-</div>
+        <div class="line line-dashed"></div>
+        <div class="splash-footer"><span>Don't have an account? <a href="{{ route('auth.register') }}">Sign Up</a></span></div>
+    </section>
+</main>
 @endsection

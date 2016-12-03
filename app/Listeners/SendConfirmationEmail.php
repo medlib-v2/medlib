@@ -4,14 +4,11 @@ namespace Medlib\Listeners;
 
 use Medlib\Services\UserMailer;
 use Medlib\Events\UserWasRegistered;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
 
 class SendConfirmationEmail {
 
     /**
-     * @var EmailNotifierInterface
+     * @var \Medlib\Services\UserMailer
      */
     private $emailNotifier;
 

@@ -3,9 +3,8 @@
 namespace Medlib\Http\Controllers\Feeds;
 
 use Medlib\Models\Feed;
-use Medlib\Http\Requests;
-use Illuminate\Http\Request;
 use Medlib\Models\User;
+use Illuminate\Http\Request;
 use Medlib\Services\ProcessImage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;

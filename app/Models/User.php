@@ -5,12 +5,14 @@ namespace Medlib\Models;
 use Carbon\Carbon;
 use Medlib\Models\Feed;
 use Medlib\Models\Message;
+use Medlib\Models\Social;
 use Illuminate\Support\Str;
 use Medlib\Models\FriendRequest;
 use Medlib\Models\MessageResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -20,7 +22,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
     /**
      * The database table used by the model.
@@ -45,6 +47,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'user_active',
         'account_type',
         'user_avatar',
+        'facebook_id',
         'confirmation_code'
     ];
 
@@ -67,8 +70,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @return mixed
      */
     public function feeds() {
-
         return $this->hasMany(Feed::class)->latest();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function social()
+    {
+        return $this->hasMany(Social::class);
     }
 
     /**

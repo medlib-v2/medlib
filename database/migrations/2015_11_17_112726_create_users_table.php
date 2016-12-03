@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_code');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);
+            $table->string('facebook_id')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

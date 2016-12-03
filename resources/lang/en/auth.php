@@ -24,6 +24,8 @@ return [
         'sing_up' => 'Sing up',
         'email' => 'Email',
         'password' => 'Password',
+        'forgot_email' => 'Don\'t remember your email?',
+        'forgot_email_end' => 'Contacter nous.',
     ],
     'account_created_success' => 'Your account has been created with success !',
     'email_was_sent' => 'A email has been sent',

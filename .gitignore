@@ -12,6 +12,7 @@ composer.lock
 common.js
 .env
 .env.testing
+.netbeans.xml
 .DS_Store
 ._.DS_Store
 ._*

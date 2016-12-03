@@ -6,7 +6,6 @@ namespace Medlib\Events;
 use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserWasRegistered extends Event {
 
@@ -21,7 +20,6 @@ class UserWasRegistered extends Event {
      * Create a new event instance.
      *
      * @param \Medlib\Models\User $user
-     *
      */
     public function __construct(User $user) {
         $this->user = $user;

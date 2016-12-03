@@ -42,9 +42,9 @@
         <!--[if IE 9]>
         <link href="{{ asset('css/application-ie9-part2.css') }}" rel="stylesheet">
         <![endif]-->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ App::rev('css/vendors.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ App::rev('css/application.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ App::rev('css/vendors.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ App::rev('css/style.css') }}" type="text/css">
         @yield('sytle')
 
         <!-- TITLE -->
