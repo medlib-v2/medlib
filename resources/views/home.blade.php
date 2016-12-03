@@ -115,22 +115,22 @@
 
 @section('script')
 <!-- page specific js -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        /**
-         * Medlib Application
-         */
-        Medlib.InputField();
-        Medlib.Arrow();
-        Medlib.FormElements();
-        @if (Auth::guest())
-        Medlib.Password('#password', {
-            innerToggle: true,
-            //touchSupport: Modernizr.touch,
-            title: 'Click here show/hide password',
-            hideToggleUntil: 'focus'
-        });
-        @endif
-    });
-</script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                /**
+                 * Medlib Application
+                 */
+                Medlib.InputField();
+                Medlib.Arrow();
+                Medlib.FormElements();
+                @if (Auth::guest())
+                Medlib.Password('#password', {
+                    innerToggle: true,
+                    //touchSupport: Modernizr.touch,
+                    title: 'Click here show/hide password',
+                    hideToggleUntil: 'focus'
+                });
+                @endif
+            });
+        </script>
 @endsection
