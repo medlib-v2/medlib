@@ -1,0 +1,47 @@
+/**
+* be-listt-control
+*/
+.be-list-control-mixin(){
+	float: left;
+	height: 30px;
+
+	.border-box-mixin();	
+	border: none;
+	color: @black1;
+}
+
+
+.be-list-drop-down-mixin(){
+	float: left;
+	height: 30px;
+	box-shadow: 0 0 1px #fff;
+	background: #fff;
+
+	.border-box-mixin();
+	border: 1px solid @light-grey5;
+	border-radius: 3px;
+
+	text-shadow: 1px 1px 1px #fff;
+	color: @black1;
+}
+
+
+/**
+* be-listt inner control - like label or checkbox inside group
+*/
+.be-list-inner-control-mixin(){
+	float: left;
+	display: inline-block;
+	height: 30px;
+	background: #fff;	
+	.border-box-mixin();
+	color: @black1;
+}
+
+
+/**
+* be-listt control gradient
+*/
+.be-list-control-gradient-mixin(){
+	.linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to		
+}
