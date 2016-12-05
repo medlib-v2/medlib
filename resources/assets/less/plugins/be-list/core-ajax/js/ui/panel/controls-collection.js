@@ -113,7 +113,7 @@
 					status = control.getStatusByDeepLink(param.propName, param.propValue);
 					
 					if(status){
-                        jQuery.fn.jplist.StatusesService.add(statusesByDeepLinkCollection, status, false);
+                        jQuery.fn.beList.StatusesService.add(statusesByDeepLinkCollection, status, false);
 					}
 				}
 			}
@@ -132,7 +132,7 @@
 	/**
 	 * Set current statuses (for answer event)
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 * @param {boolean} isStorage - are statuses restored from storage
 	 */
 	var setStatuses = function(context, statuses, isStorage){
@@ -243,7 +243,7 @@
 	 * Get current panel statuses
 	 * @param {Object} context
 	 * @param {boolean} isDefault - if true, get default (initial) panel status; else - get current panel status
-	 * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+	 * @return {Array.<jQuery.fn.beList.StatusDTO>}
 	 */
 	var getStatuses = function(context, isDefault){
 	
@@ -265,7 +265,7 @@
 				if(status){
 				
 					//add / merge status
-                    jQuery.fn.jplist.StatusesService.add(statuses, status, false);
+                    jQuery.fn.beList.StatusesService.add(statuses, status, false);
 				}
 			}
 			
@@ -278,7 +278,7 @@
 	 * get statuses and merge them with the given status
 	 * @param {Object} context
 	 * @param {boolean} isDefault - if true, get default (initial) panel status; else - get current panel status
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statusesToMerge
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statusesToMerge
 	 */
 	var merge = function(context, isDefault, statusesToMerge){
 		
@@ -292,14 +292,14 @@
 
         for(var i = 0; i<statuses.length; i++){
 
-            jQuery.fn.jplist.StatusesService.add(statusesCollection, statuses[i], false);
+            jQuery.fn.beList.StatusesService.add(statusesCollection, statuses[i], false);
         }
 
         if(statusesToMerge){
 
             for(var j=0; j<statusesToMerge.length; j++){
 
-                jQuery.fn.jplist.StatusesService.add(statusesCollection, statusesToMerge[j], true);
+                jQuery.fn.beList.StatusesService.add(statusesCollection, statusesToMerge[j], true);
             }
         }
 
@@ -308,8 +308,8 @@
 
     /**
      * Is given path is in the given paths list (compare by jquery path only, data type is ignored)
-     * @param {Array.<jQuery.fn.jplist.PathModel>} paths
-     * @param {jQuery.fn.jplist.PathModel} path
+     * @param {Array.<jQuery.fn.beList.PathModel>} paths
+     * @param {jQuery.fn.beList.PathModel} path
      * @return {boolean}
      */
     var isPathInList = function(paths, path){
@@ -335,7 +335,7 @@
 	/**
 	 * Get panel paths
 	 * @param {Object} context
-	 * @return {Array.<jQuery.fn.jplist.PathModel>}
+	 * @return {Array.<jQuery.fn.beList.PathModel>}
 	 */
 	var getPaths = function(context){
 	
@@ -371,9 +371,9 @@
 	 * add control
 	 * @param {Object} context
 	 * @param {jQueryObject} $control
-     * @param {jQuery.fn.jplist.History} history
+     * @param {jQuery.fn.beList.History} history
      * @param {jQueryObject} $root
-     * @param {Object} options - jplist user options
+     * @param {Object} options - beList user options
      * @param {Object} observer
      * @return {Object}
 	 */
@@ -383,7 +383,7 @@
             ,control;
 
         //init control factory
-        controlFactory = new jQuery.fn.jplist.ControlFactory(options, observer, history, $root)
+        controlFactory = new jQuery.fn.beList.ControlFactory(options, observer, history, $root)
 
         //create control
         control = controlFactory.create($control, context);
@@ -401,9 +401,9 @@
 	 * get panel controls
 	 * @param {Object} context
      * @param {jQueryObject} $controls
-     * @param {jQuery.fn.jplist.History} history
+     * @param {jQuery.fn.beList.History} history
      * @param {jQueryObject} $root
-     * @param {Object} options - jplist user options
+     * @param {Object} options - beList user options
      * @param {Object} observer
 	 */
 	var addList = function(context, $controls, history, $root, options, observer){
@@ -420,7 +420,7 @@
 	 * @constructor
 	 * @return {Object}
 	 */
-	jQuery.fn.jplist.ControlsCollection = function(){
+	jQuery.fn.beList.ControlsCollection = function(){
 
 		this.controls = [];
 	};
@@ -428,9 +428,9 @@
 	/**
 	 * get statuses and merge them with the given status
 	 * @param {boolean} isDefault - if true, get default (initial) panel status; else - get current panel status
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.merge = function(isDefault, statuses){
+	jQuery.fn.beList.ControlsCollection.prototype.merge = function(isDefault, statuses){
 		return merge(this, isDefault, statuses);
 	};
 	
@@ -438,7 +438,7 @@
 	 * statuses change per deep links url / params
 	 * @param {Array.<Object>} params - array of params {controlName: '...', propName: '...', propValue: '...'}
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.statusesChangedByDeepLinks = function(params){
+	jQuery.fn.beList.ControlsCollection.prototype.statusesChangedByDeepLinks = function(params){
 		statusesChangedByDeepLinks(this, params);
 	};
 	
@@ -447,16 +447,16 @@
 	 * @param {Array.<Object>} params - array of params {controlName: '...', propName: '...', propValue: '...'}
      * @param {Object} observer
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.setDeepLinks = function(params, observer){
+	jQuery.fn.beList.ControlsCollection.prototype.setDeepLinks = function(params, observer){
 		setDeepLinks(this, params, observer);
 	};
 	
 	/**
 	 * Set current statuses (for answer event)
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 * @param {boolean} isStorage - are statuses restored from storage
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.setStatuses = function(statuses, isStorage){
+	jQuery.fn.beList.ControlsCollection.prototype.setStatuses = function(statuses, isStorage){
 		setStatuses(this, statuses, isStorage);
 	};
 	
@@ -465,48 +465,48 @@
      * @param {string} delimiter1 (options.delimiter1)
 	 * @return {string} url
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.getDeepLinksUrl = function(delimiter1){
+	jQuery.fn.beList.ControlsCollection.prototype.getDeepLinksUrl = function(delimiter1){
 		return getDeepLinksUrl(this, delimiter1);
 	};
 	
 	/**
 	 * Get current panel statuses (for build statuses event)
 	 * @param {boolean} isDefault - if true, get default (initial) panel status; else - get current panel status
-	 * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+	 * @return {Array.<jQuery.fn.beList.StatusDTO>}
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.getStatuses = function(isDefault){
+	jQuery.fn.beList.ControlsCollection.prototype.getStatuses = function(isDefault){
 		return getStatuses(this, isDefault);
 	};
 	
 	/**
 	 * Get panel paths
-     * @return {Array.<jQuery.fn.jplist.PathModel>}
+     * @return {Array.<jQuery.fn.beList.PathModel>}
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.getPaths = function(){
+	jQuery.fn.beList.ControlsCollection.prototype.getPaths = function(){
 		return getPaths(this);
 	};
 	
 	/**
 	 * add control
 	 * @param {jQueryObject} $control
-     * @param {jQuery.fn.jplist.History} history
+     * @param {jQuery.fn.beList.History} history
      * @param {jQueryObject} $root
-     * @param {Object} options - jplist user options
+     * @param {Object} options - beList user options
      * @param {Object} observer
 	 */
-	jQuery.fn.jplist.ControlsCollection.prototype.add = function($control, history, $root, options, observer){
+	jQuery.fn.beList.ControlsCollection.prototype.add = function($control, history, $root, options, observer){
 		add(this, $control, history, $root, options, observer);
 	};
 
     /**
      * add control
      * @param {jQueryObject} $controls
-     * @param {jQuery.fn.jplist.History} history
+     * @param {jQuery.fn.beList.History} history
      * @param {jQueryObject} $root
-     * @param {Object} options - jplist user options
+     * @param {Object} options - beList user options
      * @param {Object} observer
      */
-    jQuery.fn.jplist.ControlsCollection.prototype.addList = function($controls, history, $root, options, observer){
+    jQuery.fn.beList.ControlsCollection.prototype.addList = function($controls, history, $root, options, observer){
         addList(this, $controls, history, $root, options, observer);
     };
 		

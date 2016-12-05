@@ -168,7 +168,7 @@
 	* @param {number} itemsOnPage	
 	* @param {number} itemsNumber	
 	*/
-	jQuery.fn.jplist.PaginationService = function(currentPage, itemsOnPage, itemsNumber){
+	jQuery.fn.beList.PaginationService = function(currentPage, itemsOnPage, itemsNumber){
 		
 		//get all items number
 		this.itemsNumber = getItemsNumber(itemsNumber);

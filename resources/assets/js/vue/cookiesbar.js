@@ -8,4 +8,4 @@ import CookiesBar from './CookiesBar.vue'
 new Vue({
   el: '#cookiebar',
   render: (h) => h(CookiesBar)
-})
+});

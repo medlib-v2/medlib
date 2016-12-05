@@ -4,7 +4,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO|Array.<jQuery.fn.jplist.StatusDTO>} status
+	* @param {jQuery.fn.beList.StatusDTO|Array.<jQuery.fn.beList.StatusDTO>} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -31,12 +31,12 @@
 		if(!pagingObj || pagingObj.pagesNumber <= 0){
 
 			context.$control.html('');
-			context.$control.addClass('jplist-empty');
+			context.$control.addClass('be-list-empty');
 		}
 		else{
 
 			//remove empty class
-			context.$control.removeClass('jplist-empty');
+			context.$control.removeClass('be-list-empty');
 			
 			//get pager type
 			infoType = context.$control.attr('data-type');
@@ -65,7 +65,7 @@
 
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -77,14 +77,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.PaginationInfo = function(context){
+	jQuery.fn.beList.controls.PaginationInfo = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['pagination-info'] = {
+	jQuery.fn.beList.controlTypes['pagination-info'] = {
 		className: 'PaginationInfo'
 		,options: {}
 	};	

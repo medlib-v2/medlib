@@ -10,22 +10,22 @@
 		
 		//set prev and first arrows visibility
 		if(pagingObj.currentPage === 0){
-			context.$jplistFirst.addClass('disabled');
-			context.$jplistPrev.addClass('disabled');	
+			context.$beListFirst.addClass('disabled');
+			context.$beListPrev.addClass('disabled');	
 		}
 		else{
-			context.$jplistFirst.removeClass('disabled');
-			context.$jplistPrev.removeClass('disabled');	
+			context.$beListFirst.removeClass('disabled');
+			context.$beListPrev.removeClass('disabled');	
 		}
 		
 		//set last and next arrows visibility
 		if(pagingObj.currentPage == pagingObj.pagesNumber - 1){
-			context.$jplistNext.addClass('disabled');
-			context.$jplistLast.addClass('disabled');
+			context.$beListNext.addClass('disabled');
+			context.$beListLast.addClass('disabled');
 		}
 		else{
-			context.$jplistNext.removeClass('disabled');
-			context.$jplistLast.removeClass('disabled');
+			context.$beListNext.removeClass('disabled');
+			context.$beListLast.removeClass('disabled');
 		}	
 	};
 	
@@ -49,7 +49,7 @@
 			html += '<li data-type="page" ';
 			
 			if(i === current){
-				html += ' class="jplist-current active" data-active="true" ';
+				html += ' class="be-list-current active" data-active="true" ';
 			}
 			
 			temp = i + 1;
@@ -58,7 +58,7 @@
 		}	
 		
 		//append new buttons..
-		context.$jplistPrev.after(html);
+		context.$beListPrev.after(html);
 	};
 	
 	/**
@@ -134,7 +134,7 @@
 		if(pagingObj.currentPage >= 0 && pagingObj.currentPage < pagingObj.pagesNumber){
 			
 			//hidden class id added if pagination has some strange error :)
-			context.$control.show(); //removeClass('jplist-hidden');
+			context.$control.show(); //removeClass('be-list-hidden');
 			
 			switch(context.mode){
 				
@@ -154,19 +154,19 @@
 			}
 			
 			//set data attributes
-			context.$jplistPrev.attr('data-number', pagingObj.prevPage).removeClass('jplist-current');
-			context.$jplistNext.attr('data-number', pagingObj.nextPage).removeClass('jplist-current');
-			context.$jplistLast.attr('data-number', pagingObj.pagesNumber - 1).removeClass('jplist-current');
+			context.$beListPrev.attr('data-number', pagingObj.prevPage).removeClass('be-list-current');
+			context.$beListNext.attr('data-number', pagingObj.nextPage).removeClass('be-list-current');
+			context.$beListLast.attr('data-number', pagingObj.pagesNumber - 1).removeClass('be-list-current');
 			
 			if(pagingObj.pagesNumber <= 1){
-				context.$control.addClass('jplist-one-page');
+				context.$control.addClass('be-list-one-page');
 			}
 			else{
-				context.$control.removeClass('jplist-one-page');
+				context.$control.removeClass('be-list-one-page');
 			}
 		}
 		else{
-			context.$control.hide(); //addClass('jplist-hidden');
+			context.$control.hide(); //addClass('be-list-hidden');
 		}
 		
 		//update qrrows visibility
@@ -191,19 +191,19 @@
 		lastArrow = context.$control.attr('data-last') || context.options.lastArrow;
 			
 		html = '';
-		html += '<li class="jplist-first" data-number="0" data-type="first"><a href="#"><span aria-hidden="true">' + firstArrow + '</span><span class="sr-only">First</span></a></li>';
-		html += '<li class="jplist-prev" data-type="prev"><a href="#"><span aria-hidden="true">' + prevArrow + '</span><span class="sr-only">Previous</span></a></li>';
-		html += '<li class="jplist-next" data-type="next"><a href="#"><span aria-hidden="true">' + nextArrow + '</span><span class="sr-only">Next</span></a></li>';
-		html += '<li class="jplist-last" data-type="last"><a href="#"><span aria-hidden="true">' + lastArrow + '</span><span class="sr-only">Last</span></a></li>';
+		html += '<li class="be-list-first" data-number="0" data-type="first"><a href="#"><span aria-hidden="true">' + firstArrow + '</span><span class="sr-only">First</span></a></li>';
+		html += '<li class="be-list-prev" data-type="prev"><a href="#"><span aria-hidden="true">' + prevArrow + '</span><span class="sr-only">Previous</span></a></li>';
+		html += '<li class="be-list-next" data-type="next"><a href="#"><span aria-hidden="true">' + nextArrow + '</span><span class="sr-only">Next</span></a></li>';
+		html += '<li class="be-list-last" data-type="last"><a href="#"><span aria-hidden="true">' + lastArrow + '</span><span class="sr-only">Last</span></a></li>';
 		
 		//set arrows html
 		context.$control.append(html);
 		
 		//init vars
-		context.$jplistFirst = context.$control.find('[data-type="first"]');
-		context.$jplistPrev = context.$control.find('[data-type="prev"]');
-		context.$jplistNext = context.$control.find('[data-type="next"]');
-		context.$jplistLast = context.$control.find('[data-type="last"]');
+		context.$beListFirst = context.$control.find('[data-type="first"]');
+		context.$beListPrev = context.$control.find('[data-type="prev"]');
+		context.$beListNext = context.$control.find('[data-type="next"]');
+		context.$beListLast = context.$control.find('[data-type="last"]');
 	};
 	
 	/**
@@ -232,10 +232,10 @@
 			$control: $control
 			,options: options
 			
-			,$jplistFirst: null
-			,$jplistPrev: null
-			,$jplistNext: null
-			,$jplistLast: null
+			,$beListFirst: null
+			,$beListPrev: null
+			,$beListNext: null
+			,$beListLast: null
 			
 			,mode: $control.attr('data-mode')
 		};
@@ -263,7 +263,7 @@
 	* @param {jQueryObject} $control
 	* @param {Object} options
 	*/
-	jQuery.fn.jplist.controls.BootstrapPaginationView = function($control, options){
+	jQuery.fn.beList.controls.BootstrapPaginationView = function($control, options){
 		return new Init($control, options);
 	};	
 })();

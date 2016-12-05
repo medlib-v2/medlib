@@ -21,7 +21,7 @@
      * @param {jQueryObject} $items - html or jQuery items collection to sort
      * @param {string} type - 'text', 'number' or 'datetime'
      * @param {string=} path - jquery path inside html (optional)
-     * @return {jQuery.fn.jplist.Dataitems}
+     * @return {jQuery.fn.beList.Dataitems}
      */
     var initDataItems = function($items, type, path){
 
@@ -30,11 +30,11 @@
             ,paths;
 
         //init paths: text, number, datetime
-        paths = [new jQuery.fn.jplist.PathModel(path, type)];
+        paths = [new jQuery.fn.beList.PathModel(path, type)];
 
-        observer = new jQuery.fn.jplist.PubSub(jQuery('<div></div>'), {});
+        observer = new jQuery.fn.beList.PubSub(jQuery('<div></div>'), {});
 
-        return new jQuery.fn.jplist.Dataitems(observer, $items, paths);
+        return new jQuery.fn.beList.Dataitems(observer, $items, paths);
     };
 
     /**
@@ -79,7 +79,7 @@
      * @param {string=} resultType (optional) - 'html' or 'jquery'. The default is 'jquery'.
      * @return {jQueryObject|string} - sorted jQuery items
      */
-    jQuery.jplist.sort = function($items, order, type, path, ignore, dateTimeFormat, resultType){
+    jQuery.beList.sort = function($items, order, type, path, ignore, dateTimeFormat, resultType){
 
         var dataitems
             ,status;

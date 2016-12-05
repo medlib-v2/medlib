@@ -1,33 +1,48 @@
-var _ = require('lodash'),
-    $ = require('jquery'),
+let _ = require('lodash'),
+    $ = window.jQuery,
     BookView = require('./BookView'),
     Backbone = require('backbone'),
     Modernizr = require('../utils/modernizr');
 
 const AllBooksView = Backbone.View.extend({
 
-    //all books go inside an unordered list tag
+    /**
+     * all books go inside an unordered list tag
+     */
     tagName: "ul",
 
+    /**
+     *
+     * bind 'this' object to book method
+     */
     initialize: function() {
-        //bind 'this' object to book method
         _.bindAll(this, "book");
     },
 
+    /**
+     * Call the book method on each book in this collection
+     */
     render: function() {
-        //call the book method on each book in this collection
         this.collection.each(this.book);
     },
 
+    /**
+     * For frontpage topics, prepend a title and append a 'more' button
+     * @param topic
+     * @param maxResults
+     */
     topic: function(topic, maxResults) {
-        //for frontpage topics, prepend a title and append a 'more' button
         this.$el.prepend('<h1>' + topic + '</h1>').append('<a href="#browse/subject/' + topic + '/' + maxResults + '">Voir plus &raquo;</a>');
     },
 
+    /**
+     * Instantiate a book view and populate it with a model,
+     * then render it and append it to this views html element
+     *
+     * @param model
+     */
     book: function(model) {
-        //Instantiate a book view and populate it with a model,
-        //then render it and append it to this views html element
-        var bookItem = new BookView({ model: model });
+        let bookItem = new BookView({ model: model });
         bookItem.render();
         this.$el.append(bookItem.el);
     }

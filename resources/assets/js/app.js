@@ -65,7 +65,7 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
  */
 const Medlib = (function($, window, document, undefined, FastClick){
     'use strict';
-    var VERSION = '1.0.1';
+    var VERSION = '1.0.2';
     
     /**
      * Basic Config
@@ -109,42 +109,43 @@ const Medlib = (function($, window, document, undefined, FastClick){
          * Extends basic config with options
          */
         $.extend( config, options );
-        this.init(config);
-    }
-    
-    Medlib.prototype = {
-        init: function (options) {
-            /*
+
+        /**
+         * Medlib application is initialise here
+         * @param options
+         */
+        this.init = function (options) {
+            /**
              * FastClick on mobile
              */
             FastClick.attach(document.body);
-            
-            /*
+
+            /**
              * Left Sidebar
              */
             this.leftSidebarInit();
-            
-            /*
+
+            /**
              * Right Sidebar
              */
             this.rightSidebarInit();
             this.chatWidget();
-            
-            /*
+
+            /**
              * Sidebars Swipe
              */
             if( options.enableSwipe ){
                 this.sidebarSwipe();
             }
-            
-            /*
+
+            /**
              * Scroll Top button
              */
             if( options.scrollTop ){
                 this.scrollTopButton();
             }
-            
-            /*
+
+            /**
              * Get colors
              */
             colors.primary = this.getColor('clr-primary');
@@ -152,19 +153,19 @@ const Medlib = (function($, window, document, undefined, FastClick){
             colors.warning = this.getColor('clr-warning');
             colors.danger  = this.getColor('clr-danger');
             colors.grey    = this.getColor('clr-grey');
-            
+
             /**
              * Prevent Connections Dropdown closes on click
              */
             $(".be-connections").on("click",function( e ){
                 e.stopPropagation();
             });
-            
+
             /**
              * Scroller plugin init
              */
             this.scrollerInit();
-            
+
             /*
              * Bind plugins on hidden elements
              * Dropdown shown event
@@ -172,38 +173,46 @@ const Medlib = (function($, window, document, undefined, FastClick){
             $('.dropdown').on('shown.bs.dropdown', function () {
                 $(".be-scroller").perfectScrollbar('update');
             });
-            
+
             /*
              * Tabs refresh hidden elements
              */
             $('.nav-tabs').on('shown.bs.tab', function (e) {
                 $(".be-scroller").perfectScrollbar('update');
             });
-            
+
             /*
              * Tooltips
              */
             $('[data-toggle="tooltip"]').tooltip();
-            
+
             /*
              * Popover
              */
             $('[data-toggle="popover"]').popover();
-            
+
             /*
              * Bootstrap modal scroll top fix
              */
             $('.modal').on('show.bs.modal', function(){
                 $("html").addClass('be-modal-open');
             });
-            
+
             $('.modal').on('hidden.bs.modal', function(){
                 $("html").removeClass('be-modal-open');
             });
-        },
+        };
+
         /**
-         * Get the template css colors into js vars
+         * Initialisation
          */
+        this.init(config);
+    }
+
+    /**
+     * Get the template css colors into js vars
+     */
+    Medlib.prototype = {
         getColor: function( cls ){
             var tmp = $("<div>", { class: cls }).appendTo("body"),
                 color = tmp.css("background-color");
@@ -220,7 +229,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 body.removeClass( config.openLeftSidebarClass ).addClass( config.transitionClass );
                 self.sidebarDelay();
             }
-            
+
             if( rightSidebar.length > 0 ){
                 /**
                  * Open-Sidebar when click on topbar button
@@ -242,27 +251,27 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     }
                 });
             }
-      
+
             var firstAnchor = $(".sidebar-elements > li > a", leftSidebar),
                 lsc = $(".left-sidebar-scroll", leftSidebar),
                 lsToggle = $(".left-sidebar-toggle", leftSidebar);
-        
+
             function updateScroller(){
                 if( wrapper.hasClass("be-fixed-sidebar") ){
                     lsc.perfectScrollbar('update');
                 }
             }
-            
+
             /**
              * Open sub-menu functionality
              */
             firstAnchor.on("click",function( e ){
                 var $el = $(this), $open, $speed = config.leftSidebarSlideSpeed,
-                $li = $el.parent(),
-                $subMenu = $el.next();
-                
+                    $li = $el.parent(),
+                    $subMenu = $el.next();
+
                 $open = $li.siblings(".open");
-                
+
                 if( $open ){
                     $open.find('> ul:visible').slideUp({ duration: $speed, complete: function(){
                         $open.toggleClass('open');
@@ -270,14 +279,14 @@ const Medlib = (function($, window, document, undefined, FastClick){
                         updateScroller();
                     }});
                 }
-                
+
                 if( $li.hasClass('open') ){
                     $subMenu.slideUp({ duration: $speed, complete: function(){
                         $li.toggleClass('open');
                         $(this).removeAttr('style');
                         updateScroller();
                     }});
-                } 
+                }
                 else {
                     $subMenu.slideDown({ duration: $speed, complete: function(){
                         $li.toggleClass('open');
@@ -292,12 +301,12 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     e.preventDefault();
                 }
             });
-            
+
             /**
              * Calculate sidebar tree active & open classes
              */
             $("li.active", leftSidebar).parents(".parent").addClass("active open");
-            
+
             /**
              * Scrollbar plugin init when left sidebar is fixed
              */
@@ -312,7 +321,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     }, 500, "be_update_scroller");
                 });
             }
-            
+
             /**
              * Toggle sidebar on small devices
              */
@@ -335,7 +344,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 body.removeClass( config.openRightSidebarClass ).addClass( config.transitionClass );
                 self.sidebarDelay();
             }
-            
+
             if( rightSidebar.length > 0 ){
                 /**
                  * Open-Sidebar when click on topbar button
@@ -348,7 +357,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     }
                     e.preventDefault();
                 });
-                
+
                 /**
                  * Close sidebar on click outside
                  */
@@ -358,9 +367,9 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     }
                 });
             }
-            
+
             rsScrollbar.perfectScrollbar();
-            
+
             /**
              * Update scrollbar height on window resize
              */
@@ -369,7 +378,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
                     rsScrollbar.perfectScrollbar('update');
                 }, 500, "be_update_scroller");
             });
-            
+
             /**
              * Update scrollbar when click on a tab
              */
@@ -387,7 +396,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
             }, config.openSidebarDelay );
         },
         sidebarSwipe: function(){
-            /*
+            /**
              * Open sidedar on swipe
              */
             wrapper.swipe( {
@@ -402,81 +411,81 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 },
                 threshold: config.swipeTreshold
             });
-  },
-        chatWidget: function(){
-            var chat = $(".be-right-sidebar .tab-chat"),
-                contactsEl = $(".chat-contacts", chat),
-                conversationEl = $(".chat-window", chat),
-                messagesContainer = $(".chat-messages", conversationEl),
-                messagesList = $(".content ul", messagesContainer),
-                messagesScroll = $(".be-scroller", messagesContainer),
-                chatInputContainer = $(".chat-input", conversationEl),
-                chatInput = $("input", chatInputContainer),
-                chatInputSendButton = $(".send-msg", chatInputContainer);
-        
-            function openChatWindow(){
-                if( !chat.hasClass("chat-opened") ){
-                    chat.addClass("chat-opened");
-                }
-            }
-            
-            function closeChatWindow(){
-                if( chat.hasClass("chat-opened") ){
-                    chat.removeClass("chat-opened");
-                }
-            }
-            /*
-             * Open Conversation Window when click on chat user
-             */
-            $(".user a", contactsEl).on('click',function(e){
-                openChatWindow();
-                e.preventDefault();
-            });
-            
-            /*
-             * Close chat conv window
-             */
-            $(".title .return", conversationEl).on('click',function(e){
-                closeChatWindow();
-                scrollerInit();
-            });
-            
-            /*
-             * Send message
-             */
-            function sendMsg(msg, self){
-                var $message = $('<li class="' + ((self)?'self':'friend') + '"></li>');
-                if( msg != '' ){
-                    $('<div class="msg">' + msg + '</div>').appendTo($message);
-                    $message.appendTo(messagesList);
-                    messagesScroll.stop().animate({
-                        'scrollTop': messagesScroll.prop("scrollHeight")
-                    }, 900, 'swing');
-                    
-                    messagesScroll.perfectScrollbar('update');
-                }
-            }
-            
-            /*
-             * Send msg when click on 'send' button or press 'Enter'
-             */
-            chatInput.keypress(function(event){
-                var keycode = (event.keyCode ? event.keyCode : event.which),
-                msg = $(this).val();
-                
-                if(keycode == '13'){
-                    sendMsg(msg, true);
-                    $(this).val("");
-                }
-                event.stopPropagation();
-            });
-            
-            chatInputSendButton.on('click',function(){
-                var msg = chatInput.val();
-                sendMsg(msg, true);
-                chatInput.val("");
-            });
         },
+        chatWidget: function(){
+        var chat = $(".be-right-sidebar .tab-chat"),
+            contactsEl = $(".chat-contacts", chat),
+            conversationEl = $(".chat-window", chat),
+            messagesContainer = $(".chat-messages", conversationEl),
+            messagesList = $(".content ul", messagesContainer),
+            messagesScroll = $(".be-scroller", messagesContainer),
+            chatInputContainer = $(".chat-input", conversationEl),
+            chatInput = $("input", chatInputContainer),
+            chatInputSendButton = $(".send-msg", chatInputContainer);
+
+        function openChatWindow(){
+            if( !chat.hasClass("chat-opened") ){
+                chat.addClass("chat-opened");
+            }
+        }
+
+        function closeChatWindow(){
+            if( chat.hasClass("chat-opened") ){
+                chat.removeClass("chat-opened");
+            }
+        }
+        /*
+         * Open Conversation Window when click on chat user
+         */
+        $(".user a", contactsEl).on('click',function(e){
+            openChatWindow();
+            e.preventDefault();
+        });
+
+        /*
+         * Close chat conv window
+         */
+        $(".title .return", conversationEl).on('click',function(e){
+            closeChatWindow();
+            scrollerInit();
+        });
+
+        /*
+         * Send message
+         */
+        function sendMsg(msg, self){
+            var $message = $('<li class="' + ((self)?'self':'friend') + '"></li>');
+            if( msg != '' ){
+                $('<div class="msg">' + msg + '</div>').appendTo($message);
+                $message.appendTo(messagesList);
+                messagesScroll.stop().animate({
+                    'scrollTop': messagesScroll.prop("scrollHeight")
+                }, 900, 'swing');
+
+                messagesScroll.perfectScrollbar('update');
+            }
+        }
+
+        /*
+         * Send msg when click on 'send' button or press 'Enter'
+         */
+        chatInput.keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which),
+                msg = $(this).val();
+
+            if(keycode == '13'){
+                sendMsg(msg, true);
+                $(this).val("");
+            }
+            event.stopPropagation();
+        });
+
+        chatInputSendButton.on('click',function(){
+            var msg = chatInput.val();
+            sendMsg(msg, true);
+            chatInput.val("");
+        });
+    },
         scrollerInit: function(){
             $(".be-scroller").perfectScrollbar();
         },
@@ -484,9 +493,9 @@ const Medlib = (function($, window, document, undefined, FastClick){
             var offset = 220,
                 duration = 500,
                 button = $('<div class="be-scroll-top"></div>');
-        
+
             button.appendTo("body");
-            
+
             $(window).on('scroll',function() {
                 if ( $(this).scrollTop() > offset ) {
                     button.fadeIn(duration);
@@ -498,9 +507,9 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 $( 'html, body' ).animate({ scrollTop: 0 }, duration);
                 e.preventDefault();
             });
-        }
+        },
     };
-    
+
     /**
      * Wait for final event on window resize
      * @type Function
@@ -521,8 +530,8 @@ const Medlib = (function($, window, document, undefined, FastClick){
     /**
      * @returns {Medlib}
      */
-    return Medlib;
+    return new Medlib;
     
 })(jQuery, window, document, undefined, FastClick);
 
-window.Medlib = new Medlib;
+window.Medlib = Medlib;

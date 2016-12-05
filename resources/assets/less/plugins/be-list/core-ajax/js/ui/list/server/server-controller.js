@@ -3,9 +3,9 @@
 	
 	/**
 	 * build statuses
-	 * @param {Object} context - jplist controller 'this' object
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {Object} context - beList controller 'this' object
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
 	 */
 	var renderStatuses = function(context, statuses, lastStatus){
 		
@@ -22,14 +22,14 @@
 		}
 					
 		//load data from URL
-		jQuery.fn.jplist.URIService.get(
+		jQuery.fn.beList.URIService.get(
 			statuses
 			,context.options
 			
 			//OK callback
 			,function(content, statuses, ajax, response){
 				
-				var dataitem = new jQuery.fn.jplist.DomainDataItemServerModel(content, ajaxDataType, response['responseText']);
+				var dataitem = new jQuery.fn.beList.DomainDataItemServerModel(content, ajaxDataType, response['responseText']);
 									
 				//udapte statuses with server data
 				setServerData(context, dataitem, statuses);
@@ -70,8 +70,8 @@
 	/**
 	 * update statuses with data from server
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.DomainDataItemServerModel} dataitem - server data item
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {jQuery.fn.beList.DomainDataItemServerModel} dataitem - server data item
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
 	var setServerData = function(context, dataitem, statuses){
 	
@@ -82,7 +82,7 @@
             ,itemsPerPage = 0;
 		
 		//get list of pagination statuses
-		pagingStatuses = jQuery.fn.jplist.StatusesService.getStatusesByAction('paging', statuses);
+		pagingStatuses = jQuery.fn.beList.StatusesService.getStatusesByAction('paging', statuses);
 
         if(pagingStatuses.length > 0){
 
@@ -108,7 +108,7 @@
             }
 
             //create paging object
-            paging = new jQuery.fn.jplist.PaginationService(currentPage, itemsPerPage, dataitem.count);
+            paging = new jQuery.fn.beList.PaginationService(currentPage, itemsPerPage, dataitem.count);
 
             //add paging object to the paging status
             for(var j=0; j<pagingStatuses.length; j++){
@@ -126,13 +126,13 @@
 	/**
 	 * Server Controller
 	 * @constructor
-	 * @param {jQueryObject} $root - jplist root element
-	 * @param {Object} options - jplist user options
+	 * @param {jQueryObject} $root - beList root element
+	 * @param {Object} options - beList user options
 	 * @param {Object} observer
-	 * @param {jQuery.fn.jplist.History} history
+	 * @param {jQuery.fn.beList.History} history
 	 * @return {Object}
 	 */
-	jQuery.fn.jplist.ServerController = function($root, options, observer, history){
+	jQuery.fn.beList.ServerController = function($root, options, observer, history){
 	
 		this.options = options;
 		this.observer = observer;
@@ -144,18 +144,18 @@
 		this.model = null;
 		
 		//init model
-		this.model = new jQuery.fn.jplist.DataItemServerModel(null, null, this.scopeObserver);
+		this.model = new jQuery.fn.beList.DataItemServerModel(null, null, this.scopeObserver);
 		
 		//init view
-		this.view = new jQuery.fn.jplist.ServerView($root, options, observer, this.scopeObserver, this.model, this.history);
+		this.view = new jQuery.fn.beList.ServerView($root, options, observer, this.scopeObserver, this.model, this.history);
 	};
 	
 	/**
 	 * build statuses
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
 	 */
-	jQuery.fn.jplist.ServerController.prototype.renderStatuses = function(statuses, lastStatus){
+	jQuery.fn.beList.ServerController.prototype.renderStatuses = function(statuses, lastStatus){
 		renderStatuses(this, statuses, lastStatus);
 	};
 })();

@@ -1,73 +1,73 @@
 /**
 * import files
 */
-@import "../../../../themes/core/helpers.less";
-@import "../../../../themes/core/vars.less";
-@import "../../../../themes/core/common.less";
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
 
 /**
 * list/grid view control
 */
 .list-grid-view-mixin(){
 	
-	.jplist-panel{
+	.be-list-panel{
 	
-		.jplist-views{
+		.be-list-views{
 			float: left;
 
-			.jplist-view{
-				.jplist-control-mixin();
+			.be-list-view{
+				.be-list-control-mixin();
 				cursor: pointer;
 				width: 32px;
 			}
 			
-			.jplist-list-view{
-				background: url('../img/icons/list-btn.png') no-repeat 50% 50%;
+			.be-list-list-view{
+				background: url('../images/icons/list-btn.png') no-repeat 50% 50%;
 			}
 
-			.jplist-grid-view{
-				background: url('../img/icons/grid-btn-disabled.png') no-repeat 50% 50%;
+			.be-list-grid-view{
+				background: url('../images/icons/grid-btn-disabled.png') no-repeat 50% 50%;
 			}
 			
-			.jplist-thumbs-view{
-				background: url('../img/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
+			.be-list-thumbs-view{
+				background: url('../images/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
 			}
 		}		
 	}
 	
-	.jplist-grid-view{
-		.jplist-panel{
-			.jplist-views{
+	.be-list-grid-view{
+		.be-list-panel{
+			.be-list-views{
 			   
-			    .jplist-list-view{
-					background: url('../img/icons/list-btn-disabled.png') no-repeat 50% 50%;
+			    .be-list-list-view{
+					background: url('../images/icons/list-btn-disabled.png') no-repeat 50% 50%;
 			    }
 
-			    .jplist-grid-view{
-					background: url('../img/icons/grid-btn.png') no-repeat 50% 50%;
+			    .be-list-grid-view{
+					background: url('../images/icons/grid-btn.png') no-repeat 50% 50%;
 			    }
 				
-				.jplist-thumbs-view{
-					background: url('../img/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
+				.be-list-thumbs-view{
+					background: url('../images/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
 				}
 		   }
 	   }
 	}
 	
-	.jplist-thumbs-view{
-		.jplist-panel{
-			.jplist-views{
+	.be-list-thumbs-view{
+		.be-list-panel{
+			.be-list-views{
 			   
-			    .jplist-list-view{
-					background: url('../img/icons/list-btn-disabled.png') no-repeat 50% 50%;
+			    .be-list-list-view{
+					background: url('../images/icons/list-btn-disabled.png') no-repeat 50% 50%;
 			    }
 
-			    .jplist-grid-view{
-					background: url('../img/icons/grid-btn-disabled.png') no-repeat 50% 50%;
+			    .be-list-grid-view{
+					background: url('../images/icons/grid-btn-disabled.png') no-repeat 50% 50%;
 			    }
 				
-				.jplist-thumbs-view{
-					background: url('../img/icons/thumbs-btn.png') no-repeat 50% 50%;
+				.be-list-thumbs-view{
+					background: url('../images/icons/thumbs-btn.png') no-repeat 50% 50%;
 				}
 		   }
 	   }

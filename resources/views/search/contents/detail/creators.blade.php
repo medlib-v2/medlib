@@ -13,12 +13,7 @@
                 'qdb' => trim(trim(\Illuminate\Support\Facades\Input::get('qdb'), ','), '.'),
                 'author' => 'au'])}}" title="Chercher d’autres ouvrages de cet auteur">{{ $creator['name'] }}</a>
                 <!--  {{ ($creator['role'] == 'main') ? 'Auteur' : 'Contributeur'}}<br /> -->
-        <?php $counter++; ?>
-        @if($counter != $last)
-            <span>.</span>
-        @else
-            <span>,</span>
-        @endif
+        <?php $counter++; ?> @if($counter != $last) <span>.</span> @else <span>,</span> @endif
     @endforeach
 </div>
 @endif

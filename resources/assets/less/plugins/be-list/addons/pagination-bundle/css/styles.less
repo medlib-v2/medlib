@@ -1,20 +1,21 @@
 /**
 * import files
 */
-@import "../../../../themes/core/helpers.less";
-@import "../../../../themes/core/vars.less";
-@import "../../../../themes/core/common.less";
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
 
 /**
 * pagination
 */
 .pagination-mixin(){
 
-	.jplist-panel{
-		.jplist-pagination{		
+	.be-list-panel{
+		.be-list-pagination{		
 			cursor:pointer;
 			float: left;
 			line-height: 30px;
+			margin: 0;
 
 			button{
 				display: inline-block;           
@@ -24,19 +25,19 @@
 				padding: 0 10px;
 			}
 
-			.jplist-current{
+			.be-list-current{
 				font-weight: bold;
 				color: @orange;
 			}
 			
-			.jplist-pagingprev,
-			.jplist-pagingmid,
-			.jplist-pagingnext {
+			.be-list-pagingprev,
+			.be-list-pagingmid,
+			.be-list-pagingnext {
 				float:left;
 			}
 			
-			.jplist-pagingprev,
-			.jplist-pagingnext{
+			.be-list-pagingprev,
+			.be-list-pagingnext{
 				button{
 					font-size: 20px;
 					font-family: @courier;
@@ -45,14 +46,14 @@
 		}
 	}
 	
-	.jplist-one-page{
+	.be-list-one-page{
 		display: none;
 	}
 	
 	/**
 	* used in pagination infor when pages number is 0
 	*/
-	.jplist-empty{
+	.be-list-empty{
 		display: none;
 	}
 }

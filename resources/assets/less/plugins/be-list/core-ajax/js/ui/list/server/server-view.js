@@ -4,8 +4,8 @@
 	/**
 	 * build result content
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.DomainDataItemServerModel} dataItem
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {jQuery.fn.beList.DomainDataItemServerModel} dataItem
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
 	var buildContent = function(context, dataItem, statuses){
 		
@@ -18,12 +18,12 @@
 			
 		//no results found
 		if(!(dataItem.content) || jQuery.trim(dataItem.content) === ''){
-			context.$noResults.removeClass('jplist-hidden');
-			context.$itemsBox.addClass('jplist-hidden');
+			context.$noResults.removeClass('be-list-hidden');
+			context.$itemsBox.addClass('be-list-hidden');
 		}
 		else{
-			context.$noResults.addClass('jplist-hidden');
-			context.$itemsBox.removeClass('jplist-hidden');
+			context.$noResults.addClass('be-list-hidden');
+			context.$itemsBox.removeClass('be-list-hidden');
 		}
 				
 		if(context.options.effect){
@@ -45,7 +45,7 @@
 			}
 			
 			//animate items
-			jQuery.fn.jplist.animation.drawItems(
+			jQuery.fn.beList.animation.drawItems(
 				options //user options
 				,context.$itemsBox //scene
 				,null
@@ -81,22 +81,22 @@
 	
 	/**
 	 * init events
-	 * @param {Object} context - jplist controller 'this' object
+	 * @param {Object} context - beList controller 'this' object
 	 */
 	var initEvents = function(context){
 				
 		//on model changed
-		//@param {jQuery.fn.jplist.DomainDataItemServerModel|null} dataItem
-		//@param {Array.<jQuery.fn.jplist.StatusDTO>|null} statuses
+		//@param {jQuery.fn.beList.DomainDataItemServerModel|null} dataItem
+		//@param {Array.<jQuery.fn.beList.StatusDTO>|null} statuses
 		context.scopeObserver.on(context.scopeObserver.events.modelChanged, function(e, dataItem, statuses){
 			
 			//hide preloader -> rebuild html
 			if(context.$preloader){
-				context.$preloader.addClass('jplist-hidden');
+				context.$preloader.addClass('be-list-hidden');
 			}
 			
 			//show items box
-			context.$itemsBox.removeClass('jplist-hidden');
+			context.$itemsBox.removeClass('be-list-hidden');
 			
 			//build result content
 			buildContent(context, dataItem, statuses);
@@ -106,14 +106,14 @@
 	/**
 	 * Server HTML List View
 	 * @constructor
-	 * @param {jQueryObject} $root - jplist jquery element
-	 * @param {Object} options - jplist options
+	 * @param {jQueryObject} $root - beList jquery element
+	 * @param {Object} options - beList options
 	 * @param {Object} observer
 	 * @param {Object} scopeObserver
-	 * @param {jQuery.fn.jplist.DataItemServerModel} model
-	 * @param {jQuery.fn.jplist.History} history
+	 * @param {jQuery.fn.beList.DataItemServerModel} model
+	 * @param {jQuery.fn.beList.History} history
 	 */
-	jQuery.fn.jplist.ServerView = function($root, options, observer, scopeObserver, model, history){
+	jQuery.fn.beList.ServerView = function($root, options, observer, scopeObserver, model, history){
 	
 		this.options = options;
 		this.observer = observer;
@@ -127,7 +127,7 @@
 		if(this.options.effect){
 			
 			//init timeline
-			this.timeline = new jQuery.fn.jplist.animation.Timeline(this.options.fps, this.observer);
+			this.timeline = new jQuery.fn.beList.animation.Timeline(this.options.fps, this.observer);
 		}
 		
 		//init events

@@ -1,4 +1,4 @@
-var Backbone = require('backbone');
+let Backbone = require('backbone');
 
 const BookModel = Backbone.Model.extend({
     defaults: {

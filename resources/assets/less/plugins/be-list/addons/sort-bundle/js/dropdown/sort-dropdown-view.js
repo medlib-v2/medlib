@@ -5,7 +5,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -30,16 +30,16 @@
 		$span = $li.find('span');
 				
 		//init status related data
-		data = new jQuery.fn.jplist.controls.DropdownSortDTO(
-            jQuery.fn.jplist.ControlFactory.getProp($span, 'path')
-			,jQuery.fn.jplist.ControlFactory.getProp($span, 'type')
-			,jQuery.fn.jplist.ControlFactory.getProp($span, 'order')
+		data = new jQuery.fn.beList.controls.DropdownSortDTO(
+            jQuery.fn.beList.ControlFactory.getProp($span, 'path')
+			,jQuery.fn.beList.ControlFactory.getProp($span, 'type')
+			,jQuery.fn.beList.ControlFactory.getProp($span, 'order')
 			,context.params.dateTimeFormat
 			,context.params.ignore
 		);
 		
 		//create status
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -84,7 +84,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -124,7 +124,7 @@
      * get path
      * @param {string} path
      * @param {string} type
-     * @return {jQuery.fn.jplist.PathModel|null}
+     * @return {jQuery.fn.beList.PathModel|null}
      */
     var getPath = function(path, type){
 
@@ -132,7 +132,7 @@
             ,type = type || 'text';
 
         if(path){
-            return new jQuery.fn.jplist.PathModel(path, type);
+            return new jQuery.fn.beList.PathModel(path, type);
         }
 
         return null;
@@ -141,7 +141,7 @@
 	/**
 	* Get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 
@@ -153,8 +153,8 @@
                 ,path
                 ,type;
 
-            dataPaths = jQuery.fn.jplist.ControlFactory.getProp($span, 'path');
-            types = jQuery.fn.jplist.ControlFactory.getProp($span, 'type');
+            dataPaths = jQuery.fn.beList.ControlFactory.getProp($span, 'path');
+            types = jQuery.fn.beList.ControlFactory.getProp($span, 'type');
 
             if(jQuery.isArray(dataPaths)){
 
@@ -188,7 +188,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -208,9 +208,9 @@
 		}
 		else{
 
-            var path = jQuery.fn.jplist.ControlFactory.getPropPath(status.data.path, 'path');
-            var type = jQuery.fn.jplist.ControlFactory.getPropPath(status.data.type, 'type');
-            var order = jQuery.fn.jplist.ControlFactory.getPropPath(status.data.order, 'order');
+            var path = jQuery.fn.beList.ControlFactory.getPropPath(status.data.path, 'path');
+            var type = jQuery.fn.beList.ControlFactory.getPropPath(status.data.type, 'type');
+            var order = jQuery.fn.beList.ControlFactory.getPropPath(status.data.order, 'order');
 
 			$li = context.$control.find('li:has(' + path + type + order + ')');
 		}
@@ -222,7 +222,7 @@
 		$li.addClass('active');
 		
 		//update dropdown panel
-		context.$control.find('.jplist-dd-panel').text($li.eq(0).text());	
+		context.$control.find('.beList-dd-panel').text($li.eq(0).text());	
 	};
 	
 	/**
@@ -245,9 +245,9 @@
 			$span = jQuery(this).find('span');
 
 			if($span.length > 0){
-				status.data.path = jQuery.fn.jplist.ControlFactory.getProp($span, 'path');
-				status.data.type = jQuery.fn.jplist.ControlFactory.getProp($span, 'type');
-                status.data.order = jQuery.fn.jplist.ControlFactory.getProp($span, 'order');
+				status.data.path = jQuery.fn.beList.ControlFactory.getProp($span, 'path');
+				status.data.type = jQuery.fn.beList.ControlFactory.getProp($span, 'type');
+                status.data.order = jQuery.fn.beList.ControlFactory.getProp($span, 'order');
 			}
 			
 			//send status event	
@@ -268,7 +268,7 @@
         };
 		
 		//run default dropdown control
-		new jQuery.fn.jplist.DropdownControl(context.options, context.observer, context.history, context.$control);
+		new jQuery.fn.beList.DropdownControl(context.options, context.observer, context.history, context.$control);
 				
 		//init events
 		initEvents(context);
@@ -279,7 +279,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -297,7 +297,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -305,7 +305,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -313,7 +313,7 @@
 	
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -325,14 +325,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.SortDropdown = function(context){
+	jQuery.fn.beList.controls.SortDropdown = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['sort-drop-down'] = {
+	jQuery.fn.beList.controlTypes['sort-drop-down'] = {
 		className: 'SortDropdown'
 		,options: {}
 		,dropdown: true

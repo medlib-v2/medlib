@@ -1,5 +1,7 @@
 const data = {
-    //Please use you're own API key, thanks!
+    /**
+     * Please use you're own API key, thanks!
+     */
     API_KEY: 'AIzaSyBhBph_ccmIlFn9YSrvhCE_8zrYxazyqJ8',
     BACKUP_KEY: 'AIzaSyDy6qMWnHsz18JB1SWzBMLBFUyJmyw7cQ4',
     MAX_DEFAULT: 12,

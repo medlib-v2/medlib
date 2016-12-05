@@ -47,7 +47,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -70,7 +70,7 @@
 
 			if(selected){
 			
-				buttonData = new jQuery.fn.jplist.controls.SortButtonDTO(
+				buttonData = new jQuery.fn.beList.controls.SortButtonDTO(
 					$btn.attr('data-path')
 					,$btn.attr('data-type')
 					,$btn.attr('data-order')
@@ -89,7 +89,7 @@
 
             if($selected && $selected.length > 0) {
 
-                buttonData = new jQuery.fn.jplist.controls.SortButtonDTO(
+                buttonData = new jQuery.fn.beList.controls.SortButtonDTO(
                     $selected.attr('data-path')
                     , $selected.attr('data-type')
                     , $selected.attr('data-order')
@@ -102,11 +102,11 @@
             }
 		}
 
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
-			,new jQuery.fn.jplist.controls.SortButtonsGroupDTO(groupData)
+			,new jQuery.fn.beList.controls.SortButtonsGroupDTO(groupData)
 			,context.inStorage
 			,context.inAnimation
 			,context.isAnimateToTop
@@ -162,7 +162,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -205,7 +205,7 @@
 	/**
 	* Get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 		
@@ -219,7 +219,7 @@
 			dataPath = $btn.attr('data-path');
 			dataType = $btn.attr('data-type');
 			
-			path = new jQuery.fn.jplist.PathModel(dataPath, dataType);
+			path = new jQuery.fn.beList.PathModel(dataPath, dataType);
             paths.push(path);
 		});
 	};
@@ -227,7 +227,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -236,7 +236,7 @@
 			,$btn;
 		
 		//remove selected class
-		context.params.$buttons.removeClass('jplist-selected');
+		context.params.$buttons.removeClass('be-list-selected');
 		context.params.$buttons.data(context.params.DATA_NAME, false);		
 		
 		if(status && status.data && status.data.sortGroup){
@@ -250,7 +250,7 @@
 					$btn = context.params.$buttons.filter('[data-path="' + statusItem.path + '"][data-order="' + statusItem.order + '"][data-type="' + statusItem.type + '"]');
 					
 					if($btn.length > 0){
-						$btn.addClass('jplist-selected');
+						$btn.addClass('be-list-selected');
 						$btn.data(context.params.DATA_NAME, true);	
 					}
 				}
@@ -305,7 +305,7 @@
 		context.params = {			
 			$buttons: context.$control.find('[data-path]')
 			,mode: context.$control.attr('data-mode')
-			,DATA_NAME: 'jplist.selected'
+			,DATA_NAME: 'be-list.selected'
 		};
 		
 		//render control html
@@ -320,7 +320,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -338,7 +338,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -346,7 +346,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -354,7 +354,7 @@
 	
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -366,14 +366,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.SortButtonsGroup = function(context){
+	jQuery.fn.beList.controls.SortButtonsGroup = function(context){
 		return new Init(context);
 	};	
 		
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['sort-buttons-group'] = {
+	jQuery.fn.beList.controlTypes['sort-buttons-group'] = {
 		className: 'SortButtonsGroup'
 		,options: {}
 	};

@@ -183,3 +183,18 @@
     }
   }
 }
+
+.be-select-all, .be-select-none {
+  .be-list-control-mixin();
+  text-decoration: none;
+  outline: none;
+  padding: 10px;
+  span {
+    padding: 3px;
+  }
+
+  &:hover, &:active {
+    text-decoration: none;
+    color: @blue;
+  }
+}

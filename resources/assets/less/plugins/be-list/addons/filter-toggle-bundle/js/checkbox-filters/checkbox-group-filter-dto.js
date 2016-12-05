@@ -6,7 +6,7 @@
 	* @constructor
 	* @param {Array.<string>} pathGroup - list of paths
 	*/
-	jQuery.fn.jplist.controls.CheckboxGroupFilterDTO = function(pathGroup){
+	jQuery.fn.beList.controls.CheckboxGroupFilterDTO = function(pathGroup){
 		
 		return {
 			pathGroup: pathGroup

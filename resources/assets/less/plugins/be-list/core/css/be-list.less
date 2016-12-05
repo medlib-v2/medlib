@@ -1,9 +1,9 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../themes/core/helpers.less";
+@import "../../themes/core/vars.less";
+@import "../../themes/core/common.less";
 
 /**
 * common styles
@@ -75,13 +75,13 @@
 		button:hover{ color: @blue; }
 		
 		button.be-list-disabled{
-			background: @light-grey2;
+			background: transparent;
 			color: @dark-grey1;
 			cursor: default;
 		}
 		
 		button.be-list-selected{
-			color: @orange;
+			color: @blue;
 		}
 		
 		input[type="text"]{
@@ -130,8 +130,7 @@
 		.be-list-control-mixin();
 		line-height: 30px;
 		padding: 0 10px;			
-		margin: 10px 10px 0 0;	
-		.linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to
+		margin: 10px 10px 0 0;
 	}
 
     .be-list-clear{
@@ -165,7 +164,9 @@
 	}
 
 	@media only screen and (max-width: 600px){
-		.be-list-panel{ display: block; }
+		.be-list-panel{
+			display: block;
+		}		
 	}
 }
 

@@ -13,7 +13,7 @@
      * @param {string} and - and operators in advanced mode
      * @param {string} or - or operators in advanced mode
      */
-    jQuery.fn.jplist.controls.RadioButtonsTextFilterDTO = function(dataPath, value, selected, ignore, mode, not, and, or){
+    jQuery.fn.beList.controls.RadioButtonsTextFilterDTO = function(dataPath, value, selected, ignore, mode, not, and, or){
 
         return {
             path: dataPath

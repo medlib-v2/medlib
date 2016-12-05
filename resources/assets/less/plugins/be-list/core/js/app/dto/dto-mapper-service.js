@@ -7,27 +7,27 @@
     /**
      * DTO Mapper Service
      */
-    jQuery.fn.jplist.DTOMapperService = jQuery.fn.jplist.DTOMapperService || {};
+    jQuery.fn.beList.DTOMapperService = jQuery.fn.beList.DTOMapperService || {};
 
 	/** 
 	* DTO Mapper Service for filters
 	* @type {Object}
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters = {};
+	jQuery.fn.beList.DTOMapperService.filters = {};
 	
 	// FILTERS
 	
 	/**
 	* text filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.TextFilter = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.TextFilter = function(status, dataview){
 		
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, null);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, null);
 
-		return jQuery.fn.jplist.FiltersService.textFilter(
+		return jQuery.fn.beList.FiltersService.textFilter(
 			status.data.value
 			,path
 			,dataview
@@ -41,15 +41,15 @@
 	
 	/**
 	* path filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.path = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.path = function(status, dataview){
 		
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, null);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, null);
 		
-		return jQuery.fn.jplist.FiltersService.pathFilter(
+		return jQuery.fn.beList.FiltersService.pathFilter(
 			path
 			,dataview
 		);
@@ -57,13 +57,13 @@
 	
 	/**
 	* inverted path filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	
-	jQuery.fn.jplist.DTOMapperService.filters.inverted_path = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.inverted_path = function(status, dataview){
 				
-		return jQuery.fn.jplist.FiltersService.invertedPathFilter(
+		return jQuery.fn.beList.FiltersService.invertedPathFilter(
 			status.data.checked_checkboxes
 			,dataview
 		);
@@ -72,15 +72,15 @@
 	
 	/**
 	* range filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.range = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.range = function(status, dataview){
 				
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, null);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, null);
 		
-		return jQuery.fn.jplist.FiltersService.rangeFilter(
+		return jQuery.fn.beList.FiltersService.rangeFilter(
 			path
 			,dataview
 			,status.data.min
@@ -92,15 +92,15 @@
 	
 	/**
 	* date filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.date = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.date = function(status, dataview){
 				
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, null);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, null);
 		
-		return jQuery.fn.jplist.FiltersService.dateFilter(
+		return jQuery.fn.beList.FiltersService.dateFilter(
 			status.data['year']
 			,status.data['month']
 			,status.data['day']
@@ -112,15 +112,15 @@
 	
 	/**
 	* date range filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.dateRange = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.dateRange = function(status, dataview){
 				
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, null);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, null);
 		
-		return jQuery.fn.jplist.FiltersService.dateRangeFilter(
+		return jQuery.fn.beList.FiltersService.dateRangeFilter(
 			path
 			,dataview
 			,status.data['format']
@@ -135,13 +135,13 @@
 	
 	/**
 	* path group filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.pathGroup = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.pathGroup = function(status, dataview){
 					
-		return jQuery.fn.jplist.FiltersService.pathGroupFilter(
+		return jQuery.fn.beList.FiltersService.pathGroupFilter(
 			status.data.pathGroup
 			,dataview
 		);
@@ -149,13 +149,13 @@
 
 	/**
 	* text group filter dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.textGroup = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.textGroup = function(status, dataview){
 						
-		return jQuery.fn.jplist.FiltersService.textGroupFilter(
+		return jQuery.fn.beList.FiltersService.textGroupFilter(
 			status.data['textGroup']
 			,status.data['logic']
 			,status.data['path']
@@ -167,13 +167,13 @@
 
 	/**
 	* text filter path group dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>} dataview
 	*/
-	jQuery.fn.jplist.DTOMapperService.filters.textFilterPathGroup = function(status, dataview){
+	jQuery.fn.beList.DTOMapperService.filters.textFilterPathGroup = function(status, dataview){
 					
-		return jQuery.fn.jplist.FiltersService.textFilterPathGroup(
+		return jQuery.fn.beList.FiltersService.textFilterPathGroup(
 			status.data['textAndPathsGroup']
 			,status.data['ignoreRegex']
 			,dataview
@@ -187,20 +187,20 @@
 	* DTO Mapper Service for sort
 	* @type {Object}
 	*/
-	jQuery.fn.jplist.DTOMapperService.sort = {};
+	jQuery.fn.beList.DTOMapperService.sort = {};
 	
 	/**
 	* text sort dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem1
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem2
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {jQuery.fn.beList.DataItemModel} dataitem1
+	* @param {jQuery.fn.beList.DataItemModel} dataitem2
 	* @return {number}
 	*/
-	jQuery.fn.jplist.DTOMapperService.sort.text = function(status, dataitem1, dataitem2){
+	jQuery.fn.beList.DTOMapperService.sort.text = function(status, dataitem1, dataitem2){
 		
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, status.data.type);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, status.data.type);
 						
-		return jQuery.fn.jplist.SortService.textHelper(
+		return jQuery.fn.beList.SortService.textHelper(
 			dataitem1
 			,dataitem2
 			,status.data.order
@@ -211,30 +211,30 @@
 	
 	/**
 	* number sort dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem1
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem2
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {jQuery.fn.beList.DataItemModel} dataitem1
+	* @param {jQuery.fn.beList.DataItemModel} dataitem2
 	* @return {number}
 	*/
-	jQuery.fn.jplist.DTOMapperService.sort.number = function(status, dataitem1, dataitem2){
+	jQuery.fn.beList.DTOMapperService.sort.number = function(status, dataitem1, dataitem2){
 		
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, status.data.type);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, status.data.type);
 						
-		return jQuery.fn.jplist.SortService.numbersHelper(dataitem1, dataitem2, status.data.order, path);
+		return jQuery.fn.beList.SortService.numbersHelper(dataitem1, dataitem2, status.data.order, path);
 	};
 	
 	/**
 	* datetime sort dto mapper
-	* @param {jQuery.fn.jplist.StatusDTO} status
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem1
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem2
+	* @param {jQuery.fn.beList.StatusDTO} status
+	* @param {jQuery.fn.beList.DataItemModel} dataitem1
+	* @param {jQuery.fn.beList.DataItemModel} dataitem2
 	* @return {number}
 	*/
-	jQuery.fn.jplist.DTOMapperService.sort.datetime = function(status, dataitem1, dataitem2){
+	jQuery.fn.beList.DTOMapperService.sort.datetime = function(status, dataitem1, dataitem2){
 		
-		var path = new jQuery.fn.jplist.PathModel(status.data.path, status.data.type);
+		var path = new jQuery.fn.beList.PathModel(status.data.path, status.data.type);
 						
-		return jQuery.fn.jplist.SortService.datetimeHelper(
+		return jQuery.fn.beList.SortService.datetimeHelper(
 			dataitem1
 			,dataitem2
 			,status.data.order

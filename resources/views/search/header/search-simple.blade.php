@@ -1,6 +1,6 @@
 <form class="form-group" id="search_form" method="GET" action="{{ route('search.simple') }}" name="search_input" role="form">
-    <div class="input-group">
-        <input id="ssearch" autocomplete="off" autofocus="true" class="form-search" placeholder="{{ trans('search.txt.criteria') }}" value="{{ trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.') }}" type="text" name="query" />
+    <div class="input-group xs-mb-15">
+        <input id="ssearch" autocomplete="off" autofocus="true" class="form-control" placeholder="{{ trans('search.txt.criteria') }}" value="{{ trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.') }}" type="text" name="query" />
         <span class="input-group-btn">
         <button id="submitButton" type="submit" class="btn btn-search"><i class="fa fa-search text-gray"></i></button>
 		</span>

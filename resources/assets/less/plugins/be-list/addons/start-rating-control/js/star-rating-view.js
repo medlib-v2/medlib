@@ -39,7 +39,7 @@
 		if(context.params.total <= 0){
 			
 			//hide control if no reviews
-			context.$control.addClass('jplist-hidden');
+			context.$control.addClass('be-list-hidden');
 		}
 		else{
 			//render control html
@@ -54,14 +54,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.itemControls.StarRating = function(context){
+	jQuery.fn.beList.itemControls.StarRating = function(context){
 		return new Init(context);
 	};	
 		
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.itemControlTypes['star-rating'] = {
+	jQuery.fn.beList.itemControlTypes['star-rating'] = {
 		className: 'StarRating'
 		,options: {
 			render: function(json){

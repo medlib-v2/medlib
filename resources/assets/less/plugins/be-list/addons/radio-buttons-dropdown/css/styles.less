@@ -1,24 +1,24 @@
 /**
 * import files
 */
-@import "../../../../themes/core/helpers.less";
-@import "../../../../themes/core/vars.less";
-@import "../../../../themes/core/common.less";
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
 
 /**
-* jplist radio buttons dropdown control
+* be-list radio buttons dropdown control
 */
-.jplist-radio-buttons-dropdown-control-mixin(){
+.be-list-radio-buttons-dropdown-control-mixin(){
 
-	.jplist-radio-buttons-dropdown{
+	.be-list-radio-buttons-dropdown{
 		
-		.jplist-control-mixin();        	
+		.be-list-control-mixin();        	
 		.linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to		
 		
 		width: 150px;	
 		margin: 10px 10px 0 0;
 
-        .jplist-dd-panel{
+        .be-list-dd-panel{
             float: left;
             width: 130px;
             height: 30px;
@@ -42,7 +42,7 @@
 			width: 125px;
 		}
 		
-		.jplist-dd-panel:after{
+		.be-list-dd-panel:after{
 			content: @arrow-down;
 			color: #111;
 			
@@ -91,12 +91,12 @@
         }
 	}
 
-	.jplist-radio-buttons-dropdown:hover{
-		.jplist-dd-panel{
+	.be-list-radio-buttons-dropdown:hover{
+		.be-list-dd-panel{
 			color: @blue;
 		}
 		
-		.jplist-dd-panel:after{
+		.be-list-dd-panel:after{
 			color: @blue;
 		}
 	}
@@ -105,4 +105,4 @@
 /**
 * mixin calls
 */
-.jplist-radio-buttons-dropdown-control-mixin();
+.be-list-radio-buttons-dropdown-control-mixin();

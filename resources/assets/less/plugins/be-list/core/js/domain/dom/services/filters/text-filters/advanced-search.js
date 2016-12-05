@@ -38,7 +38,7 @@
             }
         }
         else{
-            return jQuery.trim(jQuery.fn.jplist.HelperService.removeCharacters(pattern, ignoreRegex));
+            return jQuery.trim(jQuery.fn.beList.HelperService.removeCharacters(pattern, ignoreRegex));
         }
 
         return tree;
@@ -122,7 +122,7 @@
      * @param {Array.<string>=} orOperators
      * @return {boolean} contains?
      */
-    jQuery.fn.jplist.FiltersService.advancedSearchParse = function(input, pattern, ignoreRegex, notOperators, andOperators, orOperators){
+    jQuery.fn.beList.FiltersService.advancedSearchParse = function(input, pattern, ignoreRegex, notOperators, andOperators, orOperators){
 
         var operators
             ,tree;

@@ -45,7 +45,7 @@
                             <div class="title">
                                 <div class="user"><img src="{{ asset('images/people/a2.jpg') }}" alt="Avatar">
                                     <h2>Maggie jackson</h2><span>Active 1h ago</span>
-                                </div><span class="return fa fa-chevron-left"></span>
+                                </div><span class="icon return fa fa-chevron-left"></span>
                             </div>
                             <div class="chat-messages">
                                 <div class="be-scroller">

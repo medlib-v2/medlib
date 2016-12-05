@@ -4,14 +4,14 @@
 	/**
 	* get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.domain.dom.models.DataItemMemberPathModel>} paths
+	* @param {Array.<jQuery.fn.beList.domain.dom.models.DataItemMemberPathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 
 		var dataType = null
 			,path = null;
 
-		path = new jQuery.fn.jplist.PathModel(context.params.autocompleteParams.dataPath, dataType);
+		path = new jQuery.fn.beList.PathModel(context.params.autocompleteParams.dataPath, dataType);
 
 		paths.push(path);
 	};
@@ -80,7 +80,7 @@
 		context.params.scopeObserver = initScopeObserver(context);
 		
 		//init data source
-		context.params.dataSource = new jQuery.fn.jplist.controls.AutocompleteDataSource(
+		context.params.dataSource = new jQuery.fn.beList.controls.AutocompleteDataSource(
 			context.params.scopeObserver
 			,context.$root
 			,context.options
@@ -88,7 +88,7 @@
 		);
 		
 		//init view
-		context.params.view = new jQuery.fn.jplist.controls.AutocompleteView(
+		context.params.view = new jQuery.fn.beList.controls.AutocompleteView(
 			context.$control
 			,context.params.scopeObserver
 			,context.params.autocompleteParams
@@ -99,7 +99,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.domain.dom.models.DataItemMemberPathModel>} paths
+	* @param {Array.<jQuery.fn.beList.domain.dom.models.DataItemMemberPathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -110,14 +110,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.Autocomplete = function(context){
+	jQuery.fn.beList.controls.Autocomplete = function(context){
 		return new Init(context);
 	};
 
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['autocomplete'] = {
+	jQuery.fn.beList.controlTypes['autocomplete'] = {
 		className: 'Autocomplete'
 		,options: {}
 	};

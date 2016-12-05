@@ -19,8 +19,8 @@
 				
 		itemControlType = {};
 		
-		if(jQuery.fn.jplist.itemControlTypes[type]){
-			itemControlType = jQuery.extend(true, {}, itemControlType, jQuery.fn.jplist.itemControlTypes[type]);
+		if(jQuery.fn.beList.itemControlTypes[type]){
+			itemControlType = jQuery.extend(true, {}, itemControlType, jQuery.fn.beList.itemControlTypes[type]);
 		}
 		
 		if(context.options.itemControlTypes && context.options.itemControlTypes[type]){
@@ -28,13 +28,13 @@
 		}
 		
 		//init control vars
-		//itemControlType = (context.options.itemControlTypes && context.options.itemControlTypes[type]) || jQuery.fn.jplist.itemControlTypes[type];
+		//itemControlType = (context.options.itemControlTypes && context.options.itemControlTypes[type]) || jQuery.fn.beList.itemControlTypes[type];
 		
 		if(itemControlType){
 		
 			//get control type class
 			if(itemControlType['className']){				
-				controlTypeClass = jQuery.fn.jplist.itemControls[itemControlType['className']];
+				controlTypeClass = jQuery.fn.beList.itemControls[itemControlType['className']];
 			}
 			
 			//get options
@@ -88,11 +88,11 @@
      * Item controls are controls that appears inside data items in the list and not in the controls panels (like star rating control)
 	 * @param {Object} options
 	 * @param {Object} observer
-	 * @param {jQuery.fn.jplist.History} history
-	 * @param {jQueryObject} $root - jplist jquery element
+	 * @param {jQuery.fn.beList.History} history
+	 * @param {jQueryObject} $root - beList jquery element
 	 * @constructor
 	 */
-	jQuery.fn.jplist.ItemControlFactory = function(options, observer, history, $root){
+	jQuery.fn.beList.ItemControlFactory = function(options, observer, history, $root){
 	
 		this.options = options;
 		this.observer = observer;
@@ -104,7 +104,7 @@
 	* create item control
 	* @param {jQueryObject} $control
 	*/
-	jQuery.fn.jplist.ItemControlFactory.prototype.create = function($control){
+	jQuery.fn.beList.ItemControlFactory.prototype.create = function($control){
 		return create(this, $control);
 	};
 	

@@ -5,13 +5,13 @@
 	* Local Storage
 	* @type {Object}
 	*/
-	jQuery.fn.jplist.LocalStorageService = {};
+	jQuery.fn.beList.LocalStorageService = {};
 	
 	/**
 	* Returns if local storage is supported by the given browser
 	* @return {boolean}
 	*/
-	jQuery.fn.jplist.LocalStorageService.supported = function(){
+	jQuery.fn.beList.LocalStorageService.supported = function(){
 		
 		try{
 			return 'localStorage' in window && window['localStorage'] !== null;
@@ -26,7 +26,7 @@
 	* @param {Array.<Object>} statuses - list of status objects
 	* @param {string} storageName - local storage name
 	*/
-	jQuery.fn.jplist.LocalStorageService.save = function(statuses, storageName){
+	jQuery.fn.beList.LocalStorageService.save = function(statuses, storageName){
 		
 		var json;
 		
@@ -42,7 +42,7 @@
 	* @param {string} storageName - local storage name
 	* @return {Array.<Object>} - list of status objects
 	*/
-	jQuery.fn.jplist.LocalStorageService.restore = function(storageName){
+	jQuery.fn.beList.LocalStorageService.restore = function(storageName){
 		
 		var json
 			,statuses = [];

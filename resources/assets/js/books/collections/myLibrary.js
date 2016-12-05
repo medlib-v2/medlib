@@ -1,4 +1,4 @@
-var Backbone = require('backbone'),
+let Backbone = require('backbone'),
     ls = require("backbone.localstorage"),
     BookModel = require('../models/BookModel');
 

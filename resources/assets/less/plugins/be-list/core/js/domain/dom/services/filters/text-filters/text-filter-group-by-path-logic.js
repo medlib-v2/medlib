@@ -5,14 +5,14 @@
 	* textGroupFilter - filter dataview by text group - used for checkboxes text filter
 	* filter group of text values in the given (single) path
 	* @param {Array.<string>} textGroup - list of text values
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
     * @param {string} logic - 'or' / 'and'
     * @param {string} dataPath - data-path attribute
     * @param {string} ignoreRegex
 	* @param {string} mode: startsWith, endsWith, contains, advanced
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>}
+	* @return {Array.<jQuery.fn.beList.DataItemModel>}
 	*/
-	jQuery.fn.jplist.FiltersService.textGroupFilter = function(textGroup, logic, dataPath, ignoreRegex, dataview, mode){
+	jQuery.fn.beList.FiltersService.textGroupFilter = function(textGroup, logic, dataPath, ignoreRegex, dataview, mode){
 
         var txtValue
 			,dataitem
@@ -30,7 +30,7 @@
 		else{
 
             //create path object
-            pathObj = new jQuery.fn.jplist.PathModel(dataPath, null);
+            pathObj = new jQuery.fn.beList.PathModel(dataPath, null);
 
 			for(var i=0; i<dataview.length; i++){
 
@@ -50,7 +50,7 @@
 				    if(pathitem){
 
                         //get text from the pathitem
-                        pathItemText = jQuery.fn.jplist.HelperService.removeCharacters(pathitem.text, ignoreRegex);
+                        pathItemText = jQuery.fn.beList.HelperService.removeCharacters(pathitem.text, ignoreRegex);
 
                         if(logic === 'or'){
 
@@ -60,7 +60,7 @@
                                 txtValue = textGroup[txt];
 
                                 //remove 'ignore characters' from the text value
-                                formattedTxt = jQuery.fn.jplist.HelperService.removeCharacters(txtValue, ignoreRegex);
+                                formattedTxt = jQuery.fn.beList.HelperService.removeCharacters(txtValue, ignoreRegex);
 
 								/*
                                 //pathitem text contains text value?
@@ -71,7 +71,7 @@
 								*/
 								
 								//pathitem text contains text value?
-								if(jQuery.fn.jplist.FiltersService.advancedSearchParse(pathItemText, formattedTxt)){
+								if(jQuery.fn.beList.FiltersService.advancedSearchParse(pathItemText, formattedTxt)){
 									resultDataview.push(dataitem);
 									break;
 								}
@@ -88,10 +88,10 @@
                                 txtValue = textGroup[txt];
 
                                  //remove 'ignore characters' from the text value
-                                formattedTxt = jQuery.fn.jplist.HelperService.removeCharacters(txtValue, ignoreRegex);
+                                formattedTxt = jQuery.fn.beList.HelperService.removeCharacters(txtValue, ignoreRegex);
 								
 								//pathitem text contains text value?
-								if(jQuery.fn.jplist.FiltersService.advancedSearchParse(pathItemText, formattedTxt)){
+								if(jQuery.fn.beList.FiltersService.advancedSearchParse(pathItemText, formattedTxt)){
 									tempList.push(formattedTxt);
 								}
                             }

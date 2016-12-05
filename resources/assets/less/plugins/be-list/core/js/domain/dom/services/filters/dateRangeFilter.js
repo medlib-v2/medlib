@@ -3,8 +3,8 @@
 	
 	/**
 	* date range filter - range filter
-	* @param {jQuery.fn.jplist.PathModel} path - path object
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
+	* @param {jQuery.fn.beList.PathModel} path - path object
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
 	* @param {string} format - datetime format
 	* @param {number} prevYear
 	* @param {number} prevMonth
@@ -12,9 +12,9 @@
 	* @param {number} nextYear
 	* @param {number} nextMonth
 	* @param {number} nextDay
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>}
+	* @return {Array.<jQuery.fn.beList.DataItemModel>}
 	*/
-	jQuery.fn.jplist.FiltersService.dateRangeFilter = function(path
+	jQuery.fn.beList.FiltersService.dateRangeFilter = function(path
 															,dataview
 															,format
 															,prevYear
@@ -54,7 +54,7 @@
 				else{
 					
 					//get date from pathitem (by its text value)
-					pathitemDate = jQuery.fn.jplist.HelperService.formatDateTime(pathitem.text, format);
+					pathitemDate = jQuery.fn.beList.HelperService.formatDateTime(pathitem.text, format);
 					
 					if(pathitemDate && jQuery.isFunction(pathitemDate.getFullYear)){						
 						

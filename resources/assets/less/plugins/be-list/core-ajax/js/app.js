@@ -40,7 +40,7 @@
     /**
      * animate to top
      * @param {*} context
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      */
     var animateToTop = function(context, statuses){
 
@@ -78,7 +78,7 @@
 				
 		//a given list of statuses is changed
 		//@param {Object} event
-		//@param {Array.<jQuery.fn.jplist.StatusDTO>} statusesToMerge
+		//@param {Array.<jQuery.fn.beList.StatusDTO>} statusesToMerge
 		context.observer.on(context.observer.events.knownStatusesChanged, function(event, statusesToMerge){
 
             var mergedStatuses;
@@ -127,7 +127,7 @@
 			context.panel.setStatuses(statuses);
 			
 			//try change url according to controls statuses		
-			jQuery.fn.jplist.DeepLinksService.updateUrlPerControls(context.options, context.panel.getDeepLinksURLPerControls());
+			jQuery.fn.beList.DeepLinksService.updateUrlPerControls(context.options, context.panel.getDeepLinksURLPerControls());
 		});
 
         /**
@@ -143,15 +143,15 @@
 		 */
 		context.$root.find(context.options.iosBtnPath).on('click', function(){
 
-			jQuery(this).next(context.options.panelPath).toggleClass('jplist-ios-show');
+			jQuery(this).next(context.options.panelPath).toggleClass('be-list-ios-show');
 		});
 
 	};
 	
 	/** 
-	* jplist constructor 
-	* @param {Object} userOptions - jplist user options
-	* @param {jQueryObject} $root - jplist container
+	* beList constructor 
+	* @param {Object} userOptions - beList user options
+	* @param {jQueryObject} $root - beList container
 	* @constructor 
 	*/
 	var Init = function(userOptions, $root){
@@ -169,7 +169,7 @@
 			//enable/disable logging information
 			debug: false
 			
-			//jplist API commands
+			//beList API commands
 			,command: 'init'
 			,commandData: {}
 			
@@ -177,9 +177,9 @@
 			,itemsBox: '.list' //items container jQuery path
 			,itemPath: '.list-item' //jQuery path to the item within the items container
 			,panelPath: '.panel' //panel jQuery path
-			,noResults: '.jplist-no-results' //'no reaults' section jQuery path
+			,noResults: '.be-list-no-results' //'no reaults' section jQuery path
 			,redrawCallback: ''
-			,iosBtnPath: '.jplist-ios-button'
+			,iosBtnPath: '.be-list-ios-button'
 			
 			//animate to top - enabled by data-control-animate-to-top="true" attribute in control
 			,animateToTop: 'html, body'
@@ -192,7 +192,7 @@
 			
 			//save plugin state with storage
 			,storage: '' //'', 'cookies', 'localstorage'			
-			,storageName: 'jplist'
+			,storageName: 'be-list'
 			,cookiesExpiration: -1 //cookies expiration in minutes (-1 = cookies expire when browser is closed)
 			
 			//deep linking
@@ -230,19 +230,19 @@
 		}, userOptions);
 		
 		//init pubsub
-		context.observer = new jQuery.fn.jplist.PubSub(context.$root, context.options);
+		context.observer = new jQuery.fn.beList.PubSub(context.$root, context.options);
 				
 		//init events - used to save last status
-		context.history = new jQuery.fn.jplist.History(context.$root, context.options, context.observer);
+		context.history = new jQuery.fn.beList.History(context.$root, context.options, context.observer);
 				
 		//init panel
-		context.panel = new jQuery.fn.jplist.PanelController($root, context.options, context.history, context.observer);
+		context.panel = new jQuery.fn.beList.PanelController($root, context.options, context.history, context.observer);
 
         //init storage
-        context.storage = new jQuery.fn.jplist.Storage(context.options.storage, context.options.storageName, context.options.cookiesExpiration);
+        context.storage = new jQuery.fn.beList.Storage(context.options.storage, context.options.storageName, context.options.cookiesExpiration);
 
         //init data source
-        context.controller = new jQuery.fn.jplist.ServerController(
+        context.controller = new jQuery.fn.beList.ServerController(
             context.$root
             ,context.options
             ,context.observer
@@ -268,15 +268,15 @@
 	
 	/** 
 	* jPList main contructor
-	* @param {Object} userOptions - jplist user options
+	* @param {Object} userOptions - beList user options
 	*/
-	jQuery.fn.jplist = function(userOptions){
+	jQuery.fn.beList = function(userOptions){
 	
 		if(userOptions.command && userOptions.command !== 'init'){
 						
 			var context;
 				
-			context = this.data('jplist');
+			context = this.data('be-list');
 			
 			if(context){				
 				return performCommand(context, userOptions.command, userOptions.commandData);
@@ -289,19 +289,19 @@
 					,$root = jQuery(this);
 				
 				context = new Init(userOptions, $root);
-				$root.data('jplist', context);		
+				$root.data('be-list', context);		
 			});
 		}
 	};
 
     //API NAMESPACE REGISTRATION
-    jQuery.jplist = {};
+    jQuery.beList = {};
 
     //PLUGINS AND CONTROLS REGISTRATION ----------------------------
-    jQuery.fn.jplist.controls = jQuery.fn.jplist.controls || {};
-    jQuery.fn.jplist.itemControls = jQuery.fn.jplist.itemControls || {};
-    jQuery.fn.jplist.controlTypes = {};
-    jQuery.fn.jplist.itemControlTypes = {};
-    jQuery.fn.jplist.settings = {};
+    jQuery.fn.beList.controls = jQuery.fn.beList.controls || {};
+    jQuery.fn.beList.itemControls = jQuery.fn.beList.itemControls || {};
+    jQuery.fn.beList.controlTypes = {};
+    jQuery.fn.beList.itemControlTypes = {};
+    jQuery.fn.beList.settings = {};
 	
 })();

@@ -12,7 +12,7 @@
  Song Hyo-Jin (shj at xenosi.de)
  */
 function css_browser_selector(u) {
-    var ua = u.toLowerCase(),
+    let ua = u.toLowerCase(),
         is = function(t) {
             return ua.indexOf(t) > -1
         },
@@ -24,7 +24,7 @@ function css_browser_selector(u) {
         m = 'mobile',
         v = 0,
         r = window.devicePixelRatio ? (window.devicePixelRatio + '').replace('.', '_') : '1';
-    var res = [
+    let res = [
         /* IE */
         (!(/opera|webtv/.test(ua)) && /msie\s(\d+)/.test(ua) && (v = RegExp.$1 * 1)) ?
             ('ie ie' + v + ((v == 6 || v == 7) ?
@@ -88,29 +88,29 @@ function css_browser_selector(u) {
     return res;
 };
 (function(d, w) {
-    var _c = css_browser_selector(navigator.userAgent);
-    var h = d.documentElement;
+    let _c = css_browser_selector(navigator.userAgent);
+    let h = d.documentElement;
     h.className += ' ' + _c;
-    var _d = _c.replace(/^\s*|\s*$/g, '').split(/ +/);
+    let _d = _c.replace(/^\s*|\s*$/g, '').split(/ +/);
     w.CSSBS = 1;
-    for(var i = 0; i < _d.length; i++) {
+    for(let i = 0; i < _d.length; i++) {
         w['CSSBS_' + _d[i]] = 1;
     }
-    var _de = function(v) {
+    let _de = function(v) {
         return d.documentElement[v] || d.body[v];
     }
     if(w.jQuery) {
         (function($) {
-            var p = 'portrait', l = 'landscape';
-            var m = 'smartnarrow', mw = 'smartwide', t = 'tabletnarrow', tw = 'tabletwide', ac = m + ' ' + mw + ' ' + t + ' ' + tw + ' pc';
-            var $h = $(h);
-            var to = 0, cw = 0;
+            let p = 'portrait', l = 'landscape';
+            let m = 'smartnarrow', mw = 'smartwide', t = 'tabletnarrow', tw = 'tabletwide', ac = m + ' ' + mw + ' ' + t + ' ' + tw + ' pc';
+            let $h = $(h);
+            let to = 0, cw = 0;
 
             /* ie7 cpu 100% fix */
             function CSSSelectorUpdateSize() {
                 if(to != 0) return;
                 try {
-                    var _cw = _de('clientWidth'), _ch = _de('clientHeight');
+                    let _cw = _de('clientWidth'), _ch = _de('clientHeight');
                     if(_cw > _ch) {
                         $h.removeClass(p).addClass(l);
                     } else {

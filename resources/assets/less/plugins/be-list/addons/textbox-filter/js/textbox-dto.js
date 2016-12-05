@@ -12,7 +12,7 @@
      * @param {Array.<string>|string} and - and operators in advanced mode
      * @param {Array.<string>|string} or - or operators in advanced mode
 	 */
-	jQuery.fn.jplist.controls.TextboxDTO = function(dataPath, value, ignore, mode, not, and, or){
+	jQuery.fn.beList.controls.TextboxDTO = function(dataPath, value, ignore, mode, not, and, or){
 		
 		return {
 			path: dataPath

@@ -50,7 +50,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 				
@@ -90,7 +90,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -103,11 +103,11 @@
 			$btn = getDefaultButton(context);
 		}
 		else{
-			$btn = context.params.$buttons.filter('[data-jplist-selected="true"]');
+			$btn = context.params.$buttons.filter('[data-be-list-selected="true"]');
 		}
 		
 		//init status related data
-		data = new jQuery.fn.jplist.controls.BootSortDropdownDTO(
+		data = new jQuery.fn.beList.controls.BootSortDropdownDTO(
 			$btn.attr('data-path')
 			,$btn.attr('data-type')
 			,$btn.attr('data-order')
@@ -116,7 +116,7 @@
 		);
 		
 		//create status
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -133,7 +133,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -141,7 +141,7 @@
 		var $btn;
 		
 		//remove selected attributes
-		context.params.$buttons.attr('data-jplist-selected', false);
+		context.params.$buttons.attr('data-be-list-selected', false);
 		
 		//set active button
 		if(status.data.path == 'default'){
@@ -152,7 +152,7 @@
 		}
 		
 		if($btn.length > 0){
-			$btn.attr('data-jplist-selected', true);
+			$btn.attr('data-be-list-selected', true);
 			
 			//update selected text
 			context.params.$textBox.text($btn.text());
@@ -162,7 +162,7 @@
 	/**
 	* Get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 	
@@ -180,7 +180,7 @@
 			if(jqPath && jQuery.trim(jqPath) !== ''){
 			   
 			    //init path
-				path = new jQuery.fn.jplist.PathModel(jqPath, dataType);
+				path = new jQuery.fn.beList.PathModel(jqPath, dataType);
 				paths.push(path);
 			}
 		});
@@ -242,7 +242,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -251,7 +251,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -259,7 +259,7 @@
 			
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -278,7 +278,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -289,14 +289,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.BootSortDropdown = function(context){
+	jQuery.fn.beList.controls.BootSortDropdown = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['boot-sort-drop-down'] = {
+	jQuery.fn.beList.controlTypes['boot-sort-drop-down'] = {
 		className: 'BootSortDropdown'
 		,options: {}
 		,dropdown: true

@@ -7,15 +7,15 @@
     /**
      * Statuses Service
      */
-    jQuery.fn.jplist.StatusesService = jQuery.fn.jplist.StatusesService || {};
+    jQuery.fn.beList.StatusesService = jQuery.fn.beList.StatusesService || {};
 
     /**
      * Get statuses by action
      * @param {string} action
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @return {Array.<jQuery.fn.beList.StatusDTO>}
      */
-    jQuery.fn.jplist.StatusesService.getStatusesByAction = function(action, statuses){
+    jQuery.fn.beList.StatusesService.getStatusesByAction = function(action, statuses){
 
         var resultStatuses = []
             ,status;
@@ -35,10 +35,10 @@
 
     /**
      * get all sort statuses, expand statuses group if needed
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @return {Array.<jQuery.fn.beList.StatusDTO>}
      */
-    jQuery.fn.jplist.StatusesService.getSortStatuses = function(statuses){
+    jQuery.fn.beList.StatusesService.getSortStatuses = function(statuses){
 
         var actionStatuses
             ,actionStatus
@@ -46,7 +46,7 @@
             ,tempStatus;
 
         //get sort statuses
-        actionStatuses = jQuery.fn.jplist.StatusesService.getStatusesByAction('sort', statuses);
+        actionStatuses = jQuery.fn.beList.StatusesService.getStatusesByAction('sort', statuses);
 
         if(jQuery.isArray(actionStatuses)){
 
@@ -62,7 +62,7 @@
 
                     for(var j=0; j<actionStatus.data['sortGroup'].length; j++){
 
-                        tempStatus = new jQuery.fn.jplist.StatusDTO(
+                        tempStatus = new jQuery.fn.beList.StatusDTO(
                             actionStatus.name
                             ,actionStatus.action
                             ,actionStatus.type
@@ -87,10 +87,10 @@
 
     /**
      * get all filter statuses that have registered filter services
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @return {Array.<jQuery.fn.beList.StatusDTO>}
      */
-    jQuery.fn.jplist.StatusesService.getFilterStatuses = function(statuses){
+    jQuery.fn.beList.StatusesService.getFilterStatuses = function(statuses){
 
         var filterStatuses
             ,status
@@ -98,7 +98,7 @@
             ,registeredFilterStatuses = [];
 
         //get filter statuses
-        filterStatuses = jQuery.fn.jplist.StatusesService.getStatusesByAction('filter', statuses);
+        filterStatuses = jQuery.fn.beList.StatusesService.getStatusesByAction('filter', statuses);
 
         if(jQuery.isArray(filterStatuses)){
 
@@ -110,7 +110,7 @@
                 if(status && status.data && status.data.filterType){
 
                     //get filter service
-                    filterService = jQuery.fn.jplist.DTOMapperService.filters[status.data.filterType];
+                    filterService = jQuery.fn.beList.DTOMapperService.filters[status.data.filterType];
 
                     if(jQuery.isFunction(filterService)){
 
@@ -125,11 +125,11 @@
 
     /**
      * Get statuses with the same field: value
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      * @param {string} field
      * @param {string|null} value
      * @param {boolean} keepInitialIndex
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>}
+     * @return {Array.<jQuery.fn.beList.StatusDTO>}
      */
     var getStatusesByFieldAndValue = function(statuses, field, value, keepInitialIndex){
 
@@ -156,11 +156,11 @@
 
     /**
      * add status
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} status
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} status
      * @param {boolean} force - if this status should be prefered on other statuses
      */
-    jQuery.fn.jplist.StatusesService.add = function(statuses, status, force){
+    jQuery.fn.beList.StatusesService.add = function(statuses, status, force){
 
         var currentStatus
             ,statusesWithTheSameAction

@@ -6,8 +6,8 @@
 	
 	/**
 	 * update collection dataview: filtering
-	 * @param {Object} context - jplist controller 'this' object
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Object} context - beList controller 'this' object
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
 	var filter = function(context, statuses){
 	
@@ -16,7 +16,7 @@
 			,filterService;
 
 		//get all filter statuses that have registered filter services		
-		filterStatuses = jQuery.fn.jplist.StatusesService.getFilterStatuses(statuses);
+		filterStatuses = jQuery.fn.beList.StatusesService.getFilterStatuses(statuses);
 
 		if(filterStatuses.length > 0){
 
@@ -25,7 +25,7 @@
 				status = filterStatuses[i];
 
 				//get filter service
-				filterService = jQuery.fn.jplist.DTOMapperService.filters[status.data.filterType];
+				filterService = jQuery.fn.beList.DTOMapperService.filters[status.data.filterType];
 
 				//modify dataview
 				context.dataview = filterService(status, context.dataview);
@@ -38,8 +38,8 @@
 	
 	/**
 	 * dataview pagination
-	 * @param {Object} context - jplist controller 'this' object
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Object} context - beList controller 'this' object
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
 	var pagination = function(context, statuses){
 		
@@ -50,7 +50,7 @@
             ,itemsPerPage = 0;
 
 		//get pagination statuses		
-		actionStatuses = jQuery.fn.jplist.StatusesService.getStatusesByAction('paging', statuses);
+		actionStatuses = jQuery.fn.beList.StatusesService.getStatusesByAction('paging', statuses);
 
 		if(actionStatuses.length > 0){
 
@@ -76,7 +76,7 @@
 			}
 
             //create paging object
-            paging = new jQuery.fn.jplist.PaginationService(currentPage, itemsPerPage, context.dataview.length);
+            paging = new jQuery.fn.beList.PaginationService(currentPage, itemsPerPage, context.dataview.length);
 
             //add paging object to the paging status
             for(var j=0; j<actionStatuses.length; j++){
@@ -88,7 +88,7 @@
             }
 
             //update dataview
-            context.dataview = jQuery.fn.jplist.FiltersService.pagerFilter(paging, context.dataview);
+            context.dataview = jQuery.fn.beList.FiltersService.pagerFilter(paging, context.dataview);
 
             //trigger pagination event
 			context.observer.trigger(context.observer.events.listPaginated, [statuses, context]);
@@ -99,18 +99,18 @@
 	/**
 	 * sort dataview
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
 	var sort = function(context, statuses){
 		
 		var sortStatuses = [];
 		
 		//get all sort statuses, expand statuses group if needed		
-		sortStatuses = jQuery.fn.jplist.StatusesService.getSortStatuses(statuses);
+		sortStatuses = jQuery.fn.beList.StatusesService.getSortStatuses(statuses);
 
         if(sortStatuses.length > 0){
 
-		    jQuery.fn.jplist.SortService.doubleSort(sortStatuses, context.dataview);
+		    jQuery.fn.beList.SortService.doubleSort(sortStatuses, context.dataview);
 
 			//trigger sort event
 			context.observer.trigger(context.observer.events.listSorted, [statuses, context]);
@@ -120,7 +120,7 @@
 	/**
 	 * apply statuses
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      * @return {jQueryObject}
 	 */
 	var applyStatuses = function(context, statuses){
@@ -216,8 +216,8 @@
 			dataitem = context.dataitems[i];
 			
 			//get outer html
-			html1 = jQuery.fn.jplist.HelperService.getOuterHtml(dataitem.jqElement);
-			html2 = jQuery.fn.jplist.HelperService.getOuterHtml(item);
+			html1 = jQuery.fn.beList.HelperService.getOuterHtml(dataitem.jqElement);
+			html2 = jQuery.fn.beList.HelperService.getOuterHtml(item);
 			
 			if(html1 === html2){ //dataitem.jqElement.is(item)	
 				index = i;
@@ -261,10 +261,10 @@
 	};
 	
 	/**
-	 * add jquery item to jplist dataitems array
+	 * add jquery item to beList dataitems array
 	 * @param {Object} context
 	 * @param {jQueryObject} $item - item to add to dataitems array
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
 	 */
 	var addDataItem = function(context, $item, paths, index){
@@ -272,7 +272,7 @@
 		var dataItem;
 
 		//create dataitem
-		dataItem = new jQuery.fn.jplist.DataItemModel($item, paths, index);
+		dataItem = new jQuery.fn.beList.DataItemModel($item, paths, index);
 
 		//insert item into the given index
 		context.dataitems.splice(index, 0, dataItem);
@@ -283,10 +283,10 @@
 	
 	/**
 	 * add items to collection
-	 * @param {Object} context - jplist controller 'this' object
+	 * @param {Object} context - beList controller 'this' object
 	 * @param {jQueryObject} $items
 	 * @param {number} i
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
 	 */
 	var addDataItemsHelper = function(context, $items, i, paths, index){
@@ -317,10 +317,10 @@
 	};
 	
 	/**
-	 * add jquery item collection to jplist dataitems array
+	 * add jquery item collection to beList dataitems array
 	 * @param {Object} context
 	 * @param {jQueryObject} $items - items to add to dataitems array
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
 	 */
 	var addDataItems = function(context, $items, paths, index){
@@ -346,7 +346,7 @@
     /**
      * add new panel paths
      * @param {Object} context
-     * @param {Array.<jQuery.fn.jplist.PathModel>} newPanelPaths - new paths objects array
+     * @param {Array.<jQuery.fn.beList.PathModel>} newPanelPaths - new paths objects array
      */
     var addPaths = function(context, newPanelPaths){
 
@@ -364,9 +364,9 @@
 	 * @constructor
 	 * @param {Object} observer
 	 * @param {jQueryObject} $items - initial items to add to the collection
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 */
-	jQuery.fn.jplist.Dataitems = function(observer, $items, paths){
+	jQuery.fn.beList.Dataitems = function(observer, $items, paths){
 
 		this.dataitems = [];
 		this.dataview = [];
@@ -386,40 +386,40 @@
 
     /**
      * add new panel paths
-     * @param {Array.<jQuery.fn.jplist.PathModel>} newPanelPaths - new paths objects array
+     * @param {Array.<jQuery.fn.beList.PathModel>} newPanelPaths - new paths objects array
      */
-    jQuery.fn.jplist.Dataitems.prototype.addPaths = function(newPanelPaths){
+    jQuery.fn.beList.Dataitems.prototype.addPaths = function(newPanelPaths){
         addPaths(this, newPanelPaths);
     };
 	
 	/**
 	 * API: apply statuses
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      * @return {jQueryObject}
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.applyStatuses = function(statuses){
+	jQuery.fn.beList.Dataitems.prototype.applyStatuses = function(statuses){
 		return applyStatuses(this, statuses);
 	};
 	
 	/**
 	 * API: filter dataview
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.filter = function(statuses){
+	jQuery.fn.beList.Dataitems.prototype.filter = function(statuses){
 		filter(this, statuses);
 	};
 	
 	/**
 	 * API: sort dataview
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.sort = function(statuses){
+	jQuery.fn.beList.Dataitems.prototype.sort = function(statuses){
 		sort(this, statuses);
 	};
 	
 	/**
 	 * API: dataview	pagination
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.pagination = function(statuses){
+	jQuery.fn.beList.Dataitems.prototype.pagination = function(statuses){
 		pagination(this, statuses);
 	};
 	
@@ -427,7 +427,7 @@
 	 * API: convert dataview to jquery object
 	 * @return {jQueryObject}
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.dataviewToJqueryObject = function(){
+	jQuery.fn.beList.Dataitems.prototype.dataviewToJqueryObject = function(){
 		return dataviewToJqueryObject(this);
 	};
 	
@@ -435,41 +435,41 @@
 	 * API: convert dataitems to jquery object
 	 * @return {jQueryObject}
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.dataitemsToJqueryObject = function(){
+	jQuery.fn.beList.Dataitems.prototype.dataitemsToJqueryObject = function(){
 		return dataitemsToJqueryObject(this);
 	};
 	
 	/**
 	 * API: reset dataview collection with initial dataitems set
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.resetDataview = function(){
+	jQuery.fn.beList.Dataitems.prototype.resetDataview = function(){
 		resetDataview(this);
 	};
 		
 	/**
 	 * API: empty collection
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.empty = function(){
+	jQuery.fn.beList.Dataitems.prototype.empty = function(){
 		empty(this);
 	};
 	
 	/**
 	 * API: convetrs jQuery element (item) to dataitem and adds it to the dataitems collection
 	 * @param {jQueryObject} item - jquery item to add
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.addDataItem = function(item, paths, index){
+	jQuery.fn.beList.Dataitems.prototype.addDataItem = function(item, paths, index){
 		addDataItem(this, item, paths, index);
 	};
 	
 	/**
 	 * API: convetrs a set of jQuery elements (items) to dataitems and adds them to the dataitems collection
 	 * @param {jQueryObject} items - jquery items to add
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.addDataItems = function(items, paths, index){
+	jQuery.fn.beList.Dataitems.prototype.addDataItems = function(items, paths, index){
 		addDataItems(this, items, paths, index);
 	};
 	
@@ -477,7 +477,7 @@
 	 * API: searches for jQuery element (item) in the dataitems collection and deletes it
 	 * @param {jQueryObject} item - jquery element (item) to delete
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.delDataitem = function(item){
+	jQuery.fn.beList.Dataitems.prototype.delDataitem = function(item){
 		delDataitem(this, item);
 	};
 	
@@ -485,7 +485,7 @@
 	 * API: searches for jQuery elements (items) in the dataitems collection and deletes them
 	 * @param {jQueryObject} items - jquery element to delete
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.delDataitems = function(items){
+	jQuery.fn.beList.Dataitems.prototype.delDataitems = function(items){
 		delDataitems(this, items);
 	};
 	
@@ -494,7 +494,7 @@
 	 * @param {jQueryObject} item - jquery element to delete
 	 * @return {number} - index of dataitem in dataitems array
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.indexOf = function(item){
+	jQuery.fn.beList.Dataitems.prototype.indexOf = function(item){
 		return indexOf(this, item);
 	};
 	
@@ -502,7 +502,7 @@
 	 * API: get HTML of the collection in the current state (dataview): with the current filter, sorting etc.
 	 * @return {string}
 	 */
-	jQuery.fn.jplist.Dataitems.prototype.dataviewToString = function(){
+	jQuery.fn.beList.Dataitems.prototype.dataviewToString = function(){
 		return dataviewToString(this);
 	};
 	

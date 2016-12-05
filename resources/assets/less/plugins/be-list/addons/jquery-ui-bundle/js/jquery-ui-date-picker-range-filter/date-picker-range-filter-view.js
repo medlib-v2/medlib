@@ -67,7 +67,7 @@
 	 * Get control status
 	 * @param {Object} context
 	 * @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
 	var getStatus = function(context, isDefault){
 
@@ -90,9 +90,9 @@
             nextDate = context.params.$next['datepicker']('getDate');
         }
 		
-		data = new jQuery.fn.jplist.controls.DatePickerRangeFilterDTO(dataPath, context.params.dateTimeFormat, prevDate, nextDate);
+		data = new jQuery.fn.beList.controls.DatePickerRangeFilterDTO(dataPath, context.params.dateTimeFormat, prevDate, nextDate);
 		
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -186,7 +186,7 @@
 	/**
 	 * get prev value from deep link
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.StatusDTO} status
+	 * @param {jQuery.fn.beList.StatusDTO} status
 	 * @param {string} propValue
 	 */
 	var getPrevValue = function(context, status, propValue){
@@ -206,7 +206,7 @@
 	/**
 	 * get next value from deep link
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.StatusDTO} status
+	 * @param {jQuery.fn.beList.StatusDTO} status
 	 * @param {string} propValue
 	 */
 	var getNextValue = function(context, status, propValue){
@@ -228,7 +228,7 @@
 	 * @param {Object} context
 	 * @param {string} propName - deep link property name
 	 * @param {string} propValue - deep link property value
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -288,7 +288,7 @@
 	/**
 	 * Get control paths
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths
 	 */
 	var getPaths = function(context, paths){
 	
@@ -301,7 +301,7 @@
 		//init path
 		if(jqPath){
 		   
-			path = new jQuery.fn.jplist.PathModel(jqPath, 'datetime');
+			path = new jQuery.fn.beList.PathModel(jqPath, 'datetime');
 			paths.push(path);
 		}	
 	};
@@ -309,7 +309,7 @@
 	/**
 	 * Set control status
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.StatusDTO} status
+	 * @param {jQuery.fn.beList.StatusDTO} status
 	 * @param {boolean} restoredFromStorage - is status restored from storage
 	 */
 	var setStatus = function(context, status, restoredFromStorage){
@@ -349,8 +349,8 @@
 		
 		var datePickerFunc = context.$control.attr('data-datepicker-func');
 	
-		if(jQuery.isFunction(jQuery.fn.jplist.settings[datePickerFunc])){
-			context.params.datepickerFunc = jQuery.fn.jplist.settings[datePickerFunc];
+		if(jQuery.isFunction(jQuery.fn.beList.settings[datePickerFunc])){
+			context.params.datepickerFunc = jQuery.fn.beList.settings[datePickerFunc];
 		}
 	};
 
@@ -371,7 +371,7 @@
                 date = new Date();
             }
             else{
-                date = jQuery.fn.jplist.HelperService.formatDateTime(dateValue, context.params.dateTimeFormat);
+                date = jQuery.fn.beList.HelperService.formatDateTime(dateValue, context.params.dateTimeFormat);
             }
         }
 
@@ -417,7 +417,7 @@
 	/**
 	 * Get control status
 	 * @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -435,7 +435,7 @@
 	 * Get Paths by Deep Link
 	 * @param {string} propName - deep link property name
 	 * @param {string} propValue - deep link property value
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -443,7 +443,7 @@
 	
 	/**
 	 * Get Paths
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths
 	 */
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -451,7 +451,7 @@
 	
 	/**
 	 * Set Status
-	 * @param {jQuery.fn.jplist.StatusDTO} status
+	 * @param {jQuery.fn.beList.StatusDTO} status
 	 * @param {boolean} restoredFromStorage - is status restored from storage
 	 */
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -463,14 +463,14 @@
 	 * @constructor
 	 * @param {Object} context
 	 */
-	jQuery.fn.jplist.controls.DatePickerRangeFilter = function(context){
+	jQuery.fn.beList.controls.DatePickerRangeFilter = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	 * static control registration
 	 */
-	jQuery.fn.jplist.controlTypes['date-picker-range-filter'] = {
+	jQuery.fn.beList.controlTypes['date-picker-range-filter'] = {
 		className: 'DatePickerRangeFilter'
 		,options: {}
 	};	

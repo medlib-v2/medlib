@@ -6,7 +6,7 @@
 	* @constructor
 	* @param {string} number
 	*/
-	jQuery.fn.jplist.controls.DropdownPaginationDTO = function(number){
+	jQuery.fn.beList.controls.DropdownPaginationDTO = function(number){
 		
 		return {
 			number: number

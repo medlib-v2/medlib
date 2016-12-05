@@ -12,17 +12,17 @@
 			,dataview = []
 			,path;
 
-        //add item to jplist collection
-        dataitems = context.$root.jplist({
+        //add item to beList collection
+        dataitems = context.$root.beList({
             command: 'getDataItems'
             ,commandData: {}
         });
 
         if(jQuery.trim(inputValue) && dataitems){
 			
-			path = new jQuery.fn.jplist.PathModel(context.params.dataPath, null);
+			path = new jQuery.fn.beList.PathModel(context.params.dataPath, null);
 			
-			dataview = jQuery.fn.jplist.FiltersService.textFilter(inputValue, path, dataitems, context.params.ignore, 'contains');
+			dataview = jQuery.fn.beList.FiltersService.textFilter(inputValue, path, dataitems, context.params.ignore, 'contains');
 			
 			if(dataview && dataview.length > context.params.maxItems){
 				dataview.splice(context.params.maxItems, dataview.length - context.params.maxItems);
@@ -88,14 +88,14 @@
 			statuses.push(paginaStatus);
 			
 			//load data from URL
-			jQuery.fn.jplist.dal.services.URIService.get(
+			jQuery.fn.beList.dal.services.URIService.get(
 				statuses
 				,context.options
 				
 				//OK callback
 				,function(content, statuses, ajax, response){
 					
-					var dataitem = new jQuery.fn.jplist.domain.server.models.DataItemModel(content, ajaxDataType, response['responseText']);
+					var dataitem = new jQuery.fn.beList.domain.server.models.DataItemModel(content, ajaxDataType, response['responseText']);
 					
 					//draw html..
 					context.scopeObserver.trigger(context.scopeObserver.events.ServerDataLoaded, [dataitem, inputValue]);									
@@ -186,7 +186,7 @@
 	* @param {Object} options
 	* @param {Object} autocompleteParams
 	*/
-	jQuery.fn.jplist.controls.AutocompleteDataSource = function(scopeObserver, $root, options, autocompleteParams){
+	jQuery.fn.beList.controls.AutocompleteDataSource = function(scopeObserver, $root, options, autocompleteParams){
 		return new Init(scopeObserver, $root, options, autocompleteParams);
 	};	
 	

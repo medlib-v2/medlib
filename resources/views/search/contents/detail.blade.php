@@ -4,16 +4,15 @@
     </div>
     <!-- data -->
     <div class="block">
-        <div class="row" id="bibdata">
-            <div class="col-md-1">
-                <!-- style="display:none"  -->
-                <div class="checkbox checkbox-success" style="display: inline-block">
-                    <input type="checkbox" name="item" class="checkbox-circle" id="list-item-{{ $counter }}">
-                    <label class="pull-right number" for="list-item-{{ $counter }}" data-item="{{ $counter }}">{{ $counter }}.</label>
+        <div class="row" id="bibdata-{{ $counter }}">
+            <div class="col-xs-1 col-sm-1 col-md-1">
+                <div class="be-checkbox">
+                    <input type="checkbox" name="item" id="list-item-{{ $counter }}">
+                    <label class="list-item number" for="list-item-{{ $counter }}" data-item="{{ $counter }}">{{ $counter }}.</label>
                 </div>
             </div>
             @include('search.contents.detail.cover')
-            <div class="col-md-9">
+            <div class="col-xs-8 col-sm-8 col-md-9">
                 @include('search.contents.detail.title')
                 @include('search.contents.detail.creators')
                 @include('search.contents.detail.material')

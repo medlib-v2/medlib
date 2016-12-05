@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('title', 'Bienvennu dans Media library')
 
 @section('class') content-search @endsection
@@ -16,7 +17,7 @@
                 </div>
                 <div class="row no-margin">
                     <div class="col-xs-7 col-md-8 col-sm-8 no-padding">
-                        <select name="qdb" data-placeholder="Selectionner une bibliothèque..." class="select2">
+                        <select name="qdb" data-placeholder="Selectionner une bibliothèque..." class="select2 form-control select2-offscreen">
                             <option value="">Selectionner une bibliothèque...</option>
                             @foreach($datasource as $name => $instance)
                                 <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
@@ -37,8 +38,8 @@
                 </div>
                 <ul class="search-menu">
                     <li>
-                        <a id="AdvencedOptions" href="#advenceOptions" class="dropdown-toggle" data-toggle="dropdown">{{ trans('search.txt.advanced') }}</a>
-                        <div id="DescriptionOptions" class="description" style="display:none">
+                        <a id="advenced-options" href="#advence-options" class="dropdown-toggle" data-toggle="dropdown">{{ trans('search.txt.advanced') }}</a>
+                        <div id="description-options" class="description" style="display:none">
                             <div class="col-xs-12 col-sm-6 col-md-4 checkbox checkbox-primary">
                                 <input name="title" value="ti" checked="checked" type="checkbox" id="title">
                                 <label for="title">{{ trans('search.txt.title') }}</label>
@@ -115,6 +116,7 @@
 
 @section('script')
 <!-- page specific js -->
+        <script type="text/javascript" src="{{ App::rev('js/books/app.min.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 /**

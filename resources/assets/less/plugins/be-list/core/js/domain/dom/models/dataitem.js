@@ -7,8 +7,8 @@
 	/**
 	 * find pathitem by path in the given dataitem (in the pathitems array)
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.PathModel} path - pathitem to find
-	 * @return {jQuery.fn.jplist.DataItemMemberModel}
+	 * @param {jQuery.fn.beList.PathModel} path - pathitem to find
+	 * @return {jQuery.fn.beList.DataItemMemberModel}
 	 */
 	var findPathitem = function(context, path){
 	
@@ -33,8 +33,8 @@
 	/**
 	 * get pathitems by paths
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
-	 * @return {Array.<jQuery.fn.jplist.DataItemMemberModel>}
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
+	 * @return {Array.<jQuery.fn.beList.DataItemMemberModel>}
 	 */
 	var getPathitems = function(context, paths){
 	
@@ -54,7 +54,7 @@
 			if($element.length > 0){
 			
 				//create pathitem
-				pathitem = new jQuery.fn.jplist.DataItemMemberModel($element, path);
+				pathitem = new jQuery.fn.beList.DataItemMemberModel($element, path);
 				
 				//add to the list
 				pathitems.push(pathitem);
@@ -62,8 +62,8 @@
 		}
 
         //add empty path; in this case it should be the whole element
-        path = new jQuery.fn.jplist.PathModel('', null);
-        pathitem = new jQuery.fn.jplist.DataItemMemberModel(context.$item, path);
+        path = new jQuery.fn.beList.PathModel('', null);
+        pathitem = new jQuery.fn.beList.DataItemMemberModel(context.$item, path);
         pathitems.push(pathitem);
 		
 		return pathitems;
@@ -72,7 +72,7 @@
     /**
      * add new paths to the dataitem
      * @param {Object} context
-     * @param {Array.<jQuery.fn.jplist.PathModel>} paths
+     * @param {Array.<jQuery.fn.beList.PathModel>} paths
      */
     var addPaths = function(context, paths){
 
@@ -83,11 +83,11 @@
 	 * data item - item in list that should be sorted, filtered etc.
 	 * @constructor
 	 * @param {jQueryObject} $item - item to add to data array
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths - paths objects array
 	 * @param {number} index
-	 * @class Dataitem - item within jplist container
+	 * @class Dataitem - item within beList container
 	 */
-	jQuery.fn.jplist.DataItemModel = function($item, paths, index){
+	jQuery.fn.beList.DataItemModel = function($item, paths, index){
 
 		this.pathitems = [];
 		this.$item = $item;
@@ -95,7 +95,7 @@
 		this.index = index;
 				
 		//init vars
-		this.html = jQuery.fn.jplist.HelperService.getOuterHtml($item);
+		this.html = jQuery.fn.beList.HelperService.getOuterHtml($item);
 		
 		//init pathitems
 		this.pathitems = getPathitems(this, paths);
@@ -103,18 +103,18 @@
 		
 	/**
 	 * Find pathitem by path (in the pathitems array)
-	 * @param {jQuery.fn.jplist.PathModel} path - pathitem to find
-	 * @return {jQuery.fn.jplist.DataItemMemberModel}
+	 * @param {jQuery.fn.beList.PathModel} path - pathitem to find
+	 * @return {jQuery.fn.beList.DataItemMemberModel}
 	 */
-	jQuery.fn.jplist.DataItemModel.prototype.findPathitem = function(path){
+	jQuery.fn.beList.DataItemModel.prototype.findPathitem = function(path){
 		return findPathitem(this, path);
 	};
 
     /**
      * add new paths to the dataitem
-     * @param {Array.<jQuery.fn.jplist.PathModel>} paths
+     * @param {Array.<jQuery.fn.beList.PathModel>} paths
      */
-    jQuery.fn.jplist.DataItemModel.prototype.addPaths = function(paths){
+    jQuery.fn.beList.DataItemModel.prototype.addPaths = function(paths){
         addPaths(this, paths);
     };
 	

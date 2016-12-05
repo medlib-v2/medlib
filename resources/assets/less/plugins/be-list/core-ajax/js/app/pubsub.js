@@ -36,12 +36,12 @@
 	
 	/**
 	* jPList publisher / subscriber - handles application events
-	* @param {jQueryObject} $root - jplist jquery element
-	* @param {Object} options - jplist user options
+	* @param {jQueryObject} $root - beList jquery element
+	* @param {Object} options - beList user options
 	* @return {Object}
 	* @constructor 
 	*/
-	jQuery.fn.jplist.PubSub = function($root, options){
+	jQuery.fn.beList.PubSub = function($root, options){
 	
 		var context = {
 			options: options

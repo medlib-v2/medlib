@@ -10,7 +10,7 @@
 	* @param {boolean} selected - if button is selected
 	* @param {string} mode: startsWith, endsWith, contains, advanced
 	*/
-	jQuery.fn.jplist.controls.ButtonTextFilterDTO = function(dataPath, value, ignore, selected, mode){
+	jQuery.fn.beList.controls.ButtonTextFilterDTO = function(dataPath, value, ignore, selected, mode){
 		
 		return {
 			path: dataPath		

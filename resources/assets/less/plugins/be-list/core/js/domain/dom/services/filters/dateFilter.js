@@ -6,12 +6,12 @@
 	* @param {number} year
 	* @param {number} month
 	* @param {number} day
-	* @param {jQuery.fn.jplist.PathModel} path - path object
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
+	* @param {jQuery.fn.beList.PathModel} path - path object
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
 	* @param {string} format - datetime format
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>}
+	* @return {Array.<jQuery.fn.beList.DataItemModel>}
 	*/
-	jQuery.fn.jplist.FiltersService.dateFilter = function(year, month, day, path, dataview, format){
+	jQuery.fn.beList.FiltersService.dateFilter = function(year, month, day, path, dataview, format){
 	
 		var dataitem
 			,pathitem
@@ -36,7 +36,7 @@
 				else{
 				
 					//get date from pathitem (by its text value)
-					pathitemDate = jQuery.fn.jplist.HelperService.formatDateTime(pathitem.text, format);
+					pathitemDate = jQuery.fn.beList.HelperService.formatDateTime(pathitem.text, format);
 					
 					if(pathitemDate && jQuery.isFunction(pathitemDate.getFullYear)){
 						

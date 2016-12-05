@@ -2,7 +2,18 @@ require('events').EventEmitter.defaultMaxListeners = 30;
 
 var elixir = require('laravel-elixir'),
     cssnext = require('postcss-cssnext'),
-    gutils = require('gulp-util');
+    gutils = require('gulp-util'),
+    jQuery = require('./resources/assets/js/jquery/config.json'),
+    App = require('./resources/assets/js/config.json'),
+    booksApp = require('./resources/assets/js/books/config.json'),
+    vue = require('./resources/assets/js/vue/config.json'),
+    beList = require('./resources/assets/less/plugins/be-list/core/js/config.json'),
+    sortBundele = require('./resources/assets/less/plugins/be-list/addons/sort-bundle/js/config.json'),
+    textboxFilter = require('./resources/assets/less/plugins/be-list/addons/textbox-filter/js/config.json'),
+    paginationBundle = require('./resources/assets/less/plugins/be-list/addons/pagination-bundle/js/config.json'),
+    historyBundle = require('./resources/assets/less/plugins/be-list/addons/history-bundle/js/config.json'),
+    filterToggleBundle = require('./resources/assets/less/plugins/be-list/addons/filter-toggle-bundle/js/config.json'),
+    filterDropdownBundle = require('./resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/config.json');
 
 require('laravel-elixir-browserify-official');
 require('laravel-elixir-browsersync-official');
@@ -53,33 +64,42 @@ elixir.config.js.browserify.transformers.push({
 elixir(function(mix) {
     mix //.clean()
         .less('application.less', 'public/css/application.css')
-        .browserify('app.js', 'public/js/app.min.js')
-        .browserify('books/app.js', 'public/js/books/app.min.js')
-        .browserify('vue/cookiesbar.js', 'public/js/vue/cookiesbar.min.js')
-        .copy('resources/assets/js/jquery/jquery.min.js', 'public/js/jquery.min.js')
+        .browserify(App.main.src, App.main.dist)
+        .browserify(booksApp.src, booksApp.dist)
+        .browserify(vue.cookiesBar.src, vue.cookiesBar.dist)
+        .copy(jQuery.src, jQuery.dist)
         .styles([
-            'css/cookiebar.css',
+            vue.cookiesBar.css,
             'less/plugins/select2/css/select2.css',
             'less/plugins/material-design-icons/css/material-design-iconic-font.min.css',
             'less/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css'],
             'public/css/vendors.min.css', 'resources/assets/')
         .scripts([
+            'less/plugins/select2/js/select2.js',
             'less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
-            'js/plugins/jquery.touchSwipe.min.js',
-            'less/plugins/select2/js/select2.min.js',],
+            'js/plugins/jquery.touchSwipe.min.js'],
             'public/js/plugins.vendor.min.js', './resources/assets')
-        .scripts([
-            'js/arrow.js',
-            'js/password.js',
-            'js/inputField.js',
-            'js/form-elements.js',
-            'js/be-select.js',
-            'js/generate-password.js'],
-            'public/js/medlib.plugins.min.js', './resources/assets')
+        .scripts(App.plugins.src, App.plugins.dist)
+        .scripts(beList.src, beList.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(sortBundele.src, sortBundele.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(textboxFilter.src, textboxFilter.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(paginationBundle.src, paginationBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(historyBundle.src, historyBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(filterToggleBundle.src, filterToggleBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(filterDropdownBundle.src, filterDropdownBundle.dist, 'resources/assets/less/plugins/be-list')
         .uglify(['**/*.js', '!**/*.min.js', '!**/*.map'], 'public/js', {
             mangle: true,
             suffix: '.min.js'
         })
+        .scripts([
+            beList.dist,
+            sortBundele.dist,
+            textboxFilter.dist,
+            paginationBundle.dist,
+            historyBundle.dist,
+            filterToggleBundle.dist,
+            filterDropdownBundle.dist
+        ], 'public/js/be-list.min.js', './')
         .version([
             'css/application.css',
             'css/vendors.min.css',
@@ -88,7 +108,9 @@ elixir(function(mix) {
             'js/plugins.vendor.min.js',
             'js/medlib.plugins.min.js',
             'js/vue/cookiesbar.min.js',
-            'js/books/app.min.js'])
+            'js/books/app.min.js',
+            'js/be-list.min.js'
+        ])
         .copy('resources/assets/images', 'public/images')
         .copy('resources/assets/fonts', 'public/build/fonts')
         .clean([

@@ -8,10 +8,10 @@
 	var render = function(context){
 		
 		if(!context.history.statusesQueue || context.history.statusesQueue.length <= 0){
-			context.$control.addClass('jplist-disabled');
+			context.$control.addClass('be-list-disabled');
 		}
 		else{
-			context.$control.removeClass('jplist-disabled');
+			context.$control.removeClass('be-list-disabled');
 		}
 	};
 	
@@ -91,14 +91,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.BackButton = function(context){
+	jQuery.fn.beList.controls.BackButton = function(context){
 		return new Init(context);
 	};	
 		
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['back-button'] = {
+	jQuery.fn.beList.controlTypes['back-button'] = {
 		className: 'BackButton'
 		,options: {}
 	};

@@ -1,4 +1,4 @@
-var Backbone = require('backbone'),
+let Backbone = require('backbone'),
     BookModel = require('../models/BookModel');
 
 const BookCollection = Backbone.Collection.extend({

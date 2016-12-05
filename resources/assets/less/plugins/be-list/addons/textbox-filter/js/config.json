@@ -1,12 +1,7 @@
 {
-	"dist": "dist/js/jplist.textbox-filter.min.js",
+	"dist": "public/js/be-list.textbox-filter.min.js",
 	"src": [
-		"src/addons/textbox-filter/js/textbox-view.js",
-		"src/addons/textbox-filter/js/textbox-dto.js"
-	],
-	"externs": [
-		"build/closure/google-closure-compiler/externs/jquery-1.7.externs.js",
-		"build/closure/google-closure-compiler/externs/jplist.addons.externs.js"
-	],
-	"version": 16
+		"addons/textbox-filter/js/textbox-view.js",
+		"addons/textbox-filter/js/textbox-dto.js"
+	]
 }

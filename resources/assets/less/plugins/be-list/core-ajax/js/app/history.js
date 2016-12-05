@@ -7,7 +7,7 @@
     /**
      * get last status from the history
      * @param {Object} context
-     * @return {jQuery.fn.jplist.StatusDTO} status
+     * @return {jQuery.fn.beList.StatusDTO} status
      */
     var getLastStatus = function(context){
 
@@ -23,7 +23,7 @@
     /**
      * get last list of statuses from the history
      * @param {Object} context
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @return {Array.<jQuery.fn.beList.StatusDTO>} list
      */
     var getLastList = function(context){
 
@@ -39,7 +39,7 @@
     /**
      * add status to the history
      * @param {Object} context
-     * @param {jQuery.fn.jplist.StatusDTO} status
+     * @param {jQuery.fn.beList.StatusDTO} status
      */
     var addStatus = function(context, status){
 
@@ -56,7 +56,7 @@
     /**
      * add statuses to the history
      * @param {Object} context
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      */
     var addStatuses = function(context, statuses){
 
@@ -68,7 +68,7 @@
     /**
      * add list of statuses to the history
      * @param {Object} context
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} list
      */
     var addList = function(context, list){
 
@@ -85,7 +85,7 @@
     /**
      * remove the last list of statuses from the history and return it
      * @param {Object} context
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @return {Array.<jQuery.fn.beList.StatusDTO>} list
      */
     var popList = function(context){
 
@@ -102,13 +102,13 @@
 
     /**
      * History
-     * @param {jQueryObject} $root - jplist jquery element
-     * @param {Object} options - jplist user options
+     * @param {jQueryObject} $root - beList jquery element
+     * @param {Object} options - beList user options
      * @param {Object} observer
      * @return {Object}
      * @constructor
      */
-    jQuery.fn.jplist.History = function($root, options, observer){
+    jQuery.fn.beList.History = function($root, options, observer){
 
         this.options = options;
         this.observer = observer;
@@ -119,41 +119,41 @@
 
     /**
      * add statuses to the history
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
      */
-    jQuery.fn.jplist.History.prototype.addStatuses = function(statuses){
+    jQuery.fn.beList.History.prototype.addStatuses = function(statuses){
         addStatuses(this, statuses);
     };
 
     /**
      * get last status from the history
-     * @return {jQuery.fn.jplist.StatusDTO} status
+     * @return {jQuery.fn.beList.StatusDTO} status
      */
-    jQuery.fn.jplist.History.prototype.getLastStatus = function(){
+    jQuery.fn.beList.History.prototype.getLastStatus = function(){
         return getLastStatus(this);
     };
 
     /**
      * get last list of statuses from the history
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @return {Array.<jQuery.fn.beList.StatusDTO>} list
      */
-    jQuery.fn.jplist.History.prototype.getLastList = function(){
+    jQuery.fn.beList.History.prototype.getLastList = function(){
         return getLastList(this);
     };
 
     /**
      * add list of statuses to the history
-     * @param {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @param {Array.<jQuery.fn.beList.StatusDTO>} list
      */
-    jQuery.fn.jplist.History.prototype.addList = function(list){
+    jQuery.fn.beList.History.prototype.addList = function(list){
         addList(this, list);
     };
 
     /**
      * remove the last list of statuses from the history and return it
-     * @return {Array.<jQuery.fn.jplist.StatusDTO>} list
+     * @return {Array.<jQuery.fn.beList.StatusDTO>} list
      */
-    jQuery.fn.jplist.History.prototype.popList = function(){
+    jQuery.fn.beList.History.prototype.popList = function(){
         return popList(this);
     };
 

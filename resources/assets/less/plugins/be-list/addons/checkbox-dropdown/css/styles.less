@@ -1,24 +1,24 @@
 /**
 * import files
 */
-@import "../../../../themes/core/helpers.less";
-@import "../../../../themes/core/vars.less";
-@import "../../../../themes/core/common.less";
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
 
 /**
-* jplist checkbox dropdown control
+* be-list checkbox dropdown control
 */
-.jplist-checkbox-dropdown-control-mixin(){
+.be-list-checkbox-dropdown-control-mixin(){
 
-	.jplist-checkbox-dropdown{
+	.be-list-checkbox-dropdown{
 		
-		.jplist-control-mixin();        	
+		.be-list-control-mixin();        	
 		.linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to		
 		
 		width: 150px;	
 		margin: 10px 10px 0 0;
 
-        .jplist-dd-panel{
+        .be-list-dd-panel{
             float: left;
             width: 130px;
             height: 30px;
@@ -38,7 +38,7 @@
 			background: transparent;
 		}
 		
-		.jplist-dd-panel:after{
+		.be-list-dd-panel:after{
 			content: @arrow-down;
 			color: #111;
 			
@@ -87,12 +87,12 @@
         }
 	}
 
-	.jplist-checkbox-dropdown:hover{
-		.jplist-dd-panel{
+	.be-list-checkbox-dropdown:hover{
+		.be-list-dd-panel{
 			color: @blue;
 		}
 		
-		.jplist-dd-panel:after{
+		.be-list-dd-panel:after{
 			color: @blue;
 		}
 	}
@@ -101,4 +101,4 @@
 /**
 * mixin calls
 */
-.jplist-checkbox-dropdown-control-mixin();
+.be-list-checkbox-dropdown-control-mixin();

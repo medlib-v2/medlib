@@ -10,7 +10,7 @@
 	* @param {number} prev
 	* @param {number} next
 	*/
-	jQuery.fn.jplist.controls.RangeSliderDTO = function(dataPath, min, max, prev, next){
+	jQuery.fn.beList.controls.RangeSliderDTO = function(dataPath, min, max, prev, next){
 		
 		return {
 			path: dataPath

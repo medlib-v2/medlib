@@ -16,7 +16,7 @@
 			var $dropdown = jQuery(this)
 				,type = $dropdown.attr('data-control-type');
 			
-			if(type && jQuery.fn.jplist.controlTypes[type] && jQuery.fn.jplist.controlTypes[type]['dropdown']){
+			if(type && jQuery.fn.beList.controlTypes[type] && jQuery.fn.beList.controlTypes[type]['dropdown']){
 				dropdowns.push($dropdown);
 			}
 		});
@@ -44,8 +44,8 @@
 		$span = $li.find('span');
 		
 		//init panel
-		if(context.$control.find('.jplist-dd-panel').length <= 0){
-			context.$control.prepend('<div class="jplist-dd-panel">' + $span.text() + '</div>');	
+		if(context.$control.find('.be-list-dd-panel').length <= 0){
+			context.$control.prepend('<div class="be-list-dd-panel">' + $span.text() + '</div>');	
 		}	
 	};
 	
@@ -82,7 +82,7 @@
 		/**
 		* on dropdown panel click
 		*/
-		context.$control.find('.jplist-dd-panel').off().on('click', function(event){
+		context.$control.find('.be-list-dd-panel').off().on('click', function(event){
 			
 			var $dropdown
 				,$ul;
@@ -107,7 +107,7 @@
 	* @constructor
 	* @param {Object} options
 	* @param {Object} observer
-	* @param {jQuery.fn.jplist.History} history
+	* @param {jQuery.fn.beList.History} history
 	* @param {jQueryObject} $control - control element
 	*/
 	var Init = function(options, observer, history, $control){
@@ -135,11 +135,11 @@
 	* Dropdown Control
 	* @param {Object} options
 	* @param {Object} observer
-	* @param {jQuery.fn.jplist.History} history
+	* @param {jQuery.fn.beList.History} history
 	* @param {jQueryObject} $control - control element
 	* @constructor
 	*/
-	jQuery.fn.jplist.DropdownControl = function(options, observer, history, $control){
+	jQuery.fn.beList.DropdownControl = function(options, observer, history, $control){
 		return new Init(options, observer, history, $control);		
 	};
 })();

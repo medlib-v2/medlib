@@ -5,7 +5,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -38,7 +38,7 @@
 		});			
 
 		//init status related data
-		data = new jQuery.fn.jplist.controls.CheckboxTextFilterDTO(
+		data = new jQuery.fn.beList.controls.CheckboxTextFilterDTO(
 			textGroup
 			,context.params.dataLogic
 			,context.params.dataPath
@@ -46,7 +46,7 @@
 		);
 
 		//init status
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -101,7 +101,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -131,7 +131,7 @@
 	/**
 	* Get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 		
@@ -140,7 +140,7 @@
         if(context.params.dataPath){
 
             //create path object
-			path = new jQuery.fn.jplist.PathModel(context.params.dataPath, 'text');
+			path = new jQuery.fn.beList.PathModel(context.params.dataPath, 'text');
 
             //add path to the paths list
             paths.push(path);
@@ -150,7 +150,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -165,7 +165,7 @@
 			$cb = jQuery(el);
 			
 			//remove selected class
-			$cb.removeClass('jplist-selected');
+			$cb.removeClass('be-list-selected');
 			
 			//reset selected value
 			$cb.get(0).checked = false;
@@ -181,7 +181,7 @@
 				$cb = context.params.$checkboxes.filter('[value="' + cbVal + '"]');
 
 				if($cb.length > 0){
-					$cb.addClass('jplist-selected');
+					$cb.addClass('be-list-selected');
 					$cb.get(0).checked = true;
 				}
 			}
@@ -247,7 +247,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -265,7 +265,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -273,7 +273,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -281,7 +281,7 @@
 	
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -293,14 +293,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.CheckboxTextFilter = function(context){
+	jQuery.fn.beList.controls.CheckboxTextFilter = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['checkbox-text-filter'] = {
+	jQuery.fn.beList.controlTypes['checkbox-text-filter'] = {
 		className: 'CheckboxTextFilter'
 		,options: {
 			ignore: '' //regex for the characters to ignore, for example: [^a-zA-Z0-9]+

@@ -14,6 +14,10 @@ return [
 
     'name' => 'Medlib',
 
+    'description' => 'Medlib : Application de recherche bibliothécaire utilisant le protocole de communication Zebra (Z3959)',
+    'author' => 'Patrick Luzolo, Walid Fadlhaoui',
+    'keywords' => 'Medlib : Search, Recherche, yaz, Z3950, Book, Books',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -32,14 +32,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.Reset = function(context){
+	jQuery.fn.beList.controls.Reset = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['reset'] = {
+	jQuery.fn.beList.controlTypes['reset'] = {
 		className: 'Reset'
 		,options: {}
 	};	

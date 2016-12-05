@@ -3,13 +3,13 @@
 			
 	/**
 	* sort datetime
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem1
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem2
+	* @param {jQuery.fn.beList.DataItemModel} dataitem1
+	* @param {jQuery.fn.beList.DataItemModel} dataitem2
 	* @param {string} order - sort order: asc or desc
-	* @param {jQuery.fn.jplist.PathModel} path - path object
+	* @param {jQuery.fn.beList.PathModel} path - path object
 	* @param {string} dateTimeFormat
 	*/
-	jQuery.fn.jplist.SortService.datetimeHelper = function(dataitem1, dataitem2, order, path, dateTimeFormat){
+	jQuery.fn.beList.SortService.datetimeHelper = function(dataitem1, dataitem2, order, path, dateTimeFormat){
 	
 		var pathitem1
 			,pathitem2
@@ -27,8 +27,8 @@
 					date2 = new Date(Date.parse(pathitem2.text)); 
 				}
 				else{
-					date1 = jQuery.fn.jplist.HelperService.formatDateTime(pathitem1.text, dateTimeFormat);
-					date2 = jQuery.fn.jplist.HelperService.formatDateTime(pathitem2.text, dateTimeFormat);
+					date1 = jQuery.fn.beList.HelperService.formatDateTime(pathitem1.text, dateTimeFormat);
+					date2 = jQuery.fn.beList.HelperService.formatDateTime(pathitem2.text, dateTimeFormat);
 				}
 				
 				if(date1 == date2){
@@ -52,15 +52,15 @@
 	/**
 	* Sort datetime api (not used directly in the plugin)
 	* @param {string} order - sort order: asc or desc
-	* @param {jQuery.fn.jplist.PathModel} path - path object
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
+	* @param {jQuery.fn.beList.PathModel} path - path object
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
 	* @param {string} dateTimeFormat
-	* @memberOf jQuery.fn.jplist.SortService
+	* @memberOf jQuery.fn.beList.SortService
 	*/
-	jQuery.fn.jplist.SortService.datetime = function(order, path, dataview, dateTimeFormat){
+	jQuery.fn.beList.SortService.datetime = function(order, path, dataview, dateTimeFormat){
 	
 		dataview.sort(function(dataitem1, dataitem2){
-			return jQuery.fn.jplist.SortService.datetimeHelper(dataitem1, dataitem2, order, path, dateTimeFormat);
+			return jQuery.fn.beList.SortService.datetimeHelper(dataitem1, dataitem2, order, path, dateTimeFormat);
 		});
 	};
 	

@@ -10,7 +10,7 @@
     * @param {string} ignoreRegex
 	* @param {string} mode: startsWith, endsWith, contains, advanced
 	*/
-	jQuery.fn.jplist.controls.CheckboxTextFilterDTO = function(textGroup, logic, path, ignoreRegex, mode){
+	jQuery.fn.beList.controls.CheckboxTextFilterDTO = function(textGroup, logic, path, ignoreRegex, mode){
 		
 		return {
 			textGroup: textGroup

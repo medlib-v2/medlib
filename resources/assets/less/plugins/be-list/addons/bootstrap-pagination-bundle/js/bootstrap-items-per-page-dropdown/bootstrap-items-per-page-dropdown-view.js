@@ -23,7 +23,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -36,16 +36,16 @@
 			$btn = getDefaultButton(context);
 		}
 		else{
-			$btn = context.params.$buttons.filter('[data-jplist-selected="true"]');
+			$btn = context.params.$buttons.filter('[data-be-list-selected="true"]');
 		}
 		
 		//init status related data
-		data = new jQuery.fn.jplist.controls.BootstrapDropdownPaginationDTO(
+		data = new jQuery.fn.beList.controls.BootstrapDropdownPaginationDTO(
 			$btn.attr('data-number')
 		);
 		
 		//create status
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -93,7 +93,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -125,7 +125,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO|Array.<jQuery.fn.jplist.StatusDTO>} status
+	* @param {jQuery.fn.beList.StatusDTO|Array.<jQuery.fn.beList.StatusDTO>} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -151,7 +151,7 @@
         }
 
 		//remove selected attributes
-		context.params.$buttons.attr('data-jplist-selected', false);
+		context.params.$buttons.attr('data-be-list-selected', false);
 
 		//set active button
 		if(itemsPerPage === 0){
@@ -164,7 +164,7 @@
 		
 		if($btn.length > 0){
 
-			$btn.attr('data-jplist-selected', true);
+			$btn.attr('data-be-list-selected', true);
 			
 			//update selected text
 			context.params.$textBox.text($btn.text());
@@ -222,7 +222,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -240,7 +240,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -248,7 +248,7 @@
 	
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -260,14 +260,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.BootstrapItemsPerPageDropdown = function(context){
+	jQuery.fn.beList.controls.BootstrapItemsPerPageDropdown = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['boot-items-per-page-dropdown'] = {
+	jQuery.fn.beList.controlTypes['boot-items-per-page-dropdown'] = {
 		className: 'BootstrapItemsPerPageDropdown'
 		,options: {}
 		,dropdown: true

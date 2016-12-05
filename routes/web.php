@@ -17,6 +17,7 @@ Route::group(['middleware' => 'language'], function () {
      * Home Page
      */
     Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
+    Route::get('/404', [ 'uses' => 'Errors\ErrorController@NotFoundHttp', 'as' => 'errors.not.found']);
 
     /**
      * Friends & Friends-requests

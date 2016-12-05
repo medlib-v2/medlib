@@ -1,6 +1,6 @@
 <div class="content">
-    <div id="pagination" class="jplist">
-        <div class="jplist-panel panel-top">
+    <div id="pagination" class="be-list">
+        <div class="be-list-panel panel-top">
             <!-- Begin results info -->
             @include('search.contents.pagination')
             <!-- End results info -->
@@ -15,7 +15,7 @@
             </div>
             <br>
             <!-- END results-actions -->
-            <div class="list text-shadow">
+            <div class="list">
                 <?php $counter = 0; ?>
                 <!-- ==================== Beginning result ================== -->
                 @foreach ($results as $result)

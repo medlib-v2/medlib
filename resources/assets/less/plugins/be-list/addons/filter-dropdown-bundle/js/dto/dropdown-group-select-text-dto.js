@@ -9,7 +9,7 @@
     * @param {string} path - data-path attribute of the control
     * @param {string} ignoreRegex
 	*/
-	jQuery.fn.jplist.controls.TextFilterDropdownGroupDTO = function(textGroup, logic, path, ignoreRegex){
+	jQuery.fn.beList.controls.TextFilterDropdownGroupDTO = function(textGroup, logic, path, ignoreRegex){
 		
 		return {
 			textGroup: textGroup

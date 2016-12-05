@@ -8,7 +8,7 @@
 	* @param {string} dataType - 'html', 'json' or 'xml'
 	* @param {string} responseText
 	*/
-	jQuery.fn.jplist.DomainDataItemServerModel = function(content, dataType, responseText){
+	jQuery.fn.beList.DomainDataItemServerModel = function(content, dataType, responseText){
 		
 		var $content;
 		

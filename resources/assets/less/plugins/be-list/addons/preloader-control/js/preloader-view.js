@@ -13,7 +13,7 @@
 		context.observer.on(context.observer.events.statusesAppliedToList, function(e){
 			
 			//show preloader
-			context.$control.addClass('jplist-hide-preloader');
+			context.$control.addClass('be-list-hide-preloader');
 		});
 		
 		/**
@@ -22,7 +22,7 @@
 		context.observer.on(context.observer.events.unknownStatusesChanged, function(event, obj, statuses){
 			
 			//show preloader
-			context.$control.removeClass('jplist-hide-preloader');
+			context.$control.removeClass('be-list-hide-preloader');
 		});
 		
 		/**
@@ -31,7 +31,7 @@
 		context.observer.on(context.observer.events.knownStatusesChanged, function(event, obj, statuses){
 			
 			//show preloader
-			context.$control.removeClass('jplist-hide-preloader');
+			context.$control.removeClass('be-list-hide-preloader');
 		});
 	};
 	
@@ -53,14 +53,14 @@
 	* @constructor
 	* @param {Object} context
 	*/
-	jQuery.fn.jplist.controls.Preloader = function(context){
+	jQuery.fn.beList.controls.Preloader = function(context){
 		return new Init(context);
 	};	
 		
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['preloader'] = {
+	jQuery.fn.beList.controlTypes['preloader'] = {
 		className: 'Preloader'
 		,options: {}
 	};

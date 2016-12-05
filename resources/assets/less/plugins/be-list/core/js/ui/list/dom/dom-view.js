@@ -4,9 +4,9 @@
 	/**
 	 * render html
 	 * @param {Object} context
-	 * @param {jQuery.fn.jplist.Dataitems} collection
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {jQuery.fn.beList.Dataitems} collection
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
      * @return {jQueryObject} $dataview
 	 */
 	var render = function(context, collection, statuses, lastStatus){
@@ -22,8 +22,8 @@
 		//no results found
 		if($dataitems.length <=0 || $dataview.length <= 0){
 		
-			context.$noResults.removeClass('jplist-hidden');
-			context.$itemsBox.addClass('jplist-hidden');
+			context.$noResults.removeClass('beList-hidden');
+			context.$itemsBox.addClass('beList-hidden');
 			
 			//redraw callback
 			if(jQuery.isFunction(context.redrawCallback)){
@@ -31,10 +31,10 @@
 			}
 		}
 		else{
-			context.$noResults.addClass('jplist-hidden');
-			context.$itemsBox.removeClass('jplist-hidden');
+			context.$noResults.addClass('be-list-hidden');
+			context.$itemsBox.removeClass('be-list-hidden');
 			
-			if(context.effect && jQuery.fn.jplist.animation){
+			if(context.effect && jQuery.fn.beList.animation){
 
                 if(lastStatus && !(lastStatus.inAnimation)){
                     lastStatusNotInAnimation = true;
@@ -48,7 +48,7 @@
 				}
 				
 				//animate items
-				jQuery.fn.jplist.animation.drawItems(
+				jQuery.fn.beList.animation.drawItems(
 					options //user options
 					,context.$itemsBox //scene
 					,$dataitems
@@ -81,11 +81,11 @@
 	/**
 	 * DOM View
 	 * @constructor
-	 * @param {jQueryObject} $root - jplist jquery element
-	 * @param {Object} options - jplist options
+	 * @param {jQueryObject} $root - beList jquery element
+	 * @param {Object} options - beList options
 	 * @param {Object} observer
 	 */
-	jQuery.fn.jplist.DOMView = function($root
+	jQuery.fn.beList.DOMView = function($root
                                          ,options
                                          ,observer
                                          ,itemsBoxPath
@@ -94,7 +94,7 @@
                                          ,effect){
 	
 		this.options = options;	//user options	
-		this.$root = $root; //jplist container
+		this.$root = $root; //beList container
 		this.observer = observer;
 		this.redrawCallback = redrawCallback;
         this.effect = effect;
@@ -104,12 +104,12 @@
 	
 	/**
 	 * render view
-	 * @param {jQuery.fn.jplist.Dataitems} collection
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {jQuery.fn.beList.Dataitems} collection
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
      * @return {jQueryObject}
 	 */
-	jQuery.fn.jplist.DOMView.prototype.render = function(collection, statuses, lastStatus){
+	jQuery.fn.beList.DOMView.prototype.render = function(collection, statuses, lastStatus){
 		return render(this, collection, statuses, lastStatus);
 	};
 })();

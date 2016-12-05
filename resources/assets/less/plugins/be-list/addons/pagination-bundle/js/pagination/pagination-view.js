@@ -10,18 +10,18 @@
 		
 		//set pagingprev visibility
 		if(pagingObj.currentPage === 0){
-			context.$pagingprev.addClass('jplist-hidden');
+			context.$pagingprev.addClass('be-list-hidden');
 		}
 		else{
-			context.$pagingprev.removeClass('jplist-hidden');
+			context.$pagingprev.removeClass('be-list-hidden');
 		}
 		
 		//set pagingnext visibility
 		if(pagingObj.currentPage == pagingObj.pagesNumber - 1){ 
-			context.$pagingnext.addClass('jplist-hidden');
+			context.$pagingnext.addClass('be-list-hidden');
 		}
 		else{
-			context.$pagingnext.removeClass('jplist-hidden');
+			context.$pagingnext.removeClass('be-list-hidden');
 		}	
 	};
 	
@@ -39,12 +39,12 @@
 			,temp
             ,title = context.$control.attr('data-number-title') || context.options.numberArrowTitle;
 		
-		html +=	'<div class="jplist-pagesbox" data-type="pagesbox">';			
+		html +=	'<div class="be-list-pagesbox" data-type="pagesbox">';
 		for(var i=start; i<end; i++){
 			
 			html += '<button type="button" data-type="page" ';						
 			if(i === current){
-				html += ' class="jplist-current" data-active="true" ';
+				html += ' class="be-list-current" data-active="true" ';
 			}
 			temp = i + 1;
 			html += ' data-number="' + i + '" ';
@@ -135,7 +135,7 @@
 		if(pagingObj.currentPage >= 0 && pagingObj.currentPage < pagingObj.pagesNumber){
 			
 			//hidden class id added if pagination has some strange error :)
-			context.$control.removeClass('jplist-hidden');
+			context.$control.removeClass('be-list-hidden');
 			
 			switch(context.mode){
 				
@@ -155,19 +155,19 @@
 			}
 			
 			//set data attributes
-			context.$jplistPrev.attr('data-number', pagingObj.prevPage).removeClass('jplist-current');
-			context.$jplistNext.attr('data-number', pagingObj.nextPage).removeClass('jplist-current');
-			context.$jplistLast.attr('data-number', pagingObj.pagesNumber - 1).removeClass('jplist-current');
+			context.$beListPrev.attr('data-number', pagingObj.prevPage).removeClass('be-list-current');
+			context.$beListNext.attr('data-number', pagingObj.nextPage).removeClass('be-list-current');
+			context.$beListLast.attr('data-number', pagingObj.pagesNumber - 1).removeClass('be-list-current');
 			
 			if(pagingObj.pagesNumber <= 1){
-				context.$control.addClass('jplist-one-page');
+				context.$control.addClass('be-list-one-page');
 			}
 			else{
-				context.$control.removeClass('jplist-one-page');
+				context.$control.removeClass('be-list-one-page');
 			}
 		}
 		else{
-			context.$control.addClass('jplist-hidden');
+			context.$control.addClass('be-list-hidden');
 		}
 		
 		//update qrrows visibility
@@ -199,7 +199,7 @@
         lastArrowTitle = context.$control.attr('data-last-title') || context.options.lastArrowTitle;
 		
 		//set containers html		
-		context.$control.html('<div class="jplist-pagingprev" data-type="pagingprev"></div><div class="jplist-pagingmid" data-type="pagingmid"></div><div class="jplist-pagingnext" data-type="pagingnext"></div>');
+		context.$control.html('<div class="be-list-pagingprev" data-type="pagingprev"></div><div class="be-list-pagingmid" data-type="pagingmid"></div><div class="be-list-pagingnext" data-type="pagingnext"></div>');
 		
 		//init vars
 		context.$pagingprev = context.$control.find('[data-type="pagingprev"]');		
@@ -207,14 +207,14 @@
 		context.$pagingnext = context.$control.find('[data-type="pagingnext"]');
 			
 		//set arrows html
-		context.$pagingprev.html('<button type="button" class="jplist-first" data-number="0" data-type="first" title="' + firstArrowTitle + '">' + firstArrow + '</button><button type="button" class="jplist-prev" data-type="prev" title="' + prevArrowTitle + '">' + prevArrow + '</button>');
-		context.$pagingnext.html('<button type="button" class="jplist-next" data-type="next" title="' + nextArrowTitle + '">' + nextArrow + '</button><button type="button" class="jplist-last" data-type="last" title="' + lastArrowTitle + '">' + lastArrow + '</button>');
+		context.$pagingprev.html('<button type="button" class="be-list-first" data-number="0" data-type="first" title="' + firstArrowTitle + '">' + firstArrow + '</button><button type="button" class="be-list-prev" data-type="prev" title="' + prevArrowTitle + '">' + prevArrow + '</button>');
+		context.$pagingnext.html('<button type="button" class="be-list-next" data-type="next" title="' + nextArrowTitle + '">' + nextArrow + '</button><button type="button" class="be-list-last" data-type="last" title="' + lastArrowTitle + '">' + lastArrow + '</button>');
 		
 		//init vars
-		context.$jplistFirst = context.$pagingprev.find('[data-type="first"]');
-		context.$jplistPrev = context.$pagingprev.find('[data-type="prev"]');
-		context.$jplistNext = context.$pagingnext.find('[data-type="next"]');
-		context.$jplistLast = context.$pagingnext.find('[data-type="last"]');
+		context.$beListFirst = context.$pagingprev.find('[data-type="first"]');
+		context.$beListPrev = context.$pagingprev.find('[data-type="prev"]');
+		context.$beListNext = context.$pagingnext.find('[data-type="next"]');
+		context.$beListLast = context.$pagingnext.find('[data-type="last"]');
 	};
 	
 	/** 
@@ -232,10 +232,10 @@
 			,$pagingprev: null
 			,$pagingmid: null
 			,$pagingnext: null
-			,$jplistFirst: null
-			,$jplistPrev: null
-			,$jplistNext: null
-			,$jplistLast: null
+			,$beListFirst: null
+			,$beListPrev: null
+			,$beListNext: null
+			,$beListLast: null
 			
 			,mode: $control.attr('data-mode')
 		};
@@ -260,14 +260,14 @@
 	* @param {jQueryObject} $control
 	* @param {Object} options
 	*/
-	jQuery.fn.jplist.controls.PaginationView = function($control, options){
+	jQuery.fn.beList.controls.PaginationView = function($control, options){
 		return new Init($control, options);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['pagination'] = {
+	jQuery.fn.beList.controlTypes['pagination'] = {
 		className: 'Pagination'
 		,options: {
 		

@@ -208,7 +208,7 @@
                     }
                 }
                 //Second level style
-		> ul{
+                > ul{
                     position: relative;
                     height: auto;
                     width: 100%;
@@ -217,7 +217,7 @@
                         > a{
                             &:hover{ background-color: transparent; }
                             &:active{ background-color: darken(@left-sidebar-sub-level-bg, 2.5%); }
-			}
+                        }
                     }
                     > li.title{ display: none; }
                     > li.nav-items{
@@ -229,8 +229,8 @@
                             overflow: visible;
                             > .content{
                                 padding-top: 0;
-				overflow: visible;
-				position: relative;
+                                overflow: visible;
+                                position: relative;
                             }
                         }
                     }
@@ -279,11 +279,11 @@
         bottom: 0;
         z-index: 1;
 
-	.left-sidebar-content{
+        .left-sidebar-content{
             position: absolute;
             @media @phone{ position: relative; }
         }
-	@media @phone{
+        @media @phone{
             margin-top: 0;
             position: static;
             height: auto;

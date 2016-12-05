@@ -7,7 +7,7 @@
      * @param {string} path
      * @param {boolean} selected
      */
-    jQuery.fn.jplist.controls.RadioButtonsPathFilterDTO = function(path, selected){
+    jQuery.fn.beList.controls.RadioButtonsPathFilterDTO = function(path, selected){
 
         return {
             path: path

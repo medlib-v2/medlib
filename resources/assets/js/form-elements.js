@@ -4,7 +4,6 @@
  */
 var Medlib = (function () {
     'use strict';
-
     Medlib.FormElements = function( ){
 
         /**
@@ -36,6 +35,5 @@ var Medlib = (function () {
         //$('.bslider').bootstrapSlider();
 
     };
-
     return Medlib;
 })(Medlib || {});

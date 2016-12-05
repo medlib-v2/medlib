@@ -2,7 +2,7 @@
     <div class="navbar-header aside-md bg-dark">
         <!-- brand logo -->
         <div class="navbar-brand text-lt">
-            <a href="{{ route('home') }}" ><img class="be-logo" alt="Medlib"></img></a>
+            <a href="{{ route('home') }}" ><img class="be-logo" alt="Medlib"/></a>
         </div>
         <!-- / brand logo -->
     </div>

@@ -4,7 +4,7 @@
 .be-content{
     position: relative;
     left: 0;
-    top: 60px;
+    top: @top-header-height;
     min-height: 100%;
     @media @phone{
         margin-left: 0;
@@ -80,6 +80,7 @@
                                 color: #666;
                                 font-size: 16px;
                                 text-decoration: none;
+                                outline: none;
                                 padding: 10px 20px 10px;
                                 .transform(~"scale(1.1)");
                                 background-color: transparent;
@@ -133,6 +134,13 @@
         }
         .input-group-btn { vertical-align: bottom; }
     }
+
+    .content-search-results {
+        padding-top: 30px;
+        @media @phone { padding: 30px; }
+    }
+
+    .content-results { padding: 20px; }
 }
 
 .user-settings {

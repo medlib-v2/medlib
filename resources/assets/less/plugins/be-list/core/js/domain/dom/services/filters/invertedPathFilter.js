@@ -4,10 +4,10 @@
 	/**
 	* invertedPathFilter - filter dataview by path: only items not in the given path are allowed
 	* @param {jQueryObject} checkedCheckboxes - checked checkboxes list
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - stores dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>}
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - stores dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>}
 	*/
-	jQuery.fn.jplist.FiltersService.invertedPathFilter = function(checkedCheckboxes, dataview){
+	jQuery.fn.beList.FiltersService.invertedPathFilter = function(checkedCheckboxes, dataview){
 		
 		var dataitem
 			,pathitem
@@ -40,7 +40,7 @@
 					}
 					else{
 						//get data path
-						path = new jQuery.fn.jplist.PathModel(dataPath, null);
+						path = new jQuery.fn.beList.PathModel(dataPath, null);
 						
 						//find value by path
 						pathitem = dataitem.findPathitem(path);

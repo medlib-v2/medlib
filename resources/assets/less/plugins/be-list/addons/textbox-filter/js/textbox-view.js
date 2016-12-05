@@ -5,7 +5,7 @@
 	* Get control status
 	* @param {Object} context
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatus = function(context, isDefault){
 		
@@ -26,7 +26,7 @@
 		}		
 				
 		//create status related data object
-		data = new jQuery.fn.jplist.controls.TextboxDTO(
+		data = new jQuery.fn.beList.controls.TextboxDTO(
             dataPath
             ,value
             ,context.params.ignore
@@ -37,7 +37,7 @@
         );
 				
 		//create status object
-		status = new jQuery.fn.jplist.StatusDTO(
+		status = new jQuery.fn.beList.StatusDTO(
 			context.name
 			,context.action
 			,context.type
@@ -85,7 +85,7 @@
 	* @param {Object} context
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	var getStatusByDeepLink = function(context, propName, propValue){
 		
@@ -110,14 +110,14 @@
 	/**
 	* Get control paths
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	var getPaths = function(context, paths){
 	
 		var dataType = null
 			,path;
 		
-		path = new jQuery.fn.jplist.PathModel(context.params.path, dataType);
+		path = new jQuery.fn.beList.PathModel(context.params.path, dataType);
 		
 		paths.push(path);
 	};
@@ -125,7 +125,7 @@
 	/**
 	* Set control status
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	var setStatus = function(context, status, restoredFromStorage){
@@ -231,12 +231,12 @@
         var typingStart = context.$control.attr('data-typing-start')
             ,typingEnd = context.$control.attr('data-typing-end');
 
-        if(jQuery.isFunction(jQuery.fn.jplist.settings[typingStart])){
-            context.params.typingStart = jQuery.fn.jplist.settings[typingStart];
+        if(jQuery.isFunction(jQuery.fn.beList.settings[typingStart])){
+            context.params.typingStart = jQuery.fn.beList.settings[typingStart];
         }
 
-        if(jQuery.isFunction(jQuery.fn.jplist.settings[typingEnd])){
-            context.params.typingEnd = jQuery.fn.jplist.settings[typingEnd];
+        if(jQuery.isFunction(jQuery.fn.beList.settings[typingEnd])){
+            context.params.typingEnd = jQuery.fn.beList.settings[typingEnd];
         }
     };
 
@@ -267,9 +267,9 @@
 
         if(context.params.mode === 'advanced'){
 
-            context.params.or = jQuery.fn.jplist.ControlFactory.getProp(context.$control, 'or');
-            context.params.and = jQuery.fn.jplist.ControlFactory.getProp(context.$control, 'and');
-            context.params.not = jQuery.fn.jplist.ControlFactory.getProp(context.$control, 'not');
+            context.params.or = jQuery.fn.beList.ControlFactory.getProp(context.$control, 'or');
+            context.params.and = jQuery.fn.beList.ControlFactory.getProp(context.$control, 'and');
+            context.params.not = jQuery.fn.beList.ControlFactory.getProp(context.$control, 'not');
         }
         else{
             context.params.ignore = context.params.ignore || '[~!@#$%^&*()+=`\'"\/\\_]+' //[^a-zA-Z0-9]+ not letters/numbers: [~!@#$%^&*\(\)+=`\'"\/\\_]+
@@ -296,7 +296,7 @@
 	/**
 	* Get control status
 	* @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatus = function(isDefault){
 		return getStatus(this, isDefault);
@@ -314,7 +314,7 @@
 	* Get Paths by Deep Link
 	* @param {string} propName - deep link property name
 	* @param {string} propValue - deep link property value
-	* @return {jQuery.fn.jplist.StatusDTO}
+	* @return {jQuery.fn.beList.StatusDTO}
 	*/
 	Init.prototype.getStatusByDeepLink = function(propName, propValue){
 		return getStatusByDeepLink(this, propName, propValue);
@@ -322,7 +322,7 @@
 	
 	/**
 	* Get Paths
-	* @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	* @param {Array.<jQuery.fn.beList.PathModel>} paths
 	*/
 	Init.prototype.getPaths = function(paths){
 		getPaths(this, paths);
@@ -330,7 +330,7 @@
 	
 	/**
 	* Set Status
-	* @param {jQuery.fn.jplist.StatusDTO} status
+	* @param {jQuery.fn.beList.StatusDTO} status
 	* @param {boolean} restoredFromStorage - is status restored from storage
 	*/
 	Init.prototype.setStatus = function(status, restoredFromStorage){
@@ -342,14 +342,14 @@
 	* @constructor
 	* @param {Object} context	
 	*/
-	jQuery.fn.jplist.controls.Textbox = function(context){
+	jQuery.fn.beList.controls.Textbox = function(context){
 		return new Init(context);
 	};	
 	
 	/**
 	* static control registration
 	*/
-	jQuery.fn.jplist.controlTypes['textbox'] = {
+	jQuery.fn.beList.controlTypes['textbox'] = {
 		className: 'Textbox'
 		,options: {}
 	};	

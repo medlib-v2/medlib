@@ -4,10 +4,10 @@
 	/**
 	* pagination filter
 	* @param {Object} pagingObj - paging object
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
-	* @return {Array.<jQuery.fn.jplist.DataItemModel>}
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
+	* @return {Array.<jQuery.fn.beList.DataItemModel>}
 	*/
-	jQuery.fn.jplist.FiltersService.pagerFilter = function(pagingObj, dataview){
+	jQuery.fn.beList.FiltersService.pagerFilter = function(pagingObj, dataview){
 		return dataview.slice(pagingObj.start, pagingObj.end);
 	};
 	

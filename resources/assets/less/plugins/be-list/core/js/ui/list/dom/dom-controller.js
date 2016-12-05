@@ -4,8 +4,8 @@
 	/**
 	 * build statuses
 	 * @param {Object} context
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
      * @return {jQueryObject}
 	 */
 	var renderStatuses = function(context, statuses, lastStatus){
@@ -27,7 +27,7 @@
     /**
      * add new panel paths
      * @param {Object} context
-     * @param {Array.<jQuery.fn.jplist.PathModel>} newPanelPaths - new paths objects array
+     * @param {Array.<jQuery.fn.beList.PathModel>} newPanelPaths - new paths objects array
      */
     var addPaths = function(context, newPanelPaths){
         context.collection.addPaths(newPanelPaths);
@@ -38,8 +38,8 @@
 	 * @param {Object} context
      * @param {String} itemsBoxPath
      * @param {String} itemPath
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} panelPaths - paths objects array
-     * @return {jQuery.fn.jplist.Dataitems}
+	 * @param {Array.<jQuery.fn.beList.PathModel>} panelPaths - paths objects array
+     * @return {jQuery.fn.beList.Dataitems}
 	 */
 	var getCollection = function(context, itemsBoxPath, itemPath, panelPaths){
 	
@@ -53,7 +53,7 @@
 		$items = $itemsBox.find(itemPath);
 
 		//create new collection
-		collection = new jQuery.fn.jplist.Dataitems(context.observer, $items, panelPaths);
+		collection = new jQuery.fn.beList.Dataitems(context.observer, $items, panelPaths);
 
 		return collection;
 	};
@@ -61,19 +61,19 @@
 	/**
 	 * DOM
 	 * @constructor
-	 * @param {jQueryObject} $root - jplist root element
-	 * @param {Object} options - jplist user options
+	 * @param {jQueryObject} $root - beList root element
+	 * @param {Object} options - beList user options
 	 * @param {Object} observer
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} panelPaths - paths objects array
+	 * @param {Array.<jQuery.fn.beList.PathModel>} panelPaths - paths objects array
 	 * @return {Object} - DOM controller
 	 */
-	jQuery.fn.jplist.DOMController = function($root, options, observer, panelPaths){
+	jQuery.fn.beList.DOMController = function($root, options, observer, panelPaths){
 
 		this.observer = observer;
 		this.$root = $root;
 
 		//init list view for dom dataitems
-		this.listView = new jQuery.fn.jplist.DOMView(
+		this.listView = new jQuery.fn.beList.DOMView(
                                         $root
                                         ,options
                                         ,observer
@@ -88,19 +88,19 @@
 		
 	/**
 	 * render statuses
-	 * @param {Array.<jQuery.fn.jplist.StatusDTO>} statuses
-     * @param {jQuery.fn.jplist.StatusDTO} lastStatus
+	 * @param {Array.<jQuery.fn.beList.StatusDTO>} statuses
+     * @param {jQuery.fn.beList.StatusDTO} lastStatus
      * @return {jQueryObject}
 	 */
-	jQuery.fn.jplist.DOMController.prototype.renderStatuses = function(statuses, lastStatus){
+	jQuery.fn.beList.DOMController.prototype.renderStatuses = function(statuses, lastStatus){
 		return renderStatuses(this, statuses, lastStatus);
 	};
 
     /**
      * add new panel paths
-     * @param {Array.<jQuery.fn.jplist.PathModel>} newPanelPaths - paths objects array
+     * @param {Array.<jQuery.fn.beList.PathModel>} newPanelPaths - paths objects array
      */
-    jQuery.fn.jplist.DOMController.prototype.addPaths = function(newPanelPaths){
+    jQuery.fn.beList.DOMController.prototype.addPaths = function(newPanelPaths){
         addPaths(this, newPanelPaths);
     };
 	

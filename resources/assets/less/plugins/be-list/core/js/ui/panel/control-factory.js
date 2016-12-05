@@ -64,21 +64,21 @@
 		//init control vars
 		controlType = {};
 		
-		if(jQuery.fn.jplist.controlTypes[type]){
-			controlType = jQuery.extend(true, {}, controlType, jQuery.fn.jplist.controlTypes[type]);
+		if(jQuery.fn.beList.controlTypes[type]){
+			controlType = jQuery.extend(true, {}, controlType, jQuery.fn.beList.controlTypes[type]);
 		}
 		
 		if(context.options.controlTypes && context.options.controlTypes[type]){
 			controlType = jQuery.extend(true, {}, controlType, context.options.controlTypes[type]);
 		}		
 		
-		//controlType = (context.options.controlTypes && context.options.controlTypes[type]) || jQuery.fn.jplist.controlTypes[type];
+		//controlType = (context.options.controlTypes && context.options.controlTypes[type]) || jQuery.fn.beList.controlTypes[type];
 		
 		if(controlType){
 		
 			//get control type class
 			if(controlType['className']){				
-				controlTypeClass = jQuery.fn.jplist.controls[controlType['className']];
+				controlTypeClass = jQuery.fn.beList.controls[controlType['className']];
 			}
 			
 			//get options
@@ -108,7 +108,7 @@
 	 * create control
 	 * @param {Object} context
 	 * @param {jQueryObject} $control
-	 * @param {jQuery.fn.jplist.ControlsCollection} controlsCollection
+	 * @param {jQuery.fn.beList.ControlsCollection} controlsCollection
 	 * @return {Object}
 	 */
 	var create = function(context, $control, controlsCollection){
@@ -142,11 +142,11 @@
 	 * Control Factory
 	 * @param {Object} options
 	 * @param {Object} observer
-	 * @param {jQuery.fn.jplist.History} history
-	 * @param {jQueryObject} $root - jplist jquery element
+	 * @param {jQuery.fn.beList.History} history
+	 * @param {jQueryObject} $root - beList jquery element
 	 * @constructor
 	 */
-	jQuery.fn.jplist.ControlFactory = function(options, observer, history, $root){
+	jQuery.fn.beList.ControlFactory = function(options, observer, history, $root){
 	
 		this.options = options;
 		this.observer = observer;
@@ -157,10 +157,10 @@
 	/**
 	 * create control
 	 * @param {jQueryObject} $control
-	 * @param {jQuery.fn.jplist.ControlsCollection} controlsCollection
+	 * @param {jQuery.fn.beList.ControlsCollection} controlsCollection
      * @return {Object}
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.create = function($control, controlsCollection){
+	jQuery.fn.beList.ControlFactory.prototype.create = function($control, controlsCollection){
 		return create(this, $control, controlsCollection);
 	};
 	
@@ -168,26 +168,26 @@
 	 * Get control status
 	 * @interface
 	 * @param {boolean} isDefault - if true, get default (initial) control status; else - get current control status
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.getStatus = function(isDefault){
+	jQuery.fn.beList.ControlFactory.prototype.getStatus = function(isDefault){
 		return null;
 	};
 	
 	/**
 	 * Set control status
 	 * @interface
-	 * @param {jQuery.fn.jplist.StatusDTO} status
+	 * @param {jQuery.fn.beList.StatusDTO} status
 	 * @param {boolean} restoredFromStorage - is status restored from storage
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.setStatus = function(status, restoredFromStorage){};
+	jQuery.fn.beList.ControlFactory.prototype.setStatus = function(status, restoredFromStorage){};
 	
 	/**
 	 * Get deep link
 	 * @interface
 	 * @return {string} deep link
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.getDeepLink = function(){
+	jQuery.fn.beList.ControlFactory.prototype.getDeepLink = function(){
 		return '';
 	};
 	
@@ -196,18 +196,18 @@
 	 * @interface
 	 * @param {string} propName - deep link property name
 	 * @param {string} propValue - deep link property value
-	 * @return {jQuery.fn.jplist.StatusDTO}
+	 * @return {jQuery.fn.beList.StatusDTO}
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.getStatusByDeepLink = function(propName, propValue){
+	jQuery.fn.beList.ControlFactory.prototype.getStatusByDeepLink = function(propName, propValue){
 		return null;
 	};
 	
 	/**
 	 * Get control paths
 	 * @interface
-	 * @param {Array.<jQuery.fn.jplist.PathModel>} paths
+	 * @param {Array.<jQuery.fn.beList.PathModel>} paths
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.getPaths = function(paths){
+	jQuery.fn.beList.ControlFactory.prototype.getPaths = function(paths){
 		return [];
 	};
 	
@@ -216,7 +216,7 @@
 	 * @interface
 	 * @param {Array.<Object>} params - array of params {controlName: '...', propName: '...', propValue: '...'}
 	 */
-	jQuery.fn.jplist.ControlFactory.prototype.setByDeepLink = function(params){};
+	jQuery.fn.beList.ControlFactory.prototype.setByDeepLink = function(params){};
 
     /**
      * loops through data attributes of the $control and searches for data-prop, data-prop1, data-prop2
@@ -228,7 +228,7 @@
      * @param {string} prop - data attribute property name
      * @return {Array.<string>|string}
      */
-    jQuery.fn.jplist.ControlFactory.getProp = function($control, prop){
+    jQuery.fn.beList.ControlFactory.getProp = function($control, prop){
 
         var values = []
             ,regex = new RegExp('^' + prop + '[0-9]*$');
@@ -259,7 +259,7 @@
      * @param {string} prop - data attribute property name
      * @return {Array.<string>|string} path
      */
-    jQuery.fn.jplist.ControlFactory.getPropPath = function(values, prop){
+    jQuery.fn.beList.ControlFactory.getPropPath = function(values, prop){
 
         var path = '';
 

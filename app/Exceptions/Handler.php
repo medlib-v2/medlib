@@ -55,6 +55,16 @@ class Handler extends ExceptionHandler {
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
 
+        /**
+        if ($e instanceof NotFoundHttpException)
+        {
+            if($request->ajax()){
+                return response(['error'=>'not_found','error_message'=>'Please check the URL you submitted'], 404);
+            }
+            return redirect()->route('errors.not.found');
+        }
+        **/
+
         return parent::render($request, $e);
     }
 }

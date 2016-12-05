@@ -156,10 +156,10 @@
 	*/
 	var render = function(context){
 		
-		var placeholderHTML = '<div class="jplist-autocomplete-placeholder"><div class="autocomplete-box" data-type="placeholder"></div></div>';
+		var placeholderHTML = '<div class="be-list-autocomplete-placeholder"><div class="autocomplete-box" data-type="placeholder"></div></div>';
 		
 		//create actions wrapper
-		context.$control.wrapInner('<div data-type="actions" class="jplist-autocomplete-actions"></div>');
+		context.$control.wrapInner('<div data-type="actions" class="be-list-autocomplete-actions"></div>');
 		context.$actions = context.$control.find('[data-type="actions"]');
 		
 		if(context.$input.next('[data-type="placeholder"]').length <= 0){
@@ -181,7 +181,7 @@
 	/** 
 	* draw html of dropdown
 	* @param {Object} context
-	* @param {Array.<jQuery.fn.jplist.DataItemModel>} dataview - collection dataview
+	* @param {Array.<jQuery.fn.beList.DataItemModel>} dataview - collection dataview
 	* @param {string} inputValue
 	*/
 	var drawHTML = function(context, dataview, inputValue){
@@ -207,8 +207,8 @@
 		context.$control.removeClass('autocomplete-loading');
 		
 		//callback
-		if(context.params.onSuggest && jQuery.isFunction(jQuery.fn.jplist.settings[context.params.onSuggest])){
-			jQuery.fn.jplist.settings[context.params.onSuggest](context, dataview, inputValue);
+		if(context.params.onSuggest && jQuery.isFunction(jQuery.fn.beList.settings[context.params.onSuggest])){
+			jQuery.fn.beList.settings[context.params.onSuggest](context, dataview, inputValue);
 		}
 		
 	};
@@ -216,7 +216,7 @@
 	/** 
 	* draw html of dropdown
 	* @param {Object} context
-	* @param {jQuery.fn.jplist.DataItemModel} dataitem
+	* @param {jQuery.fn.beList.DataItemModel} dataitem
 	* @param {string} inputValue
 	*/
 	var drawServerHTML = function(context, dataitem, inputValue){
@@ -224,9 +224,9 @@
 		var html = '';
 		
 		if(dataitem){
-			if(context.params.render && jQuery.isFunction(jQuery.fn.jplist.settings[context.params.render])){
+			if(context.params.render && jQuery.isFunction(jQuery.fn.beList.settings[context.params.render])){
 			
-				html = jQuery.fn.jplist.settings[context.params.render](dataitem);
+				html = jQuery.fn.beList.settings[context.params.render](dataitem);
 			}
 			else{
 				html = dataitem['content'];
@@ -253,8 +253,8 @@
 		context.$control.removeClass('autocomplete-loading');
 		
 		//callback
-		if(context.params.onSuggest && jQuery.isFunction(jQuery.fn.jplist.settings[context.params.onSuggest])){
-			jQuery.fn.jplist.settings[context.params.onSuggest](context, dataitem, inputValue);
+		if(context.params.onSuggest && jQuery.isFunction(jQuery.fn.beList.settings[context.params.onSuggest])){
+			jQuery.fn.beList.settings[context.params.onSuggest](context, dataitem, inputValue);
 		}
 	};
 	
@@ -317,14 +317,14 @@
 	var initEvents = function(context){
 		
 		//DOM data loaded
-		//@param {Array.<jQuery.fn.jplist.DataItemModel>} dataview
+		//@param {Array.<jQuery.fn.beList.DataItemModel>} dataview
 		//@param {string} inputValue
 		context.scopeObserver.on(context.scopeObserver.events.DOMDataLoaded, function(e, dataview, inputValue){
 			drawHTML(context, dataview, inputValue);
 		});
 		
 		//Server Data Loaded
-		//@param {jQuery.fn.jplist.DataItemModel} dataitem
+		//@param {jQuery.fn.beList.DataItemModel} dataitem
 		//@param {string} inputValue
 		context.scopeObserver.on(context.scopeObserver.events.ServerDataLoaded, function(e, dataitem, inputValue){
 			drawServerHTML(context, dataitem, inputValue);
@@ -424,7 +424,7 @@
 	* @param {Object} scopeObserver
 	* @param {Object} autocompleteParams
 	*/
-	jQuery.fn.jplist.controls.AutocompleteView = function($control, scopeObserver, autocompleteParams){
+	jQuery.fn.beList.controls.AutocompleteView = function($control, scopeObserver, autocompleteParams){
 		return new Init($control, scopeObserver, autocompleteParams);
 	};	
 })();	

@@ -50,13 +50,13 @@
 	 * Item Control Collection
      * Item controls are controls that appears inside data items in the list and not in the controls panels (like star rating control)
 	 * @constructor
-	 * @param {Object} options - jplist user options
+	 * @param {Object} options - beList user options
 	 * @param {Object} observer
-	 * @param {jQuery.fn.jplist.History} history
+	 * @param {jQuery.fn.beList.History} history
 	 * @param {jQueryObject} $root
 	 * @return {Object}
 	 */
-	jQuery.fn.jplist.ItemControlCollection = function(options, observer, history, $root){
+	jQuery.fn.beList.ItemControlCollection = function(options, observer, history, $root){
 	
 		this.options = options;
 		this.observer = observer;
@@ -65,7 +65,7 @@
 		this.controls = [];
 				
 		//ini control factory
-		this.controlFactory = new jQuery.fn.jplist.ItemControlFactory(options, observer, history, $root);
+		this.controlFactory = new jQuery.fn.beList.ItemControlFactory(options, observer, history, $root);
 
 		//init controls
 		initControls(this);

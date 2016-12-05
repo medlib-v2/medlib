@@ -1,16 +1,16 @@
 /**
 * import files
 */
-@import "../../../../themes/core/helpers.less";
-@import "../../../../themes/core/vars.less";
-@import "../../../../themes/core/common.less";
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
 
 /**
 * star rating control
 */
-.jplist-star-rating-mixin(){
+.be-list-star-rating-mixin(){
 
-	.jplist-star-rating-outer{
+	.be-list-star-rating-outer{
 		position: relative;
 		float: left;
 		height: 18px;
@@ -22,7 +22,7 @@
 		margin-bottom: 20px;
 	}
 	
-	.jplist-star-rating-outer:before {
+	.be-list-star-rating-outer:before {
 		content: attr(data-content);
 		font-family: 'FontAwesome';
 		font-size: 18px;
@@ -32,7 +32,7 @@
 		color: #fec601;
 	}
 	
-	.jplist-star-rating-inner{
+	.be-list-star-rating-inner{
 		font-family: 'FontAwesome';
 		font-size: 18px;
 		width: 0;
@@ -45,7 +45,7 @@
 		transition: all 1s ease 0s; 
 	}
 	
-	.jplist-star-rating-inner:before {
+	.be-list-star-rating-inner:before {
 		content: attr(data-content);
 		color: #fec601;
 		font-family: 'FontAwesome';
@@ -55,7 +55,7 @@
 		white-space: nowrap;
 	}
 	
-	.jplist-reviews {
+	.be-list-reviews {
 		line-height: 21px;
 		margin-left: 10px;
 		float: left;
@@ -65,4 +65,4 @@
 /**
 * mixin calls
 */
-.jplist-star-rating-mixin();
+.be-list-star-rating-mixin();
