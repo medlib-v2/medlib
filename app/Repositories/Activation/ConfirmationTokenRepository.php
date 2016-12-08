@@ -5,7 +5,6 @@ namespace Medlib\Repositories\Activation;
 use Carbon\Carbon;
 use Medlib\Models\User;
 use Medlib\Models\ConfirmationToken;
-use Medlib\Notifications\SendConfirmationTokenEmail;
 
 /**
  * Class ConfirmationTokenRepository
@@ -13,7 +12,7 @@ use Medlib\Notifications\SendConfirmationTokenEmail;
  */
 class ConfirmationTokenRepository
 {
-    public function createTokenAndSendEmail(User $user)
+    public function createConfirmationToken(User $user)
     {
         /**
          * Limit number of ConfirmationToken attempts to 3 in 24 hours window
@@ -36,15 +35,12 @@ class ConfirmationTokenRepository
         /**
          * Create new ConfirmationToken record for this user/email
          */
-        $ConfirmationToken = new ConfirmationToken;
-        $ConfirmationToken->user_id = $user->id;
-        $ConfirmationToken->token = User::generateToken();
-        $ConfirmationToken->save();
+        $ConfirmationToken = ConfirmationToken::create(['user_id' => $user->id]);
 
         /**
-         * Send ConfirmationToken email notification
+         * Return token generated
          */
-        $user->notify(new SendConfirmationTokenEmail($ConfirmationToken->token));
+        return $ConfirmationToken->getToken();
     }
 
     public function deleteExpiredConfirmationTokens()

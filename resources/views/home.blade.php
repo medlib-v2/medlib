@@ -24,7 +24,7 @@
                             @endforeach
                         </select>
                         @if (isset($errors) && $errors->has('qdb'))
-                            <p class="help-block text-warning">{{ $errors->first('qdb') }}</p>
+                            <p class="help-block text-danger">{{ $errors->first('qdb') }}</p>
                         @endif
                     </div>
                     <div class="col-xs-5 col-md-4 col-sm-4 no-padding">
@@ -124,7 +124,6 @@
                  */
                 Medlib.InputField();
                 Medlib.Arrow();
-                Medlib.FormElements();
                 @if (Auth::guest())
                 Medlib.Password('#password', {
                     innerToggle: true,
@@ -133,6 +132,7 @@
                     hideToggleUntil: 'focus'
                 });
                 @endif
+                Medlib.FormElements();
             });
         </script>
 @endsection

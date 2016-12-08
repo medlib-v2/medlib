@@ -14,7 +14,6 @@
                 </ul>
             </div>
         @endif
-
         <h2>Pourquoi votre date de naissance</h2>
         Votre date de naissance garantit que votre expérience Medlib est adaptée à votre âge. Pour changer qui peut voir ça, allez dans la section À propos de votre profil. Pour en savoir plus, consultez notre Politique d’utilisation des données.
     </div><!-- and div content -->

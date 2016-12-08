@@ -72,16 +72,21 @@ class Application extends IlluminateApplication
         if ($v = Cache::get('latestMedlibVersion')) {
             return $v;
         }
+
         $client = $client ?: new Client();
+
         try {
             $v = json_decode($client->get('https://api.github.com/repos/medlib-v2/medlib/tags')->getBody())[0]->name;
             /**
              * Cache for one day
              */
             Cache::put('latestMedlibVersion', $v, 1 * 24 * 60);
+
             return $v;
+
         } catch (Exception $e) {
             Log::error($e);
+
             return self::VERSION;
         }
     }

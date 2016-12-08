@@ -58,4 +58,26 @@ return [
         'show' => 'Show (+)',
         'hide' => 'Hide (-)'
     ],
+    'advanced' => [
+        'type-doc'  => [
+            'all'   => 'All Types',
+            'a'     => 'All Text (Books, Periodicals, etc.)',
+            'i'     => 'Nonmusic Recording',
+            'e'     => 'Map',
+            'g'     => 'Film or Video',
+            'h'     => 'Animated Picture',
+            's'     => 'Periodical or Newspaper',
+            'r'     => '3-D Object',
+            't'     => 'Rare Book or Manuscript',
+            'o'     => 'Monetiform object',
+            'p'     => 'Archival Manuscript/Mixed Formats',
+            'am'    => 'Book',
+            'm'     => 'Software or E-Resource',
+            'f'     => 'Map (Manuscript)',
+            'j'     => 'Music Recording',
+            'c'     => 'Music Score',
+            'd'     => 'Music Score (Manuscript)',
+            'k'     => 'Photograph, Print, or Drawing'
+        ]
+    ]
 ];

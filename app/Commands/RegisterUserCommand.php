@@ -6,6 +6,7 @@ use Medlib\Models\User;
 use Medlib\Http\Requests\Request;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Hash;
+use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
 class RegisterUserCommand extends Command {
 
@@ -18,10 +19,9 @@ class RegisterUserCommand extends Command {
     protected $location;
     protected $date_of_birth;
     protected $gender;
-    protected $user_active;
+    protected $activated;
     protected $account_type;
     protected $user_avatar;
-    protected $confirmation_code;
     protected $onlinestatus;
     protected $chatstatus;
 
@@ -42,19 +42,19 @@ class RegisterUserCommand extends Command {
         $this->location = $request->get('location') ? $request->get('location') : "Paris, Ile-de-France";
         $this->date_of_birth = $request->get('date_of_birth');
         $this->gender = $request->get('gender');
-        $this->user_active = false;
+        $this->activated = false;
         $this->account_type = false;
         $this->user_avatar = $request->get('user_avatar');
-        $this->confirmation_code = $request->get('confirmation_code');
         $this->onlinestatus = false;
         $this->chatstatus = true;
     }
 
     /**
      * Handle the request
-     * @return void
+     *
+     * @param \Medlib\Repositories\Activation\ConfirmationTokenRepository $token
      */
-    public function handle() {
+    public function handle(ConfirmationTokenRepository $token) {
 
         $user = User::create([
             'email' => $this->email,
@@ -66,13 +66,14 @@ class RegisterUserCommand extends Command {
             'location' => $this->location,
             'date_of_birth' => $this->date_of_birth,
             'gender' => $this->gender,
-            'user_active' => $this->user_active,
+            'activated' => $this->activated,
             'account_type' => $this->account_type,
             'user_avatar' => $this->user_avatar,
-            'confirmation_code' => $this->confirmation_code,
             'onlinestatus' => $this->onlinestatus,
             'chatstatus' => $this->chatstatus,
         ]);
+
+        $token->createConfirmationToken($user);
 
         event(new UserWasRegistered($user));
 

@@ -90,7 +90,7 @@ class SearchQueryController extends Controller
 		}
 
 		if($request->ajax()) {
-			return View::make("search.ajax.results", [ 'results' => $this->_results,  'filter' => $filter]);
+			return response()->json([ 'results' => $this->_results,  'filter' => $filter], 200);
 		}
 		else {
         	return View::make("search.results", [ 'results' => $this->_results,  'filter' => $filter]);
@@ -102,8 +102,14 @@ class SearchQueryController extends Controller
 	 * @return mixed
 	 */
 	public function doAdvanced(Request $request) {
+        $parameters = $request->all();
 
-		return View::make("search.advanced-search");
+        if(empty($parameters)) {
+            return View::make("search.advanced-search");
+        }
+
+        dd($parameters);
+
 	}
 
 	/**

@@ -21,4 +21,6 @@ return [
     'reset_password' => 'Reset Password',
     'reset_password_subtitle' => 'Enter your email address and we will send you a link to reset your password.',
     'send_reset_password' => 'Send password reset email',
+    'password_text' => 'Password',
+    'password_confirm_text' => 'Confirm Password',
 ];

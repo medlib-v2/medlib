@@ -23,6 +23,7 @@ class MessageController extends Controller {
     public function __construct() {
 
     }
+
     /**
      * Display a listing of the message.
      * @Get("message", as="message.all")
@@ -54,6 +55,9 @@ class MessageController extends Controller {
         $currentUser = Auth::user();
         $user = $userRepository->findByUsername($username);
 
+        if(!$user) {
+            return redirect()->back();
+        }
         return view('messages.create', compact('currentUser', 'user'));
     }
 

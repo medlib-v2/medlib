@@ -7,7 +7,7 @@ return [
     | Admin Credentials
     |--------------------------------------------------------------------------
     |
-    | When running `php artisan koel:init` the admin is set using the .env
+    | When running `php artisan medlib:install` the admin is set using the .env
     |
     */
 
@@ -61,7 +61,7 @@ return [
     | Downloading Music
     |--------------------------------------------------------------------------
     |
-    | Koel provides the ability to prohibit or allow [default] downloading music
+    | Medlib provides the ability to prohibit or allow [default] downloading music
     |
     */
 
@@ -78,5 +78,8 @@ return [
     |
     */
     'ignore_dot_files' => env('IGNORE_DOT_FILES', true),
+
+    'socket_url'    => env('SOCKET_URL', 'http://medlib.app'),
+    'theme'         => env('APP_THEME', 'white'),
 
 ];

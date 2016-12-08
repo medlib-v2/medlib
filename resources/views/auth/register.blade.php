@@ -23,17 +23,19 @@
                 <div id="registration-form" class="col-md-6">
                     <div class="panel-heading">
                         <div class="row">
-                            @if (isset($errors) and $errors->any())
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
-                                    <ul>
-                                        @foreach($errors->all() as $error)
-                                            <li>{!! $error!!}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @include('flash.message')
+                            <div class="col-xs-12 col-sm-6 col-md-12">
+                                @if (isset($errors) and $errors->any())
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li>{!! $error!!}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @include('flash.message')
+                            </div>
                         </div>
                     </div>
                     <div class="panel-body">

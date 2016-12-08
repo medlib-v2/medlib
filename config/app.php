@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => env('APP_LOCALE', 'fr'),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,16 +176,24 @@ return [
         Medlib\Providers\BroadcastServiceProvider::class,
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Yaz\Services\YazServiceProvider::class,
         Yaz\Services\QueryServiceProvider::class,
         Medlib\MarcXML\ParserServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
 
+
+        /*
+         * Package Service Providers...
+         */
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        JsLocalization\JsLocalizationServiceProvider::class,
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
+        McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
         
         /*
          * Laravel Collective Service Providers...
@@ -248,9 +256,9 @@ return [
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],

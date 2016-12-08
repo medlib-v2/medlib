@@ -1,4 +1,4 @@
-@extends('layouts.dashboards.dashboard')
+@extends('layouts.master')
 
 @if($user->is(Auth::user()))
 	@section('title', 'Profile ' . Auth::user()->getName())

@@ -17,7 +17,6 @@ class EventServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $listen = [
-        //'Medlib\Events\SomeEvent' => [ 'Medlib\Listeners\EventListener',],
         UserWasRegistered::class => [ SendConfirmationEmail::class ],
         FriendRequestWasSent::class => [ EmailFriendRequest::class ],
         UserRegistrationConfirmation::class => [ EmailRegistrationConfirmation::class ],

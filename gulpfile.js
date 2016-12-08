@@ -3,6 +3,8 @@ require('events').EventEmitter.defaultMaxListeners = 30;
 var elixir = require('laravel-elixir'),
     cssnext = require('postcss-cssnext'),
     gutils = require('gulp-util'),
+    shell  = require('gulp-shell'),
+    gulp   = require('gulp'),
     jQuery = require('./resources/assets/js/jquery/config.json'),
     App = require('./resources/assets/js/config.json'),
     booksApp = require('./resources/assets/js/books/config.json'),
@@ -20,6 +22,14 @@ require('laravel-elixir-browsersync-official');
 require('laravel-elixir-browserify-hmr');
 require('laravel-elixir-uglify');
 require('laravel-elixir-clean-unofficial');
+
+var Task = elixir.Task;
+elixir.extend('lang', function() {
+    new Task('lang', function(){
+        return gulp.src('').pipe(shell('php artisan js-localization:refresh'));
+    });
+
+});
 
 elixir.config.js.browserify.transformers.push({
     name: 'vueify',
@@ -78,7 +88,7 @@ elixir(function(mix) {
             'less/plugins/select2/js/select2.js',
             'less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
             'js/plugins/jquery.touchSwipe.min.js'],
-            'public/js/plugins.vendor.min.js', './resources/assets')
+            'public/js/plugins.vendor.min.js', 'resources/assets')
         .scripts(App.plugins.src, App.plugins.dist)
         .scripts(beList.src, beList.dist, 'resources/assets/less/plugins/be-list')
         .scripts(sortBundele.src, sortBundele.dist, 'resources/assets/less/plugins/be-list')
@@ -117,6 +127,7 @@ elixir(function(mix) {
             'public/css',
             'public/js'
         ]);
+        //.lang();
 
     if (process.env.NODE_ENV !== 'production') {
 

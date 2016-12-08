@@ -21,5 +21,7 @@ return [
     'reset_password' => 'Réinitialiser votre mot de passe',
     'reset_password_subtitle' => 'Entrez votre adresse email, nous vous enverrons un lien de réinitialisation mot de passe.',
     'send_reset_password' => 'Envoyer l\'e-mail de réinitialisation mot de passe',
+    'password_text' => 'Mot de passe',
+    'password_confirm_text' => 'Confirmez le mot de passe',
 
 ];

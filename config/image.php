@@ -14,7 +14,7 @@ return array(
     | Supported: "gd", "imagick"
     |
     */
-    'driver' => 'gd',
+    'driver' => env('IMAGE_DRIVER', 'gd'),
     'upload_dir'  => 'uploads',
     'upload_path' => public_path('uploads/'),
     'quality' => 100,

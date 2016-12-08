@@ -1,4 +1,4 @@
-@extends('layouts.dashboards.dashboard')
+@extends('layouts.master')
 
 @section('title', 'Results search')
 

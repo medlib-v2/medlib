@@ -24,11 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('location')->nullable();
             $table->date('date_of_birth');
             $table->enum('gender', ['woman','man']);
-            $table->tinyInteger('user_active', false);
-            //$table->boolean('user_active')->default(false);
+            $table->boolean('activated')->default(false);
             $table->tinyInteger('account_type', false);
             $table->string('user_avatar');
-            $table->string('confirmation_code');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);
             $table->string('facebook_id')->unique()->nullable();

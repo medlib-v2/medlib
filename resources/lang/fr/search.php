@@ -13,9 +13,7 @@ return [
     |
     */
 
-    'btn'=> [
-        'find' => 'Rechercher',
-    ],
+    'btn'=> [ 'find' => 'Rechercher'],
     'txt' => [
         'advanced-text' => 'Recherche avancée',
         'advanced' => 'Options avancées',
@@ -58,4 +56,26 @@ return [
         'show' => 'Afficher (+)',
         'hide' => 'Masquer (-)'
     ],
+    'advanced' => [
+        'type-doc'  => [
+            'all'   => 'Tous Types',
+            'a'     => 'Texte imprimé et livre numérique',
+            'i'     => 'Document iconographique',
+            'e'     => 'Document cartographique',
+            'g'     => 'Enregistrement sonore',
+            'h'     => 'Image animée',
+            's'     => 'Document électronique',
+            'r'     => 'Multimédia multi support',
+            't'     => 'Document d\'archives et manuscrit',
+            'o'     => 'Objet monétiforme',
+            'p'     => 'Objet non monétiforme',
+            'am'    => 'Livre',
+            'm'     => 'Logiciel ou ressource numérique',
+            'f'     => 'Cartographique (Manuscrit)',
+            'j'     => 'Enregistrement de musique',
+            'c'     => 'Musique notée',
+            'd'     => 'Musique notée (Manuscrit))',
+            'k'     => 'Photographie, impression ou dessin'
+        ]
+    ]
 ];

@@ -8,7 +8,7 @@
             <div class="col-xs-1 col-sm-1 col-md-1">
                 <div class="be-checkbox">
                     <input type="checkbox" name="item" id="list-item-{{ $counter }}">
-                    <label class="list-item number" for="list-item-{{ $counter }}" data-item="{{ $counter }}">{{ $counter }}.</label>
+                    <label class="number" for="list-item-{{ $counter }}" data-item="{{ $counter }}">{{ $counter }}.</label>
                 </div>
             </div>
             @include('search.contents.detail.cover')

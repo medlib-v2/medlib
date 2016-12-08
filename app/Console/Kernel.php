@@ -14,10 +14,14 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Init::class,
         Commands\Inspire::class,
-        Commands\Test::class,
-        Commands\DeleteExpiredConfirmationTokens::class,
+        Commands\TestCommand::class,
+        Commands\ResetCommand::class,
+        Commands\UpdateCommand::class,
+        Commands\InstallCommand::class,
+        Commands\CreateUserCommand::class,
+        Commands\GenerateJWTSecretCommand::class,
+        Commands\DeleteExpiredConfirmationTokensCommand::class,
     ];
 
     /**

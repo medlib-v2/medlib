@@ -1,0 +1,9 @@
+---
+- name: Install MySQL Server
+  apt: name=mysql-server={{mysql_version}}
+
+- name: Create database
+  mysql_db: name={{database_medlib_name}}
+
+- name: Add MySQL user
+  mysql_user: name={{database_medlib_user}} password={{database_medlib_pwd}} priv={{database_medlib_name}}.*:ALL,GRANT

@@ -13,9 +13,11 @@
         "laravel/framework": "5.3.*",
         "laravelcollective/bus": "5.3.*",
         "laravelcollective/html": "5.3.*",
+        "predis/predis": "~1.0",
         "medlib/helpers": "dev-master",
         "medlib/yaz": "dev-master",
         "medlib/marcxml": "dev-master",
+        "mccool/laravel-auto-presenter": "^4.3",
         "danmichaelo/quitesimplexmlelement": "~0.2.4",
         "greggilbert/recaptcha": "^2.1",
         "nesbot/Carbon": "^1.21",
@@ -25,35 +27,53 @@
         "barryvdh/laravel-ide-helper": "^2.1",
         "guzzlehttp/guzzle": "^6.1",
         "tymon/jwt-auth": "^0.5.6",
+        "andywer/js-localization": "dev-laravel-5",
+        "backup-manager/laravel": "^1.1",
         "nothingworks/blade-svg": "^0.1.0",
-        "laravel/socialite": "^2.0"
+        "laravel/socialite": "^2.0",
+        "version/version": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "^5.6",
+        "phpunit/php-code-coverage": "^4.0",
         "phpspec/phpspec": "^2.5",
         "sebastian/exporter": "^1.0",
         "laracasts/testdummy": "~2.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "barryvdh/laravel-ide-helper": "~2.2",
-        "barryvdh/laravel-debugbar": "~2.2"
+        "barryvdh/laravel-debugbar": "~2.2",
+        "block8/php-docblock-checker": "^1.0",
+        "squizlabs/php_codesniffer": "~2.5",
+        "phpmd/phpmd": "~2.4",
+        "filp/whoops": "^2.0",
+        "codeclimate/php-test-reporter": "^0.3.0",
+        "themsaid/laravel-langman": "^1.1",
+        "diablomedia/phpunit-pretty-printer": "dev-master",
+        "friendsofphp/php-cs-fixer": "^1.11"
     },
     "autoload": {
         "classmap": [
             "database"
+        ],
+        "files": [
+            "app/Helpers/Helpers.php"
         ],
         "psr-4": {
             "Medlib\\": "app/"
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "Medlib\\Tests\\": "tests/"
+        }
     },
     "scripts": {
+        "pre-install-cmd": [
+            "php artisan clear-compiled"
+        ],
         "post-root-package-install": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
@@ -62,7 +82,8 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "([ -f .env ] && php artisan optimize) || exit 0",
+            "([ -f .env ] && php artisan js-localization:refresh) || exit 0"
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled"
@@ -75,5 +96,11 @@
     "config": {
         "preferred-install": "dist"
     },
-	"minimum-stability": "dev"
+	"minimum-stability": "dev",
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }

@@ -3,9 +3,11 @@
 namespace Medlib\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -18,9 +20,12 @@ class Handler extends ExceptionHandler {
      * @var array
      */
     protected $dontReport = [
+        AuthenticationException::class,
         AuthorizationException::class,
         HttpException::class,
         ModelNotFoundException::class,
+        TokenMismatchException::class,
+        ValidationException::class,
     ];
 
     /**
@@ -28,43 +33,57 @@ class Handler extends ExceptionHandler {
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $e) {
-        return parent::report($e);
+    public function report(Exception $exception) {
+        return parent::report($exception);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e) {
+    public function render($request, Exception $exception) {
 
-        if ($e instanceof TokenMismatchException){
+        if ($exception instanceof TokenMismatchException){
             /**
              * redirect to form an example of how I handle mine
              */
             return redirect($request->fullUrl())->with('error',"Opps! Seems you couldn't submit form for a longtime. Please try again");
         }
 
-        if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
+        if ($exception instanceof ModelNotFoundException) {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }
 
-        /**
-        if ($e instanceof NotFoundHttpException)
+        if ($exception instanceof NotFoundHttpException)
         {
-            if($request->ajax()){
+            if($request->expectsJson()){
                 return response(['error'=>'not_found','error_message'=>'Please check the URL you submitted'], 404);
             }
             return redirect()->route('errors.not.found');
         }
-        **/
 
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        return redirect()->guest('login');
     }
 }

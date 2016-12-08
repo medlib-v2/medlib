@@ -68,11 +68,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/login', ['uses' => 'AuthController@doLogin', 'as' => 'auth.submit']);
         Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
         Route::post('/register', ['uses' => 'AuthController@doRegister', 'as' => 'auth.register.submit']);
-        Route::get('/register/verify/{confirmation_code}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
+        Route::get('/register/verify/{token}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
         Route::get('/reg_birthday', [ 'uses' => 'AuthController@reg_birthday',  'as' => 'auth.reg_birthday' ]);
 
-        Route::get('/auth/{provider}', ['uses' => 'AuthController@redirectToSocialProvider', 'as' => 'auth.social']);
-        Route::get('/auth/{provider}/callback', ['uses' => 'AuthController@handleSocialProviderCallback', 'as' => 'auth.social.callback',]);
+        Route::get('/auth/{provider}', ['uses' => 'SocialAuthController@redirectToSocialProvider', 'as' => 'auth.social']);
+        Route::get('/auth/{provider}/callback', ['uses' => 'SocialAuthController@handleSocialProviderCallback', 'as' => 'auth.social.callback',]);
 
         /**
          * Password reset link request routes...

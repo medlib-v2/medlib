@@ -20,6 +20,8 @@ class UserWasRegistered extends Event {
      * Create a new event instance.
      *
      * @param \Medlib\Models\User $user
+     *
+     * @internal param $token
      */
     public function __construct(User $user) {
         $this->user = $user;

@@ -5,11 +5,11 @@ namespace Medlib\Models;
 use Carbon\Carbon;
 use Medlib\Models\Feed;
 use Medlib\Models\Message;
-use Medlib\Models\Social;
 use Illuminate\Support\Str;
 use Medlib\Models\FriendRequest;
-use Medlib\Models\MessageResponse;
+use Medlib\Models\SocialAccount;
 use Illuminate\Support\Facades\DB;
+use Medlib\Models\MessageResponse;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -44,11 +44,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'location',
         'date_of_birth',
         'gender',
-        'user_active',
+        'activated',
         'account_type',
         'user_avatar',
-        'facebook_id',
-        'confirmation_code'
+        'facebook_id'
     ];
 
     /**
@@ -58,10 +57,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password',
         'remember_token',
-        'confirmation_code',
         'created_at',
         'updated_at',
-        'user_active'
+        'activated'
     ];
 
     /**
@@ -78,7 +76,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function social()
     {
-        return $this->hasMany(Social::class);
+        return $this->hasMany(SocialAccount::class);
     }
 
     /**
@@ -140,16 +138,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param string $location
      * @param string $date_of_birth
      * @param string $gender
-     * @param string $user_active
+     * @param string $activated
      * @param string $account_type
      * @param string $user_avatar
-     * @param string $confirmation_code
      *
      * @return User $user
      */
-    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $user_active, $account_type, $user_avatar, $confirmation_code) {
+    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type, $user_avatar) {
         $user = new static(
-            compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'user_active', 'account_type', 'user_avatar', 'confirmation_code')
+            compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'activated', 'account_type', 'user_avatar')
         );
 
         return $user;
@@ -342,7 +339,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function userAccountIsActive() {
 
-        if(!$this->user_active == true) {
+        if(!$this->activated == true) {
             return false;
         }
         return true;
@@ -358,14 +355,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             return Str::ucfirst($this->location);
         else
             return Str::ucfirst("Paris, France");
-    }
-
-    /**
-     * Return the confirmation code if isset else return null
-     * @return mixed
-     */
-    public function getConfirmationCode() {
-        return $this->confirmation_code;
     }
 
     /**
@@ -396,23 +385,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Boot the model.
-     */
-    public static function boot(){
-        parent::boot();
-
-        static::creating(function ($user){
-            $user->confirmation_code = self::generateToken();
-        });
-    }
-
-    /**
-     * Generate the verification token.
+     * Confirm the user.
      *
-     * @return string
+     * @return void
      */
-    public static function generateToken() {
-
-        return str_random(64).config('app.key');
+    public function confirmEmail()
+    {
+        $this->activated = true;
+        $this->save();
     }
 }
