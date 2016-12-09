@@ -13,8 +13,7 @@ use Illuminate\Foundation\Application as IlluminateApplication;
 /**
  * Extends \Illuminate\Foundation\Application to override some defaults.
  */
-class Application extends IlluminateApplication
-{
+class Application extends IlluminateApplication {
     /**
      * Current Medlib version. Must start with a v, and is synced with git tags/releases.
      *

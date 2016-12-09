@@ -4,3 +4,7 @@ parameters:
     tasks:
       phplint: ~
       phpunit: ~
+      phpcsfixer: ~
+    ascii:
+      failed: ~
+      succeeded: ~
