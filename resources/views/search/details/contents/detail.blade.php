@@ -1,7 +1,7 @@
 <div class="list-item">
     <!-- data -->
     <div class="block">
-        <div class="row" id="bibdata">
+        <div class="row" id="bibdata-{{ $counter }}">
             <div class="col-md-1">
                 <!-- style="display:none"  -->
             </div>

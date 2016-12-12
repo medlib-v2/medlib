@@ -19,9 +19,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
-
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
     /**
@@ -67,7 +66,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return mixed
      */
-    public function feeds() {
+    public function feeds()
+    {
         return $this->hasMany(Feed::class)->latest();
     }
 
@@ -84,8 +84,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function friendRequests() {
-
+    public function friendRequests()
+    {
         return $this->hasMany(FriendRequest::class);
     }
 
@@ -94,7 +94,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function friends() {
+    public function friends()
+    {
         return $this->belongsToMany(Self::class, 'friends', 'requested_id', 'requester_id')->withTimestamps();
     }
 
@@ -103,7 +104,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function messages() {
+    public function messages()
+    {
         return $this->belongsToMany(Message::class)->withTimestamps();
     }
 
@@ -112,7 +114,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function comments() {
+    public function comments()
+    {
         return $this->belongsToMany(Comment::class)->withTimestamps();
     }
 
@@ -121,8 +124,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function messageResponses() {
-
+    public function messageResponses()
+    {
         return $this->belongsToMany(MessageResponse::class)->withTimestamps();
     }
 
@@ -144,7 +147,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return User $user
      */
-    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type, $user_avatar) {
+    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type, $user_avatar)
+    {
         $user = new static(
             compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'activated', 'account_type', 'user_avatar')
         );
@@ -158,7 +162,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $requesterUser_id
      * @return mixed
      */
-    public function createFriendShipWith($requesterUser_id) {
+    public function createFriendShipWith($requesterUser_id)
+    {
         return $this->friends()->attach($requesterUser_id, ['requested_id' => $this->id, 'requester_id' => $requesterUser_id]);
     }
 
@@ -169,7 +174,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $requesterUser_id
      * @return mixed
      */
-    public function finishFriendshipWith($requesterUser_id) {
+    public function finishFriendshipWith($requesterUser_id)
+    {
         return $this->friends()->detach($requesterUser_id, ['requested_id' => $this->id, 'requester_id' => $requesterUser_id]);
     }
 
@@ -179,7 +185,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $status
      * @return mixed
      */
-    public function updateOnlineStatus($status) {
+    public function updateOnlineStatus($status)
+    {
         $this->onlinestatus = $status;
         $this->save();
     }
@@ -190,7 +197,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $otherUser_id
      * @return boolean
      */
-    public function isFriendsWith($otherUser_id) {
+    public function isFriendsWith($otherUser_id)
+    {
         $currentUserFriends = DB::table('friends')->where('requester_id', $this->id)->pluck('requested_id')->toArray();
         return in_array($otherUser_id, $currentUserFriends);
     }
@@ -201,7 +209,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $otherUser_id
      * @return boolean
      */
-    public function sentFriendRequestTo($otherUser_id) {
+    public function sentFriendRequestTo($otherUser_id)
+    {
         $friendRequestedByCurrentUser = DB::table('friend_requests')->where('requester_id', $this->id)->pluck('user_id')->toArray();
         return in_array($otherUser_id, $friendRequestedByCurrentUser);
     }
@@ -212,7 +221,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param int $otherUser_id
      * @return boolean
      */
-    public function receivedFriendRequestFrom($otherUser_id) {
+    public function receivedFriendRequestFrom($otherUser_id)
+    {
         $friendRequestsReceivedByCurrentUser = DB::table('friend_requests')->where('user_id', $this->id)->pluck('requester_id')->toArray();
         return in_array($otherUser_id, $friendRequestsReceivedByCurrentUser);
     }
@@ -221,7 +231,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Determine if current user is available to chat.
      * @return boolean
      */
-    public function isAvailableToChat() {
+    public function isAvailableToChat()
+    {
         return $this->chatstatus;
     }
 
@@ -231,7 +242,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param  boolean $chatStatus
      * @return mixed
      */
-    public function updateChatStatus($chatStatus) {
+    public function updateChatStatus($chatStatus)
+    {
         $this->chatstatus = $chatStatus;
 
         $this->save();
@@ -241,8 +253,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Determine if current user is online.
      * @return boolean
      */
-    public function isOnline() {
-
+    public function isOnline()
+    {
         return $this->onlinestatus;
     }
 
@@ -250,14 +262,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the name of this current user
      * @return null|string
      */
-    public function getName() {
-
-        if($this->first_name && $this->last_name) {
-
+    public function getName()
+    {
+        if ($this->first_name && $this->last_name) {
             return Str::ucfirst($this->first_name)." ".Str::upper($this->last_name);
         }
 
-        if($this->first_name) {
+        if ($this->first_name) {
             return Str::ucfirst($this->first_name);
         }
 
@@ -268,8 +279,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the nick name of this current user
      * @return mixed
      */
-    public function getUsername() {
-
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -278,8 +289,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * return the nick name if not define
      * @return mixed
      */
-    public function getNameOrUsername() {
-
+    public function getNameOrUsername()
+    {
         return $this->getName() ?: $this->getUsername();
     }
 
@@ -289,15 +300,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return url
      */
-    public function getAvatar() {
-            return $this->user_avatar ?: url('/avatars/default.jpg');
+    public function getAvatar()
+    {
+        return $this->user_avatar ?: url('/avatars/default.jpg');
     }
 
     /**
      * Return the first name if isset else return the nick name
      * @return mixed
      */
-    public function getFirstNameOrUsername() {
+    public function getFirstNameOrUsername()
+    {
         return $this->getFirstName() ?: $this->getUsername();
     }
 
@@ -305,15 +318,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the Profession of this current user
      * @return string
      */
-    public function getProfession() {
-        if($this->profession) return Str::ucfirst($this->profession);
+    public function getProfession()
+    {
+        if ($this->profession) {
+            return Str::ucfirst($this->profession);
+        }
     }
 
     /**
      * Return the first name of this current user
      * @return string
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return Str::ucfirst($this->first_name);
     }
 
@@ -321,7 +338,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the family name of this current user
      * @return string
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return Str::upper($this->last_name);
     }
 
@@ -329,7 +347,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the email address oh this current user
      * @return mixed
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -337,9 +356,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Check if this current user is actived your account
      * @return bool
      */
-    public function userAccountIsActive() {
-
-        if(!$this->activated == true) {
+    public function userAccountIsActive()
+    {
+        if (!$this->activated == true) {
             return false;
         }
         return true;
@@ -349,29 +368,30 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return the address of this current user
      * @return string
      */
-    public function getLocation() {
-
-        if($this->location)
+    public function getLocation()
+    {
+        if ($this->location) {
             return Str::ucfirst($this->location);
-        else
+        } else {
             return Str::ucfirst("Paris, France");
+        }
     }
 
     /**
      * Return date of birth this current user
      * @return string
      */
-    public function getBirthDay() {
-
-     return Carbon::createFromFormat('Y-m-d', $this->date_of_birth)->toFormattedDateString();
-
+    public function getBirthDay()
+    {
+        return Carbon::createFromFormat('Y-m-d', $this->date_of_birth)->toFormattedDateString();
     }
 
     /**
      * Return the gender of this current user
      * @return string
      */
-    public function getGender() {
+    public function getGender()
+    {
         return Str::ucfirst($this->gender);
     }
 
@@ -380,7 +400,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param $username
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function whereUsername($username){
+    public static function whereUsername($username)
+    {
         return self::where('username', $username);
     }
 

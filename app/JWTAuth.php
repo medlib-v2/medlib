@@ -2,7 +2,6 @@
 
 namespace Medlib;
 
-
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTManager;
 use Tymon\JWTAuth\JWTAuth as BaseJWTAuth;

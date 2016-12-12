@@ -6,7 +6,8 @@ use Medlib\Models\User;
 use Medlib\Models\MessageResponse;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model {
+class Message extends Model
+{
 
     /**
      * The database table used by the model.
@@ -25,8 +26,8 @@ class Message extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function users() {
-
+    public function users()
+    {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
@@ -85,11 +86,9 @@ class Message extends Model {
         $userIds = [];
 
         foreach ($users as $user) {
-
             $userIds[] = $user->id;
         }
 
         return in_array($userId, $userIds);
     }
-
 }

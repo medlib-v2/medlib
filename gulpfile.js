@@ -8,6 +8,7 @@ var elixir = require('laravel-elixir'),
     jQuery = require('./resources/assets/js/jquery/config.json'),
     App = require('./resources/assets/js/config.json'),
     booksApp = require('./resources/assets/js/books/config.json'),
+    PreviewApp = require('./resources/assets/js/preview/config.json'),
     vue = require('./resources/assets/js/vue/config.json'),
     beList = require('./resources/assets/less/plugins/be-list/core/js/config.json'),
     sortBundele = require('./resources/assets/less/plugins/be-list/addons/sort-bundle/js/config.json'),
@@ -20,7 +21,6 @@ var elixir = require('laravel-elixir'),
 require('laravel-elixir-browserify-official');
 require('laravel-elixir-browsersync-official');
 require('laravel-elixir-browserify-hmr');
-require('laravel-elixir-uglify');
 require('laravel-elixir-clean-unofficial');
 
 var Task = elixir.Task;
@@ -72,10 +72,10 @@ elixir.config.js.browserify.transformers.push({
  |
  */
 elixir(function(mix) {
-    mix //.clean()
-        .less('application.less', 'public/css/application.css')
+    mix.less('application.less', 'public/css/application.css')
         .browserify(App.main.src, App.main.dist)
         .browserify(booksApp.src, booksApp.dist)
+        .browserify(PreviewApp.src, PreviewApp.dist)
         .browserify(vue.cookiesBar.src, vue.cookiesBar.dist)
         .copy(jQuery.src, jQuery.dist)
         .styles([
@@ -97,10 +97,6 @@ elixir(function(mix) {
         .scripts(historyBundle.src, historyBundle.dist, 'resources/assets/less/plugins/be-list')
         .scripts(filterToggleBundle.src, filterToggleBundle.dist, 'resources/assets/less/plugins/be-list')
         .scripts(filterDropdownBundle.src, filterDropdownBundle.dist, 'resources/assets/less/plugins/be-list')
-        .uglify(['**/*.js', '!**/*.min.js', '!**/*.map'], 'public/js', {
-            mangle: true,
-            suffix: '.min.js'
-        })
         .scripts([
             beList.dist,
             sortBundele.dist,
@@ -119,15 +115,16 @@ elixir(function(mix) {
             'js/medlib.plugins.min.js',
             'js/vue/cookiesbar.min.js',
             'js/books/app.min.js',
+            'js/preview/app.min.js',
             'js/be-list.min.js'
         ])
         .copy('resources/assets/images', 'public/images')
-        .copy('resources/assets/fonts', 'public/build/fonts')
-        .clean([
-            'public/css',
-            'public/js'
-        ]);
-        //.lang();
+        .copy('resources/assets/fonts', 'public/build/fonts');
+
+    mix.clean([
+        'public/css',
+        'public/js'
+    ]); //.lang();
 
     if (process.env.NODE_ENV !== 'production') {
 

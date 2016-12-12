@@ -17,6 +17,7 @@
         "medlib/helpers": "dev-master",
         "medlib/yaz": "dev-master",
         "medlib/marcxml": "dev-master",
+        "medlib/cover": "dev-master",
         "mccool/laravel-auto-presenter": "^4.3",
         "danmichaelo/quitesimplexmlelement": "~0.2.4",
         "greggilbert/recaptcha": "^2.1",

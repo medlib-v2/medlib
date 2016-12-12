@@ -14,6 +14,9 @@
                     <span class="input-group-btn">
                         <button id="submitButton" type="submit" class="btn btn-search"><i class="fa fa-search text-gray"></i></button>
                     </span>
+                    @if (isset($errors) && $errors->has('query'))
+                        <p class="help-block text-danger">{{ $errors->first('query') }}</p>
+                    @endif
                 </div>
                 <div class="row no-margin">
                     <div class="col-xs-7 col-md-8 col-sm-8 no-padding">

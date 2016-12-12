@@ -1,9 +1,9 @@
 <div class="col-sm-8">
-    <label for="place">Place of Publication</label>
+    <label for="place">Pays d'édition ou de production</label>
     <br>
-    <select multiple="" data-placeholder="Sélectionner 5 place de publications" name="place" data-minimum-results-for-search="5"
-            tabindex="-1" class="select2 form-control" title="Sélectionner 5 place de publications" id="place" size="6">
-        <option selected value="all">All Places</option>
+    <select data-placeholder="Sélectionner le pays  d'édition" name="place" data-minimum-results-for-search="5"
+            tabindex="-1" class="select2 form-control" title="Sélectionner 5 pays de publications" id="place" size="6">
+        <option value="any">All Places</option>
         <option value="af">Afghanistan</option>
         <option value="alu">Alabama</option>
         <option value="aku">Alaska</option>

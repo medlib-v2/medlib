@@ -8,8 +8,8 @@ use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Hash;
 use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
-class RegisterUserCommand extends Command {
-
+class RegisterUserCommand extends Command
+{
     protected $email;
     protected $username;
     protected $password;
@@ -29,8 +29,8 @@ class RegisterUserCommand extends Command {
      * Create a new command instance.
      * @param Request $request
      */
-    public function __construct(Request $request) {
-
+    public function __construct(Request $request)
+    {
         parent::__construct();
 
         $this->email = $request->get('email');
@@ -54,8 +54,8 @@ class RegisterUserCommand extends Command {
      *
      * @param \Medlib\Repositories\Activation\ConfirmationTokenRepository $token
      */
-    public function handle(ConfirmationTokenRepository $token) {
-
+    public function handle(ConfirmationTokenRepository $token)
+    {
         $user = User::create([
             'email' => $this->email,
             'username' => $this->username,

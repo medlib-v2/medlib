@@ -22,7 +22,8 @@ use Medlib\Events\UserRegistrationConfirmation;
 /**
  * @Middleware("guest", except={"logout"})
  */
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
     /**
      * Show the Login Page
@@ -32,7 +33,8 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showLogin() {
+    public function showLogin()
+    {
         return View::make('auth.login');
     }
 
@@ -43,11 +45,13 @@ class AuthController extends Controller {
      * @param CreateSessionRequest $request
      * @return mixed
      */
-    public function doLogin(CreateSessionRequest $request) {
-
+    public function doLogin(CreateSessionRequest $request)
+    {
         $response = $this->dispatch(new LoginUserCommand($request));
 
-        if($response) return redirect()->route('home');
+        if ($response) {
+            return redirect()->route('home');
+        }
 
         return redirect()->back()->with('error', trans('auth.login.failed'));
     }
@@ -59,7 +63,8 @@ class AuthController extends Controller {
      *
      * @return mixed
      */
-    public function showRegister() {
+    public function showRegister()
+    {
         return View::make('auth.register');
     }
 
@@ -71,8 +76,8 @@ class AuthController extends Controller {
      * @param RegisterUserRequest $request
      * @return mixed
      */
-    public function doRegister(RegisterUserRequest $request) {
-
+    public function doRegister(RegisterUserRequest $request)
+    {
         $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 200, 200);
 
         $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
@@ -86,7 +91,6 @@ class AuthController extends Controller {
 
         return redirect()->route('home')->with('info', trans('auth.account_created_success'))
             ->with('success', trans('auth.email_was_sent'));
-
     }
 
     /**
@@ -95,7 +99,8 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function reg_birthday() {
+    public function reg_birthday()
+    {
         return View::make('auth.reg_birthday');
     }
 
@@ -107,9 +112,12 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
-    public function doLogout() {
+    public function doLogout()
+    {
         $response = $this->dispatch(new LogoutUserCommand());
-        if(!$response) return redirect()->route('home');
+        if (!$response) {
+            return redirect()->route('home');
+        }
 
         /**
          * $request = new Request(['username' => Auth::user()->getUsername]);
@@ -129,17 +137,15 @@ class AuthController extends Controller {
      *
      * @return mixed
      */
-    public function doVerify($token, Request $request) {
-
-        if(!$token) {
-
+    public function doVerify($token, Request $request)
+    {
+        if (!$token) {
             return redirect()->route('home')->with('error', trans('auth.validation.need_validation_code'));
         }
 
         $user = User::where('email', $request->get('email'))->firstOrFail();
 
-        if (!$user or $user->userAccountIsActive())  {
-
+        if (!$user or $user->userAccountIsActive()) {
             return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
         }
 
@@ -147,15 +153,13 @@ class AuthController extends Controller {
             ->first();
 
         if (empty($activation)) {
-
             return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
-
         }
 
         $timestamp_one_hour_ago = Carbon::now();
         $created = new Carbon($activation->updated_at);
 
-        if($created->diff($timestamp_one_hour_ago)->days >= 1 OR $created->diffInHours($timestamp_one_hour_ago) >= 1) {
+        if ($created->diff($timestamp_one_hour_ago)->days >= 1 or $created->diffInHours($timestamp_one_hour_ago) >= 1) {
             $activation->token = ConfirmationToken::generateToken();
             $activation->save();
 

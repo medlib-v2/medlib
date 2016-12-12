@@ -90,7 +90,7 @@ return [
         'instance' => 'SUDOC',
         'database' => [
             'hostname' => 'carmin.sudoc.abes.fr',
-            'port' => 210,
+            'port' => 10646,
             'name' => ['abes-z39-public'],
             'format' => 'UNIMARC',
             'elementset' => 'F',

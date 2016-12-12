@@ -30,51 +30,68 @@
                         <div class="panel-body">
                             <div class="query">
                                 <div class="row">
-                                    <div class="col-md-1 col-sm-1 col-xs-1"><input type="hidden" name="words[0][condition]" value="-1"></div>
-                                    <div class="col-md-3 col-sm-3 col-xs-3">
-                                        <div class="form-group @if (isset($errors) and  $errors->has('title')) has-error @endif">
-                                            {!! Form::select('words[0][title]', [
-                                                'ti'     => 'Mots du titre',
-                                                'sub'    => 'Mots sujet',
-                                                'aup'  => 'Mots auteur(s)',
-                                                'pn'     => 'Nom de personne',
-                                                'cn'     => 'Organisme auteur',
-                                                'tov'  => 'Titre abrégé (périodiques)',
-                                                'tc'  => 'Collection',
-                                                'pb'  => 'Editeur',
-                                                'note'    => 'Note de thèse',
-                                                'ts'     => 'Note de récompense',
-                                                'abs'    => 'Résumé; sommaire',
-                                                'kw'  => 'Tous les mots',
-                                                'trp'  => 'Titre en relation',
-                                                'isbn'     => 'ISBN livres',
-                                                'isn'     => 'ISSN périodiques',
-                                                'mesh'    => 'Sujet MESH anglais',
-                                                'ln'    => 'Langue du document (code)',
-                                                'cna'    => 'Pays de publication (code)'
-                                                ], 'ti',
-                                                [
-                                                    'placeholder' => 'Mots auteur(s)',
+                                    <div class="col-md-3">
+                                        <div class="col-xs-7 col-md-8 col-sm-8 no-padding" style="width: 100%;">
+                                            <select id="qdb" name="qdb" data-placeholder="Selectionner une bibliothèque..." class="select2 form-control select2-offscreen">
+                                                <option value="">Selectionner une bibliothèque...</option>
+                                                @foreach($datasource as $name => $instance)
+                                                    <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
+                                                @endforeach
+                                            </select>
+                                            @if (isset($errors) && $errors->has('qdb'))
+                                                <p class="help-block text-danger">{{ $errors->first('qdb') }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div id="words-point" class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-1 col-sm-1 col-xs-1"><input type="hidden" name="words[0][condition]" value="-1"></div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <div class="form-group @if (isset($errors) and  $errors->has('title')) has-error @endif">
+                                                    {!! Form::select('words[0][title]', [
+                                                        'ti'     => 'Mots du titre',
+                                                        'sub'    => 'Mots sujet',
+                                                        'aup'  => 'Mots auteur(s)',
+                                                        'pn'     => 'Nom de personne',
+                                                        'cn'     => 'Organisme auteur',
+                                                        'tov'  => 'Titre abrégé (périodiques)',
+                                                        'tc'  => 'Collection',
+                                                        'pb'  => 'Editeur',
+                                                        'note'    => 'Note de thèse',
+                                                        'ts'     => 'Note de récompense',
+                                                        'abs'    => 'Résumé; sommaire',
+                                                        'kw'  => 'Tous les mots',
+                                                        'trp'  => 'Titre en relation',
+                                                        'isbn'     => 'ISBN livres',
+                                                        'isn'     => 'ISSN périodiques',
+                                                        'mesh'    => 'Sujet MESH anglais',
+                                                        'ln'    => 'Langue du document (code)',
+                                                        'cna'    => 'Pays de publication (code)'
+                                                        ], 'ti',
+                                                        [
+                                                            'placeholder' => 'Mots auteur(s)',
+                                                            'required' => 'required',
+                                                            'class' => 'select2 form-control'
+                                                        ])
+                                                    !!}
+                                                    @if (isset($errors) and $errors->has('title')) <p class="help-block">{{ $errors->first('title') }}</p> @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                                <div class="form-group">
+                                                    {{ Form::text('words[0][query]', null,
+                                                    ['class' => 'form-control',
                                                     'required' => 'required',
-                                                    'class' => 'select2 form-control'
-                                                ])
-                                            !!}
-                                            @if (isset($errors) and $errors->has('title')) <p class="help-block">{{ $errors->first('title') }}</p> @endif
+                                                    'id' =>'query-0',
+                                                    'data-parsley-trigger' => 'change',
+                                                    'data-parsley-validation-threshold' => '1'
+                                                    ]) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-sm-1 col-xs-1 " id="add-remove">
+                                                <a href="#" class="icons icons-add-btn" data-action="add" id="plus"><span class="icon glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-7 col-sm-7 col-xs-7">
-                                        <div class="form-group">
-                                            {{ Form::text('words[0][query]', null,
-                                            ['class' => 'form-control',
-                                            'required' => 'required',
-                                            'id' =>'query-0',
-                                            'data-parsley-trigger' => 'change',
-                                            'data-parsley-validation-threshold' => '1'
-                                            ]) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 col-xs-1 " id="add-remove">
-                                        <a href="#" class="icons icons-add-btn" data-action="add" id="plus"><span class="icon glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
                                     </div>
                                 </div>
                             </div>

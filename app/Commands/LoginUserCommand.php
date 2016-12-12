@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Medlib\Realtime\Events as SocketClient;
 
-
-class LoginUserCommand extends Command {
+class LoginUserCommand extends Command
+{
 
     /**
      * @var string
@@ -35,8 +35,8 @@ class LoginUserCommand extends Command {
      *
      * @param Request $request
      */
-    public function __construct(Request $request) {
-
+    public function __construct(Request $request)
+    {
         parent::__construct();
 
         $this->email = $request->get('email');
@@ -50,7 +50,8 @@ class LoginUserCommand extends Command {
      *
      * @return boolean
      */
-    public function handle() {
+    public function handle()
+    {
 
         /**
          * Attempt to do the login
@@ -62,7 +63,6 @@ class LoginUserCommand extends Command {
              */
             Auth::logout();
             return Redirect::to('login')->with('error', trans('auth.login.failed'));
-
         }
 
         $user = Auth::user();
@@ -88,5 +88,4 @@ class LoginUserCommand extends Command {
         $user->updateOnlineStatus(1);
         return true;
     }
-
 }

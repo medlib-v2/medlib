@@ -19,7 +19,8 @@ class EmailRegistrationConfirmation
      *
      * @param \Medlib\Services\UserMailer $mailer
      */
-    public function __construct(UserMailer $mailer) {
+    public function __construct(UserMailer $mailer)
+    {
         $this->mailer = $mailer;
     }
 
@@ -29,7 +30,8 @@ class EmailRegistrationConfirmation
      * @param  UserRegistrationConfirmation  $event
      * @return \Illuminate\Mail\Mailer
      */
-    public function handle(UserRegistrationConfirmation $event) {
+    public function handle(UserRegistrationConfirmation $event)
+    {
         return $this->mailer->sendWelcomeMessageTo($event->user);
     }
 }

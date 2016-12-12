@@ -6,7 +6,8 @@ use Medlib\Commands\Command;
 use Medlib\Realtime\Chat as SocketClient;
 use Illuminate\Support\Facades\Auth;
 
-class SendChatMessageCommand extends Command {
+class SendChatMessageCommand extends Command
+{
 
     /**
      * @var int
@@ -29,8 +30,8 @@ class SendChatMessageCommand extends Command {
      * @param int $receiverId
      * @param string $message
      */
-    public function __construct($receiverId, $message) {
-
+    public function __construct($receiverId, $message)
+    {
         parent::__construct();
 
         $this->receiverId = $receiverId;
@@ -43,7 +44,8 @@ class SendChatMessageCommand extends Command {
      *
      * @return boolean
      */
-    public function handle() {
+    public function handle()
+    {
         $senderId = Auth::user()->id;
         $this->socketClient->sendMessageTo($this->receiverId, 23, $senderId, $this->message);
         return true;

@@ -4,7 +4,8 @@ namespace Medlib\Services;
 
 use Medlib\Models\User;
 
-interface EmailNotifierInterface {
+interface EmailNotifierInterface
+{
 
     /**
      * Sends a confirmation email to user after registration

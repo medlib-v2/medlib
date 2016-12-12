@@ -19,7 +19,8 @@ class EmailFriendRequest
      *
      * @param \Medlib\Services\UserMailer $mailer
      */
-    public function __construct(UserMailer $mailer) {
+    public function __construct(UserMailer $mailer)
+    {
         $this->mailer = $mailer;
     }
 
@@ -29,7 +30,8 @@ class EmailFriendRequest
      * @param \Medlib\Events\FriendRequestWasSent $event
      * @return \Illuminate\Mail\Mailer
      */
-    public function handle(FriendRequestWasSent $event) {
+    public function handle(FriendRequestWasSent $event)
+    {
         return $this->mailer->sendFriendRequestAlertTo($event->requestedUser, $event->requesterUser);
     }
 }

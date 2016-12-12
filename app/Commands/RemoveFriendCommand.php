@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Realtime\Events as SocketClient;
 
-class RemoveFriendCommand extends Command {
+class RemoveFriendCommand extends Command
+{
 
     /**
      * @var int
@@ -55,6 +56,5 @@ class RemoveFriendCommand extends Command {
         #$this->socketClient->updateChatListFriendRemoved($otherUser->id, 24, $currentUser->id, $otherUser->friends()->count());
 
         return true;
-
     }
 }

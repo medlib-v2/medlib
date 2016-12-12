@@ -30,7 +30,9 @@ class GenerateJWTSecretCommand extends Command
 
         $key = Str::random(32);
 
-        if ($returnKey){ return $key; }
+        if ($returnKey) {
+            return $key;
+        }
 
         $path = base_path('.env');
         $content = file_get_contents($path);

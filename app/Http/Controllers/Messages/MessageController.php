@@ -16,12 +16,12 @@ use Medlib\Repositories\Message\MessageRepository;
 /**
  * @Middleware("auth")
  */
-class MessageController extends Controller {
-
+class MessageController extends Controller
+{
     private $currentUser;
 
-    public function __construct() {
-
+    public function __construct()
+    {
     }
 
     /**
@@ -32,8 +32,8 @@ class MessageController extends Controller {
      * @param \Medlib\Repositories\User\UserRepository $userRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(UserRepository $userRepository) {
-
+    public function index(UserRepository $userRepository)
+    {
         $user = Auth::user();
 
         $messages = $userRepository->findByIdWithMessages($user->id);
@@ -50,12 +50,12 @@ class MessageController extends Controller {
      * @param \Medlib\Repositories\User\UserRepository $userRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($username, UserRepository $userRepository) {
-
+    public function create($username, UserRepository $userRepository)
+    {
         $currentUser = Auth::user();
         $user = $userRepository->findByUsername($username);
 
-        if(!$user) {
+        if (!$user) {
             return redirect()->back();
         }
         return view('messages.create', compact('currentUser', 'user'));
@@ -71,14 +71,13 @@ class MessageController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UserRepository $userRepository, MessageRepository $messageRepository) {
-
+    public function store(Request $request, UserRepository $userRepository, MessageRepository $messageRepository)
+    {
         $validator = Validator::make($request->all(), ['body' => 'required']);
 
-        if($validator->fails())  {
+        if ($validator->fails()) {
             return response()->json(['response' => 'failed', 'message' => $validator->messages()->first('body')]);
-        }
-        else  {
+        } else {
 
             /**
              * $this->dispatchFrom(CreateMessageCommand::class, $request);
@@ -105,8 +104,9 @@ class MessageController extends Controller {
      * @param  string  $username
      * @return \Illuminate\Http\Response
      */
-    public function show($username) {
-        if($username == "compose") {
+    public function show($username)
+    {
+        if ($username == "compose") {
             dd("composition de message sans user");
         }
 
@@ -121,7 +121,8 @@ class MessageController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         dd($request);
     }
 }

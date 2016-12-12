@@ -12,7 +12,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler {
+class Handler extends ExceptionHandler
+{
 
     /**
      * A list of the exception types that should not be reported.
@@ -36,7 +37,8 @@ class Handler extends ExceptionHandler {
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception) {
+    public function report(Exception $exception)
+    {
         return parent::report($exception);
     }
 
@@ -47,22 +49,21 @@ class Handler extends ExceptionHandler {
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception) {
-
-        if ($exception instanceof TokenMismatchException){
+    public function render($request, Exception $exception)
+    {
+        if ($exception instanceof TokenMismatchException) {
             /**
              * redirect to form an example of how I handle mine
              */
-            return redirect($request->fullUrl())->with('error',"Opps! Seems you couldn't submit form for a longtime. Please try again");
+            return redirect($request->fullUrl())->with('error', "Opps! Seems you couldn't submit form for a longtime. Please try again");
         }
 
         if ($exception instanceof ModelNotFoundException) {
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }
 
-        if ($exception instanceof NotFoundHttpException)
-        {
-            if($request->expectsJson()){
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->expectsJson()) {
                 return response(['error'=>'not_found','error_message'=>'Please check the URL you submitted'], 404);
             }
             return redirect()->route('errors.not.found');

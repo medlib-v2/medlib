@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    $ = require('jquery'),
+    $ = window.jQuery,
     Backbone = require('backbone'),
     DetailView = require('../views/DetailView'),
     bookTemplate = require('../templates/book.html'),

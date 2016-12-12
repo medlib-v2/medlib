@@ -12,8 +12,7 @@ class CreateBooksSubjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('books_subject', function(Blueprint $table) {
-
+        Schema::create('books_subject', function (Blueprint $table) {
             $table->increments('subject_id');
             $table->string('subject_isbn', 45);
             $table->text('subject_name');

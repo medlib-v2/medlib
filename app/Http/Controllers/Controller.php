@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController {
-
+class Controller extends BaseController
+{
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
@@ -22,7 +22,8 @@ class Controller extends BaseController {
     /**
      * @return $statusCode
      */
-    public function getStatusCode() {
+    public function getStatusCode()
+    {
         return $this->statusCode;
     }
 
@@ -31,7 +32,8 @@ class Controller extends BaseController {
      *
      * @return \Medlib\Http\Controllers\Controller
      */
-    public function setStatusCode($statusCode) {
+    public function setStatusCode($statusCode)
+    {
         $this->statusCode = $statusCode;
         return $this;
     }
@@ -41,7 +43,8 @@ class Controller extends BaseController {
      *
      * @return Response
      */
-    public function responseNotSaved($message) {
+    public function responseNotSaved($message)
+    {
         return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->responseWithError($message);
     }
 
@@ -50,7 +53,8 @@ class Controller extends BaseController {
      * @param  string  $com_message_pump()
      * @return Response
      */
-    public function responseNotFound($message = 'Item not found!') {
+    public function responseNotFound($message = 'Item not found!')
+    {
         return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->responseWithError($message);
     }
 
@@ -69,14 +73,15 @@ class Controller extends BaseController {
      *
      * @param array $headers
      */
-    public function response($data, $headers = []) {
+    public function response($data, $headers = [])
+    {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
     /**
      *  @param string $message
      */
-    public function responseWithError($message) {
-
+    public function responseWithError($message)
+    {
         return $this->response([
             'error' => [
                 'message' => $message,
@@ -92,16 +97,16 @@ class Controller extends BaseController {
      *
      * 	@return mixed
      */
-    protected function responseWithPagination(LengthAwarePaginator $lessons, $data) {
+    protected function responseWithPagination(LengthAwarePaginator $lessons, $data)
+    {
         $data = array_merge($data, [
             'paginator' => [
-                'total_count' 	=> $lessons->total(),
-                'total_pages'	=> ceil($lessons->total() / $lessons->perPage()),
-                'current_page'	=> $lessons->currentPage(),
-                'limit'			=> $lessons->perPage()
+                'total_count'    => $lessons->total(),
+                'total_pages'    => ceil($lessons->total() / $lessons->perPage()),
+                'current_page'    => $lessons->currentPage(),
+                'limit'            => $lessons->perPage()
             ]
         ]);
         return $this->response($data);
     }
-
 }

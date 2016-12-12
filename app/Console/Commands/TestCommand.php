@@ -40,10 +40,11 @@ class TestCommand extends Command
         $result = system('./vendor/bin/phpunit --configuration phpunit.xml');
         list($tests, $assertions, $status) = explode(",", $result);
 
-        if($status)
+        if ($status) {
             $this->block($status);
-        else
+        } else {
             $this->comment('KTHXBYE.');
+        }
     }
 
     /**

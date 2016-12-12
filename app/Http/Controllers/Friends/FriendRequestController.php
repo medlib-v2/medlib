@@ -14,7 +14,8 @@ use Medlib\Commands\CreateFriendRequestCommand;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
 
-class FriendRequestController extends Controller {
+class FriendRequestController extends Controller
+{
 
     /**
      *  @var \Medlib\Models\User
@@ -24,8 +25,8 @@ class FriendRequestController extends Controller {
     /**
      * Create a new instance of FriendRequestController.
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -36,8 +37,9 @@ class FriendRequestController extends Controller {
      * @param UserRepository $repository
      * @return mixed
      */
-    public function index(FriendRequestRepository $friendRequest, UserRepository $repository) {
-       $this->currentUser = Auth::user();
+    public function index(FriendRequestRepository $friendRequest, UserRepository $repository)
+    {
+        $this->currentUser = Auth::user();
 
         $requesterIds = $friendRequest->getIdsThatSentRequestToCurrentUser($this->currentUser->id);
 
@@ -53,7 +55,8 @@ class FriendRequestController extends Controller {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -64,18 +67,16 @@ class FriendRequestController extends Controller {
      *
      * @return mixed
      */
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), ['username' => 'required']);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 500);
-        }
-        else  {
+        } else {
             Bus::dispatch(new CreateFriendRequestCommand($request));
 
             return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
-
         }
     }
 
@@ -87,18 +88,15 @@ class FriendRequestController extends Controller {
      *
      * @return mixed
      */
-    public function destroy(Request $request) {
-
+    public function destroy(Request $request)
+    {
         $this->currentUser = Auth::user();
 
         $validator = Validator::make($request->all(), ['username' => 'required']);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
-        }
-        else
-        {
+        } else {
             $friend = User::whereUsername($request->get('username'))->first();
 
             FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
@@ -107,7 +105,5 @@ class FriendRequestController extends Controller {
 
             return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'friend request removed']);
         }
-
     }
-
 }

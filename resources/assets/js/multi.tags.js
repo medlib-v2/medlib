@@ -16,6 +16,36 @@ var Medlib = (function () {
             clone,
             ind = 0;
 
+        var $predefinedDate = $('#predefined-date');
+        $predefinedDate.empty();
+
+        $('*:radio').on('change', function() {
+            switch($(this).val()) {
+                case 'predefined':
+                    if ($predefinedDate.is(':empty')){
+                        $predefinedDate.append(getTemplatePredefinedDate()).fadeIn();
+                    }
+                    break;
+                case 'range':
+                    $predefinedDate.fadeOut().empty();
+                    console.log('range');
+                    break;
+            }
+        });
+        console.log($predefinedDate, 'predefinedDate');
+
+        function getTemplatePredefinedDate(){
+            var annee = new Date();
+            var year = annee.getFullYear();
+
+            var template = '<select title="Limiter les résultats à une année prédéfinie" class="form-control input-sm select2 inline" id="year" name="datePub[year]">'+
+                '<option selected value="1516-'+ year +'">Toutes les années</option>'+
+                '<option value="'+ (year -1) +'-'+ year +'">L\'année passée</option>'+
+                '<option value="'+ (year -5) +'-'+ year +'">5 dernières années</option>'+
+                '<option value="'+ (year -10) +'-'+ year +'">10 dernières années</option></select>';
+            return template;
+        }
+
         /**
          *
          * @param event
@@ -24,7 +54,7 @@ var Medlib = (function () {
         function handlerMulti (event) {
             event.preventDefault();
             var jqEl = $(event.currentTarget),
-                element = jqEl.parents('.query'),
+                element = jqEl.parents('#words-point'),
                 $row = jqEl.parents('.row');
             switch (jqEl.attr("data-action")) {
                 case "add":
@@ -110,7 +140,7 @@ var Medlib = (function () {
                 '<div class="col-md-7 col-sm-7 col-xs-7">'+
                 '<div class="form-group"><input class="form-control" id="query-' +index + '" type="text" name="words['+ index +'][query]" value="" data-parsley-trigger="change" data-parsley-validation-threshold="1" required="required">'+
                 '</div></div>'+
-                '<div class="col-md-1 col-sm-1 col-xs-1 " id="add-remove">'+
+                '<div class="col-md-1 col-sm-1 col-xs-1 no-padding" id="add-remove">'+
                 '<a href="#" data-action="add" class="icons icons-add-btn" id="plus'+ index +'"'+ $display +'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>'+
                 '<a href="#" data-action="delete" class="icons icons-remove-btn" style="display: inline-block;" id="minus'+ index +'"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></a>'+
                 '</div></div>';

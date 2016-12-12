@@ -62,7 +62,7 @@
                     ga('send', 'pageview');
                 }
             } else {
-                document.write('<script type="text/javascript" src=\'{{ App::rev("js/vue/cookiesbar.min.js") }}\'><\/script>')
+                //document.write('<script type="text/javascript" src=\'{{ App::rev("js/vue/cookiesbar.min.js") }}\'><\/script>')
             }
         </script>
     </body>

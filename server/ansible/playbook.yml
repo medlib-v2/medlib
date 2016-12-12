@@ -8,4 +8,5 @@
   - { role: mysql, tags: ['database'] }
   - { role: nginx, tags: ['webserver', 'nginx'] }
   - { role: php, tags: ['webserver'] }
-  - { role: fixhub, tags: ['webserver'] }
+  - { role: yaz, tags: ['webserver'] }
+  - { role: medlib, tags: ['webserver'] }

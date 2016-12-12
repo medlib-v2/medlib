@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Application as IlluminateApplication;
 
-
 /**
  * Extends \Illuminate\Foundation\Application to override some defaults.
  */
-class Application extends IlluminateApplication {
+class Application extends IlluminateApplication
+{
     /**
      * Current Medlib version. Must start with a v, and is synced with git tags/releases.
      *
      * @link https://github.com/medlib-v2/medlib/releases
      */
-    const VERSION = 'v0.1.0';
+    const VERSION = 'v0.2.11-dev';
 
     /**
      * Loads a revision'ed asset file, making use of gulp-rev
@@ -82,7 +82,6 @@ class Application extends IlluminateApplication {
             Cache::put('latestMedlibVersion', $v, 1 * 24 * 60);
 
             return $v;
-
         } catch (Exception $e) {
             Log::error($e);
 

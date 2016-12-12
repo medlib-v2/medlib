@@ -1,2 +1,2 @@
 [production]
-127.0.0.1
+192.168.33.10 ansible_ssh_user=root ansible_ssh_pass=Lusquain01

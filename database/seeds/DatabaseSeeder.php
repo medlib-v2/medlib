@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder {
-
+class DatabaseSeeder extends Seeder
+{
     protected $tables = [
         'authors',
         'books',
@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder {
      *
      * @return void
      */
-    public function run() {
-
+    public function run()
+    {
         Model::unguard();
 
         $this->cleanDatabase();
@@ -61,22 +61,19 @@ class DatabaseSeeder extends Seeder {
         }
         
         Model::reguard();
-
     }
 
     /**
      * Clean out the database for new seed generation
      */
-    public function cleanDatabase() {
-
+    public function cleanDatabase()
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         foreach ($this->tables as $table) {
-
             DB::table($table)->truncate();
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
     }
 }

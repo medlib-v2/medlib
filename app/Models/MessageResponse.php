@@ -7,7 +7,8 @@ use Medlib\Models\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class MessageResponse extends Model {
+class MessageResponse extends Model
+{
 
     /**
      * The database table used by the model.
@@ -28,7 +29,8 @@ class MessageResponse extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
@@ -38,7 +40,8 @@ class MessageResponse extends Model {
      *
      * @return \Medlib\Models\Message
      */
-    public function message() {
+    public function message()
+    {
         return $this->belongsTo(Message::class)->withTimestamps();
     }
 
@@ -53,7 +56,8 @@ class MessageResponse extends Model {
      *
      * @return static
      */
-    public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName) {
+    public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName)
+    {
         $response = new static([
 
             'body' => $body,
@@ -70,7 +74,8 @@ class MessageResponse extends Model {
      *
      * @return string
      */
-    public function getMessageResponseSubject() {
+    public function getMessageResponseSubject()
+    {
         return substr($this->body, 0, 35)."...";
     }
 
@@ -82,7 +87,8 @@ class MessageResponse extends Model {
      *
      *	@return boolean
      */
-    public function hasBeenOpenedBy($userId) {
+    public function hasBeenOpenedBy($userId)
+    {
         return DB::table('message_response_user')->where('user_id', $userId)->where('message_response_id', $this->id)->pluck('open');
     }
 
@@ -94,8 +100,8 @@ class MessageResponse extends Model {
      *
      *	@return boolean
      */
-    public function wasSentByThisUser($userId) {
+    public function wasSentByThisUser($userId)
+    {
         return ($this->senderid == $userId) ? true : false;
     }
-
 }

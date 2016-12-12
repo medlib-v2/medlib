@@ -28,7 +28,9 @@ class SocialAuthController extends Controller
          * Check to see if the provider is supported, if not
          * redirect the user back to where they came from
          */
-        if(!array_key_exists($provider, config('services'))) return redirect()->route('auth.login');
+        if (!array_key_exists($provider, config('services'))) {
+            return redirect()->route('auth.login');
+        }
 
         return Socialite::driver($provider)->fields([
             'first_name',
@@ -52,7 +54,9 @@ class SocialAuthController extends Controller
          * Check to see if the provider is supported, if not
          * abort the signup
          */
-        if(!array_key_exists($provider, config('services'))) redirect()->route('auth.login');
+        if (!array_key_exists($provider, config('services'))) {
+            redirect()->route('auth.login');
+        }
 
         $method = 'handle'.studly_case($provider . "Callback");
 
@@ -61,7 +65,6 @@ class SocialAuthController extends Controller
         } else {
             return $this->handleMissingCallbackMethod();
         }
-
     }
 
     /**
@@ -87,7 +90,6 @@ class SocialAuthController extends Controller
                 'email', 'user_birthday'
             ])->user();
         } catch (Exception $e) {
-
             return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
         }
 
@@ -96,7 +98,6 @@ class SocialAuthController extends Controller
         auth()->login($authUser, true);
 
         return redirect()->route('home');
-
     }
 
     /**
@@ -122,7 +123,6 @@ class SocialAuthController extends Controller
                 'email', 'user_birthday'
             ])->user();
         } catch (Exception $e) {
-
             return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
         }
 
@@ -131,7 +131,6 @@ class SocialAuthController extends Controller
         Auth::login($authUser, true);
 
         return redirect()->route('home');
-
     }
 
     /**
@@ -153,7 +152,7 @@ class SocialAuthController extends Controller
     {
         $authUser = User::where($provider, $providerUser->id)->first();
 
-        if ($authUser){
+        if ($authUser) {
             return $authUser;
         }
 
@@ -178,7 +177,8 @@ class SocialAuthController extends Controller
      *
      * @return null|string
      */
-    protected static function generateUsername(UserProvider $providerUser){
+    protected static function generateUsername(UserProvider $providerUser)
+    {
         $username = null;
 
         $username = substr(strtolower($providerUser->user['first_name']), 0, 1);

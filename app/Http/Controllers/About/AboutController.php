@@ -20,8 +20,8 @@ class AboutController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
-
+    public function index()
+    {
     }
 
     /**
@@ -51,7 +51,7 @@ class AboutController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'user_message' => $request->get('message')
-        ], function($message) { 
+        ], function ($message) {
             $message->from('noreply.medlib@gmail.com');
             $message->to('noreply.medlib@gmail.com', 'Admin')->subject('Medlib Feedback');
         });

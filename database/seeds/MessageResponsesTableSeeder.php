@@ -22,9 +22,8 @@ class MessageResponsesTableSeeder extends Seeder
 
 
         foreach ($messageIds as $messageId) {
-
             MessageResponse::create([
-                'body'		=> $faker->sentence,
+                'body'        => $faker->sentence,
                 'message_id' => $messageId,
                 'senderid' => $faker->randomElement($messageSenderIds),
                 'receiverid' => 1,

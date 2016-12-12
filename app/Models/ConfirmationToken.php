@@ -31,17 +31,19 @@ class ConfirmationToken extends Model
     }
 
 
-    public function getToken() {
+    public function getToken()
+    {
         return $this->token;
     }
 
     /**
      * Boot the model.
      */
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
 
-        static::creating(function ($user){
+        static::creating(function ($user) {
             $user->token = self::generateToken();
         });
     }
@@ -50,8 +52,8 @@ class ConfirmationToken extends Model
      *
      * @return string
      */
-    public static function generateToken() {
-
+    public static function generateToken()
+    {
         return str_random(64).config('app.key');
     }
 }

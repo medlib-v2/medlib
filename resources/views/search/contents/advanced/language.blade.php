@@ -1,8 +1,9 @@
 <div class="form-group">
-    <label for="language">Language</label>
+    <label for="language">Langues</label>
     <br>
     {{
-        Form::select('language', ['ALL' => 'All Languages',
+        Form::select('language', [
+        'ANY' => 'All Languages',
         'ENG' => 'English',
         'ABK' => 'Abkhaz',
         'ACE' => 'Achinese',
@@ -485,7 +486,7 @@
         'ZUL' => 'Zulu',
         'ZUN' => 'Zuni',
         'MIS' => 'Miscellaneous languages',
-        'ZXX' => 'No linguistic content'], 'ALL',
-        ['class' => 'select2 form-control', 'multiple' => true, 'title' => 'Sélectionner 5 langues', 'id'    =>'language', 'size'  =>'5'])
+        'ZXX' => 'No linguistic content'], 'FRE',
+        ['class' => 'select2 form-control', 'title' => 'Sélectionner une langue', 'id'    =>'language', 'size'  =>'5'])
     }}
 </div>

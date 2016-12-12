@@ -1,5 +1,5 @@
 # Customize the domain for your application. Remember that you will need to either create a dns record or modify your hosts file
-www_domain: medlib.app
+www_domain: medlib.fr
 
 www_document_root: /var/www/medlib/public
 fixhub_directory: /var/www/medlib

@@ -2,7 +2,6 @@
 
 namespace Medlib\Commands;
 
-
 use Illuminate\Http\Request;
 use Medlib\Commands\Command;
 use Medlib\Models\FriendRequest;
@@ -10,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Events\FriendRequestWasSent;
 use Medlib\Repositories\User\UserRepository;
 
-class CreateFriendRequestCommand extends Command {
+class CreateFriendRequestCommand extends Command
+{
 
     /**
      *  @var string
@@ -22,7 +22,8 @@ class CreateFriendRequestCommand extends Command {
      * @param Request $request
      *
      */
-    public function __construct(Request $request) {
+    public function __construct(Request $request)
+    {
         parent::__construct();
         $this->requestedName = $request->get('username');
     }
@@ -34,8 +35,8 @@ class CreateFriendRequestCommand extends Command {
      *
      * @return boolean
      */
-    public function handle(UserRepository $userRepository) {
-
+    public function handle(UserRepository $userRepository)
+    {
         $requestedUser = $userRepository->findByUsername($this->requestedName);
 
         $requesterUser = Auth::user();

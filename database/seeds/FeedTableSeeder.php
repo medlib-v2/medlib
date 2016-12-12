@@ -21,16 +21,14 @@ class FeedTableSeeder extends Seeder
         $day = 1;
 
         foreach ($users as $user) {
-
             foreach (range(1, 30) as $index) {
-
                 $day++;
             
                 $date->setDate(2015, 1, $day);
 
                 Feed::create([
-                    'user_id'	=> $user,
-                    'body'		=> $faker->sentence(),
+                    'user_id'    => $user,
+                    'body'        => $faker->sentence(),
                     'poster_username' => $faker->userName,
                     'poster_profile_image' => $faker->imageUrl($width = 180, $height = 180),
                     'image_url' => $faker->imageUrl($width = 280, $height = 280),

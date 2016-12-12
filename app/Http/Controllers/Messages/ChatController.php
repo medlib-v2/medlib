@@ -7,7 +7,8 @@ use Medlib\Commands\SendChatMessageCommand;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Http\Requests\SendMessageChatRequest;
 
-class ChatController extends Controller {
+class ChatController extends Controller
+{
 
 
     /**
@@ -18,8 +19,8 @@ class ChatController extends Controller {
      *
      * @return mixed
      */
-    public function sendMessage(SendMessageChatRequest $request, UserRepository $userRepository) {
-
+    public function sendMessage(SendMessageChatRequest $request, UserRepository $userRepository)
+    {
         $this->dispatchFrom(SendChatMessageCommand::class, $request);
 
         return response()->json(['response' => 'success', 'availableToChat' => $userRepository->findById($request->receiverId)->chatstatus]);
@@ -30,6 +31,5 @@ class ChatController extends Controller {
         }
         else {}
         */
-
     }
 }

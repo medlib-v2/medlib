@@ -6,9 +6,8 @@ use Medlib\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Medlib\Notifications\SendConfirmationTokenEmail;
 
-
-class RegisterSocialUserCommand extends Command {
-
+class RegisterSocialUserCommand extends Command
+{
     protected $email;
     protected $username;
     protected $password;
@@ -30,8 +29,8 @@ class RegisterSocialUserCommand extends Command {
      * Create a new command instance.
      * @param array $request
      */
-    public function __construct(array $request) {
-
+    public function __construct(array $request)
+    {
         parent::__construct();
 
         $this->email = $request['email'];
@@ -56,7 +55,8 @@ class RegisterSocialUserCommand extends Command {
      * Create a new command instance.
      * @param array $request
      */
-    public static function create(array $request) {
+    public static function create(array $request)
+    {
         new self($request);
     }
 
@@ -64,8 +64,8 @@ class RegisterSocialUserCommand extends Command {
      * Handle the request
      * @return \Medlib\Models\User
      */
-    public function handle() {
-
+    public function handle()
+    {
         $user = User::create([
             'email' => $this->email,
             'username' => $this->username,

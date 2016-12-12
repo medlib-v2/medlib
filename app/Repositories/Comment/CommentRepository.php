@@ -4,9 +4,9 @@ namespace Medlib\Repositories\Comment;
 
 use Medlib\Models\User;
 
-interface CommentRepository  {
+interface CommentRepository
+{
+    public function getCommentByFeedAndUser(User $user);
 
-	public function getCommentByFeedAndUser(User $user);
-
-	public function getCommentById($IdComment);
+    public function getCommentById($IdComment);
 }

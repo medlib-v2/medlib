@@ -6,8 +6,8 @@ use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistrationConfirmation extends Event {
-
+class UserRegistrationConfirmation extends Event
+{
     use SerializesModels;
 
     /**
@@ -21,7 +21,8 @@ class UserRegistrationConfirmation extends Event {
      * @param \Medlib\Models\User $user
      *
      */
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->user = $user;
     }
 
@@ -30,8 +31,8 @@ class UserRegistrationConfirmation extends Event {
      *
      * @return array
      */
-    public function broadcastOn() {
+    public function broadcastOn()
+    {
         return [];
     }
-
 }

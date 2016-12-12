@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         $datasource = [];
 
-        foreach($config as $name) {
+        foreach ($config as $name) {
             $datasource +=  [
                 $name['instance'] => [
                     'fullname' => $name['fullname'],

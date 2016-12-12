@@ -5,7 +5,8 @@ namespace Medlib\Models;
 use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class FriendRequest extends Model {
+class FriendRequest extends Model
+{
 
     /**
      * The database table used by the model.
@@ -45,5 +46,4 @@ class FriendRequest extends Model {
 
         return $FriendRequest;
     }
-
 }

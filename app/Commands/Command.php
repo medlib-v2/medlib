@@ -4,7 +4,8 @@ namespace Medlib\Commands;
 
 use Medlib\Realtime\Events as SocketClient;
 
-abstract class Command {
+abstract class Command
+{
 
 
     /**
@@ -15,8 +16,8 @@ abstract class Command {
     /**
      * Create a new command instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->socketClient = new SocketClient;
     }
-
 }

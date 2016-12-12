@@ -40,10 +40,10 @@
   - "php artisan config:cache"
   - "php artisan route:cache"
   - "php artisan migrate --force"
-  - "npm install --production"
+  - "npm install"
 
 - name: Update medlib
-  shell: 'printf \"\yes\" | php artisan app:update'
+  shell: 'printf \"\yes\" | php artisan medlib:update'
   args:
     chdir: "{{medlib_directory}}"
   when: (configuration_exists.stat.exists == True and version_modified.changed == True)

@@ -2,7 +2,6 @@
 
 namespace Medlib\Listeners;
 
-
 class JWTEventListener
 {
     /**

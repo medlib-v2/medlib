@@ -15,7 +15,7 @@
             </div>
             <br>
             <!-- END results-actions -->
-            <div class="list">
+            <div class="list" id="book-preview">
                 <?php $counter = 0; ?>
                 <!-- ==================== Beginning result ================== -->
                 @foreach ($results as $result)
@@ -23,6 +23,7 @@
                 @include('search.contents.detail')
                 @endforeach
                 <!-- ==================== Ending result ================== -->
+                <box-preview></box-preview>
             </div>
             <!-- Begin results info -->
             @include('search.contents.pagination')

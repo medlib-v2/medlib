@@ -7,7 +7,8 @@ use Medlib\Models\ConfirmationToken;
 use Medlib\Events\UserWasRegistered;
 use Medlib\Notifications\SendConfirmationTokenEmail;
 
-class SendConfirmationEmail {
+class SendConfirmationEmail
+{
 
 
     /**
@@ -20,7 +21,8 @@ class SendConfirmationEmail {
      *
      * @param \Medlib\Models\User $user
      */
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->user = $user;
     }
 
@@ -30,12 +32,11 @@ class SendConfirmationEmail {
      * @param  \Medlib\Events\UserWasRegistered $event
      * @return boolean
      */
-    public function handle(UserWasRegistered $event) {
-
+    public function handle(UserWasRegistered $event)
+    {
         $ConfirmationToken = ConfirmationToken::where('user_id', $event->user->id)->firstOrFail();
 
         $event->user->notify(new SendConfirmationTokenEmail($ConfirmationToken->getToken()));
         return true;
-
     }
 }

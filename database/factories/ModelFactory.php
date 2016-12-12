@@ -32,11 +32,10 @@ $factory->define(Medlib\Models\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Medlib\Models\Message::class, function (Faker\Generator $faker) {
-
     $userIds = DB::table('users')->where('id', '!=', 1)->lists('id');
 
     return [
-        'body'		=> $faker->sentence(),
+        'body'        => $faker->sentence(),
         'senderprofileimage' => $faker->imageUrl($width = 200, $height = 200),
         'senderid' => $faker->randomElement($userIds),
         'sendername' => $faker->firstName,

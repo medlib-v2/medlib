@@ -5,7 +5,8 @@ namespace Medlib\Services;
 use Medlib\Models\User;
 use Illuminate\Mail\Mailer;
 
-abstract class EmailNotifier implements EmailNotifierInterface {
+abstract class EmailNotifier implements EmailNotifierInterface
+{
 
     /**
      * @var \Illuminate\Contracts\Mail\Mailer
@@ -15,8 +16,8 @@ abstract class EmailNotifier implements EmailNotifierInterface {
     /**
      * @param \Illuminate\Mail\Mailer $mailer
      */
-    public function __construct(Mailer $mailer) {
-
+    public function __construct(Mailer $mailer)
+    {
         $this->mailer = $mailer;
     }
 
@@ -26,8 +27,8 @@ abstract class EmailNotifier implements EmailNotifierInterface {
      * @param \Medlib\Models\User $user
      * @return \Illuminate\Mail\Mailer
      */
-    public function sendRegistrationConfirmation(User $user) {
-
+    public function sendRegistrationConfirmation(User $user)
+    {
         $subject = trans("emails.title_confirmation_email");
         $view = 'emails.send.verify';
         $data = [
@@ -49,9 +50,9 @@ abstract class EmailNotifier implements EmailNotifierInterface {
      * @param array $data
      * @return boolean
      */
-    public function sendTo(User $user, $subject, $view, $data = []) {
-
-        $this->mailer->queue($view, $data, function($message) use ($user, $subject)  {
+    public function sendTo(User $user, $subject, $view, $data = [])
+    {
+        $this->mailer->queue($view, $data, function ($message) use ($user, $subject) {
             $message->to($user->getEmail(), $user->getFirstName()." ".$user->getLastName())->subject($subject);
         });
         return true;

@@ -10,7 +10,7 @@
                             <label for="predefined" class="screen-readers-only">Année prédéfinie</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div id="predefined-date" class="col-md-4 is-active">
                         <select title="Limiter les résultats à une année prédéfinie" class="form-control input-sm select2 inline" id="year" name="datePub[year]">
                             <option selected value="1516-{{ date('Y') }}">Toutes les années</option>
                             <option value="{{ date('Y') -1 }}-{{ date('Y') }}">L'année passée</option>

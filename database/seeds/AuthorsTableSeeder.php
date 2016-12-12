@@ -16,7 +16,6 @@ class AuthorsTableSeeder extends Seeder
         $faker = Faker::create();
         
         foreach (range(1, 30) as $index) {
-
             Author::create([
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,

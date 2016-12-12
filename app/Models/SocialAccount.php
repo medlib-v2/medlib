@@ -5,7 +5,8 @@ namespace Medlib\Models;
 use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialAccount extends Model {
+class SocialAccount extends Model
+{
 
     /**
      * The database table used by the model.

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Medlib\Http\Requests;
 use Medlib\Http\Controllers\Controller;
 
-class MessageResponseController extends Controller {
+class MessageResponseController extends Controller
+{
 
     /**
      * Display a listing of the resource.

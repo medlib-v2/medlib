@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    $ = require('jquery'),
+    $ = window.jQuery,
     v = require('./variables'),
     Backbone = require('backbone');
 

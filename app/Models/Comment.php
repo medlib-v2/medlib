@@ -4,7 +4,8 @@ namespace Medlib\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model {
+class Comment extends Model
+{
     
     /**
      * The database table used by the model.
@@ -24,7 +25,8 @@ class Comment extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users() {
+    public function users()
+    {
         /**  return $this->hasMany(Book::class); **/
         return $this->belongsToMany(User::class, 'user_id');
     }
@@ -34,7 +36,8 @@ class Comment extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function feed() {
+    public function feed()
+    {
         return $this->hasMany(Feed::class);
     }
 }
