@@ -21,6 +21,7 @@
         "nesbot/Carbon": "^1.21",
         "phpspec/phpspec": "^2.4",
         "intervention/image": "dev-master",
+	"pusher/pusher-php-server": "^2.6.2",
         "wisembly/elephant.io": "3.0.0"
     },
     "require-dev": {
