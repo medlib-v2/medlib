@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -107,7 +107,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', '30x6jhsZPmCpAa5LpqFA2QZJMNQkEJ8A'),
+    'key' => env('APP_KEY', 'SomeRandomString'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -125,7 +125,7 @@ return [
     */
 
     'log' => env('APP_LOG', 'single'),
-    
+
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
@@ -194,7 +194,7 @@ return [
         JsLocalization\JsLocalizationServiceProvider::class,
         BackupManager\Laravel\Laravel5ServiceProvider::class,
         McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
-        
+
         /*
          * Laravel Collective Service Providers...
          */
