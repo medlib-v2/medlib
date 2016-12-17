@@ -28,7 +28,7 @@
 
 - name: Install basic packages
   apt: name={{item}} state=latest
-  with_items: basic_packages
+  with_items: "{{ basic_packages }}"
 
 - name: Install supervisor
   command: easy_install supervisor

@@ -1,9 +1,8 @@
+---
 # Medlib version to be installed
 medlib_version: 0.0.30
 
 nginx_version: 1.4.6-1ubuntu3.4
-php_version: 5.5.9+dfsg-1ubuntu4.14
-mysql_version: 5.5.47-0ubuntu0.14.04.1
 composer_version: 1.0.0-alpha10
 
 # Database connection params
@@ -12,12 +11,12 @@ database_medlib_user: medlib
 database_medlib_pwd: medlib
 
 basic_packages:
-- git
-- python-mysqldb
-- python-setuptools
-- node
-- npm
-- curl
-- beanstalkd
-- redis-server
-- supervisor
+  - git
+  - python-mysqldb
+  - python-setuptools
+  - node
+  - npm
+  - curl
+  - beanstalkd
+  - redis-server
+  - supervisor
