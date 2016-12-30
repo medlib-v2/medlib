@@ -10,6 +10,7 @@ class FriendRequest extends Model
 
     /**
      * The database table used by the model.
+     *
      * @var string
      */
     protected $table = 'friend_requests';
@@ -36,9 +37,7 @@ class FriendRequest extends Model
     /**
      * Send a friend request to a user
      *
-     *
      * @attr int $requester_id
-     *
      */
     public static function prepareFriendRequest($requester_id)
     {

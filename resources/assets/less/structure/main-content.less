@@ -8,7 +8,7 @@
     min-height: 100%;
     @media @phone{
         margin-left: 0;
-        top: @top-header-height-phone;
+        top: @top-header-height-phone - 50px;
     }
     .be-nosidebar-left &{ margin-left: 0; }
 }
@@ -63,7 +63,6 @@
                     display: block;
                     overflow: hidden;
                     vertical-align: middle;
-
                     .input-group-btn {
                         position: absolute;
                         font-size: 0;
@@ -89,6 +88,10 @@
                             }
                         }
                     }
+                }
+
+                @media (max-width: 480px) {
+                    > .row { margin-left: 0; }
                 }
             }
         }

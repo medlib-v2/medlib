@@ -3,6 +3,7 @@
 namespace Medlib\Repositories\User;
 
 use Medlib\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
 class CachingUserRepository implements UserRepository
@@ -44,11 +45,9 @@ class CachingUserRepository implements UserRepository
     /**
      * Get a cached paginated list of all users
      *
-     *	@param int $howMany
-     *
-     *	@param string $byFirstname
-     *
-     *	@return mixed
+     * @param int $howMany
+     * @param string $byFirstname
+     * @return mixed
      */
     public function getPaginated($howMany = 10, $byFirstname = null)
     {
@@ -57,6 +56,7 @@ class CachingUserRepository implements UserRepository
 
         if (! $this->byFirstname) {
             return $this->cache->remember('users.all', 20, function () {
+                //
             });
         } else {
             return $this->repository->getPaginated($this->howMany, $this->byFirstname);
@@ -90,11 +90,11 @@ class CachingUserRepository implements UserRepository
     /**
      * Fetch a list of users by their ids
      *
-     * @param  array $ids
+     * @param  Collection $ids
      *
      * @return mixed
      */
-    public function findManyById(array $ids)
+    public function findManyById(Collection $ids)
     {
         return $this->repository->findManyById($ids);
     }

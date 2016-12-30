@@ -77,7 +77,6 @@ class ClearOrphanAvatarsCommand extends Command
          * Now loop through the avatars and delete them from storage
          */
         foreach ($orphan_avatars as $avatar) {
-
             $avatarPath = public_path() . $avatar;
 
             /**

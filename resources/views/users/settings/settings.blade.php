@@ -26,7 +26,7 @@
          *
          */
         $(document).ready(function(){
-            Medlib.BeSelect();
+            Medlib.BeSelect(null);
         });
     </script>
 @endsection

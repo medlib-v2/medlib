@@ -11,6 +11,7 @@
         table-layout: fixed;
         width: 100%;
         height: 100%;
+        margin-top: @top-header-height + 1px;
     }
 
     .left-sidebar-spacer{
@@ -250,7 +251,7 @@
 
     .be-fixed-sidebar & {
         height: 100%;
-        margin-top: @top-header-height + 1px;
+        //margin-top: @top-header-height + 1px;
         padding-bottom: @top-header-height + 1px;
         position: fixed;
         top: 0;
@@ -262,8 +263,7 @@
         @media @phone {
             margin-top: 0;
             position: static;
-            height: auto;
-            margin-top: 0;
+            height: @top-header-height-phone;
             padding-bottom: 0;
         }
         &:before{ top: @top-header-height; }
@@ -277,7 +277,7 @@
         left: -@left-sidebar-width;
         top: 0;
         bottom: 0;
-        z-index: 1;
+        z-index: 100;
 
         .left-sidebar-content{
             position: absolute;
@@ -287,7 +287,6 @@
             margin-top: 0;
             position: static;
             height: auto;
-            margin-top: 0;
             padding-bottom: 0;
         }
         &:before{
@@ -305,9 +304,11 @@ body.open-left-sidebar{
 
   @media @non-responsive{
     .left-sidebar-animation(false);
+    z-index: 100;
   }
 
   @media @phone{
     .left-sidebar-animation(@sidebars-hardware-accelerated-animation);
+    z-index: 100;
   }
 }

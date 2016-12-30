@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Fixhub.
+ * This file is part of Medlib.
  *
- * Copyright (C) 2016 Fixhub.org
+ * Copyright (C) 2016 Medlib.fr
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,6 @@ return [
 
     'name'              => 'App name',
     'about'             => 'App about',
-    'signout'           => 'Sign Out',
     'dashboard'         => 'Dashboard',
     'admin'             => 'Administration',
     'projects'          => 'Projects',
@@ -42,8 +41,7 @@ return [
     'no'                => 'No',
     'warning'           => 'WARNING',
     'socket_error'      => 'Server error',
-    'socket_error_info' => 'A connection could not be established to the socket at <strong>' . config('medlib.socket_url') . '</strong>. This is required ' .
-                           'for reporting the status on running deployments. Please reload, if the issue continues please contact the system administrator',
+    'socket_error_info' => 'A connection could not be established to the socket at <strong>' . config('medlib.socket_url') . '</strong>.',
     'not_down'          => 'You must switch to maintenance mode before running this command, this will ensure that no new deployments are started',
     'switch_down'       => 'Switch to maintenance mode now? The app will switch back to live mode once cleanup is finished',
     'update_available'  => 'An update is available!',

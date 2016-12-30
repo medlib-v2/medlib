@@ -2,26 +2,25 @@
 
 namespace Medlib\Listeners;
 
-use Medlib\Services\UserMailer;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Medlib\Models\User;
 use Medlib\Events\UserRegistrationConfirmation;
+use Medlib\Notifications\SendWelcomeMessageEmail;
 
 class EmailRegistrationConfirmation
 {
     /**
      * @var \Medlib\Services\UserMailer
      */
-    public $mailer;
+    public $user;
 
     /**
      * Create the event listener.
      *
-     * @param \Medlib\Services\UserMailer $mailer
+     * @param \Medlib\Models\User  $user
      */
-    public function __construct(UserMailer $mailer)
+    public function __construct(User $user)
     {
-        $this->mailer = $mailer;
+        $this->user = $user;
     }
 
     /**
@@ -32,6 +31,6 @@ class EmailRegistrationConfirmation
      */
     public function handle(UserRegistrationConfirmation $event)
     {
-        return $this->mailer->sendWelcomeMessageTo($event->user);
+        return $this->user->notify(new SendWelcomeMessageEmail($event->user));
     }
 }

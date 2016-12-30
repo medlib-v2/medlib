@@ -45,7 +45,7 @@ class SendConfirmationTokenEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Activation email')
+            ->subject(trans("emails.title_confirmation_email"))
             ->greeting('Hello!')
             ->line('You need to activate your email before you can start using all of our services.')
             ->action('Activate Email', route('auth.verify', ['token' => $this->token, 'email' => $notifiable->email]))

@@ -7,7 +7,7 @@ use Medlib\Http\Controllers\Controller;
 
 class ErrorController extends Controller
 {
-    public function NotFoundHttp()
+    public function notFoundHttp()
     {
         return view('errors.404');
     }

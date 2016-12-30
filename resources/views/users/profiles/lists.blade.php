@@ -1,7 +1,11 @@
 <li>
     <div class="user-info">
         <div class="user-name">{{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong></div>
-        <div class="user-position online">Available</div>
+        @if(Auth::user()->isOnline())
+            <div class="user-position online">{{ trans('auth.available') }}</div>
+        @else
+            <div class="user-position offline">{{ trans('auth.unavailable') }}</div>
+        @endif
     </div>
 </li>
 <li><a href="{{ route('profile.user.show', Auth::user()->getUsername()) }}" class="text-small"><span class="glyphicon glyphicon-user"></span>&nbsp;Afficher mon profil</a></li>

@@ -16,10 +16,10 @@ class CreateMessageResponsesTable extends Migration
             $table->increments('id');
             $table->text('body');
             $table->integer('message_id');
-            $table->integer('senderid');
-            $table->integer('receiverid');
-            $table->string('sendername');
-            $table->string('senderprofileimage');
+            $table->integer('sender_id');
+            $table->integer('receiver_id');
+            $table->string('sender_name');
+            $table->string('sender_profile_image');
             $table->timestamps();
         });
     }

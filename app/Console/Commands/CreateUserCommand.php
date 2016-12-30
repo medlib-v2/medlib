@@ -7,6 +7,7 @@ use Medlib\Models\User;
 use Illuminate\Console\Command;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Validator;
+use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
 class CreateUserCommand extends Command
 {
@@ -17,6 +18,7 @@ class CreateUserCommand extends Command
      */
     protected $signature = 'medlib:create-user
                             {name : The name for the user}
+                            {username : The username for the user}
                             {email : The email address for the user}
                             {password? : The password for the user, one will be generated if not supplied}
                             {--no-email : Do not send a welcome email}';
@@ -40,16 +42,17 @@ class CreateUserCommand extends Command
     /**
      * Execute the console command.
      *
+     * @param \Medlib\Repositories\Activation\ConfirmationTokenRepository $token
      * @return mixed
      */
-    public function handle()
+    public function handle(ConfirmationTokenRepository $token)
     {
         $arguments  = $this->argument();
         $send_email = (!$this->option('no-email'));
 
         $password_generated = false;
         if (!$arguments['password']) {
-            $arguments['password'] = str_random(15);
+            $arguments['password'] = bcrypt(str_random(15));
             $password_generated    = true;
         }
 
@@ -62,6 +65,12 @@ class CreateUserCommand extends Command
         if (!$validator->passes()) {
             throw new RuntimeException($validator->errors()->first());
         }
+        list($first_name, $last_name) = explode(" ", $arguments['name']);
+
+        $arguments['first_name'] = $first_name;
+        $arguments['last_name'] = $last_name;
+
+        $arguments['password'] = bcrypt($arguments['password']);
 
         $user = User::create($arguments);
 
@@ -69,7 +78,7 @@ class CreateUserCommand extends Command
 
         if ($send_email) {
             $message = 'The user has been created and their account details have been emailed to ' . $user->email;
-
+            $token->createConfirmationToken($user);
             event(new UserWasRegistered($user));
         } elseif ($password_generated) {
             $message .= ', however you elected to not email the account details to them. ';

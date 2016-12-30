@@ -62,9 +62,9 @@ class InstallCommand extends Command
         }
 
         $this->line('');
-        $this->info('***********************');
-        $this->info('  Welcome to Medlib  ');
-        $this->info('***********************');
+        $this->info('**********************************');
+        $this->info('  Welcome to Medlib Installation ');
+        $this->info('**********************************');
         $this->line('');
 
         if (!$this->checkRequirements()) {
@@ -75,12 +75,18 @@ class InstallCommand extends Command
         $this->line('');
 
         $config = [
-            'db'   => $this->getDatabaseInformation(),
+            'db' => $this->getDatabaseInformation(),
             'app'  => $this->getInstallInformation(),
             'mail' => $this->getEmailInformation(),
         ];
 
-        $config['jwt']['secret'] = $this->generateJWTKey();
+        if (!config('jwt.secret') && !config('jwt.secret') == 'changeme') {
+            $this->info('Generating JWT secret');
+            $this->line('');
+            $config['jwt']['secret'] = $this->generateJWTKey();
+        } else {
+            $this->comment('JWT secret exists -- skipping');
+        }
 
         $this->writeEnvFile($config);
 
@@ -138,7 +144,9 @@ class InstallCommand extends Command
         $path   = base_path('.env');
         $config = file_get_contents($path);
 
-        // Move the socket value to the correct key
+        /**
+         * Move the socket value to the correct key
+         */
         if (isset($input['app']['socket'])) {
             $input['socket']['url'] = $input['app']['socket'];
             unset($input['app']['socket']);
@@ -160,7 +168,9 @@ class InstallCommand extends Command
             }
         }
 
-        // Remove SSL certificate keys if not using HTTPS
+        /**
+         * Remove SSL certificate keys if not using HTTPS
+         */
         if (substr($input['socket']['url'], 0, 5) !== 'https') {
             foreach (['key', 'cert', 'ca'] as $key) {
                 $key = strtoupper($key);
@@ -169,7 +179,9 @@ class InstallCommand extends Command
             }
         }
 
-        // Remove keys not needed for sqlite
+        /**
+         * Remove keys not needed for sqlite
+         */
         if (isset($input['db']['type']) && $input['db']['type'] === 'sqlite') {
             foreach (['host', 'database', 'username', 'password'] as $key) {
                 $key = strtoupper($key);
@@ -178,7 +190,9 @@ class InstallCommand extends Command
             }
         }
 
-        // Remove keys not needed by SMTP
+        /**
+         * Remove keys not needed by SMTP
+         */
         if ($input['mail']['driver'] !== 'smtp') {
             foreach (['host', 'port', 'username', 'password'] as $key) {
                 $key = strtoupper($key);
@@ -187,12 +201,16 @@ class InstallCommand extends Command
             }
         }
 
-        // Remove github keys if not needed, only really exists on my dev copy
+        /**
+         * Remove github keys if not needed, only really exists on my dev copy
+         */
         if (!isset($input['github']) || empty($input['github']['oauth_token'])) {
             $config = preg_replace('/GITHUB_OAUTH_TOKEN=(.*)[\n]/', '', $config);
         }
 
-        // Remove trusted_proxies if not set
+        /**
+         * Remove trusted_proxies if not set
+         */
         if (!isset($input['trusted']) || !isset($input['trusted']['proxied'])) {
             $config = preg_replace('/TRUSTED_PROXIES=(.*)[\n]/', '', $config);
         }
@@ -221,14 +239,7 @@ class InstallCommand extends Command
      */
     protected function generateJWTKey()
     {
-        if (!config('jwt.secret')) {
-            $this->info('Generating JWT key');
-            $this->line('');
-            return $this->call('medlib:generate-jwt-secret --return-key');
-            //$this->call('jwt:generate'); //This does not update .ENV so do it manually for now
-        } else {
-            $this->comment('JWT secret exists -- skipping');
-        }
+        return $this->call('medlib:generate-jwt-secret', [ '--return-key']);
     }
 
     /**
@@ -283,9 +294,9 @@ class InstallCommand extends Command
         $this->clearCaches();
 
         if ($this->getLaravel()->environment() !== 'local') {
-            $this->call('optimize', ['--force' => true]);
             $this->call('config:cache');
             $this->call('route:cache');
+            $this->call('optimize', ['--force' => true]);
         }
     }
 
@@ -303,7 +314,9 @@ class InstallCommand extends Command
         while (!$connectionVerified) {
             $database = [];
 
-            // Should we just skip this step if only one driver is available?
+            /**
+             * Should we just skip this step if only one driver is available?
+             */
             $type = $this->choice('Type', $this->getDatabaseDrivers(), 0);
 
             $database['type'] = $type;
@@ -413,7 +426,7 @@ class InstallCommand extends Command
         if (count($locales) === 1) {
             $locale = $locales[0];
         } else {
-            $default = array_search(Config::get('app.fallback_locale'), $locales, true);
+            $default = array_search(config('app.fallback_locale'), $locales, true);
             $locale  = $this->choice('Language', $locales, $default);
         }
 
@@ -475,7 +488,7 @@ class InstallCommand extends Command
             };
 
             return $answer;
-        }, 'no-replay@medlib.app');
+        }, 'no-reply@medlib.app');
 
         $email['from_name']    = $from_name;
         $email['from_address'] = $from_address;
@@ -493,7 +506,19 @@ class InstallCommand extends Command
     {
         $this->header('Admin details');
 
-        $name = $this->ask('Name', 'Admin');
+        $name = $this->ask('Name', 'Admin System');
+
+        $username = $this->askSecretAndValidate('Username', [], function ($answer) {
+            $validator = Validator::make(['username' => $answer], [
+                'username' => 'unique:users|alpha_dash|min:3|max:15',
+            ]);
+
+            if (!$validator->passes()) {
+                throw new \RuntimeException($validator->errors()->first('username'));
+            };
+
+            return $answer;
+        });
 
         $email_address = $this->askAndValidate('Email address', [], function ($answer) {
             $validator = Validator::make(['email_address' => $answer], [
@@ -521,6 +546,7 @@ class InstallCommand extends Command
 
         return [
             'name'     => $name,
+            'username'  => $username,
             'email'    => $email_address,
             'password' => $password,
         ];

@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use ElephantIO\Exception\ServerConnectionFailureException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -55,7 +56,7 @@ class Handler extends ExceptionHandler
             /**
              * redirect to form an example of how I handle mine
              */
-            return redirect($request->fullUrl())->with('error', "Opps! Seems you couldn't submit form for a longtime. Please try again");
+            return redirect($request->fullUrl())->with('error', "Opps! ". trans('messages.token_mismatch_exception'));
         }
 
         if ($exception instanceof ModelNotFoundException) {
@@ -64,9 +65,13 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof NotFoundHttpException) {
             if ($request->expectsJson()) {
-                return response(['error'=>'not_found','error_message'=>'Please check the URL you submitted'], 404);
+                return response(['error'=>'not_found','error_message'=> trans('messages.error_message')], 404);
             }
             return redirect()->route('errors.not.found');
+        }
+
+        if ($exception instanceof ServerConnectionFailureException) {
+            return redirect()->route('home');
         }
 
         return parent::render($request, $exception);

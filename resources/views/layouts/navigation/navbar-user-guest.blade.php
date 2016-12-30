@@ -23,7 +23,7 @@
                     <li class="login-form-dropdown">
                         <div class="row no-margin">
                             <div class="col-md-7 col-sm-7">
-                                <div class="form-group"><h4>Se connecter</h4></div>
+                                <div class="form-group"><h4>{{ trans('auth.btn.login') }}</h4></div>
                                 <form class="form-login" role="login" method="POST"  action="{{ route('auth.login') }}" accept-charset="UTF-8">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group @if(isset($errors) and $errors->has('email')) has-error @endif field">
@@ -46,12 +46,12 @@
                                 </form>
                             </div>
                             <div class="col-md-1 col-sm-1">
-                                <div class="or-spacer"><span><i>OU</i></span></div>
+                                <div class="or-spacer"><span><i>{{ trans('auth.txt.spacer_or') }}</i></span></div>
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <ul class="login-via">
                                     <li class="info">
-                                        <span>Si vous ne possédez pas déjà un compte cliquez sur le bouton ci-dessous pour créer votre compte.</span>
+                                        <span>{{ trans('auth.account_dont_have') }}</span>
                                     </li>
                                     <li class="btn-register">
                                         <a class="btn btn-primary" type="button" href="{{ route('auth.register') }}" id="sign-in">{{ trans('auth.txt.sing_up') }}</a>
@@ -66,7 +66,7 @@
                         </div>
                     </li>
                     <li class="panel-footer text-sm">
-                        <span class="fs-mini">Vous n’arrivez pas à vous connecter ? Avez-vous <a href="{{ route('password.reset') }}">{{ trans('auth.txt.forgot_passwd') }}</a> ?</span>
+                        <span class="fs-mini">{{ trans('auth.login.can_not_login') }} <a href="{{ route('password.reset') }}">{{ trans('auth.txt.forgot_password') }}</a></span>
                     </li>
                 </ul>
             </li>

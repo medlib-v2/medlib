@@ -2,8 +2,6 @@
 
 namespace Medlib\Http\Controllers;
 
-use Illuminate\Support\Facades\Config;
-
 class HomeController extends Controller
 {
     /**
@@ -14,7 +12,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $config = Config::get('yaz.zebra');
+        $config = config('yaz.zebra');
 
         $datasource = [];
 

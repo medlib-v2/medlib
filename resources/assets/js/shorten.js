@@ -1,62 +1,61 @@
-(function($) {
-    $.fn.shorten = function (settings) {
+    (function($) {
+        $.fn.shorten = function (settings) {
 
-        var config = {
-            showChars: 200,
-            ellipsesText: "...",
-            moreText: "more",
-            lessText: "less"
+            var config = {
+                showChars: 200,
+                ellipsesText: "...",
+                moreText: "more",
+                lessText: "less"
+            };
+
+            if (settings) {
+                $.extend(config, settings);
+            }
+
+            jQuery(document).off("click", '.morelink');
+
+            jQuery(document).on({click: function () {
+
+                var $this = jQuery(this);
+                if ($this.hasClass('less')) {
+                    $this.removeClass('less');
+                    $this.html(config.moreText);
+                } else {
+                    $this.addClass('less');
+                    $this.html(config.lessText);
+                }
+                $this.parent().prev().toggle();
+                $this.prev().toggle();
+                return false;
+            }
+            }, '.morelink');
+
+            return this.each(function () {
+                var $this = jQuery(this);
+                if($this.hasClass("shortened")) return;
+
+                $this.addClass("shortened");
+                var content = $this.html();
+                if (content.length > config.showChars) {
+                    var c = content.substr(0, config.showChars);
+                    var h = content.substr(config.showChars, content.length - config.showChars);
+                    var html = c + '<span class="moreellipses">' + config.ellipsesText + ' </span><span class="morecontent"><span>' + h + '</span> <a href="#" class="morelink">' + config.moreText + '</a></span>';
+                    $this.html(html);
+                    jQuery(".morecontent span").hide();
+                }
+            });
+
         };
+    })(jQuery);
 
-        if (settings) {
-            $.extend(config, settings);
-        }
-
-        $(document).off("click", '.morelink');
-
-        $(document).on({click: function () {
-
-            var $this = $(this);
-            if ($this.hasClass('less')) {
-                $this.removeClass('less');
-                $this.html(config.moreText);
-            } else {
-                $this.addClass('less');
-                $this.html(config.lessText);
+    /**
+     *
+     * @type type Medlib.BeShorten(element, options)
+     */
+    Medlib.plugin('BeShorten', function(element, options){
+        return {
+            main: function () {
+                jQuery(element).shorten(options);
             }
-            $this.parent().prev().toggle();
-            $this.prev().toggle();
-            return false;
         }
-        }, '.morelink');
-
-        return this.each(function () {
-            var $this = $(this);
-            if($this.hasClass("shortened")) return;
-
-            $this.addClass("shortened");
-            var content = $this.html();
-            if (content.length > config.showChars) {
-                var c = content.substr(0, config.showChars);
-                var h = content.substr(config.showChars, content.length - config.showChars);
-                var html = c + '<span class="moreellipses">' + config.ellipsesText + ' </span><span class="morecontent"><span>' + h + '</span> <a href="#" class="morelink">' + config.moreText + '</a></span>';
-                $this.html(html);
-                $(".morecontent span").hide();
-            }
-        });
-
-    };
-
-})(jQuery);
-
-/**
- *
- * @type type Medlib.BeShorten
- */
-var Medlib = (function () {
-    'use strict';
-    Medlib.BeShorten = function(element, options){
-        $(element).shorten(options);
-    };
-    return Medlib;
-})(Medlib || {});
+    }, true);

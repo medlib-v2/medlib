@@ -5,6 +5,7 @@ var elixir = require('laravel-elixir'),
     gutils = require('gulp-util'),
     shell  = require('gulp-shell'),
     gulp   = require('gulp'),
+    Task = elixir.Task,
     jQuery = require('./resources/assets/js/jquery/config.json'),
     App = require('./resources/assets/js/config.json'),
     booksApp = require('./resources/assets/js/books/config.json'),
@@ -18,18 +19,11 @@ var elixir = require('laravel-elixir'),
     filterToggleBundle = require('./resources/assets/less/plugins/be-list/addons/filter-toggle-bundle/js/config.json'),
     filterDropdownBundle = require('./resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/config.json');
 
+
 require('laravel-elixir-browserify-official');
 require('laravel-elixir-browsersync-official');
 require('laravel-elixir-browserify-hmr');
 require('laravel-elixir-clean-unofficial');
-
-var Task = elixir.Task;
-elixir.extend('lang', function() {
-    new Task('lang', function(){
-        return gulp.src('').pipe(shell('php artisan js-localization:refresh'));
-    });
-
-});
 
 elixir.config.js.browserify.transformers.push({
     name: 'vueify',
@@ -42,6 +36,21 @@ elixir.config.js.browserify.transformers.push({
         })]
     }
 });
+/**
+elixir.config.js.browserify.plugins.push({
+    name: 'vueify-extract-css',
+    options: {
+        out: elixir.config.publicPath + '/css/bundle.css'
+    }
+});
+**/
+
+elixir.extend('lang', function() {
+    new Task('lang', function(){
+        return gulp.src('').pipe(shell('php artisan js-localization:refresh'));
+    });
+
+});
 
 /**
  * elixir.config.js.browserify.watchify.enabled = true;
@@ -53,12 +62,7 @@ elixir.config.js.browserify.transformers.push({
  * }
  *
  * require('laravel-elixir-vueify');
- * elixir.config.js.browserify.plugins.push({
- *   name: 'vueify-extract-css',
- *   options: {
- *       out: 'path/to/extracted/bundle.css'
- *   }
- * });
+ *
  **/
 
 /**
@@ -73,7 +77,7 @@ elixir.config.js.browserify.transformers.push({
  */
 elixir(function(mix) {
     mix.less('application.less', 'public/css/application.css')
-        .browserify(App.main.src, App.main.dist)
+        //.browserify(App.main.src, App.main.dist)
         .browserify(booksApp.src, booksApp.dist)
         .browserify(PreviewApp.src, PreviewApp.dist)
         .browserify(vue.cookiesBar.src, vue.cookiesBar.dist)
@@ -85,11 +89,14 @@ elixir(function(mix) {
             'less/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css'],
             'public/css/vendors.min.css', 'resources/assets/')
         .scripts([
-            'less/plugins/select2/js/select2.js',
-            'less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
-            'js/plugins/jquery.touchSwipe.min.js'],
-            'public/js/plugins.vendor.min.js', 'resources/assets')
-        .scripts(App.plugins.src, App.plugins.dist)
+            'resources/assets/js/plugins/modernizr.js',
+            'resources/assets/less/plugins/select2/js/select2.js',
+            'resources/assets/less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
+            'resources/assets/js/plugins/jquery.touchSwipe.min.js',
+            'node_modules/socket.io-client/dist/socket.io.js',
+            'vendor/andywer/js-localization/resources/js/localization.js'],
+            'public/js/plugins.vendor.min.js', './')
+        .scripts(App.src, App.dist)
         .scripts(beList.src, beList.dist, 'resources/assets/less/plugins/be-list')
         .scripts(sortBundele.src, sortBundele.dist, 'resources/assets/less/plugins/be-list')
         .scripts(textboxFilter.src, textboxFilter.dist, 'resources/assets/less/plugins/be-list')
@@ -112,7 +119,6 @@ elixir(function(mix) {
             'js/jquery.min.js',
             'js/app.min.js',
             'js/plugins.vendor.min.js',
-            'js/medlib.plugins.min.js',
             'js/vue/cookiesbar.min.js',
             'js/books/app.min.js',
             'js/preview/app.min.js',
@@ -121,22 +127,24 @@ elixir(function(mix) {
         .copy('resources/assets/images', 'public/images')
         .copy('resources/assets/fonts', 'public/build/fonts');
 
-    mix.clean([
-        'public/css',
-        'public/js'
-    ]); //.lang();
+    if (process.env.NODE_ENV == 'production') {
+        mix.clean([
+            'public/css',
+            'public/js'
+        ]); //.lang();
+    }
 
     if (process.env.NODE_ENV !== 'production') {
 
         mix.browserSync({
-            proxy: 'medlib-v2.lan',
+            proxy: 'http://localhost:8000',
             files: [
                 elixir.config.appPath + '/**/*.php',
                 elixir.config.get('public.css.outputFolder') + '/**\/*.css',
                 elixir.config.get('public.versioning.buildFolder') + '/rev-manifest.json',
                 'resources/views/**/*.php'
             ],
-            browser: ['google chrome']
+            browser: ['yandex']
         });
     }
 });

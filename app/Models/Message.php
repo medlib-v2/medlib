@@ -19,7 +19,7 @@ class Message extends Model
     /**
      * These fields could be mass assigned
      */
-    protected $fillable = ['user_id', 'body', 'senderid', 'senderprofileimage', 'sendername'];
+    protected $fillable = ['user_id', 'body', 'sender_id', 'sender_profile_image', 'sender_name'];
 
     /**
      * A message belongs to Many Users.
@@ -32,22 +32,21 @@ class Message extends Model
     }
 
     /**
-     *  Create a new message object.
+     * Create a new message object.
      *
-     *	@param string $body
-     *	@param int $senderId
-     *	@param string $senderProfileImage
-     *	@param string $senderName
-     *
-     *	@return static
+     * @param string $body
+     * @param int $senderId
+     * @param string $senderProfileImage
+     * @param string $senderName
+     * @return static
      */
     public static function createMessage($body, $senderId, $senderProfileImage, $senderName)
     {
         $message = new static([
             'body' => $body,
-            'senderid' => $senderId,
-            'senderprofileimage' => $senderProfileImage,
-            'sendername' => $senderName]);
+            'sender_id' => $senderId,
+            'sender_profile_image' => $senderProfileImage,
+            'sender_name' => $senderName]);
 
         return $message;
     }

@@ -30,8 +30,25 @@
         <script type="text/javascript" src="{{ App::rev('js/jquery.min.js') }}"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="{{ App::rev('js/plugins.vendor.min.js') }}"></script>
+        <script src="/js-localization/messages"></script>
         <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
-        <script type="text/javascript" src="{{ App::rev('js/medlib.plugins.min.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                /**
+                 * Medlib Application
+                 */
+                Medlib.Token = {!! json_encode([
+                    'language' => App::getLocale(),
+                    'csrfToken' => csrf_token(),
+                    'jwt' => session()->has('jwt-token') ? session()->get('jwt-token') : '',
+                    'socket_url' => config('medlib.socket_url')
+                    ])
+                !!}
+                @if (Auth::check())
+                Medlib.WebSocket(null);
+                @endif
+            });
+        </script>
         @yield('script')
         <script type="text/javascript">
             function _getCookie() {

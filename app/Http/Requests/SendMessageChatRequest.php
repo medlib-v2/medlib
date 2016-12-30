@@ -25,7 +25,7 @@ class SendMessageChatRequest extends Request
     public function rules()
     {
         return [
-            'receiverId' => 'required',
+            'receiver_id' => 'required',
             'message' => 'required'
         ];
     }

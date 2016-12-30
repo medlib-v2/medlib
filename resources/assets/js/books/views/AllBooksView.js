@@ -2,7 +2,7 @@ let _ = require('lodash'),
     $ = window.jQuery,
     BookView = require('./BookView'),
     Backbone = require('backbone'),
-    Modernizr = require('../utils/modernizr');
+    Modernizr = window.Modernizr;
 
 const AllBooksView = Backbone.View.extend({
 

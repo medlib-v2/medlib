@@ -13,6 +13,7 @@ return [
 
     'admin' => [
         'name' => env('ADMIN_NAME'),
+        'username' => env('ADMIN_USERNAME'),
         'email' => env('ADMIN_EMAIL'),
         'password' => env('ADMIN_PASSWORD'),
     ],
@@ -79,7 +80,7 @@ return [
     */
     'ignore_dot_files' => env('IGNORE_DOT_FILES', true),
 
-    'socket_url'    => env('SOCKET_URL', 'http://medlib.app'),
+    'socket_url'    => env('SOCKET_URL', 'http://medlib.app:6001'),
     'theme'         => env('APP_THEME', 'white'),
 
 ];

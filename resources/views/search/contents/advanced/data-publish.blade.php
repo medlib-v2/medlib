@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="group-form">
+                        <div class="group-form" id="range-date">
                             <span>
                                 <label for="from-year">De</label>
                                 <input title="Année" name="datePub[fromYear]" class="form-control input-sm" id="from-year" size="9" type="text" placeholder="AAAA" maxlength="4">

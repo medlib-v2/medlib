@@ -5,11 +5,12 @@ namespace Medlib\Http\Controllers\Auth;
 use Exception;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
-use Medlib\Commands\RegisterSocialUserCommand;
-use Laravel\Socialite\Two\User as UserProvider;
 use Medlib\Services\SocialAccountService;
+use Medlib\Services\RegisterSocialUserService;
+use Laravel\Socialite\Two\User as UserProvider;
 
 class SocialAuthController extends Controller
 {
@@ -76,6 +77,7 @@ class SocialAuthController extends Controller
      */
     public function handleFacebookCallback(Request $request)
     {
+        dd($request);
         /**
          * Get the user information from facebook
          */
@@ -156,7 +158,7 @@ class SocialAuthController extends Controller
             return $authUser;
         }
 
-        return RegisterSocialUserCommand::create([
+        return RegisterSocialUserService::create([
             'email' => $providerUser->user['email'],
             'username' => $providerUser->name ?$providerUser->name : self::generateUsername($providerUser),
             'password' => '',

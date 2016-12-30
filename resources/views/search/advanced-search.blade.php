@@ -171,17 +171,17 @@
             /**
              * Medlib Application
              */
-            Medlib.InputField();
-            Medlib.MultiTags();
+            Medlib.InputField(null);
+            Medlib.MultiTags(null);
             @if (Auth::guest())
             Medlib.Password('#password', {
                 innerToggle: true,
-                //touchSupport: Modernizr.touch,
+                touchSupport: Modernizr.touch,
                 title: 'Click here show/hide password',
                 hideToggleUntil: 'focus'
             });
             @endif
-            Medlib.FormElements();
+            Medlib.FormElements(null);
         });
     </script>
 @endsection

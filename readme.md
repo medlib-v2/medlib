@@ -16,8 +16,8 @@ Thank you for considering contributing to the Laravel framework! The contributio
 ## Technologies utilisées
     
 - [x] Laravel 5.3
+- [x] Z39.50 (Yaz)
 - [x] Bootstrap
-- [x] ionicons
 - [x] Node.js
 - [x] Redis
 - [x] Memcached
@@ -85,6 +85,12 @@ VI. Mise en œuvre de Medlib
 
 ```shell
 $ php artisan medlib:install
+```
+
+VII. Mise en œuvre de WebSocket
+###### Sur le terminal (Laisser le terminal ouvert avec la commande en marche)
+```shell
+$ node server.js
 ```
 
 ### License

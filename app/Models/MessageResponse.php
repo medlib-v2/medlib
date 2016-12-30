@@ -22,7 +22,7 @@ class MessageResponse extends Model
      *
      * @var array
      */
-    protected $fillable = ['message_id','open', 'body', 'senderid', 'receiverid', 'senderprofileimage', 'sendername'];
+    protected $fillable = ['message_id','open', 'body', 'sender_id', 'receiver_id', 'sender_profile_image', 'sender_name'];
 
     /**
      * Many Responses belong to many users.
@@ -49,22 +49,26 @@ class MessageResponse extends Model
      *  Create a new response object.
      *
      * @param string $body
-     * @param int $senderId
-     * @param int $receiverId
-     * @param string $senderProfileImage
-     * @param string $senderName
-     *
+     * @param $sender_id
+     * @param $receiver_id
+     * @param $sender_profile_image
+     * @param $sender_name
      * @return static
+     * @internal param int $senderId
+     * @internal param int $receiverId
+     * @internal param string $senderProfileImage
+     * @internal param string $senderName
+     *
      */
-    public static function createMessageResponse($body, $senderId, $receiverId, $senderProfileImage, $senderName)
+    public static function createMessageResponse($body, $sender_id, $receiver_id, $sender_profile_image, $sender_name)
     {
         $response = new static([
 
             'body' => $body,
-            'senderid' => $senderId,
-            'receiverid' => $receiverId,
-            'senderprofileimage' => $senderProfileImage,
-            'sendername' => $senderName]);
+            'sender_id' => $sender_id,
+            'receiver_id' => $receiver_id,
+            'sender_profile_image' => $sender_profile_image,
+            'sender_name' => $sender_name]);
 
         return $response;
     }
@@ -81,11 +85,10 @@ class MessageResponse extends Model
 
 
     /**
-     *  Determine if message response was opened by current user.
+     * Determine if message response was opened by current user.
      *
-     *	@param int $userId
-     *
-     *	@return boolean
+     * @param int $userId
+     * @return boolean
      */
     public function hasBeenOpenedBy($userId)
     {
@@ -94,11 +97,10 @@ class MessageResponse extends Model
 
 
     /**
-     *  Determine if message response was sent by a user.
+     * Determine if message response was sent by a user.
      *
-     *	@param int $userId
-     *
-     *	@return boolean
+     * @param int $userId
+     * @return boolean
      */
     public function wasSentByThisUser($userId)
     {

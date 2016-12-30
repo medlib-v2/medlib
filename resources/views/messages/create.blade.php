@@ -11,6 +11,7 @@
 @section('content')
 	<main id="content" class="content" role="main">
 	<section class="content-wrap">
+		@include('flash.message')
 		<br><br><br><br>
 		<div class="row">
 			<div id="center-column" class="col-md-6">
@@ -19,11 +20,11 @@
                 'formType' => 'message-form',
                 'button' => 'Submit',
                 'path' => 'message.store',
-                'sendingMessage' => true,
-                'userId' => $user->id,
-                'currentUserId' => $currentUser->id,
-                'currentUserProfileimage' => $currentUser->getAvatar(),
-                'currentUsername' => $currentUser->getUsername()
+                'sending_message' => true,
+                'user_id' => $user->id,
+                'current_user_id' => $currentUser->id,
+                'current_user_profile_image' => $currentUser->getAvatar(),
+                'current_username' => $currentUser->getUsername()
                 ])
 
 			</div>

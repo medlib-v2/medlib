@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\InstallCommand::class,
         Commands\CreateUserCommand::class,
         Commands\GenerateJWTSecretCommand::class,
+        Commands\ClearOrphanAvatarsCommand::class,
         Commands\DeleteExpiredConfirmationTokensCommand::class,
     ];
 

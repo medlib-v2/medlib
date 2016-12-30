@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\App;
 use Medlib\Models\ConfirmationToken;
 use Illuminate\Support\Facades\View;
 use Medlib\Events\UserWasRegistered;
-use Medlib\Commands\LoginUserCommand;
-use Medlib\Commands\LogoutUserCommand;
+use Medlib\Services\LoginUserService;
+use Medlib\Services\LogoutUserService;
 use Medlib\Http\Controllers\Controller;
-use Medlib\Commands\RegisterUserCommand;
+use Medlib\Services\RegisterUserService;
 use Illuminate\Support\Facades\Redirect;
 use Medlib\Http\Requests\RegisterUserRequest;
 use Medlib\Http\Requests\CreateSessionRequest;
@@ -47,7 +47,7 @@ class AuthController extends Controller
      */
     public function doLogin(CreateSessionRequest $request)
     {
-        $response = $this->dispatch(new LoginUserCommand($request));
+        $response = $this->dispatch(new LoginUserService($request));
 
         if ($response) {
             return redirect()->route('home');
@@ -87,7 +87,7 @@ class AuthController extends Controller
             'user_avatar' => $user_avatar,
         ]);
 
-        $this->dispatch(new RegisterUserCommand($request));
+        $this->dispatch(new RegisterUserService($request));
 
         return redirect()->route('home')->with('info', trans('auth.account_created_success'))
             ->with('success', trans('auth.email_was_sent'));
@@ -99,7 +99,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function reg_birthday()
+    public function regBirthday()
     {
         return View::make('auth.reg_birthday');
     }
@@ -114,18 +114,10 @@ class AuthController extends Controller
      */
     public function doLogout()
     {
-        $response = $this->dispatch(new LogoutUserCommand());
+        $response = $this->dispatch(new LogoutUserService);
         if (!$response) {
             return redirect()->route('home');
         }
-
-        /**
-         * $request = new Request(['username' => Auth::user()->getUsername]);
-         * $response = $this->dispatch(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
-         * #if($response) response()->json(['response' => 'success']);
-         * Auth::logout();
-         * return redirect()->route('home');
-         **/
     }
 
     /**

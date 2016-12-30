@@ -1,19 +1,18 @@
 {
-	"main": {
-		"dist": "public/js/app.min.js",
-		"src": "app.js"
-	},
-	"plugins": {
-		"dist": "public/js/medlib.plugins.min.js",
-		"src": [
-			"arrow.js",
-			"password.js",
-			"input.field.js",
-			"form.elements.js",
-			"be.select.js",
-			"generate.password.js",
-			"multi.tags.js",
-			"shorten.js"
-		]
-	}
+	"dist": "public/js/app.min.js",
+	"src": [
+		"app.js",
+		"arrow.js",
+		"password.js",
+		"input.field.js",
+		"form.elements.js",
+		"be.select.js",
+		"shorten.js",
+		"pushed.js",
+		"friend.request.js",
+		"client.js",
+		"notifications.js",
+		"multi.tags.js",
+		"and.js"
+	]
 }

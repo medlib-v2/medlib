@@ -7,9 +7,7 @@
     margin-bottom: 0;
     border-bottom: 1px solid darken(@light-color, 10%);
     z-index: @left-sidebar-z-index + 3;
-
     .container-fluid{ padding: 0; }
-
     @media @phone{
         border-bottom-width: 0;
         position: relative;
@@ -58,7 +56,6 @@
             float: none !important;
             font-size: 20px;
             font-weight: 700;
-
             img.be-logo {
                 float: left;
                 vertical-align: middle;
@@ -74,16 +71,18 @@
                     content: url("@{img-url}/logo.png");
                     width: @logo-width;
                     height: @logo-height;
+                    margin-top: 20px;
                 }
 
                 /**
                 * Phone style
                 */
                 @media @phone{
-                    //display: none;
                     content: url("@{img-url}/logo-57x57.png");
                     //no-repeat @logo-padding center;
-                    margin-top: 0;
+                    margin-top: 10px;
+                    width: 57px;
+                    height: 50px;
                 }
             }
 
@@ -98,7 +97,10 @@
             /**
             * Reduce content spacing on tablet res.
             */
-            @media @tablet{ margin-right: 10px; }
+            @media @tablet{
+                margin-right: 10px;
+                width: 120px;
+            }
             
             /**
             * Whitout left sidebar style
@@ -140,7 +142,7 @@
     .navbar-nav{
         > li{
             > a{
-                line-height: @top-header-height;
+                line-height: @top-header-height + 5px;
                 color: @top-header-navbar-color;
                 font-size: @top-header-navbar-font-size;
                 padding: 0 @top-header-navbar-padding;
@@ -453,7 +455,9 @@
         .navbar-nav{
             @media @phone{
                 background-color: lighten(@left-sidebar-bg, 2%);
-                //margin: 10px;
+                position: relative;
+                top: 15px;
+                height: @top-header-height - 10px;
                 > li{
                     > a{
                         display: block;
@@ -464,7 +468,7 @@
                         text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: nowrap;
-                        height: @top-header-height-phone;
+                        height: @top-header-height-phone - 20px;
 
                         .icon{
                             line-height: @left-sidebar-icon-size - 1px;

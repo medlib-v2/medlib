@@ -17,12 +17,12 @@ Route::group(['middleware' => 'language'], function () {
      * Home Page
      */
     Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
-    Route::get('/404', [ 'uses' => 'Errors\ErrorController@NotFoundHttp', 'as' => 'errors.not.found']);
+    Route::get('/404', [ 'uses' => 'Errors\ErrorController@notFoundHttp', 'as' => 'errors.not.found']);
 
     /**
      * Friends & Friends-requests
      */
-    Route::group(['prefix' => 'friends', 'middleware' => 'auth', 'namespace' => 'Friends'], function(){
+    Route::group(['prefix' => 'friends', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Friends'], function(){
 
         /**
          * Friends
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * Messages & Messages-Responses
      */
-    Route::group(['prefix' => 'messages', 'middleware' => 'auth', 'namespace' => 'Messages'], function(){
+    Route::group(['prefix' => 'messages', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Messages'], function(){
         /**
          * Messages
          */
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
         Route::post('/register', ['uses' => 'AuthController@doRegister', 'as' => 'auth.register.submit']);
         Route::get('/register/verify/{token}', [ 'uses' => 'AuthController@doVerify', 'as' => 'auth.verify' ]);
-        Route::get('/reg_birthday', [ 'uses' => 'AuthController@reg_birthday',  'as' => 'auth.reg_birthday' ]);
+        Route::get('/reg_birthday', [ 'uses' => 'AuthController@regBirthday',  'as' => 'auth.reg_birthday' ]);
 
         Route::get('/auth/{provider}', ['uses' => 'SocialAuthController@redirectToSocialProvider', 'as' => 'auth.social']);
         Route::get('/auth/{provider}/callback', ['uses' => 'SocialAuthController@handleSocialProviderCallback', 'as' => 'auth.social.callback',]);
@@ -101,7 +101,7 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * User settings
      */
-    Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function() {
         Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
         Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
         Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
@@ -117,7 +117,7 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * Users
      */
-    Route::group(['prefix' => 'u', 'middleware' => 'auth'], function() {
+    Route::group(['prefix' => 'u', 'middleware' => ['auth','jwt.auth']], function() {
         Route::group(['prefix' => '{username}'], function(){
             /**
             Route::group(['namespace' => 'Users'], function() {
@@ -145,7 +145,7 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * User settings
      */
-    Route::group(['prefix' => 'settings', 'middleware' => 'auth', 'namespace' => 'Users'], function() {
+    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function() {
         Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
         Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
         Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
@@ -161,7 +161,7 @@ Route::group(['middleware' => 'language'], function () {
     /**
      * Dashboard
      */
-    Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'namespace' => 'Dashboard'], function(){
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Dashboard'], function(){
         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.home']);
         Route::get('/books', ['uses' => 'DashboardController@books', 'as' => 'dashboard.books']);
         Route::get('/history', ['uses' => 'DashboardController@history', 'as' => 'dashboard.history']);

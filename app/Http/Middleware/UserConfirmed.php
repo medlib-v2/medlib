@@ -40,11 +40,15 @@ class UserConfirmed
         $confirmed = $user->user_active;
 
         if (isset($confirmed) && $confirmed == "0") {
-            // If the user has not had an activation token set
+            /**
+             * If the user has not had an activation token set
+             */
             $confirmation_code = $user->confirmation_code;
 
             if (empty($confirmation_code)) {
-                // generate a confirmation code
+                /**
+                 * Generate a confirmation code
+                 */
                 $confirmation_code = hash_hmac('sha256', str_random(40), $user->email);
                 $user->confirmation_code = $confirmation_code;
                 $user->save();

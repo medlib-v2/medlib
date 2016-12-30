@@ -38,11 +38,18 @@ class TestCommand extends Command
     {
         $this->info('Running the phpunit');
         $result = system('./vendor/bin/phpunit --configuration phpunit.xml');
-        list($tests, $assertions, $status) = explode(",", $result);
 
-        if ($status) {
+        try {
+            list($tests, $assertions, $status) = explode(",", $result);
+
             $this->block($status);
-        } else {
+            /**
+            if (isset($status)) {
+                $this->block($status);
+            } else {
+                $this->comment('KTHXBYE.');
+            } **/
+        } catch (\ErrorException $e) {
             $this->comment('KTHXBYE.');
         }
     }

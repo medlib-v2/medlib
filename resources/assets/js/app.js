@@ -11,10 +11,6 @@ window.PJAX_ENABLED = true;
 window.DEBUG = true;
 
 /**
- * Plugins configuration options
- */
-
-/**
  * FastClick
  * @param {type} a
  * @param {type} b
@@ -63,17 +59,20 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
  * Setting Widgster's body selector to theme specific
  * @type {string}
  */
-const Medlib = (function($, window, document, undefined, FastClick){
+(function($, window, document, undefined, FastClick){
     'use strict';
     var VERSION = '1.0.2';
     
     /**
-     * Basic Config
+     * Defaults Config
      */
-    var config = {
-        assetsPath: 'assets',
-        imgPath: 'images',
-        jsPath: 'js',
+    var defaults = {
+        paths: {
+            images: 'images',
+            css: 'css',
+            js: 'js',
+            assets: 'assets'
+        },
         leftSidebarSlideSpeed: 200,
         leftSidebarToggleSpeed: 300,
         enableSwipe: true,
@@ -92,29 +91,33 @@ const Medlib = (function($, window, document, undefined, FastClick){
     leftSidebar = $(".be-left-sidebar"),
     rightSidebar = $(".be-right-sidebar"),
     openSidebar = false;
-    
+
     /**
-     * Medlib application
+     * Holds a references of created plugins
+     * @type {{}}
+     */
+    var plugins = {};
+    
+    //noinspection JSDuplicatedDeclaration
+    /**
+     * Medlib Application
      * 
      * @param {type} options
      * @constructor
      */
     function Medlib(options){
-        this.version = VERSION;
-        this.pjaxEnabled = window.PJAX_ENABLED;
-        this.debug = window.DEBUG;
-        this.navCollapseTimeout = 2500;
-        
+
+        //Lang.setLocale($('meta[name="locale"]').attr('content'));
         /**
-         * Extends basic config with options
+         * Extends defaults with options
          */
-        $.extend( config, options );
+        $.extend( defaults, options );
 
         /**
          * Medlib application is initialise here
-         * @param options
+         * @param defaults
          */
-        this.init = function (options) {
+        function init(defaults) {
             /**
              * FastClick on mobile
              */
@@ -123,111 +126,109 @@ const Medlib = (function($, window, document, undefined, FastClick){
             /**
              * Left Sidebar
              */
-            this.leftSidebarInit();
+            leftSidebarInit();
 
             /**
              * Right Sidebar
              */
-            this.rightSidebarInit();
-            this.chatWidget();
+            rightSidebarInit();
+            chatWidget();
 
             /**
              * Sidebars Swipe
              */
-            if( options.enableSwipe ){
-                this.sidebarSwipe();
+            if( defaults.enableSwipe ){
+                sidebarSwipe();
             }
 
             /**
              * Scroll Top button
              */
-            if( options.scrollTop ){
-                this.scrollTopButton();
+            if( defaults.scrollTop ){
+                scrollTopButton();
             }
 
             /**
              * Get colors
              */
-            colors.primary = this.getColor('clr-primary');
-            colors.success = this.getColor('clr-success');
-            colors.warning = this.getColor('clr-warning');
-            colors.danger  = this.getColor('clr-danger');
-            colors.grey    = this.getColor('clr-grey');
+            colors.primary = getColor('clr-primary');
+            colors.success = getColor('clr-success');
+            colors.warning = getColor('clr-warning');
+            colors.danger  = getColor('clr-danger');
+            colors.grey    = getColor('clr-grey');
 
             /**
              * Prevent Connections Dropdown closes on click
              */
-            $(".be-connections").on("click",function( e ){
+            jQuery(".be-connections").on("click",function( e ){
                 e.stopPropagation();
             });
 
             /**
              * Scroller plugin init
              */
-            this.scrollerInit();
+            scrollerInit();
 
-            /*
+            /**
              * Bind plugins on hidden elements
              * Dropdown shown event
              */
-            $('.dropdown').on('shown.bs.dropdown', function () {
-                $(".be-scroller").perfectScrollbar('update');
+            jQuery('.dropdown').on('shown.bs.dropdown', function () {
+                jQuery(".be-scroller").perfectScrollbar('update');
             });
 
-            /*
+            /**
              * Tabs refresh hidden elements
              */
-            $('.nav-tabs').on('shown.bs.tab', function (e) {
-                $(".be-scroller").perfectScrollbar('update');
+            jQuery('.nav-tabs').on('shown.bs.tab', function (e) {
+                jQuery(".be-scroller").perfectScrollbar('update');
             });
 
-            /*
+            /**
              * Tooltips
              */
-            $('[data-toggle="tooltip"]').tooltip();
+            jQuery('[data-toggle="tooltip"]').tooltip();
 
-            /*
+            /**
              * Popover
              */
-            $('[data-toggle="popover"]').popover();
+            jQuery('[data-toggle="popover"]').popover();
 
-            /*
+            /**
              * Bootstrap modal scroll top fix
              */
-            $('.modal').on('show.bs.modal', function(){
-                $("html").addClass('be-modal-open');
+            jQuery('.modal').on('show.bs.modal', function(){
+                jQuery("html").addClass('be-modal-open');
             });
 
-            $('.modal').on('hidden.bs.modal', function(){
-                $("html").removeClass('be-modal-open');
+            jQuery('.modal').on('hidden.bs.modal', function(){
+                jQuery("html").removeClass('be-modal-open');
             });
-        };
-
+        }
         /**
          * Initialisation
          */
-        this.init(config);
-    }
+        init(defaults);
 
-    /**
-     * Get the template css colors into js vars
-     */
-    Medlib.prototype = {
-        getColor: function( cls ){
+        /**
+         * Return the color from ClassName
+         * @param cls
+         * @returns {*}
+         */
+        function getColor(cls){
             var tmp = $("<div>", { class: cls }).appendTo("body"),
                 color = tmp.css("background-color");
             tmp.remove();
             return color;
-        },
-        leftSidebarInit: function(){
-            var self = this;
+        }
+        function leftSidebarInit(){
             function oSidebar(){
-                body.addClass( config.openLeftSidebarClass  + " " + config.transitionClass );
+                body.addClass( defaults.openLeftSidebarClass  + " " + defaults.transitionClass );
                 openSidebar = true;
             }
             function cSidebar(){
-                body.removeClass( config.openLeftSidebarClass ).addClass( config.transitionClass );
-                self.sidebarDelay();
+                body.removeClass( defaults.openLeftSidebarClass ).addClass( defaults.transitionClass );
+                sidebarDelay();
             }
 
             if( rightSidebar.length > 0 ){
@@ -235,18 +236,19 @@ const Medlib = (function($, window, document, undefined, FastClick){
                  * Open-Sidebar when click on topbar button
                  */
                 $('.be-toggle-left-sidebar').on("click", function(e){
-                    if( openSidebar && body.hasClass( config.openLeftSidebarClass ) ){
+                    if( openSidebar && body.hasClass( defaults.openLeftSidebarClass ) ){
                         cSidebar();
                     } else if( !openSidebar ){
                         oSidebar();
                     }
                     e.preventDefault();
                 });
+
                 /**
                  * Close sidebar on click outside
                  */
                 $( document ).on("mousedown touchstart",function( e ){
-                    if ( !$( e.target ).closest( rightSidebar ).length && body.hasClass( config.openLeftSidebarClass ) && (config.closeRsOnClickOutside || $.isXs()) ) {
+                    if ( !$( e.target ).closest( leftSidebar ).length && body.hasClass( defaults.openLeftSidebarClass ) && (defaults.closeRsOnClickOutside || $.isXs()) ) {
                         cSidebar();
                     }
                 });
@@ -266,7 +268,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
              * Open sub-menu functionality
              */
             firstAnchor.on("click",function( e ){
-                var $el = $(this), $open, $speed = config.leftSidebarSlideSpeed,
+                var $el = $(this), $open, $speed = defaults.leftSidebarSlideSpeed,
                     $li = $el.parent(),
                     $subMenu = $el.next();
 
@@ -294,9 +296,9 @@ const Medlib = (function($, window, document, undefined, FastClick){
                         updateScroller();
                     }});
                 }
-                /*
+                /**
                  * If current element has children stop link action
-                 */
+                 **/
                 if( $el.next().is('ul') ){
                     e.preventDefault();
                 }
@@ -304,12 +306,12 @@ const Medlib = (function($, window, document, undefined, FastClick){
 
             /**
              * Calculate sidebar tree active & open classes
-             */
+             **/
             $("li.active", leftSidebar).parents(".parent").addClass("active open");
 
             /**
              * Scrollbar plugin init when left sidebar is fixed
-             */
+             **/
             if( wrapper.hasClass("be-fixed-sidebar") ){
                 lsc.perfectScrollbar();
                 /**
@@ -328,29 +330,28 @@ const Medlib = (function($, window, document, undefined, FastClick){
             lsToggle.on('click',function( e ){
                 var spacer = $(this).next('.left-sidebar-spacer'), toggleBtn = $(this);
                 toggleBtn.toggleClass('open');
-                spacer.slideToggle(config.leftSidebarToggleSpeed, function(){
+                spacer.slideToggle(defaults.leftSidebarToggleSpeed, function(){
                     $(this).removeAttr('style').toggleClass('open');
                 });
             });
-        },
-        rightSidebarInit: function(){
-            var self = this,
-                rsScrollbar = $(".be-scroller", rightSidebar);
+        }
+        function rightSidebarInit(){
+            var rsScrollbar = jQuery(".be-scroller", rightSidebar);
             function oSidebar(){
-                body.addClass( config.openRightSidebarClass  + " " + config.transitionClass );
+                body.addClass( defaults.openRightSidebarClass  + " " + defaults.transitionClass );
                 openSidebar = true;
             }
             function cSidebar(){
-                body.removeClass( config.openRightSidebarClass ).addClass( config.transitionClass );
-                self.sidebarDelay();
+                body.removeClass( defaults.openRightSidebarClass ).addClass( defaults.transitionClass );
+                sidebarDelay();
             }
 
             if( rightSidebar.length > 0 ){
                 /**
                  * Open-Sidebar when click on topbar button
                  */
-                $('.be-toggle-right-sidebar').on("click", function(e){
-                    if( openSidebar && body.hasClass( config.openRightSidebarClass ) ){
+                jQuery('.be-toggle-right-sidebar').on("click", function(e){
+                    if( openSidebar && body.hasClass( defaults.openRightSidebarClass ) ){
                         cSidebar();
                     } else if( !openSidebar ){
                         oSidebar();
@@ -361,8 +362,8 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 /**
                  * Close sidebar on click outside
                  */
-                $( document ).on("mousedown touchstart",function( e ){
-                    if ( !$( e.target ).closest( rightSidebar ).length && body.hasClass( config.openRightSidebarClass ) && (config.closeRsOnClickOutside || $.isXs()) ) {
+                jQuery( document ).on("mousedown touchstart",function( e ){
+                    if ( !jQuery( e.target ).closest( rightSidebar ).length && body.hasClass( defaults.openRightSidebarClass ) && (defaults.closeRsOnClickOutside || jQuery.isXs()) ) {
                         cSidebar();
                     }
                 });
@@ -373,7 +374,7 @@ const Medlib = (function($, window, document, undefined, FastClick){
             /**
              * Update scrollbar height on window resize
              */
-            $(window).resize(function () {
+            jQuery(window).resize(function () {
                 waitForFinalEvent(function(){
                     rsScrollbar.perfectScrollbar('update');
                 }, 500, "be_update_scroller");
@@ -382,20 +383,20 @@ const Medlib = (function($, window, document, undefined, FastClick){
             /**
              * Update scrollbar when click on a tab
              */
-            $('a[data-toggle="tab"]', rightSidebar).on('shown.bs.tab', function (e) {
-                var scrollEl = $(e.target.getAttribute("href")).find('.be-scroller');
+            jQuery('a[data-toggle="tab"]', rightSidebar).on('shown.bs.tab', function (e) {
+                var scrollEl = jQuery(e.target.getAttribute("href")).find('.be-scroller');
                 if( scrollEl.length ){
                     scrollEl.perfectScrollbar('update');
                 }
             });
-        },
-        sidebarDelay: function(){
+        }
+        function sidebarDelay(){
             openSidebar = true;
             setTimeout(function(){
                 openSidebar = false;
-            }, config.openSidebarDelay );
-        },
-        sidebarSwipe: function(){
+            }, defaults.openSidebarDelay );
+        }
+        function sidebarSwipe(){
             /**
              * Open sidedar on swipe
              */
@@ -405,111 +406,354 @@ const Medlib = (function($, window, document, undefined, FastClick){
                 fallbackToMouseEvents: false,
                 swipeLeft: function(e){
                     if( !openSidebar && rightSidebar.length > 0 ){
-                        body.addClass( config.openRightSidebarClass + " " + config.transitionClass );
+                        body.addClass( defaults.openRightSidebarClass + " " + defaults.transitionClass );
                         openSidebar = true;
                     }
                 },
-                threshold: config.swipeTreshold
+                threshold: defaults.swipeTreshold
             });
-        },
-        chatWidget: function(){
-        var chat = $(".be-right-sidebar .tab-chat"),
-            contactsEl = $(".chat-contacts", chat),
-            conversationEl = $(".chat-window", chat),
-            messagesContainer = $(".chat-messages", conversationEl),
-            messagesList = $(".content ul", messagesContainer),
-            messagesScroll = $(".be-scroller", messagesContainer),
-            chatInputContainer = $(".chat-input", conversationEl),
-            chatInput = $("input", chatInputContainer),
-            chatInputSendButton = $(".send-msg", chatInputContainer);
-
-        function openChatWindow(){
-            if( !chat.hasClass("chat-opened") ){
-                chat.addClass("chat-opened");
-            }
         }
+        function chatWidget(){
+            var chat = jQuery(".be-right-sidebar .tab-chat"),
+                contactsEl = jQuery(".chat-contacts", chat),
+                conversationEl = jQuery(".chat-window", chat),
+                messagesContainer = jQuery(".chat-messages", conversationEl),
+                messagesList = jQuery(".content ul", messagesContainer),
+                messagesScroll = jQuery(".be-scroller", messagesContainer),
+                chatInputContainer = jQuery(".chat-input", conversationEl),
+                chatInput = jQuery("input", chatInputContainer),
+                chatInputSendButton = jQuery(".send-msg", chatInputContainer);
 
-        function closeChatWindow(){
-            if( chat.hasClass("chat-opened") ){
-                chat.removeClass("chat-opened");
+            function openChatWindow(){
+                if( !chat.hasClass("chat-opened") ){
+                    chat.addClass("chat-opened");
+                }
             }
-        }
-        /*
-         * Open Conversation Window when click on chat user
-         */
-        $(".user a", contactsEl).on('click',function(e){
-            openChatWindow();
-            e.preventDefault();
-        });
 
-        /*
-         * Close chat conv window
-         */
-        $(".title .return", conversationEl).on('click',function(e){
-            closeChatWindow();
-            scrollerInit();
-        });
-
-        /*
-         * Send message
-         */
-        function sendMsg(msg, self){
-            var $message = $('<li class="' + ((self)?'self':'friend') + '"></li>');
-            if( msg != '' ){
-                $('<div class="msg">' + msg + '</div>').appendTo($message);
-                $message.appendTo(messagesList);
-                messagesScroll.stop().animate({
-                    'scrollTop': messagesScroll.prop("scrollHeight")
-                }, 900, 'swing');
-
-                messagesScroll.perfectScrollbar('update');
+            function closeChatWindow(){
+                if( chat.hasClass("chat-opened") ){
+                    chat.removeClass("chat-opened");
+                }
             }
-        }
+            /**
+             * Open Conversation Window when click on chat user
+             */
+            jQuery(".user a", contactsEl).on('click',function(e){
+                openChatWindow();
+                e.preventDefault();
+            });
 
-        /*
-         * Send msg when click on 'send' button or press 'Enter'
-         */
-        chatInput.keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which),
-                msg = $(this).val();
+            /**
+             * Close chat conv window
+             */
+            jQuery(".title .return", conversationEl).on('click',function(e){
+                closeChatWindow();
+                scrollerInit();
+            });
 
-            if(keycode == '13'){
+            /**
+             * Send message
+             */
+            function sendMsg(msg, self){
+                var $message = jQuery('<li class="' + ((self)?'self':'friend') + '"></li>');
+                if( msg != '' ){
+                    jQuery('<div class="msg">' + msg + '</div>').appendTo($message);
+                    $message.appendTo(messagesList);
+                    messagesScroll.stop().animate({
+                        'scrollTop': messagesScroll.prop("scrollHeight")
+                    }, 900, 'swing');
+
+                    messagesScroll.perfectScrollbar('update');
+                }
+            }
+
+            /**
+             * Send msg when click on 'send' button or press 'Enter'
+             */
+            chatInput.keypress(function(event){
+                var keycode = (event.keyCode ? event.keyCode : event.which),
+                    msg = jQuery(this).val();
+
+                if(keycode == '13'){
+                    sendMsg(msg, true);
+                    jQuery(this).val("");
+                }
+                event.stopPropagation();
+            });
+
+            chatInputSendButton.on('click',function(){
+                var msg = chatInput.val();
                 sendMsg(msg, true);
-                $(this).val("");
-            }
-            event.stopPropagation();
-        });
-
-        chatInputSendButton.on('click',function(){
-            var msg = chatInput.val();
-            sendMsg(msg, true);
-            chatInput.val("");
-        });
-    },
-        scrollerInit: function(){
-            $(".be-scroller").perfectScrollbar();
-        },
-        scrollTopButton: function(){
+                chatInput.val("");
+            });
+        }
+        function scrollerInit(){
+            jQuery(".be-scroller").perfectScrollbar();
+        }
+        function scrollTopButton(){
             var offset = 220,
                 duration = 500,
-                button = $('<div class="be-scroll-top"></div>');
+                button = jQuery('<div class="be-scroll-top"></div>');
 
             button.appendTo("body");
 
-            $(window).on('scroll',function() {
-                if ( $(this).scrollTop() > offset ) {
+            jQuery(window).on('scroll',function() {
+                if ( jQuery(this).scrollTop() > offset ) {
                     button.fadeIn(duration);
                 } else {
                     button.fadeOut(duration);
                 }
             });
             button.on('touchstart mouseup',function(e) {
-                $( 'html, body' ).animate({ scrollTop: 0 }, duration);
+                jQuery( 'html, body' ).animate({ scrollTop: 0 }, duration);
                 e.preventDefault();
             });
-        },
-    };
+        }
+        /**
+         * Extends a given prototype by merging properties from base into sub.
+         *
+         * @sub {Object} sub The prototype being overwritten.
+         * @base {Object} base The prototype being written.
+         *
+         * @return {Object} The extended prototype.
+         */
+        function extend(sub, base) {
+            /**
+             * copy dialog pototype over definition.
+             */
+            for (var prop in base) {
+                if (base.hasOwnProperty(prop)) {
+                    sub[prop] = base[prop];
+                }
+            }
+            return sub;
+        }
+        /**
+         * Helper: returns a plugin instance from saved plugins.
+         * and initializes the plugin if its not already initialized.
+         *
+         * @name {String} name The plugin name.
+         *
+         * @return {Object} The plugin instance.
+         */
+        function get_plugin(name) {
+            var plugin = plugins[name].plugin;
 
+            /**
+             * initialize the plugin if its not medlib initialized.
+             */
+            if (plugin && typeof plugin.__init === 'function') {
+                plugin.__init(plugin);
+            }
+            return plugin;
+        }
+
+        function plugin() {
+            var usedKeys = [],
+                /**
+                 * Dummy variable, used to trigger dom reflow.
+                 * @type {null}
+                 */
+                reflow = null,
+                isSafari = window.navigator.userAgent.indexOf('Safari') > -1 && window.navigator.userAgent.indexOf('Chrome') < 0,
+                /**
+                 * Common class names
+                 * @type {{}}
+                 */
+                classes = {};
+
+            /**
+             * Helper: initializes the plugin instance
+             *
+             * @return    {Number}    The total count of currently open modals.
+             */
+            function initialize(instance) {
+                if (!instance.__internal) {
+
+                    /**
+                     * no need to expose init after this.
+                     */
+                    delete instance.__init;
+
+                    /**
+                     * keep a copy of initial dialog settings
+                     */
+                    if (!instance.__settings) {
+                        instance.__settings = copy(instance.settings);
+                    }
+                    /**
+                     * in case the script was included before body.
+                     * after first dialog gets initialized, it won't be null anymore!
+                     */
+                    if (null === reflow) {
+                        /**
+                         * set tabindex attribute on body element this allows script to give it
+                         * focus after the dialog is closed
+                         */
+                        document.body.setAttribute('tabindex', '0');
+                    }
+
+                    /**
+                     * get dialog buttons/focus setup
+                     */
+                    var setup;
+                    if (typeof instance.setup === 'function') {
+                        setup = instance.setup();
+                        setup.options = setup.options || {};
+                        setup.focus = setup.focus || {};
+                    } else {
+                        setup = {
+                            buttons: [],
+                            focus: {
+                                element: null,
+                                select: false
+                            },
+                            options: {}
+                        };
+                    }
+
+                    /**
+                     * initialize hooks object.
+                     */
+                    if (typeof instance.hooks !== 'object') {
+                        instance.hooks = {};
+                    }
+
+                    var internal = instance.__internal = {
+                        /**
+                         * Flag holding the open state of the dialog
+                         *
+                         * @type {Boolean}
+                         */
+                        isOpen: false
+
+                    }
+                }
+            }
+        }
+        /**
+         * Helper:  registers a new plugin definition.
+         *
+         * @name {String} name The plugin name.
+         * @Factory {Function} Factory a function resposible for creating plugin prototype.
+         * @transient {Boolean} transient True to create a new plugin instance each time the dialog is invoked, false otherwise.
+         * @base {String} base the name of another plugin to inherit from.
+         *
+         * @return {Object} The plugin definition.
+         */
+        function register(name, Factory, transient, base) {
+
+            var definition = {
+                plugin: null,
+                factory: Factory
+            };
+
+            /**
+             * if this is based on an existing plugin, create a new definition
+             * by applying the new protoype over the existing one.
+             */
+            if (base !== undefined) {
+                definition.factory = function () {
+                    return extend(new plugins[base].factory(), new Factory());
+                };
+            }
+
+            if (!transient) {
+                /**
+                 * create a new definition based on plugin
+                 * @type {Object}
+                 */
+                definition.plugin = extend(new definition.factory(), plugin);
+            }
+            return plugins[name] = definition;
+        }
+
+        return {
+            version: VERSION,
+            /**
+             * Medlib defaults
+             *
+             * @type {Object}
+             */
+            defaults: defaults,
+            /**
+             * Plugins factory
+             *
+             * @param name {string}         Plugin name.
+             * @param Factory {Function}    A Dialog factory function.
+             * @param transient {Boolean}   Indicates whether to create a singleton or transient plugin.
+             * @param base {String}         The name of the base type to inherit from.
+             */
+            plugin: function (name, Factory, transient, base) {
+
+                /**
+                 * get request, create a new instance and return it.
+                 */
+                if (typeof Factory !== 'function') {
+                    return this.get_plugin(name);
+                }
+
+                if (this.hasOwnProperty(name)) {
+                    throw new Error('medlib.plugin: name already exists');
+                }
+
+                /**
+                 * Register the plugin
+                 * @type {Object}
+                 */
+                var definition = register(name, Factory, transient, base);
+
+                if (transient) {
+
+                    /**
+                     * make it public
+                     * @returns {*}
+                     */
+                    this[name] = function () {
+                        /**
+                         * If passed with no params, consider it a get request
+                         */
+                        if (arguments.length === 0) {
+                            return definition.plugin;
+                        } else {
+                            var instance = extend(new definition.factory(), plugin);
+                            /**
+                             * ensure init
+                             */
+                            if (instance && typeof instance.__init === 'function') {
+                                instance.__init(instance);
+                            }
+                            return instance['main'].apply(instance, arguments);
+                             //instance['show'].apply(instance);
+                        }
+                    };
+                } else {
+                    /**
+                     * make it public
+                     * @returns {*}
+                     */
+                    this[name] = function () {
+                        /**
+                         * ensure init
+                         */
+                        if (definition.plugin && typeof definition.plugin.__init === 'function') {
+                            definition.plugin.__init(definition.plugin);
+                        }
+                        /**
+                         * if passed with no params, consider it a get request
+                         */
+                        if (arguments.length === 0) {
+                            return definition.plugin;
+                        } else {
+                            var plugin = definition.plugin;
+                            return plugin['main'].apply(definition.plugin, arguments);
+                             //plugin['show'].apply(definition.plugin);
+                        }
+                    };
+                }
+            }
+        };
+    }
     /**
      * Wait for final event on window resize
      * @type Function
@@ -525,13 +769,10 @@ const Medlib = (function($, window, document, undefined, FastClick){
             }
             timers[uniqueId] = setTimeout(callback, ms);
         };
-    })();
+    })(),
 
     /**
      * @returns {Medlib}
      */
-    return new Medlib;
+    Medlib = new Medlib;
     
-})(jQuery, window, document, undefined, FastClick);
-
-window.Medlib = Medlib;

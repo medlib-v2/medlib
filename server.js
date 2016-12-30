@@ -1,84 +1,188 @@
-var jwt = require('jsonwebtoken');
-var fs = require('fs');
+var jwt = require('jsonwebtoken'),
+    fs = require('fs'),
+    logger = require('winston'),
+    clients = {};
+
+/**
+ * Logger config
+ */
+logger.remove(logger.transports.Console);
+logger.add(logger.transports.Console, { colorize: true, timestamp: true });
 
 require('dotenv').load();
 
-var debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true);
-
-var Redis = require('ioredis');
-var redis = new Redis({
-    port: process.env.REDIS_PORT || 6379, 
-    host: process.env.REDIS_HOST || '127.0.0.1', 
-    db: process.env.REDIS_DATABASE || 0,
-    password: process.env.REDIS_PASSWORD || null
-});
+var debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true),
+    Redis = require('ioredis'),
+    redis = new Redis({
+        port: process.env.REDIS_PORT || 6379,
+        host: process.env.REDIS_HOST || '127.0.0.1',
+        db: process.env.REDIS_DATABASE || 0,
+        password: process.env.REDIS_PASSWORD || null
+    });
 
 if (/^https/i.test(process.env.SOCKET_URL)) {
     var ssl_conf = {
         key:  (process.env.SOCKET_SSL_KEY_FILE  ? fs.readFileSync(process.env.SOCKET_SSL_KEY_FILE)  : null),
         cert: (process.env.SOCKET_SSL_CERT_FILE ? fs.readFileSync(process.env.SOCKET_SSL_CERT_FILE) : null),
         ca:   (process.env.SOCKET_SSL_CA_FILE   ? fs.readFileSync(process.env.SOCKET_SSL_CA_FILE)   : null)
-    };
-
-    var app = require('https').createServer(ssl_conf, handler);
+    },
+        server = require('https').createServer(ssl_conf, handler);
 } else {
-    var app = require('http').createServer(handler);
+    var server = require('http').createServer(handler);
 }
 
-var io  = require('socket.io')(app);
+var io  = require('socket.io')(server);
 
-app.listen(parseInt(process.env.SOCKET_PORT), function() {
+server.listen(parseInt(process.env.SOCKET_PORT), function() {
     if (debug) {
-        console.log('Server is running!');
+        logger.info('Server is running!');
     }
 });
 
 function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.writeHead(200);
     res.end('');
 }
 
-// Middleware to check the JWT
+/**
+ * Middleware to check the JWT
+ */
 io.use(function(socket, next) {
     var decoded;
 
+    logger.info('socket', socket.handshake);
+
     if (debug) {
-        console.log('Token - ' + socket.handshake.query.jwt);
+        logger.info('Token - ' + socket.handshake.query.jwt);
     }
 
     try {
         decoded = jwt.verify(socket.handshake.query.jwt, process.env.JWT_SECRET);
 
         if (debug) {
-            console.log(decoded);
+            logger.info(decoded);
         }
+
     } catch (err) {
         if (debug) {
-            console.error(err);
+            logger.error(err);
         }
 
         next(new Error('Invalid token!'));
     }
 
     if (decoded) {
-        // everything went fine - save userId as property of given connection instance
-        socket.userId = decoded.data.userId;
+        /**
+         * everything went fine - save user_id as property of given connection instance
+         */
+        socket.user_id = decoded.data.user_id;
         next();
     } else {
-        // invalid token - terminate the connection
+        /**
+         * invalid token - terminate the connection
+         */
         next(new Error('Invalid token!'));
     }
 });
 
 io.on('connection', function(socket) {
-    if (debug) {
-        console.log('connection');
-    }
+    /**
+     * Regiter a client based on user_id
+     */
+    socket.on('register', function(data)
+    {
+        if (clients[data.user_id] && clients[data.user_id].sockets instanceof Array)
+        {
+            /**
+             * if user is already registered
+             * with one or many socket clients,
+             * just push socket id to array of sockets
+             */
+            clients[data.user_id].sockets.push(socket.id);
+
+        } else
+        {
+            /**
+             * if it is the first socket client
+             * add an array and push socket id
+             * @type {{sockets: Array}}
+             */
+            clients[data.user_id] = { sockets: []};
+
+            clients[data.user_id].sockets.push(socket.user_id);
+        }
+        if (debug) {
+            logger.info('connection -> user_id = ' + data.user_id +' socket_id = ' + socket.user_id);
+        }
+    });
+
+    socket.on('broadcast', function (data) {
+
+        /**
+         * When LAMP server broadcast look for user in list of clients
+         */
+        if(clients[data.user_id]) {
+            for(var soct in clients[data.user_id].sockets) {
+
+                /**
+                 * Proxy event to all connected sockets
+                 */
+                io.sockets.connected[clients[data.user_id].sockets[soct]].emit(data.receiver_id, data);
+
+                if (debug) {
+                    logger.info('New data was sent = ' + JSON.stringify(data));
+                }
+            }
+        }
+        else
+        {
+            if (debug) {
+                logger.info('user_id is not open for communication: ' + data.user_id);
+            }
+        }
+    });
+
+    socket.on('disconnect', function () {
+
+        /**
+         * when socket  disconnects remove socket from list of sockets
+         */
+        for(var name in clients) {
+
+            for (var soct in clients[name].sockets) {
+
+                if(clients[name].sockets[soct] === socket.user_id) {
+                    /**
+                     * remove socket from array of sockets
+                     */
+                    clients[name].sockets.splice(soct, 1);
+
+                    if (debug) {
+                        logger.info('socket removed');
+                    }
+
+                    /**
+                     * if no more sockets are connected
+                     * remove user from list of clients
+                     */
+                    if (clients[name].sockets.length === 0) {
+                        delete clients[name];
+
+                        if (debug) {
+                            logger.info('user_id completely removed');
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    });
 });
 
 redis.psubscribe('*', function(err, count) {
     if (debug) {
-        console.log('psubscribe');
+        logger.info('psubscribe');
     }
 });
 
@@ -89,7 +193,7 @@ redis.on('pmessage', function(subscribed, channel, message) {
     if (message.event.indexOf('RestartSocketServer') !== -1) {
 
         if (debug) {
-            console.log('Restart command received');
+            logger.info('Restart command received');
         }
 
         process.exit();
@@ -97,7 +201,7 @@ redis.on('pmessage', function(subscribed, channel, message) {
     }
 
     if (debug) {
-        console.log('Message received from event ' + message.event + ' to channel ' + channel);
+        logger.info('Message received from event ' + message.event + ' to channel ' + channel);
     }
 
     io.emit(channel + ':' + message.event, message.data);

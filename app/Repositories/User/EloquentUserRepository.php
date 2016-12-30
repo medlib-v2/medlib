@@ -8,28 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class EloquentUserRepository implements UserRepository
 {
-
     /**
      * Get a paginated list of all users
      *
-     *	@param int $howMany
-     *	@param string $byFirstname
-     *
-     *	@return mixed
+     * @param int $how_many
+     * @param string $by_first_name
+     * @return mixed
      */
-    public function getPaginated($howMany = 10, $byFirstname = null)
+    public function getPaginated($how_many = 10, $by_first_name = null)
     {
-        if (is_null($byFirstname)) {
-            return User::whereNotIn('id', [Auth::user()->id])->orderBy('first_name', 'asc')->paginate($howMany);
+        if (is_null($by_first_name)) {
+            return User::whereNotIn('id', [Auth::user()->id])->orderBy('first_name', 'asc')->paginate($how_many);
         }
         
-        return User::whereNotIn('id', [Auth::user()->id])->where('first_name', 'like', '%'.$byFirstname.'%')->orderBy('first_name', 'asc')->paginate($howMany);
+        return User::whereNotIn('id', [Auth::user()->id])->where('first_name', 'like', '%'.$by_first_name.'%')->orderBy('first_name', 'asc')->paginate($how_many);
     }
+
     /**
      * Fetch a user by username
      *
      * @param int $username
-     *
      * @return mixed
      */
     public function findByUsername($username)
@@ -41,7 +39,6 @@ class EloquentUserRepository implements UserRepository
      * Fetch a user by id
      *
      * @param int $id
-     *
      * @return mixed
      */
     public function findById($id)
@@ -53,17 +50,14 @@ class EloquentUserRepository implements UserRepository
      * Fetch many users by id
      *
      * @param Collection $ids
-     *
      * @return mixed
      */
     public function findManyById(Collection $ids)
     {
         $users = [];
-
         foreach ($ids as $id) {
             $users[] = $this->findById($id);
         }
-
         return    $users;
     }
 

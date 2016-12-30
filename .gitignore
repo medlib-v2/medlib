@@ -17,5 +17,5 @@ common.js
 .DS_Store
 ._.DS_Store
 ._*
-readme.md
+dump.rdb
 package-2.json

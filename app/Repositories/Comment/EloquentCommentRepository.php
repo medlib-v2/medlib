@@ -7,13 +7,11 @@ use Medlib\Models\Comment;
 
 class EloquentCommentRepository implements CommentRepository
 {
-
     /**
      * Get Comments posted by current user.
      *
-     * 	@param \Medlib\Models\User $user
-     *
-     *	@return mixed
+     * @param \Medlib\Models\User $user
+     * @return mixed
      */
     public function getCommentByFeedAndUser(User $user)
     {

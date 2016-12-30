@@ -187,7 +187,6 @@ return [
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         BackupManager\Laravel\Laravel5ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,

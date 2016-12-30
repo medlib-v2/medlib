@@ -4,19 +4,19 @@ namespace Medlib\Services;
 
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProcessImage
 {
-
     /**
      * Save Image to the public folder
      *
-     * @param $file, $path, $width, $height
-     * @return $filePath
+     * @param $file
+     * @param $path
+     * @param $width
+     * @param $height
+     * @return string
      */
     public function execute($file, $path, $width, $height)
     {
@@ -24,7 +24,7 @@ class ProcessImage
         $full_path = public_path($path);
 
         Image::make($file)->resize($width, $height)->save($full_path.$filename);
-        //return asset($path.$filename);
+
         return $path.$filename;
     }
 
@@ -33,21 +33,24 @@ class ProcessImage
      *
      * @param $file
      *
-     * @return $filename
+     * @return string
      */
     public function rename($file)
     {
         $faker = Faker::create();
         switch (exif_imagetype($file)) {
-            
-             case IMAGETYPE_GIF: return $faker->sha1.'.gif';
-                 break;
-             case IMAGETYPE_JPEG: return $faker->sha1.'.jpg';
-                 break;
-             case IMAGETYPE_PNG: return $faker->sha1.'.png';
-                 break;
-             case IMAGETYPE_BMP: return $faker->sha1.'.bmp';
-         }
+            case IMAGETYPE_GIF:
+                return $faker->sha1.'.gif';
+                break;
+            case IMAGETYPE_JPEG:
+                return $faker->sha1.'.jpg';
+                break;
+            case IMAGETYPE_PNG:
+                return $faker->sha1.'.png';
+                break;
+            case IMAGETYPE_BMP:
+                return $faker->sha1.'.bmp';
+        }
     }
 
     /**
@@ -63,18 +66,26 @@ class ProcessImage
     public function resize($url, $width = 100, $height = null, $crop = false, $quality = 90)
     {
         if ($url) {
-            // URL info
+            /**
+             * URL info
+             */
             $info = pathinfo($url);
 
-            // The size
+            /**
+             * The size
+             */
             if (!$height) {
                 $height = $width;
             }
 
-            // Quality
-            $quality = Config::get('image.quality', $quality);
+            /**
+             * Quality
+             */
+            $quality = config('image.quality', $quality);
 
-            // Directories and file names
+            /**
+             * Directories and file names
+             */
             $fileName       = $info['basename'];
             $sourceDirPath  = public_path() . '/' . $info['dirname'];
             $sourceFilePath = $sourceDirPath . '/' . $fileName;
@@ -139,12 +150,16 @@ class ProcessImage
     {
         if ($file) {
 
-            // Generate random dir
+            /**
+             * Generate random dir
+             */
             if (!$dir) {
-                $dir = Config::get('image.upload_path').'images/';
+                $dir = config('image.upload_path').'images/';
             }
 
-            // Get file info and try to move
+            /**
+             * Get file info and try to move
+             */
             $destination = $dir;
             $filename = $this->rename($file);
             $path = $dir . '/' . $filename;
@@ -169,8 +184,10 @@ class ProcessImage
     public function createDimensions($url, $dimensions = [])
     {
 
-        // Get default dimensions
-        $defaultDimensions = Config::get('image.dimensions');
+        /**
+         * Get default dimensions
+         */
+        $defaultDimensions = config('image.dimensions');
 
         if (is_array($defaultDimensions)) {
             $dimensions = array_merge($defaultDimensions, $dimensions);
@@ -178,13 +195,17 @@ class ProcessImage
 
         foreach ($dimensions as $dimension) {
 
-            // Get dimmensions and quality
+            /**
+             * Get dimmensions and quality
+             */
             $width   = (int) $dimension[0];
             $height  = isset($dimension[1]) ?  (int) $dimension[1] : $width;
             $crop    = isset($dimension[2]) ? (bool) $dimension[2] : false;
-            $quality = isset($dimension[3]) ?  (int) $dimension[3] : Config::get('image.quality');
+            $quality = isset($dimension[3]) ?  (int) $dimension[3] : config('image.quality');
 
-            // Run resizer
+            /**
+             * Run resizer
+             */
             $img = $this->resize($url, $width, $height, $crop, $quality);
         }
     }

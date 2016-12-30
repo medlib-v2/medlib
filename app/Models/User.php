@@ -159,24 +159,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * Add a friend to a user.
      *
-     * @param int $requesterUser_id
+     * @param int $requester_user_id
      * @return mixed
      */
-    public function createFriendShipWith($requesterUser_id)
+    public function createFriendShipWith($requester_user_id)
     {
-        return $this->friends()->attach($requesterUser_id, ['requested_id' => $this->id, 'requester_id' => $requesterUser_id]);
+        return $this->friends()->attach($requester_user_id, ['requested_id' => $this->id, 'requester_id' => $requester_user_id]);
     }
 
 
     /**
      * Remove a friend from a user.
      *
-     * @param int $requesterUser_id
+     * @param int $requester_user_id
      * @return mixed
      */
-    public function finishFriendshipWith($requesterUser_id)
+    public function finishFriendshipWith($requester_user_id)
     {
-        return $this->friends()->detach($requesterUser_id, ['requested_id' => $this->id, 'requester_id' => $requesterUser_id]);
+        return $this->friends()->detach($requester_user_id, ['requested_id' => $this->id, 'requester_id' => $requester_user_id]);
     }
 
     /**
@@ -223,7 +223,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function receivedFriendRequestFrom($otherUser_id)
     {
-        $friendRequestsReceivedByCurrentUser = DB::table('friend_requests')->where('user_id', $this->id)->pluck('requester_id')->toArray();
+        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->pluck('requester_id')->toArray();
         return in_array($otherUser_id, $friendRequestsReceivedByCurrentUser);
     }
 

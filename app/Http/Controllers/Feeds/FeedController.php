@@ -36,7 +36,6 @@ class FeedController extends Controller
     public function __construct()
     {
         $this->currentUser = Auth::user();
-        $this->middleware('auth');
     }
 
     /**
@@ -173,16 +172,16 @@ class FeedController extends Controller
     }
 
     /**
-     *  Publish a new feed.
+     * Publish a new feed.
      *
-     *	@param string $body
-     *	@param string $poster_username
-     *	@param string $poster_profile_image
-     *  @param string $image_url
-     *  @param string $video_url
-     *  @param string $location
+     * @param string $body
+     * @param string $poster_username
+     * @param string $poster_profile_image
+     * @param string $image_url
+     * @param string $video_url
+     * @param string $location
      *
-     *	@return Response
+     * @return Response
      */
     protected function storeFeed($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null)
     {
@@ -192,13 +191,13 @@ class FeedController extends Controller
 
         return Response::json([
             'response' => 'success',
-            'feedId' => $feed->getFeedId(),
-            'userAvatar' => $feed->getAvatarPublisher(),
-            'username' => $feed->getUsernamePublisher(),
+            'feed_id' => $feed->getFeedId(),
+            'user_avatar' => $feed->getAvatarPublisher(),
+            'user_name' => $feed->getUsernamePublisher(),
             'image_url' => $feed->getImagePath(),
             'video_url' => $feed->getVideoPath(),
-            'feedBody' => $feed->getContent(),
-            'publishAt' => $feed->getPublishAt()]);
+            'feed_body' => $feed->getContent(),
+            'publish_at' => $feed->getPublishAt()]);
     }
 
     /**

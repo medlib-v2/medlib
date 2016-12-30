@@ -1,6 +1,6 @@
 <section class="event" id="feedid{!! $feed->id !!}">
 	<span class="thumb-sm avatar pull-xs-left mr-sm"><img class="img-circle" src="{!! $feed->user->getAvatar() !!}" alt="{!! $feed->user->getUsername() !!}"></span>
-	<h5 class="event-heading"><a href="{!! url('/profiles/'.$feed->user->getUsername()) !!}">{!! $feed->user->getName() !!}</a></h5>
+	<h5 class="event-heading"><a href="{!! url('/u/'.$feed->user->getUsername()) !!}">{!! $feed->user->getName() !!}</a></h5>
 	<p class="text-muted">{!! $feed->created_at->diffForHumans() !!}</p>
 	<p>{!! $feed->getContent() !!}</p>
 	<footer>

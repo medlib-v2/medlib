@@ -2,23 +2,18 @@
 
 namespace Medlib\Http\Controllers\Messages;
 
-use Medlib\Http\Requests;
-use Medlib\Models\Message;
 use Illuminate\Http\Request;
-use Medlib\Models\MessageResponse;
 use Illuminate\Support\Facades\Auth;
-use Medlib\Commands\CreateMessageCommand;
 use Medlib\Http\Controllers\Controller;
+use Medlib\Services\CreateMessageService;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\User\UserRepository;
-use Medlib\Repositories\Message\MessageRepository;
 
 /**
  * @Middleware("auth")
  */
 class MessageController extends Controller
 {
-    private $currentUser;
 
     public function __construct()
     {
@@ -66,32 +61,16 @@ class MessageController extends Controller
      * @Post("message", as="message.store")
      * @Middleware("auth")
      *
-     * @param UserRepository $userRepository
-     * @param MessageRepository $messageRepository
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UserRepository $userRepository, MessageRepository $messageRepository)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), ['body' => 'required']);
-
         if ($validator->fails()) {
             return response()->json(['response' => 'failed', 'message' => $validator->messages()->first('body')]);
         } else {
-
-            /**
-             * $this->dispatchFrom(CreateMessageCommand::class, $request);
-             */
-            $message = Message::createMessage($request->get('body'), $request->get('senderId'), $request->get('senderProfileImage'), $request->get('senderName'));
-
-            $response = MessageResponse::createMessageResponse($request->get('body'), $request->get('senderId'), $request->get('receiverId'), $request->get('senderProfileImage'), $request->get('senderName'));
-
-            $userRepository->findById($request->get('receiverId'))->messages()->save($message);
-
-            $messageRepository->findById($message->id)->messageResponses()->save($response);
-
-            $userRepository->findById($request->get('receiverId'))->messageResponses()->save($response);
-
+            $this->dispatch(new CreateMessageService($request));
             return response()->json(['response' => 'success', 'message' => 'Your message was sent.']);
         }
     }

@@ -64,7 +64,9 @@ class Controller extends BaseController
     public function responseCreated($message)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_CREATED)->response([
-            //some people like to use status => 'failed'
+            /**
+             * some people like to use status => 'failed'
+             */
             'message' => $message
         ]);
     }
@@ -91,11 +93,9 @@ class Controller extends BaseController
     }
 
     /**
-     *	@param LengthAwarePaginator $lessons
-     *
-     *	@param array $data
-     *
-     * 	@return mixed
+     * @param LengthAwarePaginator $lessons
+     * @param array $data
+     * @return mixed
      */
     protected function responseWithPagination(LengthAwarePaginator $lessons, $data)
     {

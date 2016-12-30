@@ -38,7 +38,7 @@
     <!-- Change username -->
     <div class="panel panel-default">
         <div class="list-group-item active"> Changer le nom d'utilisateu</div>
-        <form accept-charset="UTF-8" action="{{ route('profile.edit.username') }}" method="post" enctype="multipart/form-data">
+        {!! Form::open(['method' => 'POST', 'route' => 'profile.edit.username', 'accept-charset' => 'UTF-8', 'enctype' => 'multipart/form-data', 'role'=> 'form']) !!}
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="list-group-item">
                 <div class="boxed-group-inner">
@@ -57,7 +57,16 @@
                                     <p>Entrer un nouveau nom d'utilisateur</p>
                                     <div style="margin-bottom: 25px" class="input-group @if (isset($errors) and $errors->has('username')) has-error @endif">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input name="username" value="{{ old('username') }}" class="form-control" aria-label="Entrez un nouveau nom d'utilisateur" autofocus="" type="text">
+                                        {!! Form::text('username', request()->hasSession() ? old('username') : '', [
+                                        'placeholder' => trans('auth.txt.login'),
+                                        'class' => 'form-control',
+                                        'pattern'=> '[a-zA-Z\s]{3,64}',
+                                        'required',
+                                        'tabindex' => 1,
+                                        'autofocus'=> '',
+                                        'aria-label' => 'Entrez un nouveau nom d\'utilisateur',
+                                        'id'=> 'username'])
+                                    !!}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -69,7 +78,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        {!! Form::close() !!}
         @if($errors->any())
             <script>
                 $(function() {

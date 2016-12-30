@@ -19,14 +19,6 @@ class UsersController extends Controller
     private $currentUser;
 
     /**
-     * Create a new instance of UsersController
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Display the specified user.
      *
      * @param FeedRepository $feedRepository

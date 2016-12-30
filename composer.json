@@ -23,7 +23,7 @@
         "greggilbert/recaptcha": "^2.1",
         "nesbot/Carbon": "^1.21",
         "intervention/image": "dev-master",
-        "wisembly/elephant.io": "3.0.0",
+        "wisembly/elephant.io": "^3.2.0",
         "james-heinrich/getid3": "^1.9",
         "barryvdh/laravel-ide-helper": "^2.1",
         "guzzlehttp/guzzle": "^6.1",

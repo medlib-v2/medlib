@@ -44,3 +44,21 @@
         </section>
     </main>
 @endsection
+
+@section('script')
+    <!-- page specific js -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /**
+             * Medlib Application
+             */
+            Medlib.InputField(null);
+            Medlib.Password('#password', {
+                innerToggle: true,
+                touchSupport: Modernizr.touch,
+                title: 'Click here show/hide password',
+                hideToggleUntil: 'focus'
+            });
+        });
+    </script>
+@endsection

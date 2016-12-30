@@ -87,10 +87,10 @@
                     <div id="books" class="books-items"></div>
                     <div id="more-books"></div>
                     <div class="information">
-                        <h6>Explorez <strong>notre univer</strong></h6>
+                        <h6>Explorez <strong>notre univers</strong></h6>
                         <hr>
                         <p class="paraf">
-                            Le univer de <strong>Medlib</strong> donne accès à un ensemble des services spécifiquement adaptées et propose également une plate-fome d’échange.
+                            L'univers de <strong>Medlib</strong> donne accès à un ensemble des services spécifiquement adaptées et propose également une plate-fome d’échange.
                         </p>
                     </div>
                 </div>
@@ -125,17 +125,17 @@
                 /**
                  * Medlib Application
                  */
-                Medlib.InputField();
-                Medlib.Arrow();
+                Medlib.InputField(null);
+                Medlib.Arrow(null);
                 @if (Auth::guest())
                 Medlib.Password('#password', {
                     innerToggle: true,
-                    //touchSupport: Modernizr.touch,
+                    touchSupport: Modernizr.touch,
                     title: 'Click here show/hide password',
                     hideToggleUntil: 'focus'
                 });
                 @endif
-                Medlib.FormElements();
+                Medlib.FormElements(null);
             });
         </script>
 @endsection

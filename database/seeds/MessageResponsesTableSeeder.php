@@ -18,17 +18,17 @@ class MessageResponsesTableSeeder extends Seeder
 
         $messageIds = DB::table('messages')->pluck('id');
 
-        $messageSenderIds = DB::table('messages')->pluck('senderid');
+        $messageSenderIds = DB::table('messages')->pluck('sender_id');
 
 
         foreach ($messageIds as $messageId) {
             MessageResponse::create([
                 'body'        => $faker->sentence,
                 'message_id' => $messageId,
-                'senderid' => $faker->randomElement($messageSenderIds),
-                'receiverid' => 1,
-                'sendername' => $faker->name,
-                'senderprofileimage' => $faker->imageUrl($width = 180, $height = 180)
+                'sender_id' => $faker->randomElement($messageSenderIds),
+                'receiver_id' => 1,
+                'sender_name' => $faker->name,
+                'sender_profile_image' => $faker->imageUrl($width = 180, $height = 180)
             ]);
         }
     }

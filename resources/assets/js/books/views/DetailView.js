@@ -6,14 +6,18 @@ var _ = require('lodash'),
     myCollection = require('../collections/myLibrary'),
     helpers = require('../utils/helpers'),
     detailsTemplate = require('../templates/details.html'),
-    Modernizr = require('../utils/modernizr');
+    Modernizr = window.Modernizr;
 
 const DetailView = Backbone.View.extend({
 
-    //attach this view to the following html id
+    /**
+     * attach this view to the following html id
+     */
     el: $("#book-details"),
 
-    //DOM events for this view
+    /**
+     * DOM events for this view
+     */
     events: {
         "click .close-detail": "hide",
         "click #overlay": "hide",
@@ -22,15 +26,15 @@ const DetailView = Backbone.View.extend({
     },
 
     initialize: function() {
-        /* Add a faded overlay */
+        /** Add a faded overlay **/
         var overlay = '<div id="overlay" style="display: none;"></div>';
         this.$el.find('#overlay').remove(); //Remove previous overlay
         this.$el.append(overlay).find('#overlay').fadeIn('slow');
 
-        /* css3 transforms are buggy with z-index, need to remove them under the overlay */
+        /** css3 transforms are buggy with z-index, need to remove them under the overlay **/
         this.$el.next().find('li').find('.book').addClass('removeTransform');
 
-        /* Define JSON objects, this prevents ajax errors */
+        /** Define JSON objects, this prevents ajax errors **/
         this.model.attributes.description = this.model.attributes.description || {};
         this.model.attributes.volumeInfo = this.model.attributes.volumeInfo || {};
         this.model.attributes.volumeInfo.imageLinks = this.model.attributes.volumeInfo.imageLinks || {};
@@ -41,10 +45,14 @@ const DetailView = Backbone.View.extend({
             self = this,
             $details = $("#book-details");
 
-        //Remove previous instances of this template
+        /**
+         * Remove previous instances of this template
+         */
         $details.find('#detail-view-template').remove();
 
-        //If book is in localStorage, get it there
+        /**
+         * If book is in localStorage, get it there
+         */
         if (localExists) {
             var localBook = new myCollection();
 
@@ -53,8 +61,11 @@ const DetailView = Backbone.View.extend({
                     var data = localBook.get(self.model.id),
                         book = data.toJSON();
 
-                    //localStorage booleans let details template know
-                    //which button to show
+                    /**
+                     * localStorage booleans let details template know
+                     * which button to show
+                     * @type {boolean}
+                     */
                     book.localstorage = true;
                     book.localbook = true;
 
@@ -64,10 +75,11 @@ const DetailView = Backbone.View.extend({
                     helpers.shortSynopsis();
                 }
             });
-            //Otherwise, do an API query
+            /**
+             * Otherwise, do an API query
+             */
         } else {
             data = this.queryApi(this.model);
-
             data.done(function() {
                 book = data.responseJSON;
 
@@ -75,7 +87,10 @@ const DetailView = Backbone.View.extend({
                 book.localbook = localExists;
 
                 var detail = new BookModel(book);
-                //Load the books model into the details template
+                /**
+                 * Load the books model into the details template
+                 * @type {Function}
+                 */
                 view = _.template(detailsTemplate, detail.toJSON());
 
                 $details.append(view).find('#detail-view-template').show().addClass('down');
@@ -104,8 +119,11 @@ const DetailView = Backbone.View.extend({
         return aj;
     },
 
-    //Checks the localstorage keys to see if the book is there,
-    //returns boolean
+    /**
+     * Checks the localstorage keys to see if the book is there,
+     * returns boolean
+     * @returns {boolean}
+     */
     localBook: function() {
         var self = this,
             exists;
@@ -126,10 +144,15 @@ const DetailView = Backbone.View.extend({
     removeBook: function(e) {
         e.preventDefault();
 
-        //Remove the book from localStorage
+        /**
+         * Remove the book from localStorage
+         */
         localStorage.removeItem('myBooks-' + this.model.id);
 
-        //Make it a 'save' button instead
+        /**
+         * Make it a 'save' button instead
+         * @type {string}
+         */
         e.currentTarget.className = 'btn save-book';
         e.currentTarget.textContent = '+ Save book to my library';
     },
@@ -145,13 +168,18 @@ const DetailView = Backbone.View.extend({
         data.done(function() {
             book = data.responseJSON;
 
-            //Sets boolean values so template knows which button to show
+            /**
+             * Sets boolean values so template knows which button to show
+             * @type {*}
+             */
             book.localstorage = Modernizr.localstorage;
             book.localbook = true;
 
             var newBook = new BookModel(book);
 
-            //Unique model ID's are required for localStorage to work properly
+            /**
+             * Unique model ID's are required for localStorage to work properly
+             */
             newBook.set({ id: self.model.id });
 
             var addBook = new myCollection();
@@ -163,14 +191,19 @@ const DetailView = Backbone.View.extend({
                 }
             });
 
-            //Refresh local books if were in the 'mybooks' page
-            //with welcome message present
+            /**
+             * Refresh local books if were in the 'mybooks' page
+             * with welcome message present
+             */
             if (window.location.hash === '#mybooks' && welcomeMsg) {
                 location.reload();
             }
         });
 
-        //Now make it a 'remove' button instead
+        /**
+         * Now make it a 'remove' button instead
+         * @type {string}
+         */
         e.currentTarget.className = 'btn remove-book';
         e.currentTarget.textContent = '- Remove book from my library';
     },
@@ -183,7 +216,9 @@ const DetailView = Backbone.View.extend({
         this.$el.find('#overlay').fadeOut('slow');
         this.$el.next().find('li').find('.book').removeClass('removeTransform');
         this.$el.undelegate(); // Todo: do better garbarge collection
-        //Refresh local books if they've removed one
+        /**
+         * Refresh local books if they've removed one
+         */
         if (window.location.hash === '#mybooks' && !localExists) {
             location.reload();
         }

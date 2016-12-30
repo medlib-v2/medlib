@@ -2,36 +2,36 @@
 
 namespace Medlib\Listeners;
 
-use Medlib\Services\UserMailer;
+use Medlib\Models\User;
 use Medlib\Events\FriendRequestWasSent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Medlib\Notifications\SendFriendRequestAlertEmail;
 
 class EmailFriendRequest
 {
     /**
-     * @var \Medlib\Services\UserMailer
+     * @var \Medlib\Models\User
      */
-    public $mailer;
+    public $user;
 
     /**
      * Create the event listener.
      *
-     * @param \Medlib\Services\UserMailer $mailer
+     * @param \Medlib\Models\User $user
      */
-    public function __construct(UserMailer $mailer)
+    public function __construct(User $user)
     {
-        $this->mailer = $mailer;
+        $this->user = $user;
     }
 
     /**
      * Handle the event.
      *
      * @param \Medlib\Events\FriendRequestWasSent $event
-     * @return \Illuminate\Mail\Mailer
+     * @return boolean
      */
     public function handle(FriendRequestWasSent $event)
     {
-        return $this->mailer->sendFriendRequestAlertTo($event->requestedUser, $event->requesterUser);
+        $event->requestedUser->notify(new SendFriendRequestAlertEmail($event->requesterUser));
+        return true;
     }
 }

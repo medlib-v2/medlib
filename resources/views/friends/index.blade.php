@@ -2,6 +2,7 @@
 
 @section('content')
 	<div id="center-column" class="col-md-6">
+		@include('flash.message')
 			@if(count($friends))
 				<div class="users-list">
 

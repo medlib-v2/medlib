@@ -50,16 +50,16 @@ class Feed extends Model
     }
 
     /**
-     *  Publish a new feed.
+     * Publish a new feed.
      *
-     *	@param string $body
-     *	@param string $poster_username
-     *	@param string $poster_profile_image
-     *  @param string $image_url
-     *  @param string $video_url
-     *  @param string $location
+     * @param string $body
+     * @param string $poster_username
+     * @param string $poster_profile_image
+     * @param string $image_url
+     * @param string $video_url
+     * @param string $location
      *
-     *	@return static
+     * @return static
      */
     public static function publish($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null)
     {
@@ -68,11 +68,11 @@ class Feed extends Model
     }
 
     /**
-     *  Get the amount of feeds related to current User.
+     * Get the amount of feeds related to current User.
      *
-     *	@param array $userIds
+     * @param array $userIds
      *
-     *	@return int
+     * @return int
      */
     public static function getTotalCountFeedsForUser($userIds)
     {
@@ -126,6 +126,7 @@ class Feed extends Model
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
     public function getImagePath()
@@ -135,6 +136,7 @@ class Feed extends Model
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
     public function getVideoPath()
@@ -144,6 +146,7 @@ class Feed extends Model
 
     /**
      * Return the current content body
+     *
      * @return mixed
      */
     public function getContent()
@@ -173,6 +176,7 @@ class Feed extends Model
 
     /**
      * Used to fetch youtube video id
+     *
      * @param $url
      */
     public static function getYoutubeId($url)

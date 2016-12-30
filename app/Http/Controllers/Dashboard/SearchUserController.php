@@ -2,13 +2,13 @@
 
 namespace Medlib\Http\Controllers\Dashboard;
 
+use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Medlib\Http\Controllers\Controller;
-use Medlib\Models\User;
 
 class SearchUserController extends Controller
 {

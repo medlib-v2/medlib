@@ -4,7 +4,6 @@ namespace Medlib\Http\Controllers\Search;
 
 use Yaz\Facades\Yaz;
 use Yaz\Facades\Query;
-use Medlib\Http\Requests;
 use Yaz\Record\YazRecords;
 use Medlib\MarcXML\MarcXML;
 use Illuminate\Http\Request;
@@ -58,8 +57,7 @@ class SearchQueryController extends Controller
 
             $record = Yaz::from($request->query('qdb'))
                 ->where($query)
-                //->limit(1, 10240)
-                ->limit(1, 100)
+                ->limit(1, 10240)
                 ->orderBy('au ASC')
                 ->all(YazRecords::TYPE_XML);
 
@@ -100,7 +98,6 @@ class SearchQueryController extends Controller
         $parameters = $request->all();
 
         if (empty($parameters)) {
-
             $config = config('yaz.zebra');
 
             $datasource = [];
@@ -114,7 +111,7 @@ class SearchQueryController extends Controller
                 ];
             }
 
-            return View::make("search.advanced-search",  compact('datasource'));
+            return View::make("search.advanced-search", compact('datasource'));
         }
 
         $rules = [
@@ -138,11 +135,9 @@ class SearchQueryController extends Controller
         }
 
         if (Cache::has(json_encode($parameters) . $request->get('qdb'))) {
-
             $this->_results = Cache::get(json_encode($parameters) . $request->get('qdb'));
             $filter = FilterRecord::traverseStructure($this->_results);
-        }
-        else {
+        } else {
             /**
              * La Requête utilisateur à parser
              */
@@ -150,8 +145,7 @@ class SearchQueryController extends Controller
 
             $record = Yaz::from($request->get('qdb'))
                 ->where($query)
-                ->limit(1, 10)
-                //->limit(1, 10240)
+                ->limit(1, 10240)
                 ->orderBy('au ASC')
                 ->all(YazRecords::TYPE_XML);
 
@@ -210,7 +204,7 @@ class SearchQueryController extends Controller
 
         $record = Yaz::from($request->query('qdb'))
             ->where($query)
-            ->limit(0, 1)
+            ->limit(1, 10240)
             ->all(YazRecords::TYPE_XML);
 
         $record->close();

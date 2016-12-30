@@ -7,6 +7,7 @@
 @section('content')
 <section class="content-search-results" role="search">
     <header class="result">
+        @include('flash.message')
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">

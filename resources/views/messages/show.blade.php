@@ -7,6 +7,7 @@
 @section('content')
 	<main id="content" class="content" role="main">
 		<section>
+			@include('flash.message')
 			<div class="row">
 				<div class="col-md-3">
 					@include('users.partials.profile-section')
@@ -23,80 +24,55 @@
 
 							@foreach($message->MessageResponses as $messageResponse)
 
-								@if(Auth::user()->is($messageResponse->senderid))
-
+								@if(Auth::user()->is($messageResponse->sender_id))
 									<div class="media listed-object-close">
-
 										<div class="pull-left">
-											<img class="media-object avatar small-avatar" src="{!! $messageResponse->senderprofileimage  !!}" alt="{!! $messageResponse->sendername !!}">
+											<img class="media-object avatar small-avatar" src="{!! $messageResponse->sender_profile_image  !!}" alt="{!! $messageResponse->sender_name !!}">
 										</div>
-
 										<div class="media-body">
 											<p>
 												<span class="text-muted">{!! $messageResponse->created_at->diffForHumans() !!} you wrote:</span>
 												<a href="#"><span class="glyphicon glyphicon-chevron-down pull-right expand-message"></span></a>
 											</p>
 											<div class="message-body">
-
 												{!! $messageResponse->body !!}
-
 											</div>
 										</div>
 									</div>
-
 								@else
-
 									<div class="media listed-object-close">
-
 										<div class="pull-left">
-											<img class="media-object avatar small-avatar" src="{!! $messageResponse->senderprofileimage  !!}" alt="{!! $messageResponse->sendername !!}">
+											<img class="media-object avatar small-avatar" src="{!! $messageResponse->sender_profile_image  !!}" alt="{!! $messageResponse->sender_name !!}">
 										</div>
-
 										<div class="media-body">
 											<p>
-												<span class="text-muted">{!! $messageResponse->created_at->diffForHumans() !!} {!! $messageResponse->sendername !!} wrote:</span>
+												<span class="text-muted">{!! $messageResponse->created_at->diffForHumans() !!} {!! $messageResponse->sender_name !!} wrote:</span>
 												<a href="#"><span class="glyphicon glyphicon-chevron-down pull-right expand-message"></span></a>
 											</p>
 											<div class="message-body">
-
 												{!! $messageResponse->body !!}
-
 											</div>
 										</div>
 									</div>
-
 								@endif
-
-
-
 							@endforeach
-
-						@include('layouts.partials.center-form', [
-
-									'placeholder' => 'Write a reply..',
-									'formType' => 'message-response-form',
-									'button' => 'Submit',
-									'path' => 'message_responses_path',
-									'messageResponseId' => $message->messageResponses()->first()->id,
-									'messageId' => $message->id,
-									'receiverId' => $message->messageResponses()->first()->senderid,
-									'senderId' => $user->id,
-									'senderProfileImage' => $user->profileimage,
-									'senderName' => $user->firstname,
-									'sendingResponseMessage' => true
+							@include('layouts.partials.center-form', [
+								'placeholder' => 'Write a reply..',
+								'formType' => 'message-response-form',
+								'button' => 'Submit',
+								'path' => 'message_responses_path',
+								'message_response_id' => $message->messageResponses()->first()->id,
+								'message_id' => $message->id,
+								'receiver_id' => $message->messageResponses()->first()->senderid,
+								'sender_id' => $user->id,
+								'sender_profile_image' => $user->profileimage,
+								'sender_name' => $user->firstname,
+								'sending_response_message' => true
 							])
-
-
-
 						</div>
-
-
 						@else
-
 							<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Your inbox is empty.</div>
-
 						@endif
-
 					</div>
 
 				<div id="right-side-column" class="col-md-3">

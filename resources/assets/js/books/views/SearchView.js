@@ -8,7 +8,7 @@ let _ = require('lodash'),
     myCollection = require('../collections/myLibrary'),
     bookTemplate = require('../templates/book.html'),
     apiTemplate = require('../templates/apimessage.html'),
-    Modernizr = require('../utils/modernizr');
+    Modernizr = window.Modernizr;
     //browser = require('../utils/browser');
 
 const SearchView = Backbone.View.extend({
