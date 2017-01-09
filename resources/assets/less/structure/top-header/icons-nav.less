@@ -67,7 +67,6 @@
 					}
 				}
 			}
-
 			.footer{
 				a{
 					background-color: darken(@light-color, 2%);
@@ -84,22 +83,16 @@
 					}
 				}	
 			}
-
 			.be-top-header & {
 				&:after, &:before{ display: none; }
 			}
 		}
 		&.open{
-
 			> a{
 				background-color: transparent;
-
 				.icon{
 					color: @primary-color;
-
-					@media @phone{
-						color: @light-color;
-					}
+					@media @phone{ color: @primary-color; }
 				}
 			}
 		}

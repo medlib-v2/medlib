@@ -94,6 +94,7 @@ elixir(function(mix) {
             'resources/assets/less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
             'resources/assets/js/plugins/jquery.touchSwipe.min.js',
             'node_modules/socket.io-client/dist/socket.io.js',
+            'node_modules/bootstrap-switch/dist/js/bootstrap-switch.js',
             'vendor/andywer/js-localization/resources/js/localization.js'],
             'public/js/plugins.vendor.min.js', './')
         .scripts(App.src, App.dist)
@@ -131,7 +132,7 @@ elixir(function(mix) {
         mix.clean([
             'public/css',
             'public/js'
-        ]); //.lang();
+        ]).lang();
     }
 
     if (process.env.NODE_ENV !== 'production') {

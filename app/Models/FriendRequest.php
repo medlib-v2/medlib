@@ -26,7 +26,7 @@ class FriendRequest extends Model
     /**
      * A feed belongs to a User.
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

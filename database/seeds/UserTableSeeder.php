@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
                 'profession' => $faker->randomElement(['student','researcher', 'teacher']),
                 'location' => "",
                 'date_of_birth' => $faker->date,
-                'gender' => $faker->randomElement(['man','woman']),
+                'gender' => $faker->randomElement(['male','female']),
                 'activated' => true,
                 'account_type' => false,
                 'user_avatar' => $faker->imageUrl($width = 180, $height = 180)

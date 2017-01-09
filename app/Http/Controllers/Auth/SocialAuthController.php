@@ -3,21 +3,18 @@
 namespace Medlib\Http\Controllers\Auth;
 
 use Exception;
-use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Medlib\Services\SocialAccountService;
-use Medlib\Services\RegisterSocialUserService;
-use Laravel\Socialite\Two\User as UserProvider;
 
 class SocialAuthController extends Controller
 {
     /**
      * Redirect the user to the social provider ie facebook/twitter etc
      *
-     * @Get("/auth/{facebook}", as="auth.social")
+     * @Get("/auth/{provider}", as="auth.social")
      * @Middleware("guest")
      *
      * @param string $provider
@@ -77,7 +74,6 @@ class SocialAuthController extends Controller
      */
     public function handleFacebookCallback(Request $request)
     {
-        dd($request);
         /**
          * Get the user information from facebook
          */
@@ -95,7 +91,7 @@ class SocialAuthController extends Controller
             return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
         }
 
-        $authUser = $this->findOrCreateUser($providerUser, 'facebook_id');
+        $authUser = SocialAccountService::findOrCreateUser($providerUser, 'facebook_id');
 
         auth()->login($authUser, true);
 
@@ -128,7 +124,7 @@ class SocialAuthController extends Controller
             return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
         }
 
-        $authUser = $this->findOrCreateUser($providerUser, 'twitter_id');
+        $authUser = SocialAccountService::findOrCreateUser($providerUser, 'twitter_id');
 
         Auth::login($authUser, true);
 
@@ -141,52 +137,5 @@ class SocialAuthController extends Controller
     private function handleMissingCallbackMethod()
     {
         //
-    }
-
-    /**
-     * Return user if exists; create and return if doesn't
-     *
-     * @param \Laravel\Socialite\Two\User $providerUser
-     * @param string $provider
-     * @return User
-     */
-    private function findOrCreateUser(UserProvider $providerUser, $provider)
-    {
-        $authUser = User::where($provider, $providerUser->id)->first();
-
-        if ($authUser) {
-            return $authUser;
-        }
-
-        return RegisterSocialUserService::create([
-            'email' => $providerUser->user['email'],
-            'username' => $providerUser->name ?$providerUser->name : self::generateUsername($providerUser),
-            'password' => '',
-            'first_name' => $providerUser->user['first_name'],
-            'last_name' => $providerUser->user['last_name'],
-            'profession' => '',
-            'location' => '',
-            'date_of_birth' => '',
-            'gender' => $providerUser->user['gender'],
-            'facebook_id' => $providerUser->id,
-            'user_avatar' => $providerUser->getAvatar(),
-            'confirmation_code' => User::generateToken()
-        ]);
-    }
-
-    /**
-     * @param \Laravel\Socialite\Two\User $providerUser
-     *
-     * @return null|string
-     */
-    protected static function generateUsername(UserProvider $providerUser)
-    {
-        $username = null;
-
-        $username = substr(strtolower($providerUser->user['first_name']), 0, 1);
-        $username .= "_";
-        $username .= strtolower($providerUser->user['last_name']);
-
-        return  $username;
     }
 }

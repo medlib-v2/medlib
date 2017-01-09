@@ -12,6 +12,10 @@ use Medlib\Models\ConfirmationToken;
  */
 class ConfirmationTokenRepository
 {
+    /**
+     * @param User $user
+     * @return bool|mixed
+     */
     public function createConfirmationToken(User $user)
     {
         /**

@@ -56,6 +56,8 @@ h6, .h6 { font-size: @font-size-h6; }
 // -------------------------
 
 p {
+  font-size:   @font-size-base;
+  line-height: @line-height-base;
   margin: 0 0 (@line-height-computed / 2);
 }
 
@@ -101,6 +103,9 @@ mark,
 // Contextual colors
 .text-muted {
   color: @text-muted;
+}
+.text-inverse {
+  color: @inverse;
 }
 .text-primary {
   .text-emphasis-variant(@brand-primary);
@@ -299,4 +304,10 @@ address {
   margin-bottom: @line-height-computed;
   font-style: normal;
   line-height: @line-height-base;
+}
+
+// Sup and Sub
+sub,
+sup {
+  font-size: 70%;
 }

@@ -7,14 +7,14 @@
                         <input type="checkbox" name="chatStatus" checked id="chatStatus" data-size="mini"><span>
                             <label for="chatStatus"></label></span>
                     </div>
-                    <span class="name">{{ trans('auth.available') }}</span>
+                    <span class="name">@lang('auth.available')</span>
                 </li>
             @else
                 <li>
                     <div class="switch-button switch-button-sm">
-                        <input type="checkbox" name="chatStatus" unchecked id="chatStatus" data-size="mini"><span>
+                        <input type="checkbox" name="chatStatus" id="chatStatus" data-size="mini"><span>
                             <label for="chatStatus"></label></span>
-                    </div><span class="name">{{ trans('auth.unavailable') }}</span>
+                    </div><span class="name">@lang('auth.unavailable')</span>
                 </li>
             @endif
             <li>

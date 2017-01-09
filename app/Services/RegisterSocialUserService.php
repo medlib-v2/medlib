@@ -2,9 +2,11 @@
 
 namespace Medlib\Services;
 
+use Illuminate\Support\Facades\Bus;
 use Medlib\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Medlib\Notifications\SendConfirmationTokenEmail;
+use Medlib\Notifications\SendSocialConfirmationTokenEmail;
+use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
 class RegisterSocialUserService extends Service
 {
@@ -17,13 +19,12 @@ class RegisterSocialUserService extends Service
     protected $location;
     protected $date_of_birth;
     protected $gender;
-    protected $facebook_id;
     protected $user_active;
     protected $account_type;
     protected $user_avatar;
-    protected $confirmation_code;
     protected $onlinestatus;
     protected $chatstatus;
+    protected $token;
 
     /**
      * Create a new command instance.
@@ -31,40 +32,40 @@ class RegisterSocialUserService extends Service
      */
     public function __construct(array $request)
     {
-        parent::__construct();
-
         $this->email = $request['email'];
         $this->username = $request['username'];
         $this->password = $request['password'];
         $this->first_name = $request['first_name'];
         $this->last_name = $request['last_name'];
         $this->profession = $request['profession'];
-        $this->location = $request['location'] ? $request['location'] : "Paris, Ile-de-France";
+        $this->location = (!empty($request['location']) || !$request['location'] = "") ? $request['location'] : "Paris, Ile-de-France";
         $this->date_of_birth = $request['date_of_birth'];
         $this->gender = $request['gender'];
-        $this->facebook_id = $request['facebook_id'];
         $this->user_active = false;
         $this->account_type = false;
         $this->user_avatar = $request['user_avatar'];
-        $this->confirmation_code = $request['confirmation_code'];
         $this->onlinestatus = false;
         $this->chatstatus = true;
+
+        parent::__construct();
     }
 
     /**
      * Create a new command instance.
      * @param array $request
+     * @return array|null
      */
     public static function create(array $request)
     {
-        new self($request);
+        return Bus::dispatch(new self($request));
     }
 
     /**
      * Handle the request
+     * @param ConfirmationTokenRepository $token
      * @return \Medlib\Models\User
      */
-    public function handle()
+    public function handle(ConfirmationTokenRepository $token)
     {
         $user = User::create([
             'email' => $this->email,
@@ -78,17 +79,17 @@ class RegisterSocialUserService extends Service
             'gender' => $this->gender,
             'user_active' => $this->user_active,
             'account_type' => $this->account_type,
-            'facebook_id' => $this->facebook_id,
             'user_avatar' => $this->user_avatar,
-            'confirmation_code' => $this->confirmation_code,
             'onlinestatus' => $this->onlinestatus,
             'chatstatus' => $this->chatstatus,
         ]);
 
+        $this->token = $token->createConfirmationToken($user);
+
         /**
          * Send activation email notification
          */
-        $user->notify(new SendConfirmationTokenEmail($this->confirmation_code));
+        $user->notify(new SendSocialConfirmationTokenEmail($this->token, $this->password));
 
         return $user;
     }

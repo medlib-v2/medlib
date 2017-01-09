@@ -2,9 +2,9 @@
     <div class="user-info">
         <div class="user-name">{{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong></div>
         @if(Auth::user()->isOnline())
-            <div class="user-position online">{{ trans('auth.available') }}</div>
+            <div class="user-position online">@lang('auth.available')</div>
         @else
-            <div class="user-position offline">{{ trans('auth.unavailable') }}</div>
+            <div class="user-position offline">@lang('auth.unavailable')</div>
         @endif
     </div>
 </li>

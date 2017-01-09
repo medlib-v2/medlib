@@ -41,7 +41,7 @@ assets_dev:
 	gulp
 
 cs:
-	vendor/bin/phpcs -p --standard=PSR2 --ignore="app/Helpers/Helpers.php,app/Presenters" app/
+	vendor/bin/phpcs --colors -p -n --standard=PSR2 --ignore="app/Helpers/Helpers.php" app/
 	vendor/bin/phpdoccheck --directory=app
 
 dump-autoload:

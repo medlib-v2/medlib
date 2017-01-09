@@ -42,10 +42,10 @@
                        year = annee.getFullYear();
 
                    var template_date = '<select title="Limiter les résultats à une année prédéfinie" class="form-control input-sm select2 inline" id="year" name="datePub[year]">'+
-                           '<option selected value="1516-'+ year +'">Toutes les années</option>'+
-                           '<option value="'+ (year -1) +'-'+ year +'">L\'année passée</option>'+
-                           '<option value="'+ (year -5) +'-'+ year +'">5 dernières années</option>'+
-                           '<option value="'+ (year -10) +'-'+ year +'">10 dernières années</option></select>';
+                           '<option selected value="1516-'+ year +'">'+ trans('search.advanced.every_year') +'</option>'+
+                           '<option value="'+ (year -1) +'-'+ year +'">'+ trans('search.advanced.last_year') +'</option>'+
+                           '<option value="'+ (year -5) +'-'+ year +'">'+ trans('search.advanced.five_last_years') +'</option>'+
+                           '<option value="'+ (year -10) +'-'+ year +'">'+ trans('search.advanced.ten_last_years') +'</option></select>';
                    return template_date;
                }
 

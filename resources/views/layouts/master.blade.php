@@ -34,11 +34,12 @@
         <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
+                Lang.setLocale("{!! app()->getLocale() !!}");
                 /**
                  * Medlib Application
                  */
                 Medlib.Token = {!! json_encode([
-                    'language' => App::getLocale(),
+                    'language' => app()->getLocale(),
                     'csrfToken' => csrf_token(),
                     'jwt' => session()->has('jwt-token') ? session()->get('jwt-token') : '',
                     'socket_url' => config('medlib.socket_url')
@@ -79,7 +80,7 @@
                     ga('send', 'pageview');
                 }
             } else {
-                //document.write('<script type="text/javascript" src=\'{{ App::rev("js/vue/cookiesbar.min.js") }}\'><\/script>')
+                document.write('<script type="text/javascript" src=\'{{ App::rev("js/vue/cookiesbar.min.js") }}\'><\/script>')
             }
         </script>
     </body>

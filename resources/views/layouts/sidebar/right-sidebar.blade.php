@@ -6,7 +6,7 @@
                 <ul role="tablist" class="nav nav-tabs nav-justified">
                     <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Chat</a></li>
                     <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Todo</a></li>
-                    <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">{{ trans('auth.settings') }}</a></li>
+                    <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">@lang('auth.settings')</a></li>
                 </ul>
             </div>
             <div class="tab-panel">

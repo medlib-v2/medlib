@@ -11,12 +11,32 @@
 @section('content')
 	<main id="content" class="content content-profile" role="main">
 		<section class="user-profile">
-		@include('users.users.partials.public')
-		<!-- Feeds content -->
-		<div class="feed-list" data-feed-count="1">
-			<div id="loader"></div>
-		</div>
-		<!-- /Feeds content -->
+			<div class="container-fluid">
+				@include('users.users.partials.public')
+				<!-- Feeds content -->
+				<div class="feed-list" data-feed-count="{!! $feeds->count() !!}">
+					<div id="loader"></div>
+					<div class="row">
+						<div class="col-md-3 col-sm-2 hidden-xs no-padding"></div>
+						<div class="col-md-6 col-sm-8">
+							<section class="activities">
+								@if($feeds->count())
+									@foreach($feeds as $feed)
+										@include('feeds.partials.feed-list')
+									@endforeach
+									{{$feeds->render()}}
+								@else
+									<div class="alert alert-info no-feeds-info" role="alert">
+										<span class="glyphicon glyphicon-info-sign"></span> You haven't posted anything yet.
+									</div>
+								@endif
+							</section>
+						</div>
+						<div class="col-md-3 col-sm-2 hidden-xs no-padding"></div>
+					</div>
+				</div>
+				<!-- /Feeds content -->
+			</div>
 		</section>
 	</main>
 @endsection

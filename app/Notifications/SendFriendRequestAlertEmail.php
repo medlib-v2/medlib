@@ -45,7 +45,7 @@ class SendFriendRequestAlertEmail extends Notification
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
+                    ->action('Notification Action', config('app.url'))
                     ->line('Thank you for using our application!');
     }
 

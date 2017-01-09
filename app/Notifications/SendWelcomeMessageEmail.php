@@ -44,10 +44,12 @@ class SendWelcomeMessageEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->success()
             ->subject(trans('emails.title_welcome_message'))
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', 'https://laravel.com')
-            ->line('Thank you for using our application!');
+            ->greeting('Hello!')
+            ->line(trans('emails.content_title_confirmation_success'))
+            ->action(trans('emails.login_user_now'), route('auth.login'))
+            ->line(trans('emails.thank_you_for_using'));
     }
 
     /**

@@ -24,7 +24,7 @@ class Message extends Model
     /**
      * A message belongs to Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {

@@ -22,13 +22,12 @@ class CreateUsersTable extends Migration
             $table->enum('profession', ['student','researcher','teacher']);
             $table->string('location')->nullable();
             $table->date('date_of_birth');
-            $table->enum('gender', ['woman','man']);
+            $table->enum('gender', ['male','female']);
             $table->boolean('activated')->default(false);
             $table->tinyInteger('account_type', false);
             $table->string('user_avatar');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);
-            $table->string('facebook_id')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

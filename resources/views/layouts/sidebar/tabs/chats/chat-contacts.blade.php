@@ -9,7 +9,7 @@
                     <div class="user"><a href="#"><img src="{{ asset('images/people/a2.jpg') }}" alt="Avatar">
                             <div class="user-data"><span class="status"></span><span class="name">Maggie jackson</span><span class="message">I confirmed the info.</span></div></a></div>
                     <div class="user"><a href="#"><img src="{{ asset('images/people/a3.jpg') }}" alt="Avatar">
-                            <div class="user-data"><span class="status offline"></span><span class="name">Joel King		</span><span class="message">Ready for the meeti...</span></div></a></div>
+                            <div class="user-data"><span class="status offline"></span><span class="name">Joel King</span><span class="message">Ready for the meeti...</span></div></a></div>
                 </div>
                 <h2>Contacts</h2>
                 <div id="friend-side-list" class="contact-list">
@@ -52,7 +52,7 @@
                     @else
                         <div id="no-friend-chat-alert" class="user disabled" role="alert">
                             <div class="notice">
-                                <span class="glyphicon glyphicon-info-sign"></span> {{ trans('auth.friends_dont_have') }}
+                                <span class="glyphicon glyphicon-info-sign"></span> @lang('auth.friends_dont_have')
                             </div>
                         </div>
                     @endif

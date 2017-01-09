@@ -18,7 +18,7 @@ class CreateLikesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('feed_id')->unsigned();
             $table->foreign('feed_id')->references('id')->on('feeds')->onDelete('cascade');
-            $table->string('type', 128)->nullable();
+            $table->string('feed_type', 128)->nullable();
             $table->integer('object_id')->unsigned();
             $table->string('object_type', 128);
             $table->timestamps();

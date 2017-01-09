@@ -85,18 +85,18 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
         transitionClass: 'be-animate',
         openSidebarDelay: 400
     },
-    colors = {},
-    body = $("body"),
-    wrapper = $(".be-wrapper"),
-    leftSidebar = $(".be-left-sidebar"),
-    rightSidebar = $(".be-right-sidebar"),
-    openSidebar = false;
-
-    /**
-     * Holds a references of created plugins
-     * @type {{}}
-     */
-    var plugins = {};
+        colors = {},
+        body = $("body"),
+        wrapper = $(".be-wrapper"),
+        leftSidebar = $(".be-left-sidebar"),
+        rightSidebar = $(".be-right-sidebar"),
+        methods = [ "get", "post" ],
+        openSidebar = false,
+        /**
+         * Holds a references of created plugins
+         * @type {{}}
+         **/
+        plugins = {};
     
     //noinspection JSDuplicatedDeclaration
     /**
@@ -106,8 +106,6 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
      * @constructor
      */
     function Medlib(options){
-
-        //Lang.setLocale($('meta[name="locale"]').attr('content'));
         /**
          * Extends defaults with options
          */
@@ -209,7 +207,6 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
          * Initialisation
          */
         init(defaults);
-
         /**
          * Return the color from ClassName
          * @param cls
@@ -389,6 +386,16 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
                     scrollEl.perfectScrollbar('update');
                 }
             });
+
+            var chatStatus = jQuery('input[name="chatStatus"]');
+
+            chatStatus.on('change', function(event, state) {
+                event.preventDefault();
+                var url = window.location.origin + "/chat/chatstatus";
+                jQuery.post(url, { chat_status: Number(state) }, function (data) {
+                    console.log('response', data);
+                }, 'json');
+            });
         }
         function sidebarDelay(){
             openSidebar = true;
@@ -488,7 +495,9 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
             });
         }
         function scrollerInit(){
-            jQuery(".be-scroller").perfectScrollbar();
+            jQuery(".be-scroller").perfectScrollbar({
+                suppressScrollX: false
+            });
         }
         function scrollTopButton(){
             var offset = 220,
@@ -547,7 +556,6 @@ function FastClick(a,b){"use strict";function c(a,b){return function(){return a.
             }
             return plugin;
         }
-
         function plugin() {
             var usedKeys = [],
                 /**

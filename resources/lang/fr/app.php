@@ -11,20 +11,16 @@
 
 return [
 
-    'name'              => "Nom de l'application",
-    'about'             => "A propos de l'Application",
+    'name'              => "Medlib",
+    'description'       => 'Recherche bibliographique',
+    'about'             => "A propos de l'Application Medlib",
     'dashboard'         => 'Dashboard',
-    'admin'             => 'Administration',
-    'projects'          => 'Projets',
-    'templates'         => 'Modèles',
     'groups'            => 'Groupes',
-    'keys'              => 'Clé SSH',
     'users'             => 'Utilisateurs',
-    'tips'              => 'Conseils',
-    'links'             => 'Liens utiles',
     'notifications'     => 'Notifications',
     'created'           => 'Créé',
     'edit'              => 'Modifier',
+    'custom'            => 'Personnalisée',
     'confirm'           => 'Confirmer',
     'confirm_title'     => 'Confirmez votre action',
     'confirm_text'      => 'Es-tu sûr de vouloir faire ça?',
@@ -46,5 +42,9 @@ return [
     'switch_down'       => "Passer en mode de maintenance maintenant? L'application revient au mode normal une fois le nettoyage terminé",
     'update_available'  => 'Une mise à jour est disponible!',
     'outdated'          => 'Vous exécutez une version :current, une version <a href=":link" rel="noreferrer">:latest</a> est disponible!',
+    'explore_universe'  => '<h6>Explorez <strong>notre univers</strong></h6>',
+    'universe'          => '<p class="paraf">L\'univers de <strong>Medlib</strong> donne accès à un ensemble des services spécifiquement adaptées et propose également une plate-fome d’échange.</p>',
+    'discover_suggestions' => '<h6>Découvrez <strong>nos suggestions du jours</strong></h6>',
+    'discover_suggestions_content' => '<p class="paraf">Rechercher tout type des documents avec <strong>Medlib</strong>, livre de science, romance etc...</p>',
 
 ];

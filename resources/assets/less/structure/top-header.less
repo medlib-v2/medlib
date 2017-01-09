@@ -169,7 +169,12 @@
                     border-top-left-radius: 0;
                     border-top-right-radius: 0;
                     margin-top: 0;
-                    @media @phone { margin-top: 1px; }
+                    @media @phone {
+                        margin-top: 1px;
+                        &.be-notifications {
+                            margin-top: 5px;
+                        }
+                    }
                     &.login-dropdown-menu {
                         width: 650px;
                         height: 337px;
@@ -456,12 +461,13 @@
             @media @phone{
                 background-color: lighten(@left-sidebar-bg, 2%);
                 position: relative;
-                top: 15px;
+                top: 5px;
                 height: @top-header-height - 10px;
+                &.be-user-nav, &.be-icons-nav { top: 15px; }
                 > li{
                     > a{
                         display: block;
-                        padding: 0 @left-sidebar-main-level-padding;
+                        padding: 0 @left-sidebar-main-level-padding - 10px;
                         color: @left-sidebar-color;
                         font-size: @left-sidebar-main-level-font-size;
                         line-height: @left-sidebar-main-level-height;
@@ -535,7 +541,6 @@
             display: flex;
             justify-content: space-between;
             border: none;
-            //border-bottom: 1px solid darken(@light-color, 10%);
             position: fixed;
             top: 0;
             right: 0;

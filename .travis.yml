@@ -20,6 +20,7 @@ matrix:
 ## Cache composer directories
 cache:
   directories:
+    - $HOME/.composer/cache
     - node_modules # NPM packages
     - vendor
 
@@ -31,6 +32,7 @@ branches:
 sudo: required
 services:
   - mysql
+  - redis-server
 
 # Setting up pre-requirements
 before_install:
@@ -50,16 +52,19 @@ install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  #- npm install
   #- composer.phar install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader # Production mode installation
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
-  #- php artisan migrate
-  #- php artisan db:seed
-  - php artisan medlib:init
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+  - php artisan key:generate
+  - php artisan migrate --seed --env="testing"
+  - make file-permission
+  - sleep 5
+  - npm install
+  - node server.js 1&2>/dev/null
 
 script:
+  - make cs
   #- phpunit
   - php artisan test:run
   #- npm test

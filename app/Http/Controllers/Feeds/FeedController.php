@@ -149,6 +149,23 @@ class FeedController extends Controller
     }
 
     /**
+     * @param $username
+     * @param $status_id
+     */
+    public function like($username, $status_id)
+    {
+        dd($username, $status_id);
+    }
+
+    /**
+     * @param $username
+     * @param $status_id
+     */
+    public function comment($username, $status_id)
+    {
+        dd($username, $status_id);
+    }
+    /**
      * Get all feed by user
      *
      * @param User $user

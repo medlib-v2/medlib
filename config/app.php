@@ -179,6 +179,7 @@ return [
         Yaz\Services\YazServiceProvider::class,
         Yaz\Services\QueryServiceProvider::class,
         Medlib\MarcXML\ParserServiceProvider::class,
+        Medlib\BookCover\Services\CoverServiceProvider::class,
 
 
         /*
@@ -254,6 +255,7 @@ return [
         'Yaz'       => Yaz\Facades\Yaz::class,
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
+        'Cover'   => Medlib\BookCover\Facades\Cover::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 

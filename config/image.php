@@ -12,6 +12,7 @@ return array(
     | configuration. By default PHP's "GD Library" implementation is used.
     |
     | Supported: "gd", "imagick"
+    | @uploader('file', ['strategy' => 'avatar', 'data' => [$product->images]])
     |
     */
     'driver' => env('IMAGE_DRIVER', 'gd'),
@@ -22,6 +23,17 @@ return array(
     'dimensions' => [
         'thumb'  => [100, 100, true,  80],
         'medium' => [600, 400, false, 90],
-   ] ,
-
+    ] ,
+    /**
+     * default strategy.
+     */
+    'images' => [
+        'mimes' => ['image/jpeg', 'image/png', 'image/bmp', 'image/gif'],
+        'storeage' => 'public',
+        'directory' => public_path('uploads/'),
+        'max_file_size' => '2m',
+    ],
+    'avatar' => [
+        'directory' => 'avatars',
+    ],
 );

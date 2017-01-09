@@ -37,11 +37,8 @@ class CreateFriendRequestService extends Service
     public function handle(UserRepository $userRepository)
     {
         $requestedUser = $userRepository->findByUsername($this->requestedName);
-
         $requesterUser = Auth::user();
-
         $friendRequest = FriendRequest::prepareFriendRequest($requesterUser->id);
-
         $requestedUser->friendRequests()->save($friendRequest);
 
         event(new FriendRequestWasSent($requestedUser, $requesterUser));

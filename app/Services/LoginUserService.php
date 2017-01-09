@@ -5,7 +5,6 @@ namespace Medlib\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Medlib\RealTime\Events as SocketClient;
 
 class LoginUserService extends Service
 {
@@ -32,7 +31,6 @@ class LoginUserService extends Service
     public function __construct(Request $request)
     {
         parent::__construct();
-
         $this->email = $request->get('email');
         $this->password = $request->get('password');
         $this->remember = $request->get('remember');

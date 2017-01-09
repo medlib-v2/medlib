@@ -21,7 +21,7 @@ class Feed extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url'];
+    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -33,7 +33,7 @@ class Feed extends Model
     /**
      * A feed belongs to a User.
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -79,13 +79,14 @@ class Feed extends Model
         return self::whereIn('user_id', $userIds)->count();
     }
 
+
     /**
      * 2nd arg is parsing the name of  the polymorphic relation
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function likes()
     {
-        return $this->morphMany(Like::class, 'likes');
+        return $this->morphMany(Like::class, 'feed');
     }
 
     /**
@@ -152,6 +153,15 @@ class Feed extends Model
     public function getContent()
     {
         return $this->body;
+    }
+
+    /**
+     * Return the current location
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     /**

@@ -8,7 +8,7 @@
 <div class="content">
     <div class="container-float">
         <div class="container-fluid">
-            <h1 class="display-4">{{ trans('search.txt.advanced-text') }}</h1>
+            <h1 class="display-4">@lang('search.txt.advanced-text')</h1>
 
             {!! Form::open(['id' => 'validation-form','method' => 'GET', 'route' => 'search.advanced', 'accept-charset' => 'UTF-8', 'role'=> 'form']) !!}
             <!-- Information -->
@@ -32,12 +32,14 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="col-xs-7 col-md-8 col-sm-8 no-padding" style="width: 100%;">
-                                            <select id="qdb" name="qdb" data-placeholder="Selectionner une bibliothèque..." class="select2 form-control select2-offscreen">
-                                                <option value="">Selectionner une bibliothèque...</option>
+                                            <div class="form-group">
+                                                <select id="qdb" name="qdb" data-placeholder="@lang('search.txt.library')" class="select2 form-control select2-offscreen">
+                                                <option value="">@lang('search.txt.library')}</option>
                                                 @foreach($datasource as $name => $instance)
                                                     <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
                                                 @endforeach
                                             </select>
+                                            </div>
                                             @if (isset($errors) && $errors->has('qdb'))
                                                 <p class="help-block text-danger">{{ $errors->first('qdb') }}</p>
                                             @endif
@@ -51,21 +53,21 @@
                                                     {!! Form::select('words[0][title]', [
                                                         'ti'     => 'Mots du titre',
                                                         'sub'    => 'Mots sujet',
-                                                        'aup'  => 'Mots auteur(s)',
+                                                        'aup'    => 'Mots auteur(s)',
                                                         'pn'     => 'Nom de personne',
                                                         'cn'     => 'Organisme auteur',
-                                                        'tov'  => 'Titre abrégé (périodiques)',
-                                                        'tc'  => 'Collection',
-                                                        'pb'  => 'Editeur',
-                                                        'note'    => 'Note de thèse',
+                                                        'tov'    => 'Titre abrégé (périodiques)',
+                                                        'tc'     => 'Collection',
+                                                        'pb'     => 'Editeur',
+                                                        'note'   => 'Note de thèse',
                                                         'ts'     => 'Note de récompense',
                                                         'abs'    => 'Résumé; sommaire',
-                                                        'kw'  => 'Tous les mots',
-                                                        'trp'  => 'Titre en relation',
-                                                        'isbn'     => 'ISBN livres',
-                                                        'isn'     => 'ISSN périodiques',
-                                                        'mesh'    => 'Sujet MESH anglais',
-                                                        'ln'    => 'Langue du document (code)',
+                                                        'kw'     => 'Tous les mots',
+                                                        'trp'    => 'Titre en relation',
+                                                        'isbn'   => 'ISBN livres',
+                                                        'isn'    => 'ISSN périodiques',
+                                                        'mesh'   => 'Sujet MESH anglais',
+                                                        'ln'     => 'Langue du document (code)',
                                                         'cna'    => 'Pays de publication (code)'
                                                         ], 'ti',
                                                         [

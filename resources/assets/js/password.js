@@ -283,7 +283,7 @@
                 return this.Password($.extend({}, options, { show: showVal }));
             };
         });
-    })(jQuery, window, document);
+    })(jQuery, window, document, undefined);
 
     /**
      *

@@ -21,8 +21,8 @@
 					'button' => 'Publish',
 					'path' => ['user.feeds.store', Auth::user()->getUsername()],
 					'postingFeed' => true,
-					'senderName' => Auth::user()->getUsername(),
-					'senderProfileImage' => Auth::user()->getAvatar()
+					'sender_name' => Auth::user()->getUsername(),
+					'sender_profile_image' => Auth::user()->getAvatar()
 					])
 
 					<div class="feed-list" data-feedcount="{!! $feedsCount !!}">

@@ -209,10 +209,10 @@
                                             <div class="row">
                                                 <div class="col-xs-6 col-md-8 col-sm-6">
                                                     <div class="register-switch">
-                                                        <input type="radio" name="gender" value="man" id="sex-male" class="register-switch-input" checked>
-                                                        <label for="sex-male" class="register-switch-label"><span class="register-switch-icon-male">&nbsp;</span>&nbsp;{{ trans('auth.txt.gender.man') }}</label>
-                                                        <input type="radio" name="gender" value="woman" id="sex-female" class="register-switch-input">
-                                                        <label for="sex-female" class="register-switch-label"><span class="register-switch-icon-female">&nbsp;</span>&nbsp;{{ trans('auth.txt.gender.woman') }}</label>
+                                                        <input type="radio" name="gender" value="male" id="sex-male" class="register-switch-input" checked>
+                                                        <label for="sex-male" class="register-switch-label"><span class="register-switch-icon-male">&nbsp;</span>&nbsp;{{ trans('auth.txt.gender.male') }}</label>
+                                                        <input type="radio" name="gender" value="female" id="sex-female" class="register-switch-input">
+                                                        <label for="sex-female" class="register-switch-label"><span class="register-switch-icon-female">&nbsp;</span>&nbsp;{{ trans('auth.txt.gender.female') }}</label>
                                                     </div>
                                                 </div>
                                             </div>

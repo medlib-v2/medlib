@@ -63,12 +63,14 @@ class Handler extends ExceptionHandler
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }
 
+        /**
         if ($exception instanceof NotFoundHttpException) {
             if ($request->expectsJson()) {
                 return response(['error'=>'not_found','error_message'=> trans('messages.error_message')], 404);
             }
             return redirect()->route('errors.not.found');
         }
+        **/
 
         if ($exception instanceof ServerConnectionFailureException) {
             return redirect()->route('home');

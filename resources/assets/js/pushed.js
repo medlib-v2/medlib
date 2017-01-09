@@ -6,18 +6,26 @@
         /** Variable to store your files **/
         var files;
 
-        /** Grab the files and set them to our variable **/
+        /**
+         * Grab the files and set them to our variable
+         * @param event
+         */
         function prepareUpload(event) {
             files = event.target.files;
         }
+
+        /**
+         *
+         * @param event
+         * @returns {boolean}
+         */
         function handleFormSelect(event) {
             event.preventDefault();
 
-            var button = $(this);
-
-            var photos = $('#image').parent('.image');
-            var video = $('#videoUrl').parent('.video');
-            var place = $('#geocomplete').parent('.place');
+            var button = $(this),
+                photos = $('#image').parent('.image'),
+                video = $('#videoUrl').parent('.video'),
+                place = $('#geocomplete').parent('.place');
 
             /** hidden all **/
             photos.hideLoader('hide');
@@ -55,6 +63,11 @@
                 });
         }
 
+        /**
+         *
+         * @param event
+         * @returns {boolean}
+         */
         function handleValidateAndSubmit(event) {
             event.stopPropagation();
             event.preventDefault();
@@ -65,7 +78,10 @@
                 url = form.attr('action'),
                 method = form.attr('method') || 'POST',
                 token = form.find("input[name='_token']").val(),
-                /** Setup parameters **/
+                /**
+                 * Setup parameters
+                 * @type {{}}
+                 */
                 geocomplete = {},
                 shareType = form.find("input[name='shareType']"),
                 body = form.find("textarea"),
@@ -213,6 +229,13 @@
             else { return false; }
         }
 
+        /**
+         *
+         * @param url
+         * @param method
+         * @param data
+         * @returns {*}
+         */
         function ajaxSubmit(url, method, data) {
 
             return $.ajax({
@@ -225,7 +248,10 @@
             });
         }
 
-        /** Geolocation Show Position **/
+        /**
+         * Geolocation Show Position
+         * @param event
+         */
         function showPosition(event) {
             event.preventDefault();
             /**

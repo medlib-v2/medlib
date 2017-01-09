@@ -50,8 +50,8 @@ return [
             'year' => 'Year'
         ],
         'gender' => [
-            'man' => 'Man',
-            'woman' => 'Woman'
+            'male' => 'Man',
+            'female' => 'Woman'
         ],
         'profile_image' => 'Profile image'
     ],

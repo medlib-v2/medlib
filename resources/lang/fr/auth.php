@@ -50,8 +50,8 @@ return [
             'year' => 'Année'
         ],
         'gender' => [
-            'man' => 'Homme',
-            'woman' => 'Femme'
+            'male' => 'Homme',
+            'female' => 'Femme'
         ],
         'profile_image' => 'Photo de profil'
     ],
@@ -64,7 +64,7 @@ return [
     'validation' => [
         'validation_code_does_not_exist' => "Votre code de validation n'existe pas, Merci de vérifier que votre compte n'est pas déjà activé",
         'validation_code_has_expired' => "Votre code de validation a expiré. Le code de validation n'est valable qu'une heure. Merci d'utilisez le nouveau lien d'activation envoyé.",
-        'account_has_been_activated' => 'Success, your account has been activated.',
+        'account_has_been_activated' => 'Votre compte a été activé.',
         'need_validation_code' => "Vous avez besoin d'un code valide!"
 
     ],

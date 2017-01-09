@@ -21,7 +21,7 @@ class Like extends Model
      *
      * @var array
      */
-    protected $fillable = ['feed_id','type','object_id','object_type'];
+    protected $fillable = ['feed_id','feed_type','object_id','object_type'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

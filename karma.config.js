@@ -24,7 +24,7 @@ module.exports = function(karma) {
          */
         autoWatch: true,
 
-        browsers: ['Chrome'], //'PhantomJS', 'Firefox',
+        browsers: ['Yandex'], //'PhantomJS', 'Firefox',
 
         /**
          * base path that will be used to resolve all patterns (eg. files, exclude)
@@ -48,15 +48,12 @@ module.exports = function(karma) {
          */
         browserify: {
             debug: true,
-            transform: [ ['reactify', {'es6': true}], 'coffeeify', 'brfs' ],
-            configure: function(bundle) {
-                bundle.on('prebundle', function() {
-                    bundle.external('foobar');
-                    bundle.transform('babelify').plugin('proxyquireify/plugin');
-                });
-            },
+            transform: [ ['vueify', {'es6': true}]],
             plugin: [require('proxyquireify').plugin]
         },
+
+        reporters: ['spec'],
+
         /**
          * list of files to exclude
          */

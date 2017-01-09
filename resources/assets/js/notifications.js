@@ -366,6 +366,8 @@
              * @private
              * @param {String/Array} search A list of things to search for
              * @param {String/Array} replace A list of things to replace the searches with
+             * @param {String} subject
+             * @param {Number} count
              * @return {String} sa The output
              */
             replace: function(search, replace, subject, count){
