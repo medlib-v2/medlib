@@ -247,7 +247,9 @@
                             <!-- /Image profile -->
                             <!-- ReCaptcha -->
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <?php use Greggilbert\Recaptcha\Facades\Recaptcha; ?>
+                                <?php use Greggilbert\Recaptcha\Facades\Recaptcha;
+
+?>
                                 {!! Recaptcha::render() !!}
                             </div>
                             <!--  /ReCaptcha -->

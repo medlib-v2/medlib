@@ -14,7 +14,6 @@ use Medlib\Repositories\User\UserRepository;
  */
 class MessageController extends Controller
 {
-
     public function __construct()
     {
     }

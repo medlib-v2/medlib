@@ -1,5 +1,6 @@
 <?php
 use Medlib\BookCover\Facades\Cover;
+
 $replacements = ['-','_',' '];
 $data = Cover::setTitle($result->title)
     ->setSubtitle('with special chapters on photography, cover design and book manufacturing')

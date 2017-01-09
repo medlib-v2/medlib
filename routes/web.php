@@ -16,7 +16,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', [ 'uses' => 'HomeController@index', 'as' => 'home']);
     Route::get('/404', [ 'uses' => 'Errors\ErrorController@notFoundHttp', 'as' => 'errors.not.found']);
     /** Friends & Friends-requests **/
-    Route::group(['prefix' => 'friends', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Friends'], function(){
+    Route::group(['prefix' => 'friends', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Friends'], function () {
         /** Friends */
         Route::get('/', ['uses' => 'FriendController@index', 'as' => 'friends.show']);
         Route::post('/', ['uses' => 'FriendController@store', 'as' => 'friends.store']);
@@ -27,7 +27,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::delete('/requests', ['uses' => 'FriendRequestController@destroy', 'as' => 'request.del']);
     });
     /** Messages & Messages-Responses **/
-    Route::group(['prefix' => 'messages', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Messages'], function(){
+    Route::group(['prefix' => 'messages', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Messages'], function () {
         /**
          * Messages
          */
@@ -42,10 +42,9 @@ Route::group(['middleware' => 'language'], function () {
          */
         Route::put('/response', ['uses' => 'MessageResponseController@update', 'as' => 'message.response']);
         Route::post('/response', ['uses' => 'MessageResponseController@store', 'as' => 'message.response']);
-
     });
     /** Authentification **/
-    Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function(){
+    Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function () {
         Route::get('/login', ['uses' => 'AuthController@showLogin',  'as' => 'auth.login']);
         Route::post('/login', ['uses' => 'AuthController@doLogin', 'as' => 'auth.submit']);
         Route::get('/register', ['uses' => 'AuthController@showRegister', 'as' => 'auth.register']);
@@ -67,17 +66,16 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/password/reset', ['uses' => 'ForgotPasswordController@showLinkRequestForm', 'as' => 'password.reset']);
         Route::post('/password/reset', ['uses' => 'ResetPasswordController@reset', 'as' => 'password.submit']);
         Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
-
     });
     Route::get('/logout', ['uses' => 'Auth\AuthController@doLogout','as' => 'auth.logout', 'middleware' => 'auth' ]);
     /** Recherche with yaz **/
-    Route::group(['prefix' => 'search', 'namespace' => 'Search'], function(){
+    Route::group(['prefix' => 'search', 'namespace' => 'Search'], function () {
         Route::get('/simple', ['uses' => 'SearchQueryController@doSimple', 'as' => 'search.simple']);
         Route::get('/advanced', ['uses' => 'SearchQueryController@doAdvanced', 'as' => 'search.advanced']);
         Route::get('/detail', ['uses' => 'SearchQueryController@doDetail', 'as' => 'search.detail']);
     });
     /** User settings **/
-    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function() {
+    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function () {
         Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
         Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
         Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
@@ -90,21 +88,21 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
     });
     /** Users */
-    Route::group(['prefix' => 'u', 'middleware' => ['auth','jwt.auth']], function() {
-        Route::group(['prefix' => '{username}'], function(){
+    Route::group(['prefix' => 'u', 'middleware' => ['auth','jwt.auth']], function () {
+        Route::group(['prefix' => '{username}'], function () {
             /**
             Route::group(['namespace' => 'Users'], function() {
                 Route::get('/', ['uses' => 'UsersController@index', 'as' => 'profile.show' ]);
             });
             **/
-            Route::group(['namespace' => 'Users'], function(){
+            Route::group(['namespace' => 'Users'], function () {
                 Route::get('/', [ 'uses' => 'UsersController@show', 'as' => 'profile.user.show' ]);
                 Route::post('/', ['uses' => 'UsersController@index', 'as' => 'profile.user.show' ]);
             });
-            Route::group(['namespace' => 'Friends'], function(){
+            Route::group(['namespace' => 'Friends'], function () {
                 Route::get('/friends', ['uses' => 'FriendController@index', 'as' => 'user.friends.show']);
             });
-            Route::group(['namespace' => 'Feeds'], function(){
+            Route::group(['namespace' => 'Feeds'], function () {
                 Route::get('/feeds', ['uses' => 'FeedController@index', 'as' => 'user.feeds.show']);
                 Route::post('/feeds', ['uses' => 'FeedController@store', 'as' => 'user.feeds.store']);
                 Route::get('/feeds/more', ['uses' => 'FeedController@more', 'as' => 'user.feeds.more']);
@@ -114,7 +112,7 @@ Route::group(['middleware' => 'language'], function () {
         });
     });
     /** User settings **/
-    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function() {
+    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function () {
         Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
         Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
         Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
@@ -127,7 +125,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
     });
     /** Dashboard **/
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Dashboard'], function(){
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Dashboard'], function () {
         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.home']);
         Route::get('/books', ['uses' => 'DashboardController@books', 'as' => 'dashboard.books']);
         Route::get('/history', ['uses' => 'DashboardController@history', 'as' => 'dashboard.history']);
@@ -135,28 +133,27 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/search', ['uses' => 'SearchUserController@getResults', 'as' => 'dashboard.search']);
     });
     /** Chat **/
-    Route::group(['prefix' => 'chat', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Chat'], function(){
+    Route::group(['prefix' => 'chat', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Chat'], function () {
         /** Chat Status **/
         Route::post('chatstatus', ['uses' => 'ChatController@update', 'as' => 'chat.status', ]);
         /** Chat Message **/
         Route::post('message', ['uses' => 'ChatController@message', 'as' => 'chat.conversation', ]);
     });
     /** Helpers **/
-    Route::group(['prefix' => 'helpers', 'namespace' => 'Helpers'], function(){
+    Route::group(['prefix' => 'helpers', 'namespace' => 'Helpers'], function () {
         Route::get('/', ['uses' => 'HelpersController@index', 'as' => 'helpers.home']);
         Route::get('/deleting', ['uses' => 'HelpersController@deletingAccount', 'as' => 'helpers.deleting.account']);
     });
 
     /** Manage Language **/
-    Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function (){
+    Route::group(['prefix' => 'lang', 'namespace' => 'Lang'], function () {
         Route::any('/{lang}', ['uses' => 'LangController@doLang', 'as' => 'lang']);
     });
 
     /** About **/
-    Route::group(['prefix' => 'site', 'namespace' => 'About'], function (){
+    Route::group(['prefix' => 'site', 'namespace' => 'About'], function () {
         Route::get('about', ['uses' => 'AboutController@index', 'as' => 'contact.index']);
         Route::get('contact', ['uses' => 'AboutController@create', 'as' => 'contact.show']);
         Route::post('contact', ['uses' => 'AboutController@store', 'as' => 'contact.store']);
     });
-
 });

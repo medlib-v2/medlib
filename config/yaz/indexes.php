@@ -6,11 +6,11 @@ return [
         'pn'    => '1=1',     // Name-personal
         'cn'    => '1=2',     // Corporate name
         'nc'    => '1=3',     // Conference name
-        'ti'    => '1=4',	  // Title (Titre)
+        'ti'    => '1=4',      // Title (Titre)
         'ts'    => '1=5',     // Title series
-        'ut'    => '1=6',	  // Title-uniform
-        'isbn'  => '1=7',	  // ISBN
-        'isn'   => '1=8',	  // ISSN
+        'ut'    => '1=6',      // Title-uniform
+        'isbn'  => '1=7',      // ISBN
+        'isn'   => '1=8',      // ISSN
         'lc'    => '1=9',     // Control number-LC
         'bnb'   => '1=10',    // Control number-BNB
         'bnf'   => '1=11',    // Control number-BNF
@@ -33,29 +33,29 @@ return [
         'rvm'   => '1=28',    // RVM subject heading
         'slcl'  => '1=29',    // Local subject index
         'dt'    => '1=30',    // Date
-        'yr'    => '1=31',	  // Date of publication
-        'da'    => '1=32',	  // Date of acquisition
-        'tk'    => '1=33',	  // Title key
-        'tc'    => '1=34',	  // Title collective
-        'tp'    => '1=35',	  // Title parallel
-        'tcr'   => '1=36',	  // Title cover
-        'ta'    => '1=37',	  // Title added-title-page
-        'ct'    => '1=38',	  // Title caption
-        'tr'    => '1=39',	  // Title running
-        'st'    => '1=40',	  // Title spine
-        'tov'   => '1=41',	  // Title other variant
-        'tf'    => '1=42',	  // Title former
-        'tab'   => '1=43',	  // Title abbreviated
-        'te'    => '1=44',	  // Title expanded
-        'sp'    => '1=45',	  // Subject PRECIS
-        'sr'    => '1=46',	  // Subject RSWK
-        'ssb'   => '1=47',	  // Subject subdivision
-        'ntl'   => '1=48',	  // Number natl bibliography
-        'nld'   => '1=49',	  // Number legal deposit
-        'ngp'   => '1=50',	  // Number govt publication
-        'npm'   => '1=51',	  // Number publisher for music
-        'ndb'   => '1=52',	  // Number DB
-        'nlc'   => '1=53',	  // Number local call
+        'yr'    => '1=31',      // Date of publication
+        'da'    => '1=32',      // Date of acquisition
+        'tk'    => '1=33',      // Title key
+        'tc'    => '1=34',      // Title collective
+        'tp'    => '1=35',      // Title parallel
+        'tcr'   => '1=36',      // Title cover
+        'ta'    => '1=37',      // Title added-title-page
+        'ct'    => '1=38',      // Title caption
+        'tr'    => '1=39',      // Title running
+        'st'    => '1=40',      // Title spine
+        'tov'   => '1=41',      // Title other variant
+        'tf'    => '1=42',      // Title former
+        'tab'   => '1=43',      // Title abbreviated
+        'te'    => '1=44',      // Title expanded
+        'sp'    => '1=45',      // Subject PRECIS
+        'sr'    => '1=46',      // Subject RSWK
+        'ssb'   => '1=47',      // Subject subdivision
+        'ntl'   => '1=48',      // Number natl bibliography
+        'nld'   => '1=49',      // Number legal deposit
+        'ngp'   => '1=50',      // Number govt publication
+        'npm'   => '1=51',      // Number publisher for music
+        'ndb'   => '1=52',      // Number DB
+        'nlc'   => '1=53',      // Number local call
         'ln'    => '1=54',    // Code Lang
         'cna'   => '1=55',    // Code geographic area
         'ci'    => '1=56',    // Code institution
@@ -104,6 +104,3 @@ return [
         'ats'   => '1=1036',  // Author Title Subject
     ],
 ];
-
-
-
