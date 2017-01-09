@@ -3,32 +3,27 @@ language: php
 php:
   - 5.6
   - 7.0
+  - 7.1
   - hhvm
 
-matrix:
-  allow_failures:
-    - php: hhvm
 env:
-  APP_ENV: testing
-  CACHE_DRIVER: array
-  SESSION_DRIVER: array
-  QUEUE_DRIVER: sync
-  DB_CONNECTION: mysql
-  DB_DATABASE: medlib_test
-  DB_USERNAME: travis
-  DB_PASSWORD:
-  APP_KEY: 16efa6c23c2e8c705826b0e66778fbe7
-  ADMIN_EMAIL: admin@medlib.fr
-  ADMIN_NAME: Admin
-  ADMIN_PASSWORD: SoSecurEvinr0rd
-  BROADCAST_DRIVER: log
+  global:
+    - setup=basic
+
+matrix:
+  include:
+    - php: 5.6
+      env: setup=lowest
+    - php: 5.6
+      env: setup=stable
 
 ## Cache composer directories
 cache:
   directories:
+    - $HOME/.composer/cache
     - node_modules # NPM packages
     - vendor
-    
+
 branches:
   - master
   - develop
@@ -37,25 +32,46 @@ branches:
 sudo: required
 services:
   - mysql
+  - redis-server
 
 # Setting up pre-requirements
 before_install:
-  - id -un #Show current user
   - git clone git://github.com/medlib-v2/test-unit.git tests
   - cp .env.travis .env
-  - touch database/database.sqlite
+  - rm -rf .env.testing
   - mysql -e 'create database if not exists medlib_test;'
+  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo apt-get install yaz libyaz4 libyaz4-dev
+  - printf "\n" | pecl install yaz
+  - npm i maildev
+  - travis_retry composer self-update
+  - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
 
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
+  #- composer.phar install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader # Production mode installation
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+  - php artisan key:generate
+  - php artisan migrate --seed --env="testing"
+  - make file-permission
+  - sleep 5
   - npm install
-  - composer self-update
-  - composer install --no-scripts --no-interaction
-  - php artisan migrate
-  - php artisan db:seed
+  - node server.js 1&2>/dev/null
 
 script:
-  - phpunit
-  - npm test
+  - make cs
+  #- phpunit
+  - php artisan test:run
+  #- npm test
+
+
+matrix:
+  allow_failures:
+    - php: 7.1
+    - php: hhvm
+  fast_finish: true
