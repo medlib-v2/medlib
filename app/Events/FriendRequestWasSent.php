@@ -5,10 +5,9 @@ namespace Medlib\Events;
 use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class FriendRequestWasSent extends Event {
-
+class FriendRequestWasSent extends Event
+{
     use SerializesModels;
 
     /**
@@ -27,8 +26,8 @@ class FriendRequestWasSent extends Event {
      * @param \Medlib\Models\User $requestedUser
      * @param \Medlib\Models\User $requesterUser
      */
-    public function __construct(User $requestedUser, User $requesterUser) {
-
+    public function __construct(User $requestedUser, User $requesterUser)
+    {
         $this->requestedUser = $requestedUser;
         $this->requesterUser = $requesterUser;
     }
@@ -38,7 +37,8 @@ class FriendRequestWasSent extends Event {
      *
      * @return array
      */
-    public function broadcastOn() {
+    public function broadcastOn()
+    {
         return [];
     }
 }

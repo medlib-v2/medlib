@@ -1,1 +1,0 @@
-!function(a){a(".search-db1").keyup(function(){var c=a(this).val(),s="searchword="+c;return""!==c&&a.ajax({type:"GET",source:"/dashboard/search",data:s,cache:!1,success:function(c){a("#display").html(c).show()}}),!1})}(jQuery);

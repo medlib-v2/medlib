@@ -1,0 +1,21 @@
+---
+# Variable configuration.
+- include: variables.yml
+- include: setup-mysql.yml
+
+- name: Check if MySQL packages were installed.
+  set_fact:
+    mysql_install_packages: "{{ deb_mysql_install_packages is defined and deb_mysql_install_packages.changed }}"
+
+# Configure MySQL.
+- include: configure.yml
+- include: secure-installation.yml
+- include: databases.yml
+- include: users.yml
+- include: replication.yml
+
+- name: Create a production database for Medlib
+  mysql_db: name={{database_medlib_name}}
+
+- name: Add a new MySQL user for Medlib
+  mysql_user: name={{database_medlib_user}} password={{database_medlib_pwd}} priv={{database_medlib_name}}.*:ALL,GRANT

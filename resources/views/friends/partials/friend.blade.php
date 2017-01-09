@@ -9,7 +9,7 @@
 								<img src="{{ url($user->getAvatar()) }}" alt="people" class="media-object img-circle" height="50" width="50" alt="{!! $user->getFirstName() !!}">
 							</div>
 							<div class="widget-body">
-								<h4 class="media-heading margin-v-5"><a href="{{ url('/profiles/'.$user->getUsername()) }}" data-fullname="{{ $user->getName() }}">{{ $user->getFirstName() }}&nbsp; {{ $user->getLastName() }}</a></h4>
+								<h4 class="media-heading margin-v-5"><a href="{{ url('/u/'.$user->getUsername()) }}" data-fullname="{{ $user->getName() }}">{{ $user->getFirstName() }}&nbsp; {{ $user->getLastName() }}</a></h4>
 								<div class="profile-icons">
 									<span><i class="fa fa-users"></i> {{ $user->friends()->count() }}</span>
 									<span><i class="fa fa-photo"></i> 43</span>

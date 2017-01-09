@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.sort-buttons.min.js",
+	"src": [
+		"addons/sort-buttons/js/sort-buttons-view.js",
+		"addons/sort-buttons/js/sort-buttons-dto.js"
+	]
+}

@@ -5,10 +5,12 @@ namespace Medlib\Models;
 use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class FriendRequest extends Model {
+class FriendRequest extends Model
+{
 
     /**
      * The database table used by the model.
+     *
      * @var string
      */
     protected $table = 'friend_requests';
@@ -24,7 +26,7 @@ class FriendRequest extends Model {
     /**
      * A feed belongs to a User.
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -35,9 +37,7 @@ class FriendRequest extends Model {
     /**
      * Send a friend request to a user
      *
-     *
      * @attr int $requester_id
-     *
      */
     public static function prepareFriendRequest($requester_id)
     {
@@ -45,5 +45,4 @@ class FriendRequest extends Model {
 
         return $FriendRequest;
     }
-
 }

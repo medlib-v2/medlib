@@ -10,7 +10,8 @@ use Medlib\Models\User;
 use Medlib\Repositories\Feed\FeedRepository;
 use Medlib\Repositories\User\UserRepository;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
      * @var \Illuminate\Support\Facades\Auth
@@ -18,27 +19,18 @@ class UsersController extends Controller {
     private $currentUser;
 
     /**
-     * Create a new instance of UsersController
-     */
-    public function __construct() {
-
-        $this->middleware('auth');
-        $this->currentUser = Auth::user();
-    }
-
-    /**
      * Display the specified user.
      *
      * @param FeedRepository $feedRepository
      * @return View
      */
-    public function index(FeedRepository $feedRepository) {
+    public function index(FeedRepository $feedRepository)
+    {
+        $this->currentUser = Auth::user();
 
-        $currentUser = $this->currentUser;
+        $user = User::find($this->currentUser->id);
 
-        $user = User::find($currentUser->id);
-
-        return $this->showFriendsAndFeeds($user, $feedRepository, $currentUser);
+        return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
     }
 
     /**
@@ -49,20 +41,23 @@ class UsersController extends Controller {
      * @param FeedRepository $feedRepository
      * @return View
      */
-    public function show($username, UserRepository $userRepository, FeedRepository $feedRepository) {
+    public function show($username, UserRepository $userRepository, FeedRepository $feedRepository)
+    {
+        $this->currentUser = Auth::user();
 
-        $currentUser = $this->currentUser;
+        if ($this->currentUser->getUsername() == $username) {
+            $user = User::find($this->currentUser->id);
 
-        $user = $userRepository->findByUsername($username);
+            return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+        } else {
+            $user = $userRepository->findByUsername($username);
 
-        if (!$user == null) {
+            if (!$user == null) {
+                return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+            }
 
-            return $this->showFriendsAndFeeds($user, $feedRepository, $currentUser);
+            return Redirect::back()->withErrors("User does not exist $username");
         }
-
-        return Redirect::back()->withErrors("User does not exist $username");
-
-
     }
 
     /**
@@ -73,14 +68,12 @@ class UsersController extends Controller {
      * @param $currentUser
      * @return View
      */
-    private function showFriendsAndFeeds(User $user, FeedRepository $feedRepository, $currentUser) {
-
+    private function showFriendsAndFeeds(User $user, FeedRepository $feedRepository, $currentUser)
+    {
         $friends = $user->friends()->take(8)->get();
 
         $feeds = $feedRepository->getPublishedByUser($user);
 
         return view('users.users.show', compact('currentUser', 'user', 'friends', 'feeds'));
-
     }
-
 }

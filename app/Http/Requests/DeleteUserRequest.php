@@ -4,14 +4,16 @@ namespace Medlib\Http\Requests;
 
 use Medlib\Http\Requests\Request;
 
-class DeleteUserRequest extends Request {
+class DeleteUserRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -28,5 +30,4 @@ class DeleteUserRequest extends Request {
             'g-recaptcha-response' => 'required|recaptcha',
         ];
     }
-
 }

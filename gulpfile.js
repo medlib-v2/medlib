@@ -1,167 +1,151 @@
-'use strict';
+require('events').EventEmitter.defaultMaxListeners = 30;
 
-var gulp = require('gulp'),
-    livereload = require('gulp-livereload'),
-    path = require('path'),
-    minifyHtml = require('gulp-minify-html'),
-    less = require('gulp-less'),
-    minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename'),
-    gutil = require('gulp-util'),
-    filesize = require('gulp-filesize'),
-    ttf2woff = require('gulp-ttf2woff'),
-    trycatch = require('gulp-trycatch-closure'),
-    LessPluginAutoPrefix = require('less-plugin-autoprefix'),
-    autoprefix = new LessPluginAutoPrefix({ browsers: ["last 2 versions"] }),
-    /**
-    prefix	= require('gulp-autoprefixer'),
-    mergeJs = require('gulp-merge'),
-    **/
-    changed = require('gulp-changed'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    watch = require('gulp-watch'),
-    clean = require('gulp-clean'),
+var elixir = require('laravel-elixir'),
+    cssnext = require('postcss-cssnext'),
+    gutils = require('gulp-util'),
+    shell  = require('gulp-shell'),
+    gulp   = require('gulp'),
+    Task = elixir.Task,
+    jQuery = require('./resources/assets/js/jquery/config.json'),
+    App = require('./resources/assets/js/config.json'),
+    booksApp = require('./resources/assets/js/books/config.json'),
+    PreviewApp = require('./resources/assets/js/preview/config.json'),
+    vue = require('./resources/assets/js/vue/config.json'),
+    beList = require('./resources/assets/less/plugins/be-list/core/js/config.json'),
+    sortBundele = require('./resources/assets/less/plugins/be-list/addons/sort-bundle/js/config.json'),
+    textboxFilter = require('./resources/assets/less/plugins/be-list/addons/textbox-filter/js/config.json'),
+    paginationBundle = require('./resources/assets/less/plugins/be-list/addons/pagination-bundle/js/config.json'),
+    historyBundle = require('./resources/assets/less/plugins/be-list/addons/history-bundle/js/config.json'),
+    filterToggleBundle = require('./resources/assets/less/plugins/be-list/addons/filter-toggle-bundle/js/config.json'),
+    filterDropdownBundle = require('./resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/config.json');
 
 
-    /** Application Medlib **/
-    /**
-    'public/js/settings-app.min.js',
-    'public/js/app.min.js',
-    **/
+require('laravel-elixir-browserify-official');
+require('laravel-elixir-browsersync-official');
+require('laravel-elixir-browserify-hmr');
+require('laravel-elixir-clean-unofficial');
 
-    /** Bootstrap core JavaScript  **/
-    /*
-    'public/js/bootstrap.min.js',
-    'public/js/progressbar.min.js',
-    'public/js/custom.min.js',
-    'public/js/script.min.js',
-    'public/js/main.min.js',
-    'public/js/jquery.input.min.js',
-    'public/js/jquery.param.min.js',
-    'public/js/jquery.progress.min.js',
-    'public/js/jquery.shorten.min.js',
-    'public/js/google-books.min.js'
-    **/
-    settings = {
-        assetsFolder: './public/',
-        assetsPlugins: './bower/bower_components/',
-        buildFolder: './resources/assets/',
-        fonts: {
-            glyphicons: './bower/bower_components/bootstrap/fonts/',
-            fontawesome: './bower/bower_components/fontawesome/fonts/',
-            ionicons: './bower/bower_components/ionicons/fonts/',
-            weathericons: 'bower/bower_components/weather-icons/font/',
-            worksans: './resources/assets/fonts/worksans/',
-            dest: './resources/assets/fonts/'
-        },
-    },
-    jplist = {
-        src: [
-            './resources/assets/js/jplist/jplist.core.min.js',
-            './resources/assets/js/jplist/jplist.sort-bundle.min.js',
-            './resources/assets/js/jplist/jplist.textbox-filter.min.js',
-            './resources/assets/js/jplist/jplist.pagination-bundle.min.js',
-            './resources/assets/js/jplist/jplist.history-bundle.min.js',
-            './resources/assets/js/jplist/jplist.filter-toggle-bundle.min.js',
-            './resources/assets/js/jplist/jplist.views-control.min.js'
-        ],
-        dest: './public/js'
-    };
+elixir.config.js.browserify.transformers.push({
+    name: 'vueify',
 
-
-/**
- * Before clean all content
- */
-gulp.task('clean-application', function() {
-    return gulp.src(settings.assetsFolder + 'css/application.css', { read: false })
-        .pipe(clean({ force: true }));
+    options: {
+        postcss: [cssnext({
+            autoprefixer: {
+                browsers: ['last 2 versions', 'ie >= 8', 'safari 5', 'opera 12.1', 'ios 6', 'android 4']
+            }
+        })]
+    }
 });
-
-gulp.task('clean-scripts', [], function() {
-    //return gulp.src(settings.assetsFolder+'js/*.js', {read: false})
-    //	.pipe(clean({force: true}));
-});
-
 /**
- * copy all fonts in fonts folder
- */
-/**
-gulp.task('copyfonts', function() {
-	gulp.src( settings.fonts.glyphicons + '*.{ttf,woff,eof,svg}')
-		.pipe(gulp.dest(settings.fonts.dest + 'glyphicons'));
-
-	gulp.src( settings.fonts.fontawesome + '*.{ttf,woff,eof,svg}')
-		.pipe(gulp.dest(settings.fonts.dest + 'fontawesome'));
-
-	gulp.src( settings.fonts.ionicons + '*.{ttf,woff,eof,svg}')
-		.pipe(gulp.dest(settings.fonts.dest + 'ionicons'));
-
-	gulp.src( settings.fonts.weathericons + '*.{ttf,woff,eof,svg}')
-		.pipe(gulp.dest(settings.fonts.dest + 'weather-icons'));
+elixir.config.js.browserify.plugins.push({
+    name: 'vueify-extract-css',
+    options: {
+        out: elixir.config.publicPath + '/css/bundle.css'
+    }
 });
 **/
+
+elixir.extend('lang', function() {
+    new Task('lang', function(){
+        return gulp.src('').pipe(shell('php artisan js-localization:refresh'));
+    });
+
+});
+
 /**
- * Concat the all js plugins
+ * elixir.config.js.browserify.watchify.enabled = true;
+ * if(elixir.isWatching()){
+ *  elixir.config.js.browserify.plugins.push({
+ *      name: "browserify-hmr",
+ *      options : {}
+ *   });
+ * }
+ *
+ * require('laravel-elixir-vueify');
+ *
+ **/
+
+/**
+ |--------------------------------------------------------------------------
+ | Elixir Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for our application, as well as publishing vendor resources.
+ |
  */
-gulp.task('vendor', function() {
-    return gulp.src([
-            settings.assetsPlugins + 'jquery/dist/jquery.min.js',
-            settings.assetsPlugins + 'jquery-ui/jquery-ui.min.js',
-            settings.assetsPlugins + 'jquery-pjax/jquery.pjax.js',
-            settings.assetsPlugins + 'bootstrap/dist/js/bootstrap.min.js',
-            settings.assetsPlugins + 'velocity/velocity.min.js',
-            settings.assetsPlugins + 'moment/min/moment.min.js',
-            settings.assetsPlugins + 'toastr/toastr.min.js',
-            settings.assetsPlugins + 'scrollMonitor/scrollMonitor.js',
-            settings.assetsPlugins + 'textarea-autosize/dist/jquery.textarea_autosize.min.js',
-            settings.assetsPlugins + 'bootstrap-select/dist/js/bootstrap-select.min.js',
-            settings.assetsPlugins + 'fastclick/lib/fastclick.js',
-            settings.assetsPlugins + 'bootstrap-sass/assets/javascripts/bootstrap/transition.js',
-            settings.assetsPlugins + 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
-            settings.assetsPlugins + 'bootstrap-sass/assets/javascripts/bootstrap/button.js',
-            settings.assetsPlugins + 'bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
-            settings.assetsPlugins + 'bootstrap-sass/assets/javascripts/bootstrap/alert.js',
-            settings.assetsPlugins + 'jQuery-slimScroll/jquery.slimscroll.min.js',
-            settings.assetsPlugins + 'widgster/widgster.js',
-            settings.assetsPlugins + 'pace.js/pace.min.js',
-            settings.assetsPlugins + 'jquery-touchswipe/jquery.touchSwipe.js',
-            settings.assetsPlugins + 'select2/select2.js'
+elixir(function(mix) {
+    mix.less('application.less', 'public/css/application.css')
+        //.browserify(App.main.src, App.main.dist)
+        .browserify(booksApp.src, booksApp.dist)
+        .browserify(PreviewApp.src, PreviewApp.dist)
+        .browserify(vue.cookiesBar.src, vue.cookiesBar.dist)
+        .copy(jQuery.src, jQuery.dist)
+        .styles([
+            vue.cookiesBar.css,
+            'less/plugins/select2/css/select2.css',
+            'less/plugins/material-design-icons/css/material-design-iconic-font.min.css',
+            'less/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css'],
+            'public/css/vendors.min.css', 'resources/assets/')
+        .scripts([
+            'resources/assets/js/plugins/modernizr.js',
+            'resources/assets/less/plugins/select2/js/select2.js',
+            'resources/assets/less/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
+            'resources/assets/js/plugins/jquery.touchSwipe.min.js',
+            'node_modules/socket.io-client/dist/socket.io.js',
+            'node_modules/bootstrap-switch/dist/js/bootstrap-switch.js',
+            'vendor/andywer/js-localization/resources/js/localization.js'],
+            'public/js/plugins.vendor.min.js', './')
+        .scripts(App.src, App.dist)
+        .scripts(beList.src, beList.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(sortBundele.src, sortBundele.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(textboxFilter.src, textboxFilter.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(paginationBundle.src, paginationBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(historyBundle.src, historyBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(filterToggleBundle.src, filterToggleBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts(filterDropdownBundle.src, filterDropdownBundle.dist, 'resources/assets/less/plugins/be-list')
+        .scripts([
+            beList.dist,
+            sortBundele.dist,
+            textboxFilter.dist,
+            paginationBundle.dist,
+            historyBundle.dist,
+            filterToggleBundle.dist,
+            filterDropdownBundle.dist
+        ], 'public/js/be-list.min.js', './')
+        .version([
+            'css/application.css',
+            'css/vendors.min.css',
+            'js/jquery.min.js',
+            'js/app.min.js',
+            'js/plugins.vendor.min.js',
+            'js/vue/cookiesbar.min.js',
+            'js/books/app.min.js',
+            'js/preview/app.min.js',
+            'js/be-list.min.js'
         ])
-        .pipe(uglify())
-        .pipe(concat('vendor.min.js'))
-        .pipe(gulp.dest(settings.assetsFolder + 'js'))
-        .pipe(filesize())
-        .on('error', gutil.log);
-});
+        .copy('resources/assets/images', 'public/images')
+        .copy('resources/assets/fonts', 'public/build/fonts');
 
-/**
- * Compile all js applications
- */
-gulp.task('js', ['clean-scripts'], function() {
-    gulp.src(settings.buildFolder + 'js/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest(settings.assetsFolder + 'js'));
-});
+    if (process.env.NODE_ENV == 'production') {
+        mix.clean([
+            'public/css',
+            'public/js'
+        ]).lang();
+    }
 
-/**
- * Compile css
- */
-gulp.task('css', ['clean-application'], function() {
-    return gulp.src(settings.buildFolder + 'less/application.less')
-        .pipe(changed(settings.assetsFolder + 'css/'))
-        .pipe(less({
-            plugins: [autoprefix],
-            paths: [path.join(settings.buildFolder, 'less')]
-        }))
-        //.pipe(trycatch())
-        .pipe(minifyCss())
-        .pipe(gulp.dest(settings.assetsFolder + 'css/'))
-        .on('error', gutil.log);
-});
+    if (process.env.NODE_ENV !== 'production') {
 
-gulp.task('watch', function() {
-    return gulp.watch(settings.buildFolder + 'less/**/*.less', ['css']);
+        mix.browserSync({
+            proxy: 'http://localhost:8000',
+            files: [
+                elixir.config.appPath + '/**/*.php',
+                elixir.config.get('public.css.outputFolder') + '/**\/*.css',
+                elixir.config.get('public.versioning.buildFolder') + '/rev-manifest.json',
+                'resources/views/**/*.php'
+            ],
+            browser: ['yandex']
+        });
+    }
 });
-
-gulp.task('default', ['vendor', 'js', 'css', 'watch']);

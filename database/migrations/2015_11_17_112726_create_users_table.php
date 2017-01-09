@@ -12,8 +12,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function(Blueprint $table){
-
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email', 64)->unique();
             $table->string('username', 64)->unique();
@@ -23,12 +22,10 @@ class CreateUsersTable extends Migration
             $table->enum('profession', ['student','researcher','teacher']);
             $table->string('location')->nullable();
             $table->date('date_of_birth');
-            $table->enum('gender', ['woman','man']);
-            $table->tinyInteger('user_active', false);
-            //$table->boolean('user_active')->default(false);
+            $table->enum('gender', ['male','female']);
+            $table->boolean('activated')->default(false);
             $table->tinyInteger('account_type', false);
             $table->string('user_avatar');
-            $table->string('confirmation_code');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);
             $table->rememberToken();

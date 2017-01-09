@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.list-grid-view.min.js",
+	"src": [
+		"addons/list-grid-view/js/views-view.js",
+		"addons/list-grid-view/js/views-dto.js"
+	]
+}

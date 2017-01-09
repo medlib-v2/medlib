@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.bootstrap-sort-dropdown.min.js",
+	"src": [
+		"addons/bootstrap-sort-dropdown/js/bootstrap-sort-dropdown-view.js",
+		"addons/bootstrap-sort-dropdown/js/bootstrap-sort-dropdown-dto.js"
+	]
+}

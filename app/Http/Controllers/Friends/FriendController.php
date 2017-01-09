@@ -3,18 +3,16 @@
 namespace Medlib\Http\Controllers\Friends;
 
 use Medlib\Models\User;
-use Illuminate\Http\Request;
 use Medlib\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
-use Medlib\Commands\RemoveFriendCommand;
-use Illuminate\Support\Facades\Validator;
+use Medlib\Services\RemoveFriendService;
+use Medlib\Http\Requests\FriendUserRequest;
 use Medlib\Repositories\User\UserRepository;
-use Illuminate\Support\Facades\Bus;
 
-class FriendController extends Controller {
-
+class FriendController extends Controller
+{
 
     /**
      * @var \Medlib\Models\User;
@@ -24,8 +22,8 @@ class FriendController extends Controller {
     /**
      * FriendController constructor.
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         $this->currentUser = Auth::user();
     }
 
@@ -33,12 +31,12 @@ class FriendController extends Controller {
      * Display a listing of the resource.
      *
      * @param UserRepository $repository
-     * 
+     *
      * @return Response
      */
-    public function index(UserRepository $repository) {
-
-        $user = $this->currentUser;
+    public function index(UserRepository $repository)
+    {
+        $user = $this->currentUser = Auth::user();
 
         $friends = $repository->findByIdWithFriends($user->id);
 
@@ -48,35 +46,26 @@ class FriendController extends Controller {
     /**
      * Store a newly created friend
      *
-     * @param Request $request
+     * @param FriendUserRequest $request
      * @param UserRepository $repository
      *
      * @return Response
      */
-    public function store(Request $request, UserRepository $repository){
+    public function store(FriendUserRequest $request, UserRepository $repository)
+    {
+        $this->currentUser = Auth::user();
 
-        $validator = Validator::make($request->all(), ['username' => 'required']);
+        $friend = User::whereUsername($request->get('username'))->first();
 
-        if($validator->fails())
-        {
-            if($request->ajax()){
-                return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
-            }
-        }
-        else  {
-            $friend = User::whereUsername($request->get('username'))->first();
+        $this->currentUser->createFriendShipWith($friend->id);
 
-            $this->currentUser->createFriendShipWith($friend->id);
+        $repository->findByUsername($friend->getUsername())->createFriendShipWith($this->currentUser->id);
 
-            $repository->findByUsername($friend->getUsername())->createFriendShipWith($this->currentUser->id);
+        FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
 
-            FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
+        $friendRequestCount = $this->currentUser->friendRequests()->count();
 
-            $friendRequestCount = $this->currentUser->friendRequests()->count();
-
-            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], 200);
-        }
-
+        return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], 200);
     }
 
 
@@ -84,26 +73,18 @@ class FriendController extends Controller {
     /**
      * Terminate friendship between 2 users.
      *
-     * @param Request $request
+     * @param FriendUserRequest $request
      *
      * @return Response
      */
-    public function destroy(Request $request) {
+    public function destroy(FriendUserRequest $request)
+    {
+        $this->currentUser = Auth::user();
 
-        $validator = Validator::make($request->all(), ['username' => 'required']);
+        $this->dispatch(new RemoveFriendService($request));
 
-        if($validator->fails())
-        {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.'], 422);
-        }
-        else
-        {
-            Bus::dispatchFrom(RemoveFriendCommand::class, $request, ['username' => $request->get('username')]);
+        $friendsCount = $this->currentUser->friends()->count();
 
-            $friendsCount = $this->currentUser->friends()->count();
-
-            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], 200);
-        }
+        return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], 200);
     }
-
 }

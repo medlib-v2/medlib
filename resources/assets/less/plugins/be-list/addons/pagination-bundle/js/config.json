@@ -1,0 +1,12 @@
+{
+	"dist": "public/js/be-list.pagination-bundle.min.js",
+	"src": [
+		"addons/pagination-bundle/js/pagination-info/pagination-info-view.js",
+		"addons/pagination-bundle/js/pagination/pagination-controller.js",
+		"addons/pagination-bundle/js/pagination/pagination-view.js",
+		"addons/pagination-bundle/js/pagination/pagination-dto.js",
+		"addons/pagination-bundle/js/dropdown/dropdown-view.js",
+		"addons/pagination-bundle/js/dropdown/select-view.js",
+		"addons/pagination-bundle/js/dropdown/dto/dropdown-pagination-dto.js"
+	]
+}

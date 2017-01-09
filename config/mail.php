@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'noreply.medlib@gmail.com', 'name' => 'Medlib Team'],
+    'from' => ['address' => env('MAIL_FROM_ADDRESS', 'no-reply@medlib.fr'), 'name' => env('MAIL_FROM_NAME', 'Medlib Team')],
 
     /*
     |--------------------------------------------------------------------------

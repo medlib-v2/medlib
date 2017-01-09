@@ -5,7 +5,7 @@
                 <div class="width-250 width-auto-xs">
                     <div class="panel panel-dashboard widget-user-1 text-center box-shadow">
                         <div class="profile-userpic">
-                            @if($user->is(Auth::user()->id))
+                            @if($user->is(Auth::user()))
                                 <!--<div class="profile-card-icon"><i class="fa fa-graduation-cap"></i></div>-->
                                 <img class="img-circle" src="{{ Auth::user()->getAvatar() }}" alt="...">
                                 <h4 data-fullname="{{ Auth::user()->getName() }}">{{ Auth::user()->getFirstName() }} <strong>{{ Auth::user()->getLastName() }}</strong></h4>
@@ -38,7 +38,7 @@
                         <div class="profile-icons margin-none">
                             <span><i class="fa fa-users"></i> {{ count($friends) }}</span>
 
-                            @if($user->is(Auth::user()->id))
+                            @if($user->is(Auth::user()))
                                 <span><i class="fa fa-photo"></i> 430</span>
                                 <a href="{{ route('profile.show.settings') }}" class="btn btn-white btn-xs pull-righ"><i class="fa fa-pencil"></i></a>
                             @else
@@ -53,25 +53,25 @@
                                             <li class="padding-v-5">
                                                 <div class="row">
                                                     <div class="col-sm-4"><i class="glyphicon glyphicon-calendar"></i></div>
-                                                    <div class="col-sm-8">{{ ($user->is(Auth::user()->id)) ? Auth::user()->getBirthDay() : $user->getBirthDay()  }}</div>
+                                                    <div class="col-sm-8">{{ ($user->is(Auth::user())) ? Auth::user()->getBirthDay() : $user->getBirthDay()  }}</div>
                                                 </div>
                                             </li>
                                             <li class="padding-v-5">
                                                 <div class="row">
                                                     <div class="col-sm-4"><span class="text-muted">Job</span></div>
-                                                    <div class="col-sm-8">{{ ($user->is(Auth::user()->id)) ? Auth::user()->getProfession() : $user->getProfession()  }}</div>
+                                                    <div class="col-sm-8">{{ ($user->is(Auth::user())) ? Auth::user()->getProfession() : $user->getProfession()  }}</div>
                                                 </div>
                                             </li>
                                             <li class="padding-v-5">
                                                 <div class="row">
                                                     <div class="col-sm-4"><span class="text-muted">Gender</span></div>
-                                                    <div class="col-sm-8">{{ ($user->is(Auth::user()->id)) ? Auth::user()->getGender() : $user->getGender()  }}</div>
+                                                    <div class="col-sm-8">{{ ($user->is(Auth::user())) ? Auth::user()->getGender() : $user->getGender()  }}</div>
                                                 </div>
                                             </li>
                                             <li class="padding-v-5">
                                                 <div class="row">
                                                     <div class="col-sm-4"><span class="text-muted">Lives in</span></div>
-                                                    <div class="col-sm-8">{{ ($user->is(Auth::user()->id)) ? Auth::user()->getLocation() : $user->getLocation()  }}</div>
+                                                    <div class="col-sm-8">{{ ($user->is(Auth::user())) ? Auth::user()->getLocation() : $user->getLocation()  }}</div>
                                                 </div>
                                             </li>
                                             <li class="padding-v-5">
@@ -218,7 +218,7 @@
                 <div class="panel panel-dashboard box-shadow">
                     <div class="panel-heading panel-heading-gray">
                         <div class="pull-right">
-                            <a href="{{ url('profiles/'.$user->getUsername().'/friends') }}" class="btn btn-primary btn-xs">Show all <i class="fa fa-group"></i></a>
+                            <a href="{{ url('u/'.$user->getUsername().'/friends') }}" class="btn btn-primary btn-xs">Show all <i class="fa fa-group"></i></a>
                         </div>
                         <i class="icon-user-1"></i> Friends
                     </div>
@@ -237,7 +237,7 @@
                                  <li><span href="#" class="group"><i class="fa fa-group" style="font-size: 70px;"></i></span></li>
                             @else
                                     @foreach($friends as $friend )
-                                        <li><a href="{{ url('/profiles', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
+                                        <li><a href="{{ url('/u', ['username' => $friend->getUsername() ]) }}"><img src="{{ $friend->getAvatar() }}" alt="image"></a></li>
                                     @endforeach
                                 @endif
                         @endif

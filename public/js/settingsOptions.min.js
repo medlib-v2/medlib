@@ -1,1 +1,0 @@
-Pace.options={ajax:!1,document:!1,eventLag:!1,elements:{selectors:[".flexible-space .js"]}};

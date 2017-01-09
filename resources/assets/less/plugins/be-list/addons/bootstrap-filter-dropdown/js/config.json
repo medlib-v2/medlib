@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.bootstrap-filter-dropdown.min.js",
+	"src": [
+		"addons/bootstrap-filter-dropdown/js/bootstrap-filter-dropdown-dto.js",
+		"addons/bootstrap-filter-dropdown/js/bootstrap-filter-dropdown-view.js"
+	]
+}

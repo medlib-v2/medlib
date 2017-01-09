@@ -1,4 +1,4 @@
-@extends('layouts.dashboards.dashboard')
+@extends('layouts.master')
 
 @section('title', 'Dashboard Books')
 
@@ -190,5 +190,4 @@
 @endsection
 
 @section('script')
-    @include('dashboard.scripts.books')
 @endsection

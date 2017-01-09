@@ -1,0 +1,8 @@
+{
+	"dist": "public/js/be-list.autocomplete.min.js",
+	"src": [
+		"addons/autocomplete/js/app.js",
+		"addons/autocomplete/js/dal/data-source.js",
+		"addons/autocomplete/js/ui/autocomplete-view.js"
+	]
+}

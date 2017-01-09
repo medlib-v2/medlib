@@ -12,8 +12,7 @@ class CreateEditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('editions', function(Blueprint $table){
-
+        Schema::create('editions', function (Blueprint $table) {
             $table->increments('edition_id');
             $table->string('name');
         });

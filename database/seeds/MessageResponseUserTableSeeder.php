@@ -17,10 +17,9 @@ class MessageResponseUserTableSeeder extends Seeder
 
         $date = new DateTime();
 
-        $messageResponseIds = DB::table('message_responses')->lists('id');
+        $messageResponseIds = DB::table('message_responses')->pluck('id');
 
         foreach ($messageResponseIds as $messageResponseId) {
-
             DB::insert('insert into message_response_user (message_response_id, user_id, created_at, updated_at) values (?, ?, ?, ?)', [
                 $messageResponseId, 1, $date->format('Y-m-d H:i:s'), $date->format('Y-m-d H:i:s')]);
         }

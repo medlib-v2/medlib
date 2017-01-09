@@ -26,8 +26,8 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function books() {
-
+    public function books()
+    {
         return $this->hasMany(Book::class);
     }
 }

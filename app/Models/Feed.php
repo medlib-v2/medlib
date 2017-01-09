@@ -7,7 +7,8 @@ use Medlib\Models\Like;
 use Medlib\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Feed extends Model {
+class Feed extends Model
+{
 
     /**
      * The database table used by the model.
@@ -20,7 +21,7 @@ class Feed extends Model {
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url'];
+    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -32,9 +33,10 @@ class Feed extends Model {
     /**
      * A feed belongs to a User.
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -42,51 +44,57 @@ class Feed extends Model {
      * A feed belongs to a Comment.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comment() {
+    public function comment()
+    {
         return $this->belongsTo(Comment::class);
     }
 
     /**
-     *  Publish a new feed.
+     * Publish a new feed.
      *
-     *	@param string $body
-     *	@param string $poster_username
-     *	@param string $poster_profile_image
-     *  @param string $image_url
-     *  @param string $video_url
-     *  @param string $location
+     * @param string $body
+     * @param string $poster_username
+     * @param string $poster_profile_image
+     * @param string $image_url
+     * @param string $video_url
+     * @param string $location
      *
-     *	@return static
+     * @return static
      */
-    public static function publish($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null) {
+    public static function publish($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null)
+    {
         $feed = new static(compact('body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'));
         return $feed;
     }
 
     /**
-     *  Get the amount of feeds related to current User.
+     * Get the amount of feeds related to current User.
      *
-     *	@param array $userIds
+     * @param array $userIds
      *
-     *	@return int
+     * @return int
      */
-    public static function getTotalCountFeedsForUser($userIds) {
+    public static function getTotalCountFeedsForUser($userIds)
+    {
         return self::whereIn('user_id', $userIds)->count();
     }
+
 
     /**
      * 2nd arg is parsing the name of  the polymorphic relation
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function likes() {
-        return $this->morphMany(Like::class, 'likes');
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'feed');
     }
 
     /**
      * Return the id publisher
      * @return mixed
      */
-    public function getFeedId() {
+    public function getFeedId()
+    {
         return $this->id;
     }
 
@@ -94,7 +102,8 @@ class Feed extends Model {
      * Return the timestamps
      * @return array
      */
-    public function getDates() {
+    public function getDates()
+    {
         return ['created_at', 'updated_at'];
     }
 
@@ -102,7 +111,8 @@ class Feed extends Model {
      * Return the First name publisher
      * @return mixed
      */
-    public function getUsernamePublisher() {
+    public function getUsernamePublisher()
+    {
         return $this->poster_username;
     }
 
@@ -110,32 +120,48 @@ class Feed extends Model {
      * Return the Avatar of publisher
      * @return mixed
      */
-    public function getAvatarPublisher() {
+    public function getAvatarPublisher()
+    {
         return $this->poster_profile_image;
     }
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
-    public function getImagePath() {
+    public function getImagePath()
+    {
         return $this->image_url;
     }
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
-    public function getVideoPath() {
+    public function getVideoPath()
+    {
         return $this->video_url;
     }
 
     /**
      * Return the current content body
+     *
      * @return mixed
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->body;
+    }
+
+    /**
+     * Return the current location
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     /**
@@ -143,24 +169,34 @@ class Feed extends Model {
      *
      * @return string
      */
-    public function getPublishAt() {
-
+    public function getPublishAt()
+    {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
 
     /**
+     * Get formatted post date
+     *
+     * @return string
+     */
+    public function publishAt()
+    {
+        return $this->created_at->format('d/m/Y');
+    }
+
+    /**
      * Used to fetch youtube video id
+     *
      * @param $url
      */
-    public static function getYoutubeId($url){
-
+    public static function getYoutubeId($url)
+    {
         $parse = parse_url($url);
 
-        if(!empty($parse['query'])) {
-	          preg_match("/v=([^&]+)/i", $url, $matches);
-	          return $matches[1];
-        }
-        else {
+        if (!empty($parse['query'])) {
+            preg_match("/v=([^&]+)/i", $url, $matches);
+            return $matches[1];
+        } else {
             /**
              * to get basename
              */
@@ -168,5 +204,4 @@ class Feed extends Model {
             return $info['basename'];
         }
     }
-
 }

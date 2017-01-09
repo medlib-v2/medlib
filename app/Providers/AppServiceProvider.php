@@ -22,14 +22,16 @@ use Medlib\Http\Requests\CreateMessageResponseRequest;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider {
+class AppServiceProvider extends ServiceProvider
+{
 
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         //
     }
 
@@ -38,11 +40,11 @@ class AppServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
-
+    public function register()
+    {
         $this->app->bind('ProcessImage', ProcessImage::class);
 
-        $this->app->bind( FeedRepository::class, EloquentFeedRepository::class);
+        $this->app->bind(FeedRepository::class, EloquentFeedRepository::class);
 
         //Uncomment if you don't wish to cache all users
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
@@ -53,7 +55,7 @@ class AppServiceProvider extends ServiceProvider {
         
         $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
 
-        $this->app->bind('MessageRequest',  CreateMessageRequest::class);
+        $this->app->bind('MessageRequest', CreateMessageRequest::class);
 
         $this->app->bind('MessageResponseRequest', CreateMessageResponseRequest::class);
 

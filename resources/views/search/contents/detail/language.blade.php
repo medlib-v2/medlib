@@ -1,3 +1,3 @@
 @if($result->language)
-    <div class="item-language">Langue&nbsp;:&nbsp;<span class="language">{{ $result->language }}</span> &nbsp;</div>
+    <div class="language">Langue&nbsp;:&nbsp;<span class="item-language"><span class="language">{{ $result->language }}</span> &nbsp;</span></div>
 @endif

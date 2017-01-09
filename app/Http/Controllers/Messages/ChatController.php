@@ -3,11 +3,12 @@
 namespace Medlib\Http\Controllers\Messages;
 
 use Medlib\Http\Controllers\Controller;
-use Medlib\Commands\SendChatMessageCommand;
+use Medlib\Services\SendChatMessageService;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Http\Requests\SendMessageChatRequest;
 
-class ChatController extends Controller {
+class ChatController extends Controller
+{
 
 
     /**
@@ -18,18 +19,10 @@ class ChatController extends Controller {
      *
      * @return mixed
      */
-    public function sendMessage(SendMessageChatRequest $request, UserRepository $userRepository) {
-
-        $this->dispatchFrom(SendChatMessageCommand::class, $request);
+    public function sendMessage(SendMessageChatRequest $request, UserRepository $userRepository)
+    {
+        $this->dispatch(new SendChatMessageService($request, $userRepository));
 
         return response()->json(['response' => 'success', 'availableToChat' => $userRepository->findById($request->receiverId)->chatstatus]);
-
-        /**
-        if($validator->fails()) {
-            if($validator->fails()) return abort(403);
-        }
-        else {}
-        */
-
     }
 }

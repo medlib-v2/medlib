@@ -26,6 +26,13 @@
   transition: transform @transition;
 }
 
+.transform-origin(...) {
+  -webkit-transform-origin: @arguments;
+  -moz-transform-origin: @arguments;
+  -ms-transform-origin: @arguments; // IE9 only
+  transform-origin: @arguments;
+}
+
 .transform(...) {
   -webkit-transform: @arguments;
   -moz-transform: @arguments;

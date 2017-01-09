@@ -16,14 +16,14 @@ $factory->define(Medlib\Models\User::class, function (Faker\Generator $faker) {
 
         'email' => $faker->unique()->email,
         'username' => $faker->unique()->username,
-        'password' => Hash::make(str_random(10)),
+        'password' => bcrypt(str_random(10)),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'profession' => $faker->randomElement(['student','researcher', 'teacher']),
         'location' => "",
         'date_of_birth' => $faker->date,
         'gender' => $faker->randomElement(['man','woman']),
-        'user_active' => true,
+        'activated' => true,
         'account_type' => false,
         'user_avatar' => $faker->imageUrl($width = 180, $height = 180),
         'remember_token' => str_random(10),
@@ -32,13 +32,12 @@ $factory->define(Medlib\Models\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Medlib\Models\Message::class, function (Faker\Generator $faker) {
-
     $userIds = DB::table('users')->where('id', '!=', 1)->lists('id');
 
     return [
-        'body'		=> $faker->sentence(),
-        'senderprofileimage' => $faker->imageUrl($width = 180, $height = 180),
-        'senderid' => $faker->randomElement($userIds),
-        'sendername' => $faker->firstName,
+        'body'        => $faker->sentence(),
+        'sender_profile_image' => $faker->imageUrl($width = 200, $height = 200),
+        'sender_id' => $faker->randomElement($userIds),
+        'sender_name' => $faker->firstName,
     ];
 });

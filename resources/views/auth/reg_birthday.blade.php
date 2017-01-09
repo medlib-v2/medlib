@@ -4,7 +4,8 @@
 <div id="site-container" class="context-loader-container">
     <div id="page-content" class="container">
         <div id="section_header"></div>
-        @if (isset($errors) and $errors->has())
+        @include('flash.message')
+        @if (isset($errors) and $errors->any())
             <div class="alert alert-danger" role="alert">
                 <strong>Whoops!</strong> {{ trans('messages.problems_with_input') }}<br><br>
                 <ul>
@@ -14,9 +15,26 @@
                 </ul>
             </div>
         @endif
-
         <h2>Pourquoi votre date de naissance</h2>
         Votre date de naissance garantit que votre expérience Medlib est adaptée à votre âge. Pour changer qui peut voir ça, allez dans la section À propos de votre profil. Pour en savoir plus, consultez notre Politique d’utilisation des données.
     </div><!-- and div content -->
 </div><!-- and div context-loader-container -->
+@endsection
+
+@section('script')
+    <!-- page specific js -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /**
+             * Medlib Application
+             */
+            Medlib.InputField(null);
+            Medlib.Password('#password', {
+                innerToggle: true,
+                touchSupport: Modernizr.touch,
+                title: 'Click here show/hide password',
+                hideToggleUntil: 'focus'
+            });
+        });
+    </script>
 @endsection

@@ -3,6 +3,7 @@ language: php
 php:
   - 5.6
   - 7.0
+<<<<<<< HEAD
   - hhvm
 
 matrix:
@@ -22,13 +23,35 @@ env:
   ADMIN_NAME: Admin
   ADMIN_PASSWORD: SoSecurEvinr0rd
   BROADCAST_DRIVER: log
+=======
+  - 7.1
+  - hhvm
+
+env:
+  global:
+    - setup=basic
+
+matrix:
+  include:
+    - php: 5.6
+      env: setup=lowest
+    - php: 5.6
+      env: setup=stable
+>>>>>>> 7668161eadf5a93a57219d8f11b71350779ecd7d
 
 ## Cache composer directories
 cache:
   directories:
+<<<<<<< HEAD
     - node_modules # NPM packages
     - vendor
     
+=======
+    - $HOME/.composer/cache
+    - node_modules # NPM packages
+    - vendor
+
+>>>>>>> 7668161eadf5a93a57219d8f11b71350779ecd7d
 branches:
   - master
   - develop
@@ -37,6 +60,7 @@ branches:
 sudo: required
 services:
   - mysql
+<<<<<<< HEAD
 
 # Setting up pre-requirements
 before_install:
@@ -45,11 +69,29 @@ before_install:
   - cp .env.travis .env
   - touch database/database.sqlite
   - mysql -e 'create database if not exists medlib_test;'
+=======
+  - redis-server
+
+# Setting up pre-requirements
+before_install:
+  - git clone git://github.com/medlib-v2/test-unit.git tests
+  - cp .env.travis .env
+  - rm -rf .env.testing
+  - mysql -e 'create database if not exists medlib_test;'
+  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo apt-get install yaz libyaz4 libyaz4-dev
+  - printf "\n" | pecl install yaz
+  - npm i maildev
+  - travis_retry composer self-update
+  - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
+>>>>>>> 7668161eadf5a93a57219d8f11b71350779ecd7d
 
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
+<<<<<<< HEAD
   - npm install
   - composer self-update
   - composer install --no-scripts --no-interaction
@@ -59,3 +101,28 @@ install:
 script:
   - phpunit
   - npm test
+=======
+  #- composer.phar install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader # Production mode installation
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+  - php artisan key:generate
+  - php artisan migrate --seed --env="testing"
+  - make file-permission
+  - sleep 5
+  - npm install
+  - node server.js 1&2>/dev/null
+
+script:
+  - make cs
+  #- phpunit
+  - php artisan test:run
+  #- npm test
+
+
+matrix:
+  allow_failures:
+    - php: 7.1
+    - php: hhvm
+  fast_finish: true
+>>>>>>> 7668161eadf5a93a57219d8f11b71350779ecd7d

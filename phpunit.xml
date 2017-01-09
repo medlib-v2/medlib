@@ -10,14 +10,14 @@
          stopOnFailure="true">
     <testsuites>
         <testsuite name="Medlib Application Test Suite">
-            <directory>./tests/</directory>
-            <directory>./tests/fuctionality/</directory>
-            <directory>./tests/mailers/</directory>
+            <directory suffix="Test.php">./tests</directory>
+            <directory suffix="Test.php">./tests/fuctionality/</directory>
+            <directory suffix="Test.php">./tests/mailers/</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist>
-            <directory suffix="Test.php">app/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./app</directory>
         </whitelist>
     </filter>
     <php>

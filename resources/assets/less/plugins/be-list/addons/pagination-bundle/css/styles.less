@@ -1,0 +1,61 @@
+/**
+* import files
+*/
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
+
+/**
+* pagination
+*/
+.pagination-mixin(){
+
+	.be-list-panel{
+		.be-list-pagination{		
+			cursor:pointer;
+			float: left;
+			line-height: 30px;
+			margin: 0;
+
+			button{
+				display: inline-block;           
+				color: @blue;
+				height: 30px;
+				line-height: 30px;
+				padding: 0 10px;
+			}
+
+			.be-list-current{
+				font-weight: bold;
+				color: @orange;
+			}
+			
+			.be-list-pagingprev,
+			.be-list-pagingmid,
+			.be-list-pagingnext {
+				float:left;
+			}
+			
+			.be-list-pagingprev,
+			.be-list-pagingnext{
+				button{
+					font-size: 20px;
+					font-family: @courier;
+				}
+			}
+		}
+	}
+	
+	.be-list-one-page{
+		display: none;
+	}
+	
+	/**
+	* used in pagination infor when pages number is 0
+	*/
+	.be-list-empty{
+		display: none;
+	}
+}
+
+.pagination-mixin();

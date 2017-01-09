@@ -8,24 +8,24 @@
                 <input type="hidden" name="username" value="{{ Auth::user()->getFirstNameOrUsername() }}" />
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <dl class="form password-confirmation-form">
-                    <dt><label for="reset_input_passwor_old">Ancien mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_current')) has-error @endif">
+                    <dt><label for="password_old">Ancien mot de passe</label></dt>
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_current')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="reset_input_passwor_old" class="form-control" name="password_current" required="required" type="password" autocomplete="off">
+                        <input id="password_old" class="form-control" name="password_current" required="required" type="password" autocomplete="off">
                     </dd>
                 </dl>
                 <dl class="form password-confirmation-form">
-                    <dt><label for="reset_input_password_new">Nouveau mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_new')) has-error @endif">
+                    <dt><label for="password_new">Nouveau mot de passe</label></dt>
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_new')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input  id="reset_input_password_new" class="form-control" name="password_new" required="required" type="password" autocomplete="off">
+                        <input  id="password_new" class="form-control" name="password_new" required="required" type="password" autocomplete="off">
                     </dd>
                 </dl>
                 <dl class="form password-confirmation-form">
-                    <dt><label for="reset_input_password_repeat">Confirmer le nouveau mot de passe</label></dt>
-                    <dd class="input-group @if ($errors->has('password_confirm')) has-error @endif">
+                    <dt><label for="password_confirm">Confirmer le nouveau mot de passe</label></dt>
+                    <dd class="input-group @if (isset($errors) and $errors->has('password_confirm')) has-error @endif">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="reset_input_password_repeat" class="form-control" name="password_confirm" required="required" type="password" autocomplete="off">
+                        <input id="password_confirm" class="form-control" name="password_confirm" required="required" type="password" autocomplete="off">
                     </dd>
                 </dl>
                 <p>
@@ -38,36 +38,54 @@
     <!-- Change username -->
     <div class="panel panel-default">
         <div class="list-group-item active"> Changer le nom d'utilisateu</div>
-        <form accept-charset="UTF-8" action="{{ route('profile.edit.username') }}" method="post" enctype="multipart/form-data">
+        {!! Form::open(['method' => 'POST', 'route' => 'profile.edit.username', 'accept-charset' => 'UTF-8', 'enctype' => 'multipart/form-data', 'role'=> 'form']) !!}
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="list-group-item">
                 <div class="boxed-group-inner">
                     <p>Changer le nom d'utilisateur</p>
-                    <p><a class="btn" href="#" rel="facebox" data-toggle="modal" data-target="#myModal">Changer le nom d'utilisateur</a></p>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+                    <p>
+                        <a class="btn" href="#" rel="facebox" data-toggle="modal" data-target="#mdl-scale">Changer le nom d'utilisateur</a>
+                    </p>
+                    <div class="modal fade colored-header colored-header-primary" id="mdl-scale" tabindex="-1" role="dialog" aria-labelledby="mdl-scale-label" data-backdrop="static">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Changer le nom d'utilisateur</h4>
+                                    <h4 class="modal-title" id="mdl-scale-label">Changer le nom d'utilisateur</h4>
                                 </div>
                                 <div class="modal-body">
                                     <p>Entrer un nouveau nom d'utilisateur</p>
-                                    <div style="margin-bottom: 25px" class="input-group">
+                                    <div style="margin-bottom: 25px" class="input-group @if (isset($errors) and $errors->has('username')) has-error @endif">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input name="username" value="{{ old('username') }}" class="form-control" aria-label="Enter a new username" autofocus="" type="text">
+                                        {!! Form::text('username', request()->hasSession() ? old('username') : '', [
+                                        'placeholder' => trans('auth.txt.login'),
+                                        'class' => 'form-control',
+                                        'pattern'=> '[a-zA-Z\s]{3,64}',
+                                        'required',
+                                        'tabindex' => 1,
+                                        'autofocus'=> '',
+                                        'aria-label' => 'Entrez un nouveau nom d\'utilisateur',
+                                        'id'=> 'username'])
+                                    !!}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Change my username</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-default">Annuler</button>
+                                    <button type="submit" data-dismiss="modal" class="btn btn-primary">Changer</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        {!! Form::close() !!}
+        @if($errors->any())
+            <script>
+                $(function() {
+                    $('#mdl-scale').modal('show');
+                });
+            </script>
+        @endif
     </div>
 
     <!-- Delete account -->
@@ -76,42 +94,45 @@
         <div class="list-group-item">
             <div class="boxed-group-inner">
                 <p>Une fois que votre compte supprimé, il n'y a pas de retour possible. Merci d'être certain de vouloir supprimer.</p>
-                <p><a href="#delete_account_confirmation" rel="facebox[.dangerzone]" class="btn btn-danger" tabindex="4" href="#" data-toggle="modal" data-target="#deleteModal">Supprimer mon compte</a></p>
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+                <p><a href="#" rel="facebox[.dangerzone]" class="btn btn-danger" tabindex="4" data-toggle="modal" data-target="#mdl-delete">Supprimer mon compte</a></p>
+                <div class="modal fade colored-header colored-header-danger" id="mdl-delete" tabindex="-1" role="dialog" aria-labelledby="mdl-delete-label" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to do this?</h4>
+                                <h4 class="modal-title" id="mdl-delete-label">Es-tu sûr de vouloir faire ça?</h4>
+                            </div>
+                            <div class="text-center">
                                 <br>
-                                <div class="facebox-danger"><span class="octicon octicon-alert"></span>This is extremely important.</div>
-                                <p>We will <strong>immediately delete all of your repositories (24)</strong>, along with all of your forks, wikis, issues, pull requests, and Medlib Pages sites.</p>
-                                <p>You will no longer be billed, and your username will be available to anyone on Medlib.</p>
-                                <p>For more help, read our article "<a href="{{ route('helpers.deleting.account') }}">Deleting your user account</a>".</p>
+                                <span class="modal-main-icon fa fa-info-circle"></span>
+                                <h4>C'est extrêmement important.</h4>
                             </div>
                             <form accept-charset="UTF-8" action="{{ route('profile.delete.username', ['username' => Auth::user()->getUsername()]) }}" method="post">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="modal-body">
-                                    <div class="form-group @if ($errors->has('email')) has-error @endif">
-                                        <label for="user_emal" class="control-label">Enter your username:</label>
-                                        <input id="user_emal" name="email" class="form-control" required="" type="email" autocomplete="off">
+                                    <p>Nous allons <strong>supprimer immédiatement votre compte</strong>, ainsi que toutes vos recherches, favories, sur Medlib.</p>
+                                    <p>Vous ne serez plus membre, et votre nom d'utilisateur sera disponible pour toute personne sur Medlib.</p>
+                                    <p>Pour plus d'aide, lisez notre article "<a href="{{ route('helpers.deleting.account') }}">Suppression de votre compte d'utilisateur</a>".</p>
+                                    <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif">
+                                        <label for="email" class="control-label">Entrez votre email :</label>
+                                        <input id="email" name="email" class="form-control" required="" type="email" autocomplete="off">
                                     </div>
-                                    <div class="form-group @if ($errors->has('password')) has-error @endif">
-                                        <label for="user_password" class="control-label">Confirm your password:</label>
-                                        <input class="form-control" id="user_password" name="password" value="" type="password">
+                                    <div class="form-group @if (isset($errors) and $errors->has('password')) has-error @endif">
+                                        <label for="password" class="control-label">Confirmer votre mot de passe :</label>
+                                        <input class="form-control" id="password" name="password" value="" type="password">
                                     </div>
-                                    <div class="form-group @if ($errors->has('g-recaptcha-response')) has-error @endif">
+                                    <div class="form-group @if (isset($errors) and $errors->has('g-recaptcha-response')) has-error @endif">
                                         {!! Recaptcha::render() !!}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Supprimer</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
                                 </div>
                                 @if($errors->any())
                                     <script>
                                         $(function() {
-                                            $('#deleteModal').modal('show');
+                                            $('#mdl-delete').modal('show');
                                         });
                                     </script>
                                 @endif
@@ -122,5 +143,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>

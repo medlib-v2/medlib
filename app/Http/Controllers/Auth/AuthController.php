@@ -2,23 +2,19 @@
 
 namespace Medlib\Http\Controllers\Auth;
 
-
 use Carbon\Carbon;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
-
 use Medlib\Services\ProcessImage;
-use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+use Medlib\Models\ConfirmationToken;
 use Illuminate\Support\Facades\View;
 use Medlib\Events\UserWasRegistered;
-use Medlib\Commands\LoginUserCommand;
-use Medlib\Commands\LogoutUserCommand;
+use Medlib\Services\LoginUserService;
+use Medlib\Services\LogoutUserService;
 use Medlib\Http\Controllers\Controller;
-use Medlib\Commands\RegisterUserCommand;
+use Medlib\Services\RegisterUserService;
 use Illuminate\Support\Facades\Redirect;
-use Medlib\Realtime\Events as SocketClient;
 use Medlib\Http\Requests\RegisterUserRequest;
 use Medlib\Http\Requests\CreateSessionRequest;
 use Medlib\Events\UserRegistrationConfirmation;
@@ -26,19 +22,8 @@ use Medlib\Events\UserRegistrationConfirmation;
 /**
  * @Middleware("guest", except={"logout"})
  */
-class AuthController extends Controller {
-
-    /**
-     * @var \Medlib\Realtime\Events
-     */
-    private $socketClient;
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct() {
-        $this->socketClient = new SocketClient;
-    }
+class AuthController extends Controller
+{
 
     /**
      * Show the Login Page
@@ -48,7 +33,8 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showLogin() {
+    public function showLogin()
+    {
         return View::make('auth.login');
     }
 
@@ -59,13 +45,15 @@ class AuthController extends Controller {
      * @param CreateSessionRequest $request
      * @return mixed
      */
-    public function doLogin(CreateSessionRequest $request) {
+    public function doLogin(CreateSessionRequest $request)
+    {
+        $response = $this->dispatch(new LoginUserService($request));
 
-        $response = Bus::dispatchFrom(LoginUserCommand::class, $request);
+        if ($response) {
+            return redirect()->route('home');
+        }
 
-        if($response) return Redirect::route('home');
-
-        return Redirect::back()->with('error', trans('auth.login.failed'));
+        return redirect()->back()->with('error', trans('auth.login.failed'));
     }
 
     /**
@@ -75,7 +63,8 @@ class AuthController extends Controller {
      *
      * @return mixed
      */
-    public function showRegister() {
+    public function showRegister()
+    {
         return View::make('auth.register');
     }
 
@@ -87,23 +76,21 @@ class AuthController extends Controller {
      * @param RegisterUserRequest $request
      * @return mixed
      */
-    public function doRegister(RegisterUserRequest $request) {
-
-        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 180, 180);
-
-
+    public function doRegister(RegisterUserRequest $request)
+    {
+        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 200, 200);
 
         $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 
-        Bus::dispatchFrom(RegisterUserCommand::class, $request, [
+        $request->merge([
             'date_of_birth' => $date_of_birth,
             'user_avatar' => $user_avatar,
-            'confirmation_code' => self::generateToken()
         ]);
 
-        return Redirect::route('home')->with('info', trans('auth.account_created_success'))
-            ->with('success', trans('auth.email_was_sent'));
+        $this->dispatch(new RegisterUserService($request));
 
+        return redirect()->route('home')->with('info', trans('auth.account_created_success'))
+            ->with('success', trans('auth.email_was_sent'));
     }
 
     /**
@@ -112,7 +99,8 @@ class AuthController extends Controller {
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function reg_birthday() {
+    public function regBirthday()
+    {
         return View::make('auth.reg_birthday');
     }
 
@@ -124,71 +112,65 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
-    public function doLogout() {
-        #$request = new Request(['username' => Auth::user()->getUsername]);
-        #$response = Bus::dispatchFrom(LogoutUserCommand::class, $request, ['username' => Auth::user()->getUsername]);
-        #if($response) response()->json(['response' => 'success']);
-        Auth::logout();
-        return Redirect::route('home');
+    public function doLogout()
+    {
+        $response = $this->dispatch(new LogoutUserService);
+        if (!$response) {
+            return redirect()->route('home');
+        }
     }
 
     /**
      * @Get("/verify", as="auth.verify")
      * @Middleware("guest")
      *
-     * @param string $confirmation_code
-     * @return mixed
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $token
      *
+     * @return mixed
      */
-    public function doVerify($confirmation_code) {
-
-        if(!$confirmation_code) {
-            return Redirect::route('home')->with('error', trans('auth.validation.need_validation_code'));
+    public function doVerify($token, Request $request)
+    {
+        if (!$token) {
+            return redirect()->route('home')->with('error', trans('auth.validation.need_validation_code'));
         }
 
-        /**
-         * $user = User::where('confirmation_code', '=', $confirmation_code)->first();
-         */
-        $user = User::whereConfirmationCode($confirmation_code)->first();
+        $user = User::where('email', $request->get('email'))->firstOrFail();
 
-        if (!$user)  {
-            return Redirect::route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
+        if (!$user or $user->userAccountIsActive()) {
+            return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
+        }
+
+        $activation = ConfirmationToken::whereToken($token)->where('user_id', $user->id)
+            ->first();
+
+        if (empty($activation)) {
+            return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
         }
 
         $timestamp_one_hour_ago = Carbon::now();
-        $created = new Carbon($user->updated_at);
+        $created = new Carbon($activation->updated_at);
 
-        if($created->diff($timestamp_one_hour_ago)->days >= 1 OR $created->diffInHours($timestamp_one_hour_ago) >= 1) {
-            $user->confirmation_code = self::generateToken();
-            $user->save();
+        if ($created->diff($timestamp_one_hour_ago)->days >= 1 or $created->diffInHours($timestamp_one_hour_ago) >= 1) {
+            $activation->token = ConfirmationToken::generateToken();
+            $activation->save();
 
-            //event(new UserWasRegistered($user));
             $job = (new UserWasRegistered($user))->delay(60);
 
             $this->dispatch($job);
 
             unset($user);
-            return Redirect::route('auth.login')->with('error', trans('auth.validation.validation_code_has_expired'));
+            return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_has_expired'));
         }
 
-        $user->user_active = true;
-        $user->confirmation_code = null;
-        $user->save();
+        $user->confirmEmail();
+
+        $activation->delete();
 
         event(new UserRegistrationConfirmation($user));
 
         unset($user);
 
-        return Redirect::route('auth.login')->with('success', trans('auth.validation.account_has_been_activated'));
-    }
-
-    /**
-     * Generate the verification token.
-     *
-     * @return string
-     */
-    protected static function generateToken() {
-
-        return str_random(64).config('app.key');
+        return redirect()->route('auth.login')->with('success', trans('auth.validation.account_has_been_activated'));
     }
 }

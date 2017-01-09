@@ -1,0 +1,18 @@
+{
+	"dist": "public/js/app.min.js",
+	"src": [
+		"app.js",
+		"arrow.js",
+		"password.js",
+		"input.field.js",
+		"form.elements.js",
+		"be.select.js",
+		"shorten.js",
+		"pushed.js",
+		"friend.request.js",
+		"client.js",
+		"notifications.js",
+		"multi.tags.js",
+		"and.js"
+	]
+}

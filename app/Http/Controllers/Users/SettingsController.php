@@ -2,7 +2,6 @@
 
 namespace Medlib\Http\Controllers\Users;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
@@ -12,14 +11,15 @@ use Medlib\Http\Requests\DeleteUserRequest;
 /**
  * @Middleware("auth")
  */
-class SettingsController extends Controller {
+class SettingsController extends Controller
+{
 
     /**
      * @Get("settings/profile", as="profile.show.settings")
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showProfile() {
-
+    public function showProfile()
+    {
         return view('users.settings.settings');
     }
 
@@ -27,8 +27,8 @@ class SettingsController extends Controller {
      * @Post("settings/profile", as="profile.edit.settings")
      * @param Request $request
      */
-    public function editProfile(Request $request) {
-
+    public function editProfile(Request $request)
+    {
         dd($request);
     }
 
@@ -36,8 +36,8 @@ class SettingsController extends Controller {
      * @Get("settings/admin", as="profile.show.admin")
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showAdmin() {
-
+    public function showAdmin()
+    {
         return view('users.settings.profile');
     }
 
@@ -45,8 +45,8 @@ class SettingsController extends Controller {
      * @Post("settings/admin", as="profile.edit.admin")
      * @param Request $request
      */
-    public function editAdmin(Request $request) {
-
+    public function editAdmin(Request $request)
+    {
         dd($request);
     }
 
@@ -54,8 +54,8 @@ class SettingsController extends Controller {
      * @Get("settings/email", as="profile.show.email")
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showEmail() {
-
+    public function showEmail()
+    {
         return view('users.settings.email');
     }
 
@@ -63,8 +63,8 @@ class SettingsController extends Controller {
      * @Post("settings/email", as="profile.edit.email")
      * @param Request $request
      */
-    public function editEmail(Request $request) {
-
+    public function editEmail(Request $request)
+    {
         dd($request);
     }
 
@@ -72,8 +72,8 @@ class SettingsController extends Controller {
      * @Post("settings/avatar", as="profile.edit.avatar")
      * @param Request $request
      */
-    public function editAvatar(Request $request) {
-
+    public function editAvatar(Request $request)
+    {
         dd($request);
     }
 
@@ -81,18 +81,17 @@ class SettingsController extends Controller {
      * @Post("settings/password", as="profile.edit.password")
      * @param Request $request
      */
-    public function editPassword(Request $request) {
-
+    public function editPassword(Request $request)
+    {
         dd($request);
-
     }
 
     /**
      * @Post("settings/username", as="profile.edit.username")
      * @param Request $request
      */
-    public function editUsername(Request $request) {
-
+    public function editUsername(Request $request)
+    {
         dd($request);
     }
 
@@ -102,8 +101,8 @@ class SettingsController extends Controller {
      * @param DeleteUserRequest $request
      * @return mixed
      */
-    public function deleteUsername($username, DeleteUserRequest $request) {
-
+    public function deleteUsername($username, DeleteUserRequest $request)
+    {
         dd($username);
 
         if ($request) {
@@ -111,12 +110,8 @@ class SettingsController extends Controller {
             // deleting user
             Auth::logout();
             return Redirect::route('home');
-
         } else {
             return Redirect::back()->withErrors('Could not delete your account in with those details.');
         }
-
-
-
     }
 }

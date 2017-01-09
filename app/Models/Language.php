@@ -4,7 +4,8 @@ namespace Medlib\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model {
+class Language extends Model
+{
 
     /**
      * @var bool

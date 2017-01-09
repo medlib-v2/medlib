@@ -12,15 +12,14 @@ class CreateMessageResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_responses', function(Blueprint $table)
-        {
+        Schema::create('message_responses', function (Blueprint $table) {
             $table->increments('id');
             $table->text('body');
             $table->integer('message_id');
-            $table->integer('senderid');
-            $table->integer('receiverid');
-            $table->string('sendername');
-            $table->string('senderprofileimage');
+            $table->integer('sender_id');
+            $table->integer('receiver_id');
+            $table->string('sender_name');
+            $table->string('sender_profile_image');
             $table->timestamps();
         });
     }

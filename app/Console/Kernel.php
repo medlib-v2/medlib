@@ -4,6 +4,7 @@ namespace Medlib\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Medlib\Commands\Command;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +15,14 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Inspire::class,
+        Commands\TestCommand::class,
+        Commands\ResetCommand::class,
+        Commands\UpdateCommand::class,
+        Commands\InstallCommand::class,
+        Commands\CreateUserCommand::class,
+        Commands\GenerateJWTSecretCommand::class,
+        Commands\ClearOrphanAvatarsCommand::class,
+        Commands\DeleteExpiredConfirmationTokensCommand::class,
     ];
 
     /**

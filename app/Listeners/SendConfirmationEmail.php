@@ -2,39 +2,41 @@
 
 namespace Medlib\Listeners;
 
-use Medlib\Services\UserMailer;
+use Medlib\Models\User;
+use Medlib\Models\ConfirmationToken;
 use Medlib\Events\UserWasRegistered;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Medlib\Notifications\SendConfirmationTokenEmail;
 
+class SendConfirmationEmail
+{
 
-class SendConfirmationEmail {
 
     /**
-     * @var EmailNotifierInterface
+     * @var \Medlib\Models\User
      */
-    private $emailNotifier;
+    private $user;
 
     /**
      * Create the event handler.
      *
-     * @param \Medlib\Services\UserMailer $mailer
+     * @param \Medlib\Models\User $user
      */
-    public function __construct(UserMailer $mailer) {
-
-        $this->emailNotifier = $mailer;
-
+    public function __construct(User $user)
+    {
+        $this->user = $user;
     }
 
     /**
      * Handle the event.
      *
      * @param  \Medlib\Events\UserWasRegistered $event
-     * @return \Illuminate\Mail\Mailer
+     * @return boolean
      */
-    public function handle(UserWasRegistered $event) {
+    public function handle(UserWasRegistered $event)
+    {
+        $ConfirmationToken = ConfirmationToken::where('user_id', $event->user->id)->firstOrFail();
 
-        return $this->emailNotifier->sendRegistrationConfirmation($event->user);
-
+        $event->user->notify(new SendConfirmationTokenEmail($ConfirmationToken->getToken()));
+        return true;
     }
 }

@@ -1,0 +1,11 @@
+{
+	"dist": "public/js/be-list.jquery-ui-bundle.min.js",
+	"src": [
+		"addons/jquery-ui-bundle/js/jquery-ui-date-picker-range-filter/date-picker-range-filter-dto.js",
+		"addons/jquery-ui-bundle/js/jquery-ui-date-picker-range-filter/date-picker-range-filter-view.js",
+		"addons/jquery-ui-bundle/js/jquery-ui-date-picker-filter/date-picker-filter-dto.js",
+		"addons/jquery-ui-bundle/js/jquery-ui-date-picker-filter/date-picker-filter-view.js",
+		"addons/jquery-ui-bundle/js/jquery-ui-range-slider/range-slider-dto.js",
+		"addons/jquery-ui-bundle/js/jquery-ui-range-slider/range-slider-view.js"
+	]
+}

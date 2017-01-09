@@ -1,0 +1,68 @@
+/**
+* import files
+*/
+@import "../../../themes/core/helpers.less";
+@import "../../../themes/core/vars.less";
+@import "../../../themes/core/common.less";
+
+/**
+* star rating control
+*/
+.be-list-star-rating-mixin(){
+
+	.be-list-star-rating-outer{
+		position: relative;
+		float: left;
+		height: 18px;
+		line-height: 18px;
+		font-family: 'FontAwesome';
+		font-size: 18px;
+		cursor: pointer;
+		transition: all 1s ease 0s;
+		margin-bottom: 20px;
+	}
+	
+	.be-list-star-rating-outer:before {
+		content: attr(data-content);
+		font-family: 'FontAwesome';
+		font-size: 18px;
+		height: 18px;
+		line-height: 18px;
+		white-space: nowrap;
+		color: #fec601;
+	}
+	
+	.be-list-star-rating-inner{
+		font-family: 'FontAwesome';
+		font-size: 18px;
+		width: 0;
+		height: 18px;
+		line-height: 18px;
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		top: 0;
+		transition: all 1s ease 0s; 
+	}
+	
+	.be-list-star-rating-inner:before {
+		content: attr(data-content);
+		color: #fec601;
+		font-family: 'FontAwesome';
+		font-size: 18px;
+		height: 18px;
+		line-height: 18px;
+		white-space: nowrap;
+	}
+	
+	.be-list-reviews {
+		line-height: 21px;
+		margin-left: 10px;
+		float: left;
+	}
+}
+
+/**
+* mixin calls
+*/
+.be-list-star-rating-mixin();

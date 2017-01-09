@@ -1,0 +1,7 @@
+{
+	"cookiesBar": {
+		"css": "css/cookiebar.css",
+		"dist": "public/js/vue/cookiesbar.min.js",
+		"src": "vue/cookiesbar.js"
+	}
+}

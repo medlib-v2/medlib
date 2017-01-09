@@ -1,5 +1,5 @@
 @if(!empty($result->notes))
-<div class="notes" id="notes">
+<div class="notes" id="notes-{{ $counter }}">
     <table border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>

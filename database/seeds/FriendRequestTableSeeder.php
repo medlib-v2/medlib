@@ -6,8 +6,8 @@ use Medlib\Models\FriendRequest;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
-class FriendRequestTableSeeder extends Seeder {
+class FriendRequestTableSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
@@ -17,15 +17,13 @@ class FriendRequestTableSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
-        $userIds = DB::table('users')->where('id', '!=', 1)->lists('id');
+        $userIds = DB::table('users')->where('id', '!=', 1)->pluck('id')->toArray();
 
         foreach (range(1, 25) as $index) {
-
             FriendRequest::create([
-                'user_id'	=> 1,
+                'user_id'    => 1,
                 'requester_id' => $faker->randomElement($userIds)
             ]);
-
         }
     }
 }

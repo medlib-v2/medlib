@@ -1,0 +1,25 @@
+{
+	"dist": "public/js/be-list.core-ajax.min.js",
+	"src": [
+		"core-ajax/js/app.js",
+		"core-ajax/js/app/pubsub.js",
+		"core-ajax/js/app/history.js",
+		"core-ajax/js/app/dto/status-dto.js",
+		"core-ajax/js/app/dto/statuses-service.js",
+		"core-ajax/js/dal/services/deeplinks.js",
+		"core-ajax/js/domain/models/dataitem-member-path.js",
+		"core-ajax/js/domain/services/pagination/pagination.js",
+		"core-ajax/js/domain/models/dataitem.js",
+		"core-ajax/js/ui/list/server/server-controller.js",
+		"core-ajax/js/ui/list/server/server-view.js",
+		"core-ajax/js/ui/list/server/server-model.js",
+		"core-ajax/js/ui/panel/panel-controller.js",
+		"core-ajax/js/ui/panel/control-factory.js",
+		"core-ajax/js/ui/panel/controls-collection.js",
+		"core-ajax/js/ui/panel/controls/dropdown/dropdown-view.js",
+		"core-ajax/js/dal/storage.js",
+		"core-ajax/js/dal/services/cookies.js",
+		"core-ajax/js/dal/services/localstorage.js",
+		"core-ajax/js/dal/services/uri.js"
+	]
+}
