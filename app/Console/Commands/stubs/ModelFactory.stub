@@ -1,0 +1,5 @@
+
+$factory->define({{use_path}}{{model_singular}}::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});

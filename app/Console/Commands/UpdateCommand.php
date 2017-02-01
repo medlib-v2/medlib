@@ -57,16 +57,12 @@ class UpdateCommand extends InstallCommand
             return -1;
         }
 
-        $bring_back_up = false;
-
         if (!App::isDownForMaintenance()) {
             $this->error(trans('app.not_down'));
 
             if (!$this->confirm(trans('app.switch_down'))) {
                 return;
             }
-
-            $bring_back_up = true;
 
             $this->call('down');
         }
@@ -78,10 +74,10 @@ class UpdateCommand extends InstallCommand
         $this->restartQueue();
         $this->restartSocket();
 
-        // If we prompted the user to bring the app down, bring it back up
-        if ($bring_back_up) {
-            $this->call('up');
-        }
+        /**
+         * If we prompted the user to bring the app down, bring it back up
+         */
+        $this->call('up');
     }
 
     /**
@@ -114,9 +110,13 @@ class UpdateCommand extends InstallCommand
          * Read the current config values into an array for the writeEnvFile method
          */
         foreach (file(base_path('.env')) as $line) {
-            $line = trim($line);
+            $line = ltrim($line);
 
             if (empty($line)) {
+                continue;
+            }
+
+            if ($this->isComment($line)) {
                 continue;
             }
 
@@ -193,23 +193,7 @@ class UpdateCommand extends InstallCommand
      */
     protected function hasRunningDeployments()
     {
-        /**
-        $deploys = Deployment::whereIn('status', [Deployment::DEPLOYING, Deployment::PENDING])
-                             ->count();
-
-        if ($deploys > 0) {
-            $this->block([
-                'Deployments in progress',
-                PHP_EOL,
-                'There are still running deployments, please wait for them to finish before updating.',
-            ]);
-
-            return true;
-        }
-
-        return false;
-
-        **/
+        //
     }
 
     /**
@@ -221,10 +205,19 @@ class UpdateCommand extends InstallCommand
     protected function composerOutdated()
     {
         if (filemtime(base_path('vendor/autoload.php')) < strtotime('-10 minutes')) {
+            if ($this->getLaravel()->environment() == 'local') {
+                $this->block([
+                    'Update not complete!',
+                    PHP_EOL,
+                    'Please run "composer update" and "yarn upgrade" before you continue.',
+                ]);
+                return true;
+            }
+
             $this->block([
                 'Update not complete!',
                 PHP_EOL,
-                'Please run "composer install --no-dev -o" and "npm install --production" before you continue.',
+                'Please run "composer install --no-dev -o" and "yarn install --production" before you continue.',
             ]);
 
             return true;
@@ -244,12 +237,25 @@ class UpdateCommand extends InstallCommand
             $this->block([
                 'Medlib has not been installed',
                 PHP_EOL,
-                'Please use "php artisan app:install" instead.',
+                'Please use "php artisan medlib:install" instead.',
             ]);
 
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Determine if the line in the file is a comment, e.g. begins with a #.
+     *
+     * @param string $line
+     *
+     * @return bool
+     */
+    private function isComment($line)
+    {
+        $line = ltrim($line);
+        return isset($line[0]) && $line[0] === '#';
     }
 }

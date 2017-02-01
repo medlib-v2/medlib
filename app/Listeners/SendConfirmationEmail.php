@@ -9,8 +9,6 @@ use Medlib\Notifications\SendConfirmationTokenEmail;
 
 class SendConfirmationEmail
 {
-
-
     /**
      * @var \Medlib\Models\User
      */

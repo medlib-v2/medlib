@@ -50,6 +50,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
+    /**
      * The attributes excluded from the model's JSON form.
      * @var array
      */
@@ -58,7 +65,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'remember_token',
         'created_at',
         'updated_at',
-        'activated'
+        'activated',
+        'account_type',
+        'date_of_birth',
+        'pivot'
     ];
 
     /**
@@ -68,7 +78,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function feeds()
     {
-        return $this->hasMany(Feed::class)->latest();
+        return $this->hasMany(Feed::class)->orderBy('created_at');
     }
 
     /**
@@ -130,6 +140,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Get the administrator flag for the user.
+     *
+     * @return bool
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Register a new Medlib User.
      *
      * @param string $username
@@ -166,7 +186,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->friends()->attach($requester_user_id, ['requested_id' => $this->id, 'requester_id' => $requester_user_id]);
     }
-
 
     /**
      * Remove a friend from a user.

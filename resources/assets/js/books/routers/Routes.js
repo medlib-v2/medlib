@@ -1,8 +1,8 @@
-let Backbone = require('backbone'),
-    v = require('../utils/variables'),
-    SearchView = require('../views/SearchView');
+import Backbone from 'backbone';
+import v from '../utils/variables';
+import SearchView from '../views/SearchView';
 
-module.exports = Backbone.Router.extend({
+export default Backbone.Router.extend({
     routes: {
         "": "index",
         "browse/:query": "browse", // #browse/php

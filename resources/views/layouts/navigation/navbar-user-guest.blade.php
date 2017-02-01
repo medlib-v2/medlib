@@ -50,9 +50,7 @@
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <ul class="login-via">
-                                    <li class="info">
-                                        <span>@lang('auth.account_dont_have')</span>
-                                    </li>
+                                    <li class="info"><span>@lang('auth.account_dont_have')</span></li>
                                     <li class="btn-register">
                                         <a class="btn btn-primary" type="button" href="{{ route('auth.register') }}" id="sign-in">@lang('auth.txt.sing_up')</a>
                                     </li>

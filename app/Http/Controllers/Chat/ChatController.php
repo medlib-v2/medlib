@@ -27,6 +27,6 @@ class ChatController extends Controller
     public function message(SendMessageChatRequest $request, UserRepository $userRepository)
     {
         $this->dispatch(new SendChatMessageService($request));
-        return response()->json(['response' => 'success', 'available_to_chat' => $userRepository->findById($request->receiver_id)->chatstatus]);
+        return $this->response(['response' => 'success', 'available_to_chat' => $userRepository->findById($request->receiver_id)->chatstatus]);
     }
 }

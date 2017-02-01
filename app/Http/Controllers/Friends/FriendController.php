@@ -2,11 +2,10 @@
 
 namespace Medlib\Http\Controllers\Friends;
 
-use Medlib\Models\User;
-use Medlib\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
+use Medlib\Services\FriendRequestAcceptedService;
 use Medlib\Services\RemoveFriendService;
 use Medlib\Http\Requests\FriendUserRequest;
 use Medlib\Repositories\User\UserRepository;
@@ -47,28 +46,20 @@ class FriendController extends Controller
      * Store a newly created friend
      *
      * @param FriendUserRequest $request
-     * @param UserRepository $repository
-     *
      * @return Response
      */
-    public function store(FriendUserRequest $request, UserRepository $repository)
+    public function store(FriendUserRequest $request)
     {
-        $this->currentUser = Auth::user();
+        $friendRequestCount = $this->dispatch(new FriendRequestAcceptedService($request));
 
-        $friend = User::whereUsername($request->get('username'))->first();
-
-        $this->currentUser->createFriendShipWith($friend->id);
-
-        $repository->findByUsername($friend->getUsername())->createFriendShipWith($this->currentUser->id);
-
-        FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
-
-        $friendRequestCount = $this->currentUser->friendRequests()->count();
-
-        return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.'], 200);
+        return $this->setStatusCode(200)->response(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.']);
     }
 
+    public function friends($username)
+    {
 
+        return $this->response(Auth::user()->friends);
+    }
 
     /**
      * Terminate friendship between 2 users.
@@ -79,11 +70,7 @@ class FriendController extends Controller
      */
     public function destroy(FriendUserRequest $request)
     {
-        $this->currentUser = Auth::user();
-
-        $this->dispatch(new RemoveFriendService($request));
-
-        $friendsCount = $this->currentUser->friends()->count();
+        $friendsCount = $this->dispatch(new RemoveFriendService($request));
 
         return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], 200);
     }

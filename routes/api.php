@@ -13,4 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::get('/user', ['uses' => 'API\UsersController@user','as' => 'api.user', 'middleware' => 'auth:api' ]);
+Route::group(['middleware' => 'language'], function () {
+    //Route::get('/user', ['uses' => 'API\UsersController@index','as' => 'api.user', 'middleware' => ['auth:api','jwt.auth'] ]);
+});

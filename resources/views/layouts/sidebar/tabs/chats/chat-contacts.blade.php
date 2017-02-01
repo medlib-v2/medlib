@@ -4,11 +4,11 @@
             <div class="content">
                 <h2>Recent</h2>
                 <div class="contact-list contact-list-recent">
-                    <div class="user"><a href="#"><img src="{{ asset('images/people/a1.jpg') }}" alt="Avatar">
+                    <div class="user"><a href="#"><img src="{{ asset('avatars/a1.jpg') }}" alt="Avatar">
                             <div class="user-data"><span class="status away"></span><span class="name">Claire Sassu</span><span class="message">Can you share the...</span></div></a></div>
-                    <div class="user"><a href="#"><img src="{{ asset('images/people/a2.jpg') }}" alt="Avatar">
+                    <div class="user"><a href="#"><img src="{{ asset('avatars/a2.jpg') }}" alt="Avatar">
                             <div class="user-data"><span class="status"></span><span class="name">Maggie jackson</span><span class="message">I confirmed the info.</span></div></a></div>
-                    <div class="user"><a href="#"><img src="{{ asset('images/people/a3.jpg') }}" alt="Avatar">
+                    <div class="user"><a href="#"><img src="{{ asset('avatars/a3.jpg') }}" alt="Avatar">
                             <div class="user-data"><span class="status offline"></span><span class="name">Joel King</span><span class="message">Ready for the meeti...</span></div></a></div>
                 </div>
                 <h2>Contacts</h2>
@@ -16,27 +16,15 @@
                     @if(Auth::user()->friends()->count())
                         @foreach(Auth::user()->friends()->get() as $friend)
                             @if($friend->isAvailableToChat())
-                                @if($friend->isOnline())
-                                    <div class="user">
-                                        <a href="#" id="chat-list-user-{!! $friend->id !!}" data-user-id="{!! $friend->id !!}" data-profile-image="{!! $friend->getAvatar() !!}" data-first-name ="{!! $friend->getUsername() !!}">
-                                            <img src="{!! $friend->getAvatar() !!}" alt="{!! $friend->getUsername() !!}">
-                                            <div class="user-data2">
-                                                <span class="status"></span>
-                                                <span class="name">{!! $friend->getName() !!}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                @else
-                                    <div class="user">
-                                        <a href="#" data-userid="{!! $friend->id !!}">
-                                            <img src="{!! $friend->getAvatar() !!}" alt="{!! $friend->getUsername() !!}">
-                                            <div class="user-data2">
-                                                <span class="status offline"></span>
-                                                <span class="name">{!! $friend->getName() !!}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                @endif
+                                <div class="user">
+                                    <a href="#" id="chat-list-user-{!! $friend->id !!}" data-user-id="{!! $friend->id !!}" data-profile-image="{!! $friend->getAvatar() !!}" data-first-name ="{!! $friend->getUsername() !!}">
+                                        <img src="{!! $friend->getAvatar() !!}" alt="{!! $friend->getUsername() !!}">
+                                        <div class="user-data2">
+                                            <span class="status @if(!$friend->isOnline()) offline @endif"></span>
+                                            <span class="name">{!! $friend->getName() !!}</span>
+                                        </div>
+                                    </a>
+                                </div>
                             @else
                                 <div class="user disabled">
                                     <a href="#" data-userid="{!! $friend->id !!}">
@@ -66,7 +54,7 @@
 </div>
 <div class="chat-window">
     <div class="title">
-        <div class="user"><img src="{{ asset('images/people/a2.jpg') }}" alt="Avatar">
+        <div class="user"><img src="{{ asset('avatars/a2.jpg') }}" alt="Avatar">
             <h2>Maggie jackson</h2><span>Active 1h ago</span>
         </div><span class="icon return fa fa-chevron-left"></span>
     </div>

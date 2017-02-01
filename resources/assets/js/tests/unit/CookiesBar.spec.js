@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CookiesBar from '../../vue/components/CookiesBar.vue'
+import CookiesBar from '../../components/CookiesBar.vue'
 
 describe('Hello.vue', () => {
     it('should render correct contents', () => {

@@ -31,7 +31,7 @@
             Medlib.InputField(null);
             Medlib.Password('#password', {
                 innerToggle: true,
-                touchSupport: Modernizr.touch,
+                touchSupport: Modernizr.touchevents,
                 title: 'Click here show/hide password',
                 hideToggleUntil: 'focus'
             });

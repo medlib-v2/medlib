@@ -15,7 +15,7 @@
             </div>
             <br>
             <!-- END results-actions -->
-            <div class="list" id="book-preview">
+            <div class="list">
                 <?php $counter = 0; ?>
                 <!-- ==================== Beginning result ================== -->
                 @foreach ($results as $result)

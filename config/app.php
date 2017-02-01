@@ -16,7 +16,7 @@ return [
 
     'description' => 'Medlib : Application de recherche bibliothécaire utilisant le protocole de communication Zebra (Z3959)',
     'author' => 'Patrick Luzolo, Walid Fadlhaoui',
-    'keywords' => 'Medlib : Search, Recherche, yaz, Z3950, Book, Books',
+    'keywords' => 'Medlib : Search, Recherche, Yaz, Z3950, Book, Books',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://medlib.app'),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
         Medlib\Providers\BroadcastServiceProvider::class,
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
+        Medlib\Providers\DebugbarServiceProvider::class,
         Yaz\Services\YazServiceProvider::class,
         Yaz\Services\QueryServiceProvider::class,
         Medlib\MarcXML\ParserServiceProvider::class,
@@ -198,7 +199,6 @@ return [
         /*
          * Laravel Collective Service Providers...
          */
-        //Collective\Bus\BusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
     ],
@@ -255,7 +255,7 @@ return [
         'Yaz'       => Yaz\Facades\Yaz::class,
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
-        'Cover'   => Medlib\BookCover\Facades\Cover::class,
+        'Cover'     => Medlib\BookCover\Facades\Cover::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 

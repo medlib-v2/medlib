@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', trans('search.txt.advanced-text'))
+@section('title', trans('search.txt.advanced_search'))
 
 @section('class') container-fluid @endsection
 
@@ -8,7 +8,7 @@
 <div class="content">
     <div class="container-float">
         <div class="container-fluid">
-            <h1 class="display-4">@lang('search.txt.advanced-text')</h1>
+            <h1 class="display-4">@lang('search.txt.advanced_search')</h1>
 
             {!! Form::open(['id' => 'validation-form','method' => 'GET', 'route' => 'search.advanced', 'accept-charset' => 'UTF-8', 'role'=> 'form']) !!}
             <!-- Information -->
@@ -33,7 +33,16 @@
                                     <div class="col-md-3">
                                         <div class="col-xs-7 col-md-8 col-sm-8 no-padding" style="width: 100%;">
                                             <div class="form-group">
-                                                <select id="qdb" name="qdb" data-placeholder="@lang('search.txt.library')" class="select2 form-control select2-offscreen">
+                                                <select
+                                                        id="qdb"
+                                                        name="qdb"
+                                                        data-placeholder="@lang('search.txt.library')"
+                                                        class="select2 form-control select2-offscreen"
+                                                        data-placeholder="@lang('search.txt.library')"
+                                                        data-minimum-results-for-search="5"
+                                                        tabindex="-1" class="select2 form-control"
+                                                        title="@lang('search.txt.library')"
+                                                        size="6">
                                                 <option value="">@lang('search.txt.library')}</option>
                                                 @foreach($datasource as $name => $instance)
                                                     <option value="{{ $name }}">{{ $instance['fullname'] }}</option>
@@ -151,12 +160,10 @@
             <div>
                 <!-- Button submit -->
                 <button class="btn btn-space btn-default btn-lg" type="button" onclick="location.replace('/search/advanced')">
-                    <span class="visible-md visible-sm visible-lg hidden-xs"><i class="icon fa fa-times"></i>&nbsp;&nbsp;Effacer la recherche</span>
-                    <i class="visible-xs hidden-sm fa fa-times"></i>
+                    <span><i class="icon fa fa-times"></i>&nbsp;&nbsp;Effacer la recherche</span>
                 </button>
                 <button class="btn btn-space btn-primary btn-lg" type="submit">
-                    <span class="visible-md visible-sm visible-lg hidden-xs"><i class="icon fa fa-search"></i>&nbsp;&nbsp;Lancer la recherche</span>
-                    <i class="visible-xs hidden-sm fa fa-search"></i>
+                    <span><i class="icon fa fa-search"></i>&nbsp;&nbsp;Lancer la recherche</span>
                 </button>
                 <!-- /Button submit -->
             </div>

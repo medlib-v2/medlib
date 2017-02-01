@@ -1,9 +1,9 @@
-var _ = require('lodash'),
-    $ = window.jQuery,
-    Backbone = require('backbone'),
-    DetailView = require('../views/DetailView'),
-    bookTemplate = require('../templates/book.html'),
-    Modernizr = window.Modernizr;
+import _ from 'lodash';
+import Backbone from 'backbone';
+import DetailView from './DetailView';
+
+let $ = window.jQuery,
+    bookTemplate = require('../templates/book.html');
 
 const BookView = Backbone.View.extend({
     /**
@@ -23,7 +23,7 @@ const BookView = Backbone.View.extend({
         "click": "clicked"
     },
 
-    initialize: function() {
+    initialize() {
         /**
          * bind 'this' object to render method
          */
@@ -35,7 +35,7 @@ const BookView = Backbone.View.extend({
      * call the detail method and pass in its model
      * @param e
      */
-    clicked: function(e) {
+    clicked(e) {
         e.preventDefault();
         this.detail(this.model);
     },
@@ -43,19 +43,19 @@ const BookView = Backbone.View.extend({
     /**
      * populate the cached template and append to 'this' objects html
      */
-    render: function() {
-        var book = _.template(this.template(this.model.toJSON()));
+    render() {
+        let book = _.template(this.template(this.model.toJSON()));
         this.$el.append(book);
     },
 
-    detail: function(model) {
+    detail(model) {
         /**
          * Instantiate the book details view with the book model that was clicked on
          */
-        var bookDetail = new DetailView({ el: $("#book-details"), model: model });
+        let bookDetail = new DetailView({ el: $("#book-details"), model: model });
         bookDetail.render();
         bookDetail.undelegate('.close detail', 'click'); //todo: better garbage collection
     }
 });
 
-module.exports = BookView;
+export default BookView;

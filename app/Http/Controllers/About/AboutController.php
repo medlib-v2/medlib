@@ -7,14 +7,14 @@ use Medlib\Http\Controllers\Controller;
 use Medlib\Http\Requests\ContactFormRequest;
 
 /**
- * @Middleware("guest", except={"logout"})
+ * @Middleware("guest")
  */
 class AboutController extends Controller
 {
     /**
      * Show the About Page
      *
-     * @Get("/site/about")
+     * @Get("/site/about", as="contact.index")
      * @Middleware("guest")
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -26,7 +26,7 @@ class AboutController extends Controller
     /**
      * Show the Contact Page
      *
-     * @Get("/site/contact")
+     * @Get("/site/contact", as="contact.show")
      * @Middleware("guest")
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -39,7 +39,7 @@ class AboutController extends Controller
     /**
      * Send an email to Medlib Team
      *
-     * @Post("/site/contact")
+     * @Post("/site/contact", as="contact.store")
      * @Middleware("guest")
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

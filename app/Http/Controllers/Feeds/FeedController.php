@@ -3,6 +3,7 @@
 namespace Medlib\Http\Controllers\Feeds;
 
 use Medlib\Models\Feed;
+use Medlib\Models\Like;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Medlib\Services\ProcessImage;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Medlib\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\Feed\FeedRepository;
@@ -59,10 +59,7 @@ class FeedController extends Controller
         } else {
             $user = $userRepository->findByUsername($username);
             if ($user == null) {
-                if (request()->ajax()) {
-                    return response()->json(['response' => 'failed', 'message' => "User does not exist $username"], 422);
-                }
-                return Redirect::back()->withErrors("User does not exist $username");
+                return $this->setStatusCode(422)->response(['response' => 'failed', 'message' => "User does not exist $username"]);
             }
             return $this->getFeedAndComment($user, $feedRepository, $commentRepository);
         }
@@ -129,13 +126,13 @@ class FeedController extends Controller
 
                 return $this->storeFeed($request->get('body'), $this->currentUser->getUsername(), $this->currentUser->getAvatar(), $pathImage, null, null);
             } else {
-                return Response::json(['response' => 'failed', 'message' => 'Uploaded file is not valid'], 400);
+                return $this->setStatusCode(400)->response(['response' => 'error', 'message' => 'Uploaded file is not valid']);
             }
         }
 
         if (isset($videoUrl) && !empty($videoUrl)) {
             if (!self::validateUrl($videoUrl)) {
-                return Response::json(['response' => 'failed', 'message' => 'Url not valid'], 400);
+                return $this->setStatusCode(400)->response(['response' => 'error', 'message' => 'Url not valid']);
             }
 
             return $this->storeFeed($request->get('body'), $this->currentUser->getUsername(), $this->currentUser->getAvatar(), null, $videoUrl, null);
@@ -154,7 +151,27 @@ class FeedController extends Controller
      */
     public function like($username, $status_id)
     {
-        dd($username, $status_id);
+        $post = Feed::find($status_id);
+
+        $like =  Like::create([
+            'user_id' => Auth::id(),
+            'feed_id' => $post->id
+        ]);
+
+        return Like::find($like->id);
+    }
+
+    public function unlike($username, $status_id)
+    {
+        $post = Feed::find($status_id);
+
+        $like = Like::where('user_id', Auth::id())
+            ->where('feed_id', $post->id)
+            ->first();
+
+        $like->delete();
+
+        return $like->id;
     }
 
     /**
@@ -178,14 +195,17 @@ class FeedController extends Controller
     {
         $feeds = $feedRepository->getPublishedByUserAndFriends($user);
 
-        $friendsUserIds[] = $user->id;
+        //$friendsUserIds[] = $user->id;
+        //$feedsCount = Feed::getTotalCountFeedsForUser($friendsUserIds);
 
-        $feedsCount = Feed::getTotalCountFeedsForUser($friendsUserIds);
+        return $this->response(compact('feeds'));
 
+        /**
         if (request()->ajax()) {
             return response()->json(['response' => 'success', compact('user', 'feeds', 'feedsCount')], 200);
         }
-        return view('feeds.index', compact('user', 'feeds', 'feedsCount'));
+        return view('feeds.index', compact('user', 'feeds'));
+        **/
     }
 
     /**
@@ -206,7 +226,7 @@ class FeedController extends Controller
 
         Auth::user()->feeds()->save($feed);
 
-        return Response::json([
+        return $this->response([
             'response' => 'success',
             'feed_id' => $feed->getFeedId(),
             'user_avatar' => $feed->getAvatarPublisher(),

@@ -5,73 +5,73 @@
             <div class="col-md-6">
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[a]" value="a" id="cb-doc-a1">
-                    <label for="cb-doc-a1">{{ trans('search.advanced.type-doc.a') }}</label>
+                    <label for="cb-doc-a1">{{ trans('search.advanced.type_doc.a') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[c]" value="c" id="cb-doc-a2">
-                    <label for="cb-doc-a2">{{ trans('search.advanced.type-doc.c') }}</label>
+                    <label for="cb-doc-a2">{{ trans('search.advanced.type_doc.c') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[i]" value="i" id="cb-doc-a3">
-                    <label for="cb-doc-a3">{{ trans('search.advanced.type-doc.i') }}</label>
+                    <label for="cb-doc-a3">{{ trans('search.advanced.type_doc.i') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[e]" value="e" id="cb-doc-a4">
-                    <label for="cb-doc-a4">{{ trans('search.advanced.type-doc.e') }}</label>
+                    <label for="cb-doc-a4">{{ trans('search.advanced.type_doc.e') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[g]" value="g" id="cb-doc-a5">
-                    <label for="cb-doc-a5">{{ trans('search.advanced.type-doc.g') }}</label>
+                    <label for="cb-doc-a5">{{ trans('search.advanced.type_doc.g') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[h]" value="h" id="cb-doc-a6">
-                    <label for="cb-doc-a6">{{ trans('search.advanced.type-doc.h') }}</label>
+                    <label for="cb-doc-a6">{{ trans('search.advanced.type_doc.h') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[s]" value="s" id="cb-doc-a7">
-                    <label for="cb-doc-b1">{{ trans('search.advanced.type-doc.s') }}</label>
+                    <label for="cb-doc-b1">{{ trans('search.advanced.type_doc.s') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[r]" value="r" id="cb-doc-a8">
-                    <label for="cb-doc-b2">{{ trans('search.advanced.type-doc.r') }}</label>
+                    <label for="cb-doc-b2">{{ trans('search.advanced.type_doc.r') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[t]" value="t" id="cb-doc-a9">
-                    <label for="cb-doc-b3">{{ trans('search.advanced.type-doc.t') }}</label>
+                    <label for="cb-doc-b3">{{ trans('search.advanced.type_doc.t') }}</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[am]" value="am" id="cb-doc-b1">
-                    <label for="cb-doc-b1">{{ trans('search.advanced.type-doc.am') }}</label>
+                    <label for="cb-doc-b1">{{ trans('search.advanced.type_doc.am') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[m]" value="m" id="cb-doc-b2">
-                    <label for="cb-doc-b2">{{ trans('search.advanced.type-doc.m') }}</label>
+                    <label for="cb-doc-b2">{{ trans('search.advanced.type_doc.m') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[f]" value="f" id="cb-doc-b3">
-                    <label for="cb-doc-b3">{{ trans('search.advanced.type-doc.f') }}</label>
+                    <label for="cb-doc-b3">{{ trans('search.advanced.type_doc.f') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[j]" value="j" id="cb-doc-b4">
-                    <label for="cb-doc-b4">{{ trans('search.advanced.type-doc.j') }}</label>
+                    <label for="cb-doc-b4">{{ trans('search.advanced.type_doc.j') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[d]" value="d" id="cb-doc-b5">
-                    <label for="cb-doc-b5">{{ trans('search.advanced.type-doc.d') }}</label>
+                    <label for="cb-doc-b5">{{ trans('search.advanced.type_doc.d') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[k]" value="k" id="cb-doc-b6">
-                    <label for="cb-doc-b6">{{ trans('search.advanced.type-doc.k') }}</label>
+                    <label for="cb-doc-b6">{{ trans('search.advanced.type_doc.k') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[p]" value="p" id="cb-doc-b7">
-                    <label for="cb-doc-b7">{{ trans('search.advanced.type-doc.p') }}</label>
+                    <label for="cb-doc-b7">{{ trans('search.advanced.type_doc.p') }}</label>
                 </div>
                 <div class="be-checkbox">
                     <input type="checkbox" name="typeDoc[o]" value="o" id="cb-doc-b8">
-                    <label for="cb-doc-b8">{{ trans('search.advanced.type-doc.o') }}</label>
+                    <label for="cb-doc-b8">{{ trans('search.advanced.type_doc.o') }}</label>
                 </div>
             </div>
         </div>

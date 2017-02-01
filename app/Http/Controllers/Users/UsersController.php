@@ -61,6 +61,18 @@ class UsersController extends Controller
     }
 
     /**
+     * @param $username
+     * @return mixed
+     */
+    public function me($username)
+    {
+        if (Auth::user()->getUsername() == $username) {
+            return $this->response(Auth::user());
+        }
+        return $this->setStatusCode(401)->response(['response' => 'Unauthorized.']);
+    }
+
+    /**
      * Display the specified user.
      *
      * @param User $user
@@ -72,7 +84,7 @@ class UsersController extends Controller
     {
         $friends = $user->friends()->take(8)->get();
 
-        $feeds = $feedRepository->getPublishedByUser($user);
+        $feeds = $feedRepository->getPublishedByUserAndFriends($user);
 
         return view('users.users.show', compact('currentUser', 'user', 'friends', 'feeds'));
     }

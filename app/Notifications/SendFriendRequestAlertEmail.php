@@ -8,10 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Medlib\Models\User;
 
-class SendFriendRequestAlertEmail extends Notification
+class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var User
+     */
     protected $user;
 
     /**
@@ -32,7 +35,7 @@ class SendFriendRequestAlertEmail extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'broadcast','database'];
     }
 
     /**
@@ -44,9 +47,9 @@ class SendFriendRequestAlertEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', config('app.url'))
-                    ->line('Thank you for using our application!');
+            ->line('You received a new friend request from '. $this->user->getName())
+            ->action('View profile', route('profile.user.show', ['username' => $this->user->getUsername()]))
+            ->line(trans('emails.thank_you_for_using'));
     }
 
     /**
@@ -58,7 +61,10 @@ class SendFriendRequestAlertEmail extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'username' => $this->user->getUsername(),
+            'name' => $this->user->getName(),
+            'user_avatar' => $this->user->getAvatar(),
+            'message' => ' sent you a friend request.'
         ];
     }
 }

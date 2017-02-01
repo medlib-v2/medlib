@@ -1,10 +1,11 @@
-let Backbone = require('backbone');
-    Backbone.$ = window.jQuery;
-let Router = require('./routers/routes'),
-    /**
-     * Instiantiate the router
-     */
-    router = new Router();
+import Backbone from 'backbone';
+import Router from './routers/Routes';
+
+/**
+ * Instiantiate the router
+ */
+let router = new Router();
+
 /**
  * Start Backbone history for bookmarkable URL's
  */

@@ -121,7 +121,7 @@ return [
     */
 
     'headers' => [
-        // 'Accept' => 'application/vnd.com.whatever.v1+json',
+        'Accept' => 'application/vnd.com.medlib.v1+json',
     ],
 
 ];

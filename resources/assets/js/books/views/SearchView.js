@@ -1,15 +1,16 @@
-let _ = require('lodash'),
-    $ = window.jQuery,
-    Backbone = require('backbone'),
-    v = require('../utils/variables'),
-    BookCollection = require('../collections/BookCollection'),
-    BookModel = require('../models/BookModel'),
-    allBooksView = require('../views/AllBooksView'),
-    myCollection = require('../collections/myLibrary'),
+import _ from 'lodash';
+import Backbone from 'backbone';
+import v from '../utils/variables';
+import BookCollection from '../collections/BookCollection';
+import BookModel from '../models/BookModel';
+import allBooksView from './AllBooksView';
+import myCollection from '../collections/BookLibrary';
+
+let $ = window.jQuery,
+    Modernizr = window.Modernizr,
     bookTemplate = require('../templates/book.html'),
-    apiTemplate = require('../templates/apimessage.html'),
-    Modernizr = window.Modernizr;
-    //browser = require('../utils/browser');
+    welcomeTemplate = require('../templates/welcome.html'),
+    apiTemplate = require('../templates/apimessage.html');
 
 const SearchView = Backbone.View.extend({
 
@@ -93,8 +94,6 @@ const SearchView = Backbone.View.extend({
             moreBtn = '<button data-index="' + index + '" data-term="' + term + '" data-maxresults="' + maxResults + '" class="btn btn-primary" href="#">&#43; Plus de livres</button>',
             dupBtn = moreBtn.length,
             books = new BookCollection();
-
-            console.log(term, index, maxResults, subject);
         /**
          * Show loading indicator
          */
@@ -102,7 +101,7 @@ const SearchView = Backbone.View.extend({
 
         books.fetch({
             url: url + data,
-            'success': function success(models, response) {
+            success: function success(models, response) {
                 let item = new allBooksView({ collection: models });
                 item.render();
 
@@ -126,7 +125,7 @@ const SearchView = Backbone.View.extend({
 
                 $books.removeClass('loading');
             },
-            'error': function error(collection, response, xhr) {
+            error: function error(collection, response, xhr) {
                 if (response.message === 'Daily Limit Exceeded') {
                     _.once(self.deadApi(response.message));
                 }
@@ -167,7 +166,7 @@ const SearchView = Backbone.View.extend({
             self = this;
 
         myBooks.fetch({
-            success: function() {
+            success() {
                 /**
                  * If there are books in the localStorage collection
                  * then load and render them
@@ -186,13 +185,12 @@ const SearchView = Backbone.View.extend({
                      * Remove previous results, since this is ajax
                      */
                     $("#books").empty();
-                    /**
+
                      let welcomeMsg = _.template(welcomeTemplate);
                      if (Modernizr.localstorage) {
-                            $('#books').prepend(welcomeMsg);
-                            self.topics(v.TOPICS);
-                        }
-                     **/
+                         $('#books').prepend(welcomeMsg);
+                         self.topics(v.TOPICS);
+                     }
                 }
             }
         });
@@ -213,7 +211,7 @@ const SearchView = Backbone.View.extend({
          * Autcomplete function from jQuery UI (http://jqueryui.com/autocomplete/)
          */
         $searchForm.autocomplete({
-            source: function(request, response) {
+            source(request, response) {
                 $.getJSON(url + '&callback=?', function(data) {
                     let dropdown = [];
                     _.each(data.items, function(item) {
@@ -238,7 +236,7 @@ const SearchView = Backbone.View.extend({
                     response(dropdown);
                 });
             },
-            select: function(event, ui) {
+            select(event, ui) {
                 /**
                  * populate the autocomplete with an API query
                  */
@@ -249,7 +247,7 @@ const SearchView = Backbone.View.extend({
              * @param event
              * @param ui
              */
-            close: function(event, ui) {
+            close(event, ui) {
                 $searchForm.val('');
                 /**
                  * Reset any routes
@@ -261,4 +259,4 @@ const SearchView = Backbone.View.extend({
     }
 });
 
-module.exports = SearchView;
+export default SearchView;

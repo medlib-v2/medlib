@@ -80,7 +80,7 @@ class InstallCommand extends Command
             'mail' => $this->getEmailInformation(),
         ];
 
-        if (!config('jwt.secret') && !config('jwt.secret') == 'changeme') {
+        if (config('jwt.secret') == false || config('jwt.secret') == 'changeme') {
             $this->info('Generating JWT secret');
             $this->line('');
             $config['jwt']['secret'] = $this->generateJWTKey();
@@ -99,8 +99,8 @@ class InstallCommand extends Command
         $admin = $this->getAdminInformation();
         User::create($admin);
 
-        $this->info('Executing npm install, gulp and whatnot');
-        system('npm install');
+        $this->info('Executing yarn install, gulp and whatnot');
+        system('yarn install');
 
         $this->line('');
         $this->info('🎆  Success! Medlib is now installed');
@@ -223,7 +223,7 @@ class InstallCommand extends Command
      */
     private function generateKey()
     {
-        if (!config('app.key')) {
+        if (config('app.key') !== false && config('app.key') !== 'SomeRandomString') {
             $this->info('Generating application key');
             $this->line('');
             $this->call('key:generate');
@@ -508,7 +508,7 @@ class InstallCommand extends Command
 
         $name = $this->ask('Name', 'Admin System');
 
-        $username = $this->askSecretAndValidate('Username', [], function ($answer) {
+        $username = $this->askAndValidate('Username', [], function ($answer) {
             $validator = Validator::make(['username' => $answer], [
                 'username' => 'unique:users|alpha_dash|min:3|max:15',
             ]);
@@ -548,7 +548,7 @@ class InstallCommand extends Command
             'name'     => $name,
             'username'  => $username,
             'email'    => $email_address,
-            'password' => $password,
+            'password' => bcrypt($password),
         ];
     }
 

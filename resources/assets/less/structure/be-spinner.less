@@ -1,0 +1,38 @@
+.be-spinner {
+  margin: 25px auto;
+  text-align: center;
+  .be-beat {
+    -webkit-animation: be-beatStretchDelay 0.7s infinite linear;
+    animation: be-beatStretchDelay 0.7s infinite linear;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+  }
+  .be-beat-odd {
+    animation-delay: 0s;
+  }
+  .be-beat-even {
+    animation-delay: 0.35s;
+  }
+}
+
+@-webkit-keyframes be-beatStretchDelay {
+  50% {
+    .transform(~"scale(0.75)");
+    .opacity(0.2);
+  }
+  100% {
+    .transform(~"scale(1)");
+    .opacity(1);
+  }
+}
+@keyframes be-beatStretchDelay {
+  50% {
+    .transform(~"scale(0.75)");
+    .opacity(0.2);
+  }
+  100% {
+    .transform(~"scale(1)");
+    .opacity(1);
+  }
+}

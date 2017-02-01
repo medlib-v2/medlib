@@ -49,7 +49,7 @@ class ClearOrphanAvatarsCommand extends Command
         /**
          * Build up a list of all avatar images
          */
-        $avatars = glob(public_path() . '/avatars/*/*.*');
+        $avatars = glob(public_path() . '/avatars/*.*');
 
         /**
          * Remove the public_path() from the path so that they match values in the DB
@@ -71,6 +71,7 @@ class ClearOrphanAvatarsCommand extends Command
          * Compare the 2 collections get a list of avatars which are no longer assigned
          */
         $orphan_avatars = $all_avatars->diff($current_avatars);
+
         $this->info('Found ' . $orphan_avatars->count() . ' orphaned avatars');
 
         /**

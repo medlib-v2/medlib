@@ -3,6 +3,7 @@
 namespace Medlib\Services;
 
 use Illuminate\Support\Facades\Auth;
+use Medlib\Http\Requests\SendMessageChatRequest;
 
 class SendChatMessageService extends Service
 {
@@ -20,15 +21,16 @@ class SendChatMessageService extends Service
     /**
      * Create a new command instance.
      *
-     * @param int $receiver_id
-     * @param string $message
+     * @param SendMessageChatRequest $request
+     * @internal param int $receiver_id
+     * @internal param string $message
      */
-    public function __construct($receiver_id, $message)
+    public function __construct(SendMessageChatRequest $request)
     {
         parent::__construct();
 
-        $this->receiver_id = $receiver_id;
-        $this->message = $message;
+        $this->receiver_id = $request->get('receiver_id');
+        $this->message = $request->get('message');
     }
 
     /**

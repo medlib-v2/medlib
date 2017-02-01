@@ -12,6 +12,7 @@ composer.lock
 common.js
 .env
 .env.save
+.env.prev
 .env.testing
 .netbeans.xml
 .DS_Store

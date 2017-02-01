@@ -13,6 +13,7 @@ return [
     |
     */
     'problems_with_input' => 'Il y avait quelques problèmes avec vos données.',
-    'token_mismatch_exception' => 'Vous ne pouvez pas soumettre des donnés suite à une longue période d\'inactivité. Veuillez réessayer',
-    'error_message' => 'Veuillez vérifier l\'URL que vous avez soumise'
+    'token_mismatch_exception' => "Vous ne pouvez pas soumettre des donnés suite à une longue période d'inactivité. Veuillez réessayer",
+    'error_message' => "Veuillez vérifier l'URL que vous avez soumise",
+    'what_your_mind' => "Exprimez-vous..."
 ];

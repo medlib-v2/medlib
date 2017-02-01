@@ -4,9 +4,9 @@
             <div class="v-bottom v-left">
                 <a href="#" class="btn btn-cover"><i class="fa fa-pencil"></i></a>
             </div>
-            <div class="image">{{ Html::image("/avatars/profile-cover.jpg", Auth::user()->getUsername() )  }}</div>
+            <div class="image">{{ Html::image("/avatars/profile-cover.jpg", Auth::user()->getUsername() ) }}</div>
         @else
-        <div class="image">{{ Html::image("/avatars/profile-cover.jpg", $user->getUsername() )  }}</div>
+        <div class="image">{{ Html::image("/avatars/profile-cover.jpg", $user->getUsername() ) }}</div>
         @endif
 
         <ul class="friends">

@@ -15,6 +15,11 @@ class RemoveFriendService extends Service
     protected $username;
 
     /**
+     * @var User
+     */
+    protected $currentUser;
+
+    /**
      * Create a new command instance.
      *
      * @param Request $request
@@ -25,6 +30,8 @@ class RemoveFriendService extends Service
         parent::__construct();
 
         $this->username = $request->get('username');
+
+        $this->currentUser = Auth::user();
     }
 
     /**
@@ -38,14 +45,12 @@ class RemoveFriendService extends Service
     {
         $otherUser = $userRepository->findByUsername($this->username);
 
-        $currentUser = Auth::user();
+        $this->currentUser->finishFriendshipWith($otherUser->id);
 
-        $currentUser->finishFriendshipWith($otherUser->id);
+        $otherUser->finishFriendshipWith($this->currentUser->id);
 
-        $otherUser->finishFriendshipWith($currentUser->id);
+        $this->client->updateChatListFriendRemoved($otherUser->id, 24, $this->currentUser->id, $otherUser->friends()->count());
 
-        $this->client->updateChatListFriendRemoved($otherUser->id, 24, $currentUser->id, $otherUser->friends()->count());
-
-        return true;
+        return $this->currentUser->friends()->count();
     }
 }

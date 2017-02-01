@@ -31,19 +31,19 @@ class DatabaseSeeder extends Seeder
 
     protected $seeders = [
         UserTableSeeder::class,
-        AuthorsTableSeeder::class,
-        BookTableSeeder::class,
-        CategoryTableSeeder::class,
-        EditionTableSeeder::class,
-        FeedTableSeeder::class,
-        FriendRequestTableSeeder::class,
-        MessageResponsesTableSeeder::class,
-        MessageResponseUserTableSeeder::class,
-        MessageUserTableSeeder::class,
-        MessagesTableSeeder::class,
-        PublisherTableSeeder::class,
-        LanguageSeeder::class
-    ];
+		AuthorsTableSeeder::class,
+		BookTableSeeder::class,
+		CategoryTableSeeder::class,
+		EditionTableSeeder::class,
+		FeedTableSeeder::class,
+		FriendRequestTableSeeder::class,
+		LanguageTableSeeder::class,
+		MessageResponseUserTableSeeder::class,
+		MessageResponsesTableSeeder::class,
+		MessageUserTableSeeder::class,
+		MessagesTableSeeder::class,
+		PublisherTableSeeder::class,
+	];
 
     /**
      * Run the database seeds.

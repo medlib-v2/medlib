@@ -19,7 +19,7 @@
                         <ul class="list-unstyled">
                             <li><a href="{{url('/site/faq')}}">FAQ</a></li>
                             <li><a href="https://docs.google.com/a/etna-alternance.net/forms/d/e/1FAIpQLSdgXfiOGKYGp0Vy-ARTEX7ny0lHsXmAa315HQDyN3f-giyQqQ/viewform" target="_blank">Questionnaire de satisfaction</a></li>
-                            <li><a href="{{url('/site/contact')}}">Nous contacter</a></li>
+                            <li><a href="{{route('contact.show')}}">Nous contacter</a></li>
                         </ul>
                     </div>
                 </div>

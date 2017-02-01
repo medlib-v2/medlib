@@ -24,7 +24,6 @@ use Medlib\Events\UserRegistrationConfirmation;
  */
 class AuthController extends Controller
 {
-
     /**
      * Show the Login Page
      *

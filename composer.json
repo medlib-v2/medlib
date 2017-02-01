@@ -25,14 +25,14 @@
         "intervention/image": "dev-master",
         "wisembly/elephant.io": "^3.2.0",
         "james-heinrich/getid3": "^1.9",
-        "barryvdh/laravel-ide-helper": "^2.1",
         "guzzlehttp/guzzle": "^6.1",
         "tymon/jwt-auth": "^0.5.6",
         "andywer/js-localization": "dev-laravel-5",
         "backup-manager/laravel": "^1.1",
         "nothingworks/blade-svg": "^0.1.0",
         "laravel/socialite": "^2.0",
-        "version/version": "^2.2"
+        "version/version": "^2.2",
+        "pusher/pusher-php-server": "^2.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -21,12 +21,12 @@
 				<li><a href="{{ route('user.feeds.like', ['username'=> ($feed->user->id !== Auth::user()->id) ? $feed->user->getUsername() : Auth::user()->getUsername(), 'status_id' => $feed->getFeedId()])}}"><span class="text-danger"><i class="fa fa-heart-o"></i> {{ $feed->likes()->count() }} Like</span></a></li>
 				<li><a href="#">Comment</a></li>
 			</ul>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a1.jpg"></a></span>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a5.jpg"></a></span>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a3.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a1.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a5.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a3.jpg"></a></span>
 		</div>
 		<ul class="post-comments mt-sm">
-			@foreach ($feed->comment() as $reply)
+			@foreach ($feed->comments() as $reply)
 				<li>
 					<span class="thumb-xs avatar pull-left mr-sm">
 						<a href="{{ route('profile.index',['username'=> $reply->user->getUsername()]) }}" class="pull-left">
@@ -63,7 +63,7 @@
 
 <section class="event">
 	<span class="thumb-sm avatar pull-left mr-sm">
-	  <img class="img-circle" src="/images/people/a5.jpg" alt="...">
+	  <img class="img-circle" src="/avatars/a5.jpg" alt="...">
 	</span>
 	<h4 class="event-heading">
 		<a href="#">Bob Nilson</a> <small><a href="#">@nils</a></small>
@@ -83,7 +83,7 @@
 <section class="event">
 	<h4 class="event-heading"><a href="#">Jessica Smith</a> <small>@jess</small></h4>
 	<p class="fs-sm text-muted">February 22, 2014 at 01:59 PM</p>
-	<p class="fs-min contenti">Check out this awesome photo I made in Italy last summer. Seems it was lost somewhere deep inside my brand new HDD 40TB. Thanks god I found it!</p>
+	<p class="fs-min content">Check out this awesome photo I made in Italy last summer. Seems it was lost somewhere deep inside my brand new HDD 40TB. Thanks god I found it!</p>
 	<footer>
 		<div class="clearfix">
 			<ul class="post-links mt-sm pull-left">
@@ -91,20 +91,20 @@
 				<li><a href="#"><span class="text-danger"><i class="fa fa-heart-o"></i> Like</span></a></li>
 				<li><a href="#">Comment</a></li>
 			</ul>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a1.jpg"></a></span>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a5.jpg"></a></span>
-			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/images/people/a3.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a1.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a5.jpg"></a></span>
+			<span class="thumb thumb-sm pull-right"><a href="#"><img class="img-circle" src="/avatars/a3.jpg"></a></span>
 		</div>
 		<ul class="post-comments mt-sm">
 			<li>
-				<span class="thumb-xs avatar pull-left mr-sm"><img class="img-circle" src="/images/people/a1.jpg" alt="..."></span>
+				<span class="thumb-xs avatar pull-left mr-sm"><img class="img-circle" src="/avatars/a1.jpg" alt="..."></span>
 				<div class="comment-body">
 					<h6 class="author fw-semi-bold">Ignacio Abad <small>6 mins ago</small></h6>
 					<p>Hey, have you heard anything about that?</p>
 				</div>
 			</li>
 			<li>
-				<span class="thumb-xs avatar pull-left mr-sm"><img class="img-circle" src="/images/avatar.png" alt="..."></span>
+				<span class="thumb-xs avatar pull-left mr-sm"><img class="img-circle" src="/avatars/a1.jpg" alt="..."></span>
 				<div class="comment-body"><input class="form-control input-sm" type="text" placeholder="Write your comment..."></div>
 			</li>
 		</ul>

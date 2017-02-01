@@ -106,8 +106,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-            </div>
             <div id="danger" class="row">&nbsp;</div>
         </div>
     </main>
@@ -126,7 +124,7 @@
                 @if (Auth::guest())
                 Medlib.Password('#password', {
                     innerToggle: true,
-                    touchSupport: Modernizr.touch,
+                    touchSupport: Modernizr.touchevents,
                     title: 'Click here show/hide password',
                     hideToggleUntil: 'focus'
                 });

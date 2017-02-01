@@ -41,7 +41,7 @@ return [
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix'   => '',
+            'prefix'   => env('DB_PREFIX', ''),
         ],
         'mysql' => [
             'driver'    => 'mysql',
@@ -53,7 +53,7 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'unix_socket' => env('DB_SOCKET', ''),
-            'prefix'    => '',
+            'prefix'    => env('DB_PREFIX', ''),
             'strict'    => false,
             'engine'    => null,
         ],
@@ -103,10 +103,10 @@ return [
     'redis' => [
         'cluster' => false,
         'default' => [
-            'host'     => env('REDIS_HOST', 'localhost'),
+            'host'     => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port'     => env('REDIS_PORT', 6379),
-            'database' => 0,
+            'database' => env('REDIS_DATABASE', 0),
         ],
     ],
 ];

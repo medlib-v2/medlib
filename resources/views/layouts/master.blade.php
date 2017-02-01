@@ -5,7 +5,7 @@
     </head>
     <body>
         <!-- main -->
-        <div class="be-wrapper be-float-sidebar be-header-fixed">
+        <div class="be-wrapper be-float-sidebar be-header-fixed" id="app">
             <!-- header -->
             @include('layouts.navigation')
             <!-- / header -->
@@ -21,30 +21,48 @@
             @include('layouts.sidebar.right-sidebar')
         </div>
         <!-- / end main -->
+
+        @if(Auth::check())
+            <!-- conversations -->
+            <conversations :show.sync="showConversations"
+                           :all-conversations.sync="allConversations"
+                           :conversations.sync="conversations"
+                           :user.sync="user"></conversations>
+            <!-- chat box -->
+            <chatbox v-if="activeConversation"
+                     :conversation.sync="activeConversation"
+                     :show.sync="showChatbox" :user.sync="user"></chatbox>
+        @endif
+
         <!-- The Loader. Is shown when pjax happens -->
         <div class="loader-wrap hiding hide">
             <i class="fa fa-circle-o-notch fa-spin-fast"></i>
         </div>
         <div id="cookiebar"></div>
         <!-- common libraries. required for every page -->
-        <script type="text/javascript" src="{{ App::rev('js/jquery.min.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="{{ App::rev('js/plugins.vendor.min.js') }}"></script>
-        <script src="/js-localization/messages"></script>
-        <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                Lang.setLocale("{!! app()->getLocale() !!}");
-                /**
-                 * Medlib Application
-                 */
-                Medlib.Token = {!! json_encode([
+            const Setting = {!! json_encode([
                     'language' => app()->getLocale(),
                     'csrfToken' => csrf_token(),
                     'jwt' => session()->has('jwt-token') ? session()->get('jwt-token') : '',
                     'socket_url' => config('medlib.socket_url')
                     ])
                 !!}
+            const me = {!! Auth::check() ? json_encode(Auth::user()->getUsername()) : json_encode('') !!}
+        </script>
+        <script type="text/javascript" src="{{ App::rev('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+        <script type="text/javascript" src="{{ App::rev('js/plugins.vendor.min.js') }}"></script>
+        <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
+        <script type="text/javascript" src="/js-localization/messages"></script>
+        <script type="text/javascript" src="{{ App::rev('js/medlib.min.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                Lang.setLocale("{!! app()->getLocale() !!}");
+                /**
+                 * Medlib Application
+                 */
                 @if (Auth::check())
                 Medlib.WebSocket(null);
                 @endif
@@ -80,7 +98,7 @@
                     ga('send', 'pageview');
                 }
             } else {
-                document.write('<script type="text/javascript" src=\'{{ App::rev("js/vue/cookiesbar.min.js") }}\'><\/script>')
+                document.write('<script type="text/javascript" src=\'{{ App::rev("js/cookiesbar.min.js") }}\'><\/script>')
             }
         </script>
     </body>

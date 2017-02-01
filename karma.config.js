@@ -24,7 +24,7 @@ module.exports = function(karma) {
          */
         autoWatch: true,
 
-        browsers: ['Yandex'], //'PhantomJS', 'Firefox',
+        browsers: ['PhantomJS'], //'PhantomJS', 'Firefox',
 
         /**
          * base path that will be used to resolve all patterns (eg. files, exclude)
@@ -48,7 +48,7 @@ module.exports = function(karma) {
          */
         browserify: {
             debug: true,
-            transform: [ ['vueify', {'es6': true}]],
+            //transform: [ ['vueify', {'es6': true}]],
             plugin: [require('proxyquireify').plugin]
         },
 
@@ -67,6 +67,11 @@ module.exports = function(karma) {
         preprocessors: {
             'app.js': ['browserify', 'babel'],
             'tests/**/*.spec.js': [ 'browserify', 'babel' ]
-        }
+        },
+        /**
+         * if you want to continuously re-run tests on file-save,
+         * replace the following line with `autoWatch: true`
+         */
+        singleRun: true
     });
 };

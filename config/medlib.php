@@ -80,7 +80,8 @@ return [
     */
     'ignore_dot_files' => env('IGNORE_DOT_FILES', true),
 
-    'socket_url'    => env('SOCKET_URL', 'http://medlib.app:6001'),
+    'socket_url'    => env('SOCKET_URL', 'http://medlib.app'),
+    'socket_port'   => env('SOCKET_PORT', '6001'),
     'theme'         => env('APP_THEME', 'white'),
 
 ];

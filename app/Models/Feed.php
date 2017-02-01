@@ -24,11 +24,24 @@ class Feed extends Model
     protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'];
 
     /**
+     * The attributes excluded from the model's JSON form.
+     * @var array
+     */
+    protected $hidden = ['poster_username', 'poster_profile_image'];
+
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
     protected $dates = ['created_at', 'updated_at'];
+
+
+    /**
+     * @var array
+     */
+    public $with = ['user','likes', 'comments'];
 
     /**
      * A feed belongs to a User.
@@ -44,7 +57,7 @@ class Feed extends Model
      * A feed belongs to a Comment.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comment()
+    public function comments()
     {
         return $this->belongsTo(Comment::class);
     }
@@ -82,11 +95,11 @@ class Feed extends Model
 
     /**
      * 2nd arg is parsing the name of  the polymorphic relation
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes()
     {
-        return $this->morphMany(Like::class, 'feed');
+        return $this->hasMany(Like::class);
     }
 
     /**

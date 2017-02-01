@@ -1,7 +1,8 @@
-var jwt = require('jsonwebtoken'),
+let jwt = require('jsonwebtoken'),
     fs = require('fs'),
     logger = require('winston'),
-    clients = {};
+    clients = {},
+    server;
 
 /**
  * Logger config
@@ -11,7 +12,7 @@ logger.add(logger.transports.Console, { colorize: true, timestamp: true });
 
 require('dotenv').load();
 
-var debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true),
+let debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true),
     Redis = require('ioredis'),
     redis = new Redis({
         port: process.env.REDIS_PORT || 6379,
@@ -21,21 +22,21 @@ var debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true)
     });
 
 if (/^https/i.test(process.env.SOCKET_URL)) {
-    var ssl_conf = {
+    let ssl_conf = {
         key:  (process.env.SOCKET_SSL_KEY_FILE  ? fs.readFileSync(process.env.SOCKET_SSL_KEY_FILE)  : null),
         cert: (process.env.SOCKET_SSL_CERT_FILE ? fs.readFileSync(process.env.SOCKET_SSL_CERT_FILE) : null),
         ca:   (process.env.SOCKET_SSL_CA_FILE   ? fs.readFileSync(process.env.SOCKET_SSL_CA_FILE)   : null)
-    },
-        server = require('https').createServer(ssl_conf, handler);
+    };
+    server = require('https').createServer(ssl_conf, handler);
 } else {
-    var server = require('http').createServer(handler);
+    server = require('http').createServer(handler);
 }
 
-var io  = require('socket.io')(server);
+let io  = require('socket.io')(server);
 
 server.listen(parseInt(process.env.SOCKET_PORT), function() {
     if (debug) {
-        logger.info('Server is running!');
+        logger.info('Server is running! ', process.env.SOCKET_URL ,process.env.SOCKET_PORT);
     }
 });
 
@@ -87,13 +88,12 @@ io.use(function(socket, next) {
 });
 
 io.on('connection', function(socket) {
+    // io.emit('chat.message', 'User joined the chat');
     /**
      * Regiter a client based on user_id
      */
-    socket.on('register', function(data)
-    {
-        if (clients[data.user_id] && clients[data.user_id].sockets instanceof Array)
-        {
+    socket.on('register', function(data) {
+        if (clients[data.user_id] && clients[data.user_id].sockets instanceof Array) {
             /**
              * if user is already registered
              * with one or many socket clients,
@@ -101,8 +101,7 @@ io.on('connection', function(socket) {
              */
             clients[data.user_id].sockets.push(socket.id);
 
-        } else
-        {
+        } else {
             /**
              * if it is the first socket client
              * add an array and push socket id
@@ -143,8 +142,19 @@ io.on('connection', function(socket) {
         }
     });
 
+    /**
+     * message sent
+     */
+    socket.on('chat.message', function(message) {
+        /**
+         * broadcast message to all listeners
+         */
+        io.emit('chat.message', message);
+    });
+
     socket.on('disconnect', function () {
 
+        // io.emit('chat.message', 'User has disconnected');
         /**
          * when socket  disconnects remove socket from list of sockets
          */
@@ -182,13 +192,16 @@ io.on('connection', function(socket) {
 
 redis.psubscribe('*', function(err, count) {
     if (debug) {
-        logger.info('psubscribe');
+        logger.info('subscribe');
+
+        if(err) throw err;
+
+        logger.info("count: " + count);
     }
 });
 
 redis.on('pmessage', function(subscribed, channel, message) {
     message = JSON.parse(message);
-
 
     if (message.event.indexOf('RestartSocketServer') !== -1) {
 
@@ -204,5 +217,17 @@ redis.on('pmessage', function(subscribed, channel, message) {
         logger.info('Message received from event ' + message.event + ' to channel ' + channel);
     }
 
-    io.emit(channel + ':' + message.event, message.data);
+    //channel + ':' + message.event
+    const emitChannel = `${channel}:${message.event}`;
+    io.emit(emitChannel, message.data);
+});
+
+redis.on('error', function(err) {
+    if(err) throw err;
+
+    logger.info("Redis is not running");
+});
+
+redis.on('ready', function(){
+    logger.info("Redis is running");
 });

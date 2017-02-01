@@ -14,7 +14,8 @@ return [
     */
 
     'problems_with_input' => 'There were some problems with your input.',
-    'token_mismatch_exception' => 'Seems you couldn\'t submit form for a longtime. Please try again',
-    'error_message' => 'Please check the URL you submitted'
+    'token_mismatch_exception' => "Seems you couldn't submit form for a longtime. Please try again",
+    'error_message' => 'Please check the URL you submitted',
+    'what_your_mind' => "What's on your mind ?"
 
 ];

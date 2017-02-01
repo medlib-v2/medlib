@@ -1,0 +1,18 @@
+{
+	"dist": "public/js/medlib.min.js",
+	"src": [
+		"app/app.js",
+		"app/arrow.js",
+		"app/password.js",
+		"app/input.field.js",
+		"app/form.elements.js",
+		"app/be.select.js",
+		"app/shorten.js",
+		"app/pushed.js",
+		"app/friend.request.js",
+		"app/client.js",
+		"app/notifications.js",
+		"app/multi.tags.js",
+		"app/and.js"
+	]
+}

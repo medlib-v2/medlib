@@ -1,11 +1,11 @@
-let Backbone = require('backbone'),
-    BookModel = require('../models/BookModel');
+import Backbone from 'backbone';
+import BookModel from '../models/BookModel';
 
 const BookCollection = Backbone.Collection.extend({
     model: BookModel,
-    parse: function(response) {
+    parse(response) {
         return response.items;
     }
 });
 
-module.exports =  BookCollection;
+export default BookCollection;

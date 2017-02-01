@@ -3,7 +3,7 @@
 /*
  * This file is part of Medlib.
  *
- * Copyright (C) 2016 Medlib.fr
+ * Copyright (C) 2016 medlib.fr
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

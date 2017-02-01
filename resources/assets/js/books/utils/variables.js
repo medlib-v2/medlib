@@ -8,4 +8,4 @@ const data = {
     TOPICS: ["Arts", "Music", "Poetry", "Cooking", "Psychology", "Travel", "Spirituality", "Science", "Romance", "Suspense"]
 };
 
-module.exports = data;
+export default data;

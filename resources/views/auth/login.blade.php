@@ -44,9 +44,9 @@
                             'placeholder' => trans('auth.txt.password'),
                             'class' => 'form-control no-border',
                             'pattern'=> '.{6,}',
-                            'required' => 'required',
+                            'required',
                             'autocomplete'=> 'off',
-                            'tabindex' => 6])
+                            'tabindex' => 2])
                         !!}
                         <span class="hideShowPassword-toggle"></span>
                         @if (isset($errors) and $errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
@@ -83,7 +83,7 @@
             Medlib.InputField(null);
             Medlib.Password('#password', {
                 innerToggle: true,
-                touchSupport: Modernizr.touch,
+                touchSupport: Modernizr.touchevents,
                 title: 'Click here show/hide password',
                 hideToggleUntil: 'focus'
             });

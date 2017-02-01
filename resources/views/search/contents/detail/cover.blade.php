@@ -4,7 +4,7 @@ use Medlib\BookCover\Facades\Cover;
 $replacements = ['-','_',' '];
 $data = Cover::setTitle($result->title)
     ->setSubtitle('with special chapters on photography, cover design and book manufacturing')
-    ->setCreators($result->creators[0]['name'])
+    ->setCreators((isset($result->creators[0])) ? $result->creators[0]['name']: '')
     ->setEdition('3rd enl. ed.')
     ->setPublisher($result->publisher)
     ->setDatePublished($result->year)

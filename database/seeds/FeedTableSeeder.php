@@ -31,7 +31,7 @@ class FeedTableSeeder extends Seeder
                     'body'        => $faker->sentence(),
                     'poster_username' => $faker->userName,
                     'poster_profile_image' => $faker->imageUrl($width = 180, $height = 180),
-                    'image_url' => $faker->imageUrl($width = 280, $height = 280),
+                    'image_url' => $faker->imageUrl($width = 600, $height = 280),
                     'video_url' => null,
                     'location' => $faker->latitude.",".$faker->longitude,
                     'created_at'=> $date->format('Y-m-d H:i:s'),

@@ -50,3 +50,6 @@ dump-autoload:
 cache-config:
 	php artisan config:cache
 	php artisan optimize
+
+test:
+	php artisan test:run

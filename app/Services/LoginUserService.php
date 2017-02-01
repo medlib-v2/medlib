@@ -61,7 +61,6 @@ class LoginUserService extends Service
         /**
          * Check if account is active
          */
-
         if (! $user->userAccountIsActive() === true) {
             Auth::logout();
             return Redirect::guest('login')->with('info', 'Please activate your account to proceed.');
@@ -71,7 +70,7 @@ class LoginUserService extends Service
          * validation successful!
          * redirect them to the secure section or whatever
          */
-        $friends_user_ids = $user->friends()->where('onlinestatus', 1)->pluck('requester_id');
+        $friends_user_ids = $user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
         $related_to_id = $user->id;
         $client_code = 22;
         $message = true;

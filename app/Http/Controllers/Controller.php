@@ -50,7 +50,7 @@ class Controller extends BaseController
 
     /**
      *
-     * @param  string  $com_message_pump()
+     * @param  string  $message
      * @return Response
      */
     public function responseNotFound($message = 'Item not found!')

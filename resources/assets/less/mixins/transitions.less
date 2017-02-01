@@ -40,3 +40,21 @@
   -ms-transform: @arguments;
   transform: @arguments;
 }
+
+.font-size(@desired-pixel-size) {
+  @base-font-size-for-rem-calc: 16;
+  @desired-rem-size: @desired-pixel-size / @base-font-size-for-rem-calc;
+  font-size: (@desired-rem-size * @base-font-size-for-rem-calc) + px;
+  font-size: @desired-rem-size + rem;
+}
+.text-dropdown() {
+  .font-size(13);
+  color: @color-dropdown;
+  letter-spacing: 0.4px;
+}
+
+.text-descrete() {
+  .font-size(13);
+  color: @color-descrete;
+  letter-spacing: 0.4px;
+}

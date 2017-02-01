@@ -26,18 +26,25 @@
                         </div>
                     @endif
                     <section class="m-b-lg">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        {!! Form::open(['method' => 'POST', 'route' => 'password.post', 'accept-charset' => 'UTF-8', 'role'=> 'form', 'class' => 'form-horizontal']) !!}
                             <p>{{ trans('passwords.reset_password_subtitle') }}</p>
 
                             <div class="form-group xs-pt-20 @if ($errors->has('email')) has-error @endif">
-                                <input type="email" placeholder="{{ trans('auth.txt.email') }}" autocomplete="off" class="form-control no-border" name="email" value="{{-- old('email') --}}">
+                                {!! Form::email('email', request()->hasSession() ? old('email') : '', [
+                                    'placeholder' => trans('auth.txt.email'),
+                                    'class' => 'form-control no-border',
+                                    'autocomplete' => 'off',
+                                    'required',
+                                    'tabindex' => 1,
+                                    'id'=> 'username'])
+                                !!}
+                                @if (isset($errors) and $errors->has('email')) <p class="help-block"><strong>{{ $errors->first('email') }}</strong></p> @endif
                             </div>
-                            <p class="xs-pt-5 xs-pb-20">{{ trans('auth.txt.forgot_email') }} <a href="{{ url('/site/contact') }}">{{ trans('auth.txt.forgot_email_end') }}</a></p>
+                            <p class="xs-pt-5 xs-pb-20">{{ trans('auth.txt.forgot_email') }} <a href="{{ route('contact.show') }}">{{ trans('auth.txt.forgot_email_end') }}</a></p>
                             <div class="form-group xs-pt-5">
                                 <button type="submit" class="btn btn-block btn-primary btn-block btn-xl">{{ trans('passwords.send_reset_password') }}</button>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </section>
                 </div>
             </div>
@@ -55,7 +62,7 @@
             Medlib.InputField(null);
             Medlib.Password('#password', {
                 innerToggle: true,
-                touchSupport: Modernizr.touch,
+                touchSupport: Modernizr.touchevents,
                 title: 'Click here show/hide password',
                 hideToggleUntil: 'focus'
             });

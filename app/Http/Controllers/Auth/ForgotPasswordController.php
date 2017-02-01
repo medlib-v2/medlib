@@ -35,7 +35,8 @@ class ForgotPasswordController extends Controller
 
     /**
      * Send a reset link to the given user.
-     *
+     * @Post("password/email", as="password.post")
+     * @Middleware("guest")
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */

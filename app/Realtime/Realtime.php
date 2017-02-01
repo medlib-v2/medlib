@@ -18,7 +18,9 @@ abstract class RealTime
      */
     public function __construct()
     {
-        $this->client = new Client(new Version1X(env('SOCKET_URL')));
+        //$socket = config('medlib.socket_url') .':' . config('medlib.socket_port');
+
+        $this->client = new Client(new Version1X(config('medlib.socket_url')));
     }
 
     /**

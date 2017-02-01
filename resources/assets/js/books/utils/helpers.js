@@ -1,11 +1,10 @@
-var _ = require('lodash'),
-    $ = window.jQuery,
-    v = require('./variables'),
-    Backbone = require('backbone');
+let $ = window.jQuery;
 
-//Check for long synopsis and make it shorter
-var shortSynopsis = function() {
-    var moreText = "Voir plus »",
+/**
+ * Check for long synopsis and make it shorter
+ */
+let shortSynopsis = function() {
+    let moreText = "Voir plus »",
         hideDesc = '<div class="hide-description overflow"><a href="#" class="more">Voir plus »</a></div>',
         $desc = $('.description'),
         height = $('.more-block').height();
@@ -16,7 +15,7 @@ var shortSynopsis = function() {
 
         $('.more').on('click', function(e) {
             e.preventDefault();
-            var buttonTxt = $('.more').text() == "Voir plus »" ? "« Voir moins" : "Voir plus »";
+            let buttonTxt = $('.more').text() == "Voir plus »" ? "« Voir moins" : "Voir plus »";
 
             $desc.find(".more-block").toggleClass('long');
             $(".hide-description").toggleClass('overflow');
@@ -40,6 +39,6 @@ var shortSynopsis = function() {
  }; */
 
 
-module.exports = {
+export default {
     shortSynopsis: shortSynopsis
 };

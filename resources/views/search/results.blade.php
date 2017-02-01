@@ -54,9 +54,8 @@
 
 @section('script')
     <!-- SCRIPT -->
-    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
     <script type="text/javascript" src="{{ App::rev('js/be-list.min.js') }}"></script>
-    <script type="text/javascript" src="{{ App::rev('js/preview/app.min.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ asset('js/preview/app.min.js') }}"></script>-->
     <script>
         (function($) {
             /**

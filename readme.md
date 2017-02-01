@@ -55,30 +55,31 @@ I. Clonage du projet.
 
 ```shell
 $ git clone https://github.com/medlib-v2/medlib.git
+$ git clone https://github.com/medlib-v2/test-unit.git tests
 ```
 
-II. Installation de dépendances.
+II. Copie du fichier .env.example vers .env
+
+```shell
+$ cp .env.example .env
+```
+
+III. Installation de dépendances.
 
 ```shell
 $ composer install -o --no-dev
 ```
 
-III. Installation de socket.io
+IV. Installation de socket.io
 
 ```shell
-$ npm install --production
+$ yarn install --production
 ```
 
-IV. Permission storage bootstrap/cache, public/uploads, public/avatars.
+V. Permission storage bootstrap/cache, public/uploads, public/avatars.
 
 ```shell
 $ make file-permission
-```
-
-V. Copie de .env.example vers .env
-
-```shell
-$ cp .env.example .env
 ```
 
 VI. Mise en œuvre de Medlib
@@ -87,7 +88,7 @@ VI. Mise en œuvre de Medlib
 $ php artisan medlib:install
 ```
 
-VII. Mise en œuvre de WebSocket
+VII. Mise en œuvre du WebSocket
 ###### Sur le terminal (Laisser le terminal ouvert avec la commande en marche)
 ```shell
 $ node server.js

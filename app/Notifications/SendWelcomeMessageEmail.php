@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Medlib\Models\User;
 
-class SendWelcomeMessageEmail extends Notification
+class SendWelcomeMessageEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -1,8 +1,8 @@
-let _ = require('lodash'),
-    $ = window.jQuery,
-    BookView = require('./BookView'),
-    Backbone = require('backbone'),
-    Modernizr = window.Modernizr;
+import _ from 'lodash';
+import Backbone  from 'backbone';
+import BookView from './BookView';
+
+let $ = window.jQuery;
 
 const AllBooksView = Backbone.View.extend({
 
@@ -15,14 +15,14 @@ const AllBooksView = Backbone.View.extend({
      *
      * bind 'this' object to book method
      */
-    initialize: function() {
+    initialize() {
         _.bindAll(this, "book");
     },
 
     /**
      * Call the book method on each book in this collection
      */
-    render: function() {
+    render() {
         this.collection.each(this.book);
     },
 
@@ -31,7 +31,7 @@ const AllBooksView = Backbone.View.extend({
      * @param topic
      * @param maxResults
      */
-    topic: function(topic, maxResults) {
+    topic(topic, maxResults) {
         this.$el.prepend('<h1>' + topic + '</h1>').append('<a href="#browse/subject/' + topic + '/' + maxResults + '">Voir plus &raquo;</a>');
     },
 
@@ -41,11 +41,11 @@ const AllBooksView = Backbone.View.extend({
      *
      * @param model
      */
-    book: function(model) {
+    book(model) {
         let bookItem = new BookView({ model: model });
         bookItem.render();
         this.$el.append(bookItem.el);
     }
 });
 
-module.exports = AllBooksView;
+export default AllBooksView;

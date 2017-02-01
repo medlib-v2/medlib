@@ -9,6 +9,9 @@ use Medlib\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Medlib\Services\SocialAccountService;
 
+/**
+* @Middleware("guest")
+*/
 class SocialAuthController extends Controller
 {
     /**

@@ -84,7 +84,7 @@
                                         'placeholder' => trans('auth.txt.login'),
                                         'class' => 'form-control input-lg',
                                         'pattern'=> '[a-zA-Z0-9]{2,64}',
-                                        'required' => 'required',
+                                        'required',
                                         'tabindex' => 3])
                                     !!}
                                     @if (isset($errors) and $errors->has('username')) <p class="help-block">{{ $errors->first('username') }}</p> @endif
@@ -94,7 +94,7 @@
                                         'placeholder' => trans('auth.txt.email_placeholder'),
                                         'class' => 'form-control input-lg',
                                         'pattern'=> '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
-                                        'required' => 'required',
+                                        'required',
                                         'tabindex' => 4])
                                     !!}
                                     @if (isset($errors) and $errors->has('email')) <p class="help-block">{{ $errors->first('email') }}</p> @endif
@@ -104,7 +104,7 @@
                                         'placeholder' => trans('auth.txt.email_confirm_placeholder'),
                                         'class' => 'form-control input-lg',
                                         'pattern'=> '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
-                                        'required' => 'required',
+                                        'required',
                                         'tabindex' => 5])
                                     !!}
                                     @if (isset($errors) and $errors->has('email_confirm')) <p class="help-block">{{ $errors->first('email_confirm') }}</p> @endif
@@ -118,7 +118,7 @@
                                         'placeholder' => trans('auth.txt.password'),
                                         'class' => 'form-control input-lg',
                                         'pattern'=> '.{6,}',
-                                        'required' => 'required',
+                                        'required',
                                         'autocomplete'=> 'off',
                                         'tabindex' => 6])
                                     !!}
@@ -134,7 +134,7 @@
                                         'placeholder' => trans('auth.txt.password_confirm'),
                                         'class' => 'form-control input-lg',
                                         'pattern'=> '.{6,}',
-                                        'required' => 'required',
+                                        'required',
                                         'autocomplete'=> 'off',
                                         'tabindex' => 7])
                                     !!}
@@ -247,9 +247,7 @@
                             <!-- /Image profile -->
                             <!-- ReCaptcha -->
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <?php use Greggilbert\Recaptcha\Facades\Recaptcha;
-
-?>
+                                <?php use Greggilbert\Recaptcha\Facades\Recaptcha; ?>
                                 {!! Recaptcha::render() !!}
                             </div>
                             <!--  /ReCaptcha -->
@@ -283,7 +281,7 @@
             Medlib.InputField(null);
             Medlib.Password('input[type="password"]', {
                 innerToggle: true,
-                touchSupport: Modernizr.touch,
+                touchSupport: Modernizr.touchevents,
                 title: 'Click here show/hide password',
                 hideToggleUntil: 'focus'
             });
