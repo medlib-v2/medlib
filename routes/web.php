@@ -79,9 +79,9 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /** notifications */
-    Route::group(['prefix' => 'notifications', 'middleware' => ['auth','jwt.auth']], function () {
-
-        Route::get('unread', function(){ return Auth::user()->unreadNotifications; });
+    Route::group(['prefix' => 'notifications', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Notifications'], function () {
+        Route::get('/', ['uses' => 'NotificationsController@notifications', 'as' => 'notifications.show']);
+        Route::get('/unread', ['uses' => 'NotificationsController@unread', 'as' => 'notifications.unread']);
     });
 
     /** Friends & Friends-requests **/

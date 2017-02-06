@@ -62,9 +62,10 @@ class SendConfirmationRequestAccepted extends Notification implements ShouldQueu
     {
         return [
             'username' => $this->user->getUsername(),
-            'name' => $this->user->getName(),
+            'full_name' => $this->user->getName(),
             'user_avatar' => $this->user->getAvatar(),
-            'message' => 'Accepted your friend request'
+            'message' => 'Accepted your friend request',
+            'profile_url' => route('profile.user.show', ['username' => $this->user->getUsername()])
         ];
     }
 }

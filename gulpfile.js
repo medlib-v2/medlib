@@ -110,7 +110,11 @@ elixir(mix => {
             filterToggleBundle.dist,
             filterDropdownBundle.dist
         ], 'public/js/be-list.min.js', './')
-        .version([
+        .copy('resources/assets/images', 'public/images')
+        .copy('resources/assets/fonts', 'public/build/fonts');
+
+    if (process.env.NODE_ENV == 'production') {
+        mix.version([
             'css/application.css',
             'css/vendors.min.css',
             'js/jquery.min.js',
@@ -120,12 +124,7 @@ elixir(mix => {
             'js/cookiesbar.min.js',
             'js/be-list.min.js',
             'js/medlib.min.js'
-        ])
-        .copy('resources/assets/images', 'public/images')
-        .copy('resources/assets/fonts', 'public/build/fonts');
-
-    if (process.env.NODE_ENV == 'production') {
-        mix.clean([
+        ]).clean([
             'public/css',
             'public/js'
         ]);//.lang();
@@ -134,7 +133,7 @@ elixir(mix => {
     if (process.env.NODE_ENV !== 'production') {
 
         mix.browserSync({
-            proxy: 'http://medlib.app',
+            proxy: 'http://127.0.0.1:8000',
             files: [
                 elixir.config.appPath + '/**/*.php',
                 elixir.config.get('public.css.outputFolder') + '/**\/*.css',
@@ -142,6 +141,16 @@ elixir(mix => {
                 'resources/views/**/*.php'
             ],
             browser: ['yandex']
-        });
+        }).version([
+            'css/application.css',
+            'css/vendors.min.css',
+            'js/jquery.min.js',
+            'js/app.min.js',
+            'js/plugins.vendor.min.js',
+            'js/books/app.min.js',
+            'js/cookiesbar.min.js',
+            'js/be-list.min.js',
+            'js/medlib.min.js'
+        ]);
     }
 });

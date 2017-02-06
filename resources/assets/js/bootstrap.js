@@ -1,12 +1,8 @@
-
-window._ = require('lodash');
-
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
-
 window.Vue = require('vue');
 require('vue-resource');
 
@@ -19,11 +15,34 @@ Vue.config.devtools = true;
  * the outgoing requests issued by this application. The CSRF middleware
  * included with Laravel will automatically verify the header's value.
  */
+import { ls, user } from './services'
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Setting.csrfToken);
-    //Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
-    next();
+    if (ls.get('jwt-token')) {
+        Vue.http.headers.common['Authorization'] = `Bearer ${ls.get('jwt-token')}`;
+    }
+    next((response) => {
+        /**
+         * …get the token from the header or response data if exists, and save it.
+         */
+        const token = null;
+        console.log(response.headers, 'response');
+        //const token = response.headers.common['Authorization'] || response.body['token'];
+        if (token) {
+            ls.set('jwt-token', token);
+        }
+
+       if (response.status === 400 || response.status === 401) {
+           if (!(response.method  === 'post' && /\/me\/?$/.test(response.url))) {
+               /**
+                * the token must have expired. Log out.
+                */
+               user.logout();
+               window.location.pathname = '/login';
+           }
+       }
+    });
 });
 
 /**

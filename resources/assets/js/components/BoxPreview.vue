@@ -34,14 +34,14 @@ export default {
         },
         setStyle (width, height) {
             if (width > window.innerWidth || height > window.innerHeight) {
-               let ratio = width / height
-               let windowRatio = window.innerWidth / window.innerHeight
+               let ratio = width / height;
+               let windowRatio = window.innerWidth / window.innerHeight;
                if (ratio > windowRatio) {
-                    width = window.innerWidth
+                    width = window.innerWidth;
                     height = width / ratio
                } else {
-                    width = window.innerHeight
-                    height = width * ratio
+                    width = window.innerHeight;
+                    height = width * ratio;
                }
             }
 
@@ -77,7 +77,7 @@ export default {
         }
     },
     destroyed () {
-        window.removeEventListener('resize', this.resizeListener)
+        window.removeEventListener('resize', this.resizeListener);
     }
 }
 </script>

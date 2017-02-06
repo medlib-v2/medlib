@@ -11,15 +11,6 @@
     "test": "vendor/bin/phpcs app/ --standard=PSR2 --colors -p -n && vendor/bin/phpunit && karma start karma.config.js",
     "start": "supervisor --debug server.js"
   },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "vueify"
-    ]
-  },
-  "browser": {
-    "vue": "vue/dist/vue.common.js"
-  },
   "dependencies": {
     "backbone": "^1.3.3",
     "backbone.localstorage": "^1.1.16",
@@ -36,8 +27,10 @@
     "laravel-elixir-clean-unofficial": "^1.3.20",
     "laravel-elixir-vue-2": "^0.3.0",
     "laravel-elixir-webpack-official": "^1.0.10",
+    "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "parseuri": "^0.0.5",
+    "promise": "^7.1.1",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.7.2",
     "vue": "^2.1.10",

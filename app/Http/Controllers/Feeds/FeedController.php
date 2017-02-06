@@ -51,7 +51,7 @@ class FeedController extends Controller
     public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, CommentRepository $commentRepository)
     {
         $this->currentUser = Auth::user();
-
+        
         if ($username == $this->currentUser->getUsername()) {
             $user = $this->currentUser;
 

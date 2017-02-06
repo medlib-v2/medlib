@@ -41,3 +41,10 @@ $factory->define(Medlib\Models\Message::class, function (Faker\Generator $faker)
         'sender_name' => $faker->firstName,
     ];
 });
+
+$factory->define(Medlib\Models\Profile::class, function (Faker\Generator $faker) {
+    return [
+        'location' => $faker->city,
+        'about' => $faker->paragraph(4)
+    ];
+});

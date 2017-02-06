@@ -53,6 +53,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof TokenMismatchException) {
+
+            if ($request->expectsJson() || $request->wantsJson()) {
+                return response(['error'=>'token_mismatch','message'=> trans('messages.token_mismatch_exception')], 404);
+            }
             /**
              * redirect to form an example of how I handle mine
              */
@@ -63,14 +67,14 @@ class Handler extends ExceptionHandler
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);
         }
 
-        /**
+
         if ($exception instanceof NotFoundHttpException) {
-            if ($request->expectsJson()) {
-                return response(['error'=>'not_found','error_message'=> trans('messages.error_message')], 404);
+            if ($request->expectsJson() || $request->wantsJson()) {
+                return response(['error'=>'not_found','message'=> trans('messages.error_message')], 404);
             }
             return redirect()->route('errors.not.found');
         }
-        **/
+
 
         if ($exception instanceof ServerConnectionFailureException) {
             return redirect()->route('home');
@@ -88,7 +92,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
+        if ($request->expectsJson() || $request->wantsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 

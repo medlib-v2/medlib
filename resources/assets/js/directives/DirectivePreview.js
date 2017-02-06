@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Google from '../utils';
+import { Google } from '../utils';
 import store from '../stores/PreviewStore';
 
 Vue.directive('preview', {
@@ -25,7 +25,7 @@ Vue.directive('preview', {
         Google.books.setOnLoadCallback(initialize);
 
         function initialize () {
-            store.manger = Google.books
+            store.state.manger = Google.books
         }
         el.addEventListener('click', open(index - 1))
     }

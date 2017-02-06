@@ -14,7 +14,7 @@
 			<div class="container-fluid">
 				@include('users.users.partials.public')
 				<!-- Feeds content -->
-					<feed action="{{ route('user.feeds.show', Auth::user()->getUsername()) }}"></feed>
+					<feed action="{{ route('user.feeds.show', ['username' =>$user->is(Auth::user()) ? Auth::user()->getUsername() : $user->getUsername()]) }}"></feed>
 				<!-- /Feeds content -->
 			</div>
 		</section>

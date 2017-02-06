@@ -19,7 +19,7 @@ class MakeModelCommand extends Command
                             {--request : Make a new FormRequest from this Model name}
                             {--controller : Make new Controller from this Model name}
                             {--migration : Create new Migration file from this Model name}
-                            {--facker : Create new Model Faker file from this Model name}
+                            {--faker : Create new Model Faker file from this Model name}
                             {--seed : Create new Seeder file from this Model name}';
 
     /**

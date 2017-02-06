@@ -1,27 +1,20 @@
-<template>
-    <div>
-        <header-component/>
-        <div>this is template body</div>
-        <other-component/>
-    </div>
+<template lang="html">
+    <button @click="notify()">??</button>
 </template>
-<style>
-    body{
-        background-color:#ff0000;
-    }
-</style>
-<script>
-    import HeaderComponent from './components/header.vue'
-    import OtherComponent from './components/other.vue'
-    export default{
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
-        components:{
-            'other-component':OtherComponent,
-            HeaderComponent,
-        }
-    }
+
+<script type="text/babel">
+export default {
+  props: ['message', 'title'],
+  methods: {
+      notify () {
+          if (Notification.permission !== "granted") {
+              Notification.requestPermission();
+          } else {
+              new Notification(this.title, {
+                  body: this.message,
+              });
+          }
+      }
+  }
+};
 </script>

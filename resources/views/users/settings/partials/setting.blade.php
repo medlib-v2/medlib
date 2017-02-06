@@ -86,4 +86,35 @@
 
         </div>
     </div>
+
+    <div class="panel panel-default">
+        <div class="list-group-item active"><span class="menu-heading">Mon profil</span></div>
+        <div class="list-group-item">
+            <div class="row">
+                <div class="boxed-group col-xs-12 col-sm-12 col-md-12">
+                    <div class="group-form">
+                        <form accept-charset="UTF-8" action="#" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="input-group col-md-12 col-sm-12 col-xs-12"> <!-- About me -->
+                                <div><label for="first_name">A propos de moi</label></div>
+                                <textarea class="form-control" id="about"  name="about" cols="30" rows="10" value="{{ Auth::user()->profile->about}}" required readonly>{{ Auth::user()->profile->about }}</textarea>
+                            </div>
+                            <div class="input-group col-md-12 col-sm-12 col-xs-12"> <!-- Location -->
+                                <p></p>
+                                <div><label for="last_name">Location</label></div>
+
+                                <input class="form-control" id="location" name="location" size="30" value="{{ Auth::user()->profile->location }}" type="text" readonly>
+                            </div>
+                            <div class="input-group col-md-12 col-sm-12 col-xs-12"> <!--- Save your information -->
+                                <p></p>
+                                <button type="submit" class="btn btn-primary">Enregistrez vos informations</button>
+                                <p></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

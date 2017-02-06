@@ -1,6 +1,7 @@
 * text=auto
 *.css linguist-vendored
 *.less linguist-vendored
+*.scss linguist-vendored
 
 # Source code
 *.php text

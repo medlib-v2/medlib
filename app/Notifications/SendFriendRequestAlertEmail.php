@@ -62,9 +62,12 @@ class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
     {
         return [
             'username' => $this->user->getUsername(),
-            'name' => $this->user->getName(),
+            'full_name' => $this->user->getName(),
             'user_avatar' => $this->user->getAvatar(),
-            'message' => ' sent you a friend request.'
+            'message' => ' sent you a friend request.',
+            'profile_url' => route('profile.user.show', ['username' => $this->user->getUsername()]),
+            'cancel_request'  => route('request.del'),
+            'accept_request' => route('request.post'),
         ];
     }
 }

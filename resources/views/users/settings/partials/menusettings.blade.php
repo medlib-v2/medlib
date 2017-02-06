@@ -8,7 +8,7 @@
             <div class="profile-usermenu">
                 <ul class="nav">
                     <li>
-                        <a href="{{ route('profile.show.settings') }}"><i class="glyphicon glyphicon-cog"></i>&nbsp;Profile</a>
+                        <a href="{{ route('profile.show.settings') }}"><i class="glyphicon glyphicon-cog"></i>&nbsp;Profil</a>
                     </li>
                     <li>
                         <a href="{{ route('profile.show.admin') }}"><i class="glyphicon glyphicon-user"></i>&nbsp;Paramètres du compte</a>

@@ -8,8 +8,6 @@ use Medlib\Http\Controllers\Controller;
 
 class NotificationsController extends Controller
 {
-
-
     public function notifications()
     {
         Auth::user()->unreadNotifications->markAsRead();

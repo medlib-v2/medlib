@@ -4,7 +4,7 @@
 class PreviewStore {
     constructor () {
         this.state = { books: [], pageId: [], index: false };
-        this.manger = {}
+        this.manger = {};
     }
     close () {
         this.state.index = false;

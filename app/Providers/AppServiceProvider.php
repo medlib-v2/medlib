@@ -3,9 +3,6 @@
 namespace Medlib\Providers;
 
 use Medlib\Services\ProcessImage;
-use Medlib\Services\EmailNotifier;
-use Collective\Bus\BusServiceProvider;
-use Medlib\Services\EmailNotifierInterface;
 use Medlib\Repositories\Comment\CommentRepository;
 use Medlib\Repositories\Comment\EloquentCommentRepository;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
@@ -19,7 +16,7 @@ use Medlib\Repositories\Feed\EloquentFeedRepository;
 
 use Medlib\Http\Requests\CreateMessageRequest;
 use Medlib\Http\Requests\CreateMessageResponseRequest;
-
+use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -46,7 +43,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(FeedRepository::class, EloquentFeedRepository::class);
 
-        //Uncomment if you don't wish to cache all users
+        /**
+         * Uncomment if you don't wish to cache all users
+         */
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
 
         $this->app->bind(FriendRequestRepository::class, EloquentFriendRequestRepository::class);
@@ -59,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('MessageResponseRequest', CreateMessageResponseRequest::class);
 
-        $this->app->bind(EmailNotifierInterface::class, EmailNotifier::class);
+        if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 }

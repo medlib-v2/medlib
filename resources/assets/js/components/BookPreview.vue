@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <div class="preview-book-wrapper" @click.stop>
     <message-error v-if="error"></message-error>
     <div class="preview-loading" v-if="loading"><div></div></div>
@@ -66,7 +66,7 @@ export default {
     },
     methods: {
         bookNotFound () {
-            var $bookPreview = $('.book-preview');
+            let $bookPreview = $('.book-preview');
             this.loading = false;
             this.error = true;
             if ($bookPreview !== null) {
@@ -74,7 +74,7 @@ export default {
             }
         },
         bookFound () {
-            var $wrapperDiv = document.querySelector('#wrapper > div');
+            let $wrapperDiv = document.querySelector('#wrapper > div');
             this.loading = false;
             this.show = true;
             if (this.pageId) this.viewer.goToPageId(this.pageId);
@@ -105,10 +105,10 @@ export default {
             }
 
             function throttle (callback, delay) {
-                var timer, last;
+                let timer, last;
 
                 return function () {
-                    var args = arguments,
+                    let args = arguments,
                         context = this,
                         now = +new Date();
 
@@ -182,16 +182,16 @@ export default {
         }
     },
     computed: {
-        manger: function () {
+        manger () {
             if (store.manger !== null) {
                 return store.manger;
             }
         },
-        transition: function () {
+        transition () {
             return 'book-' + this.direction;
         }
     },
-    destroyed: function () {
+    destroyed () {
         window.removeEventListener('resize', this.onIronResize);
     }
 }

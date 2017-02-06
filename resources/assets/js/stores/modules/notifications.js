@@ -5,7 +5,7 @@ import * as types from '../mutation-types'
  * @type {{notification: Array}}
  */
 const state = {
-    notification: [],
+    notifications: [],
 }
 
 /**
@@ -13,7 +13,8 @@ const state = {
  * @type {{countNotifications: ((p1:*)=>Number)}}
  */
 const getters = {
-    countNotifications: state => state.notification.length
+    countNotifications: state => state.notifications.length,
+    notifications: state => state.notifications,
 }
 
 /**

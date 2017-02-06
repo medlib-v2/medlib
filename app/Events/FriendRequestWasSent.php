@@ -5,10 +5,12 @@ namespace Medlib\Events;
 use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class FriendRequestWasSent extends Event
+class FriendRequestWasSent extends Event implements ShouldBroadcast
 {
-    use SerializesModels;
+    use InteractsWithSockets, SerializesModels;
 
     /**
      * @var \Medlib\Models\User
@@ -39,6 +41,6 @@ class FriendRequestWasSent extends Event
      */
     public function broadcastOn()
     {
-        return [];
+        return ['requested-'.$this->requestedUser->id];
     }
 }
