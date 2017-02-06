@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="be-spinner" v-show="loading">
         <div class="be-beat be-beat-odd" :style="spinnerStyle">
         </div><div class="be-beat be-beat-even" :style="spinnerStyle">

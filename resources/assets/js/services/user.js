@@ -1,5 +1,4 @@
 import { http } from './';
-import Promise from 'promise';
 
 export const user = {
     /**
@@ -9,13 +8,10 @@ export const user = {
      */
     me (user) {
         return new Promise((resolve, reject) => {
-            http.get(`/u/${user}/me`, {}, ({ data }) => {
-                /**
-                 * Brian May enters the stage.
-                 */
-                resolve(data);
-            }, error => reject(error));
-        })
+            http.get(`/u/${user}/me`).then(({ body }) => {
+                resolve(body);
+            }).catch(error => reject(error));
+        });
     },
     /**
      * Log a user in.
@@ -24,60 +20,53 @@ export const user = {
      * @param  {String}   password
      */
     login (email, password) {
-
         return new Promise((resolve, reject) => {
-            http.post('me', { email, password }, ({ data }) => {
-                resolve(data);
-            }, error => reject(error));
-        })
+            http.post('/login', { email, password }).then(({ body }) => {
+                resolve(body);
+            }).catch( error => reject(error));
+        });
     },
     /**
      * Log the current user out.
      */
     logout () {
         return new Promise((resolve, reject) => {
-            http.delete('me', {}, ({ data }) => {
-                resolve(data);
-            }, error => reject(error));
-        })
+            http.get('/logout').then(({ body }) => {
+                resolve(body);
+            }).catch(error => reject(error));
+        });
     },
-
     /**
      * Update the current user's profile.
      *
-     * @param  {string} password Can be an empty string if the user is not changing his password.
+     * @param {Object} user
+     * @param {string} password Can be an empty string if the user is not changing his password.
      */
-    updateProfile (password) {
-
+    updateProfile (user, password) {
         return new Promise((resolve, reject) => {
             http.put('me', {
-                    password,
-                    name: this.current.name,
-                    email: this.current.email
-                }, () => {
-                    //this.setAvatar()
-                    //alerts.success('Profile updated.')
-                    resolve(this.current)
-                },
-                error => reject(error))
-        })
+                password,
+                username: user.username,
+                email: user.email
+            }).then(({ body }) => {
+                resolve(body)
+            }).catch(error => reject(error));
+        });
     },
     /**
      * Stores a new user into the database.
      *
-     * @param  {string}   name
+     * @param  {string}   username
      * @param  {string}   email
      * @param  {string}   password
      */
-    store (name, email, password) {
-
+    store (username, email, password) {
         return new Promise((resolve, reject) => {
-            http.post('/user', { name, email, password }, ({ data: user }) => {
+            http.post('/user', { username, email, password }).then(({ body: user }) => {
                 resolve(user)
-            }, error => reject(error))
-        })
+            }).catch(error => reject(error));
+        });
     },
-
     /**
      * Update a user's profile.
      *
@@ -87,11 +76,10 @@ export const user = {
      * @param  {String}   password
      */
     update (user, name, email, password) {
-
         return new Promise((resolve, reject) => {
-            http.put(`/user/${user.id}`, { name, email, password }, () => {
+            http.put(`/user/${user.id}`, { name, email, password }).then(({ body: user }) => {
                 resolve(user)
-            }, error => reject(error))
+            }).catch(error => reject(error));
         })
     },
     /**
@@ -101,12 +89,12 @@ export const user = {
      */
     destroy (user) {
         return new Promise((resolve, reject) => {
-            http.delete(`user/${user.username}`, {}, ({ data }) => {
+            http.delete(`user/${user.username}`).then(({ body }) => {
                 /**
                  * Brian May enters the stage.
                  */
-                resolve(data);
-            }, error => reject(error));
+                resolve(body);
+            }).catch(error => reject(error));
         })
     }
 };

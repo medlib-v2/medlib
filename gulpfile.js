@@ -89,7 +89,7 @@ elixir(mix => {
             paths.assets + paths.select2.js,
             paths.assets + paths.scrollbar.js,
             paths.assets + '/js/plugins/jquery.touchSwipe.min.js',
-            paths.socket,
+            //paths.socket,
             paths.bootstrapSwitch,
             'vendor/andywer/js-localization/resources/js/localization.js'
         ], 'public/js/plugins.vendor.min.js', './')

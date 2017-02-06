@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div v-if="!image">
         <div class="dropzone-area" @dragenter="hovering = true" @dragleave="hovering = false" :class="{'dropzone-hover': hovering}">
             <div class="dropzone-text">

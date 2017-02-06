@@ -93,9 +93,11 @@ import UnreadNotifications from './UnreadNotifications.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { notifications } from '../services';
 
+/**
 let socket = io(Setting.socket_url, {
     query: 'jwt=' + Setting.jwt
 });
+**/
 
 export default{
     name: 'notifications',
@@ -113,7 +115,7 @@ export default{
     methods: {
         ...mapActions(['notificationUnread']),
         listen() {
-            socket.on('requested-.' + this.id + ':Medlib\\Events\\FriendRequestWasSent', (notification) => {
+            this.$socket.on('requested-.' + this.id + ':Medlib\\Events\\FriendRequestWasSent', (notification) => {
                 console.log(notification);
                 //document.getElementById("noty_audio").play()
             })

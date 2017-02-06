@@ -54,20 +54,10 @@
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
         <script type="text/javascript" src="{{ App::rev('js/plugins.vendor.min.js') }}"></script>
-        <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
         <script type="text/javascript" src="/js-localization/messages"></script>
+        <script type="text/javascript"> Lang.setLocale("{!! app()->getLocale() !!}"); </script>
         <script type="text/javascript" src="{{ App::rev('js/medlib.min.js') }}"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                Lang.setLocale("{!! app()->getLocale() !!}");
-                /**
-                 * Medlib Application
-                 */
-                @if (Auth::check())
-                Medlib.WebSocket(null);
-                @endif
-            });
-        </script>
+        <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
         @yield('script')
         <script type="text/javascript">
             function _getCookie() {

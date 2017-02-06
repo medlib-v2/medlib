@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="error-content-wrapper">
         <div class="error-content">
             <div class="box-error">

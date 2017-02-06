@@ -177,10 +177,11 @@ class FeedController extends Controller
     /**
      * @param $username
      * @param $status_id
+     * @param Request $request
      */
-    public function comment($username, $status_id)
+    public function comment($username, $status_id, Request $request)
     {
-        dd($username, $status_id);
+        dd($username, $status_id, $request);
     }
     /**
      * Get all feed by user

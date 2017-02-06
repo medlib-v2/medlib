@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <transition name="conversations">
     <div class="conversations" v-show="show">
         <header>

@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <transition name="preview-book-fade" id="book-preview">
     <div class="preview-book" v-if="isbn" @click="close">
       <transition :name="transition">

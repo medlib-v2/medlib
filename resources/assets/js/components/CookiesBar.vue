@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="cookies-wrapper" :class="{dismiss : dismissCookie, hide:cookieSet}">
         <div class="cookies-message">
             <p>{{message}}<a herf="javascript::void();" id="button-promp" class="button-promp" title="Politique de confidentialité" @click="showModal = true">En savoir plus</a></p>

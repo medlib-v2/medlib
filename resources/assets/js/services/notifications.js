@@ -1,5 +1,4 @@
 import { http } from './';
-import Promise from 'promise';
 
 export const notifications = {
     /**
@@ -7,12 +6,9 @@ export const notifications = {
      */
     unread () {
         return new Promise((resolve, reject) => {
-            http.get('/notifications/unread', {}, ({ data }) => {
-                /**
-                 * Brian May enters the stage.
-                 */
-                resolve(data);
-            }, error => reject(error));
+            http.get('/notifications/unread').then(({ body }) => {
+                resolve(body);
+            }).catch(error => reject(error));
         })
     }
 };

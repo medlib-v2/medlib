@@ -71,8 +71,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/feeds', ['uses' => 'FeedController@index', 'as' => 'user.feeds.show']);
                 Route::post('/feeds', ['uses' => 'FeedController@store', 'as' => 'user.feeds.store']);
                 Route::get('/feeds/more', ['uses' => 'FeedController@more', 'as' => 'user.feeds.more']);
-                Route::get('/feeds/{status_id}/like', ['uses'  => 'FeedController@like', 'as' => 'user.feeds.like']);
-                Route::get('/feeds/{status_id}/unlike', ['uses'  => 'FeedController@unlike', 'as' => 'user.feeds.unlike']);
+                Route::post('/feeds/{status_id}/like', ['uses'  => 'FeedController@like', 'as' => 'user.feeds.like']);
+                Route::post('/feeds/{status_id}/unlike', ['uses'  => 'FeedController@unlike', 'as' => 'user.feeds.unlike']);
                 Route::post('/feeds/{status_id}/comment', ['uses'  => 'FeedController@comment', 'as' => 'user.feeds.comment']);
             });
         });

@@ -456,3 +456,4 @@
      * @type type Medlib.Notification()
      */
     Medlib.Notification = notification;
+    window.Notification = notification;

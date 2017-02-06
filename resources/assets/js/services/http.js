@@ -18,7 +18,7 @@ export const http = {
         Vue.http[method]({
             url,
             data,
-        }).then(successCallback).catch(errorCallback)
+        }).then(successCallback).catch(errorCallback);
     },
     /**
      *
@@ -39,7 +39,7 @@ export const http = {
      * @returns {*}
      */
     post (url, data, successCallback = null, errorCallback = null) {
-        return Vue.http.post(url, data).then(successCallback, errorCallback);
+        return Vue.http.post(url, data).then(successCallback).catch(errorCallback);
     },
     /**
      *
@@ -50,7 +50,7 @@ export const http = {
      * @returns {*}
      */
     put (url, data, successCallback = null, errorCallback = null) {
-        return Vue.http.put(url, data).then(successCallback, errorCallback);
+        return Vue.http.put(url, data).then(successCallback).catch(errorCallback);
     },
     /**
      *
@@ -61,6 +61,6 @@ export const http = {
      * @returns {*}
      */
     delete (url, data = {}, successCallback = null, errorCallback = null) {
-        return Vue.http.delete(url, data).then(successCallback, errorCallback);
+        return Vue.http.delete(url, data).then(successCallback).catch(errorCallback);
     }
 };

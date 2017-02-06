@@ -10,7 +10,6 @@
 		"app/shorten.js",
 		"app/pushed.js",
 		"app/friend.request.js",
-		"app/client.js",
 		"app/notifications.js",
 		"app/multi.tags.js",
 		"app/and.js"

@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div>
         <ul class="post-links mt-sm pull-left">
             <li><a href="javascript:void(0);">1 hour</a></li>
@@ -16,19 +16,19 @@
 import Store from '../stores'
 import * as types from '../stores/mutation-types'
 import { mapActions, mapGetters } from 'vuex'
-
+import { favorite } from '../services'
 export default {
     name: 'like',
     props: ['id', 'poster_name'],
     methods: {
         like() {
-            this.$http.get('/u/'+ this.poster_name +'/feeds/' + this.id + '/like').then( (response) => {
-                Store.commit(types.SET_UPDATE_POST_LIKES, { id: this.id, like: response.body })
+            favorite.like(this.poster_name, this.id).then( (response) => {
+                Store.commit(types.SET_UPDATE_POST_LIKES, { id: this.id, like: response })
             })
         },
         unlike() {
-            this.$http.get('/u/'+ this.poster_name +'/feeds/' + this.id + '/unlike').then( (response) => {
-                Store.commit(types.SET_UNLIKE_POST, { post_id: this.id, like_id: response.body })
+            favorite.unlike(this.poster_name, this.id).then( (response) => {
+                Store.commit(types.SET_UNLIKE_POST, { post_id: this.id, like_id: response })
             })
         }
     },

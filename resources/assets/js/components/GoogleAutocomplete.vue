@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <input class="form-control" :class="type" type="text" ref="complete" v-model="address" @focus="geolocate()" :placeholder="placeholder">
 </template>
 

@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="panel panel-default">
         <div class="panel-heading">Friends List</div>
         <table class="table table-striped">

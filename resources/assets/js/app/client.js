@@ -20,16 +20,19 @@
                  * Register and Connect to WebSocket
                  * @type {*}
                  */
+                /**
                 socket.listener = io.connect(Setting.socket_url, {
                     query: 'jwt=' + Setting.jwt
                 });
+
+                **/
 
                 /**
                  * Status connexion
                  * @type {boolean}
                  */
                 socket.connectionError = false;
-
+                /**
                 socket.listener.on('connect_error', function(error) {
                     console.error(error);
                     if (!socket.connectionError) {
@@ -49,6 +52,7 @@
                 });
 
                 socket.listener.emit('register', {'user_id': me.id});
+                **/
             }
         }
     });

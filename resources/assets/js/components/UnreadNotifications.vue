@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
       <div class="title">Notifications<span class="badge">{{ countNotifications }}</span></div>
 </template>
 

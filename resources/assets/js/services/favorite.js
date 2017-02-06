@@ -1,33 +1,29 @@
 import { http } from './';
-import Promise from 'promise';
 
 export const favorite = {
     /**
-     * Like a bunch of songs.
-     *
-     * @param {Array.<Object>}  songs
+     * Like a bunch of feeds.
+     * @param username
+     * @param id
      */
-    like (songs) {
-
+    like (username, id) {
         return new Promise((resolve, reject) => {
-            http.post('interaction/batch/like', { songs: map(songs, 'id') }, ({ data }) => {
-                //alerts.success(`Added ${pluralize(songs.length, 'song')} into Favorites.`)
-                resolve(data);
-            }, error => reject(error));
-        })
+            http.post(`/u/${username}/feeds/${id}/like`).then(({ body }) => {
+                resolve(body);
+            }).catch(error => reject(error));
+        });
     },
 
     /**
-     * Unlike a bunch of songs.
-     *
-     * @param {Array.<Object>}  songs
+     * Unlike a bunch of feeds.
+     * @param username
+     * @param id
      */
-    unlike (songs) {
+    unlike (username, id) {
         return new Promise((resolve, reject) => {
-            http.post('interaction/batch/unlike', { songs: map(songs, 'id') }, ({ data }) => {
-                //alerts.success(`Removed ${pluralize(songs.length, 'song')} from Favorites.`)
-                resolve(data);
-            }, error => reject(error));
-        })
+            http.post(`/u/${username}/feeds/${id}/unlike`).then(({ body }) => {
+                resolve(body);
+            }).catch(error => reject(error));
+        });
     }
 };

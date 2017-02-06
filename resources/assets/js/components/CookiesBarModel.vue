@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <transition name="modal">
         <div role="dialog" :class="{ 'modal':true, 'fade':effect === 'fade', 'zoom':effect === 'zoom'}">
             <div :class="{'modal-dialog':true,'modal-lg':large,'modal-sm':small}" role="document" :style="{width: optionalWidth}">

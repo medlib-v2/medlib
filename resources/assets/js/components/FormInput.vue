@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="center-form">
         <form role="form" :method="method" :action="action" accept-charset="UTF-8" enctype="multipart/form-data" class="mt" @submit.prevent="submit">
             <div class="form-group mb-0">

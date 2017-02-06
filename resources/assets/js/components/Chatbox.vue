@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="chatbox effect8" transition="chatbox" v-show="show">
         <header>
             <div class="title">
@@ -36,11 +36,11 @@
 </template>
 
 <script type="text/babel">
-
+/**
 let socket = io(Setting.socket_url, {
     query: 'jwt=' + Setting.jwt
 })
-
+**/
 export default {
     props: {
         conversation: {
@@ -91,7 +91,7 @@ export default {
                     // push the message to the parent
                     this.$dispatch('messageSent', {message: response.data.message, conversation: this.conversation});
                     // emit the message to the chatserver
-                    socket.emit('chat.message', response.data.message);
+                    this.$socket.emit('chat.message', response.data.message);
                     // clear the message input
                     this.message = '';
                     // scroll message into view

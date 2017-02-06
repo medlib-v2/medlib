@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="feed-list">
         <div id="loader"></div>
         <div class="row">

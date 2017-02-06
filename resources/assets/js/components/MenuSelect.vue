@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="menu-select">
         Page {{ pageId }}
     </div>
