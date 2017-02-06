@@ -4,7 +4,6 @@ namespace Medlib\Models;
 
 use Medlib\Models\Feed;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Builder\Use_;
 
 class Like extends Model
 {

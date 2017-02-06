@@ -71,6 +71,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'pivot'
     ];
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     /**
      * A User can have many feeds.
      *
@@ -98,6 +107,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany(FriendRequest::class);
     }
+
+    /**
+     * They follow this user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(Self::class, 'followers', 'followee_id', 'follower_id');
+    }
+
+    /**
+     * This user follows them
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(Self::class, 'followers', 'follower_id', 'followee_id');
+    }
+
 
     /**
      * A user can have many friends.
@@ -433,5 +461,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->activated = true;
         $this->save();
+    }
+
+    /**
+     * @param User $user
+     */
+    public function followUser(User $user)
+    {
+        $this->followings()->attach($user->id);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function unfollowUser(User $user)
+    {
+        $this->followings()->detach($user->id);
     }
 }
