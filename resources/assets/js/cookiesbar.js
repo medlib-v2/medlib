@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import CookiesBar from './CookiesBar.vue'
 
-// eslint-disable-line no-new
-const cookiesBar = new Vue({
+/* eslint-disable no-new */
+const app = new Vue({
   el: '#cookiebar',
-    render: (h) => h(CookiesBar)
-});
+  render: h => h(CookiesBar)
+})
+
+export default app

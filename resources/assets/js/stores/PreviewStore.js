@@ -1,14 +1,13 @@
-/**
- * Store Preview
- */
-class PreviewStore {
-    constructor () {
-        this.state = { books: [], pageId: [], index: false };
-        this.manger = {};
+export default new class PreviewStore {
+  constructor () {
+    this.state = {
+      books: [],
+      pageId: [],
+      index: false
     }
-    close () {
-        this.state.index = false;
-    }
-}
-
-export default new PreviewStore()
+    this.manger = {}
+  }
+  close () {
+    this.state.index = false
+  }
+}()

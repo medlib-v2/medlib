@@ -16,10 +16,10 @@ class CreateMessageResponsesTable extends Migration
             $table->increments('id');
             $table->text('body');
             $table->integer('message_id');
-            $table->integer('sender_id');
-            $table->integer('receiver_id');
-            $table->string('sender_name');
-            $table->string('sender_profile_image');
+            $table->integer('sender_id')->unsigned()->index();
+            $table->foreign('sender_id')->references('id')->on('users');
+            $table->integer('receiver_id')->unsigned()->index();
+            $table->foreign('receiver_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateMessageResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('message_responses');
+        Schema::dropIfExists('message_responses');
     }
 }

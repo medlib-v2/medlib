@@ -10,7 +10,6 @@
  */
 
 return [
-
     'name'              => "Medlib",
     'description'       => 'Recherche bibliographique',
     'about'             => "A propos de l'Application Medlib",

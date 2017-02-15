@@ -32,7 +32,6 @@ class FriendRequestController extends Controller
         $this->currentUser = Auth::user();
 
         $requesterIds = $friendRequest->getIdsThatSentRequestToCurrentUser($this->currentUser->id);
-
         $userObjects = $repository->findManyById($requesterIds);
 
         $usersWhoRequested = new LengthAwarePaginator($userObjects, count($userObjects), 10, 1, ['path' => '/friends/requests']);

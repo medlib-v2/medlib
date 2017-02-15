@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 64)->nullable();
             $table->string('last_name', 64)->nullable();
             $table->enum('profession', ['student','researcher','teacher']);
-            $table->string('location')->nullable();
             $table->date('date_of_birth');
             $table->enum('gender', ['male','female']);
             $table->boolean('activated')->default(false);
@@ -40,6 +39,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
 }

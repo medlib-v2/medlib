@@ -14,8 +14,10 @@ class CreateMessageResponseUserTable extends Migration
     {
         Schema::create('message_response_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('message_response_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('message_response_id')->unsigned()->index();
+            $table->foreign('message_response_id')->references('id')->on('message_responses');
             $table->boolean('open')->default(0);
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateMessageResponseUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('message_response_user');
+        Schema::dropIfExists('message_response_user');
     }
 }

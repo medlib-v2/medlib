@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+//Colored Badges Mixin
+@mixin badge-color($color){
+  color: $light-color;
+  background-color: $color;
+  border: transparent;
+}

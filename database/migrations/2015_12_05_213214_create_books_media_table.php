@@ -29,6 +29,6 @@ class CreateBooksMediaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('books_media');
+        Schema::dropIfExists('books_media');
     }
 }

@@ -5,7 +5,7 @@ import * as types from '../mutation-types'
  * @type {{notification: Array}}
  */
 const state = {
-    notifications: [],
+  notifications: [],
 }
 
 /**
@@ -13,8 +13,8 @@ const state = {
  * @type {{countNotifications: ((p1:*)=>Number)}}
  */
 const getters = {
-    countNotifications: state => state.notifications.length,
-    notifications: state => state.notifications,
+  countNotifications: state => state.notifications.length,
+  notifications: state => state.notifications,
 }
 
 /**
@@ -22,7 +22,9 @@ const getters = {
  * @type {{notificationUnread: (({ commit }:{commit: *}, notification?))}}
  */
 const actions = {
-    notificationUnread ({ commit }, notification) { commit(types.SET_NOTIFICATION, notification) }
+  notificationUnread ({ commit }, notification) {
+    commit(types.SET_NOTIFICATION, notification)
+  }
 }
 
 /**
@@ -30,12 +32,14 @@ const actions = {
  * @type {{[[types.SET_NOTIFICATION]]: ((state, notification?))}}
  */
 const mutations = {
-    [types.SET_NOTIFICATION] (state, notification) { state.notifications.push(notification) }
+  [types.SET_NOTIFICATION] (state, notification) {
+    state.notifications.push(notification)
+  }
 }
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations
+  state,
+  getters,
+  actions,
+  mutations
 }

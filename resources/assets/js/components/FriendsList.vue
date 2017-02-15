@@ -36,7 +36,7 @@ export default {
 	data() {
 		return {
 			apiToken: Setting.csrfToken,
-		};
+		}
 	},
 	ready() {
 	},
@@ -47,15 +47,15 @@ export default {
 				api_token: this.apiToken, sender_id: sid, recipient_id: rid
 			}).then(function(response) {
 				// log the conversation id
-				console.log('conversation: ' , response.data.conversation);
+				console.log('conversation: ' , response.data.conversation)
 				// broadcast new conversation
-				this.$dispatch('newConversation', response.data.conversation);
+				this.$dispatch('newConversation', response.data.conversation)
 				// create a new chat window
 			}, function(response) {
 				// error callback
-				console.log(response);
-			});
+				console.log(response)
+			})
 		}
 	}
-};
+}
 </script>

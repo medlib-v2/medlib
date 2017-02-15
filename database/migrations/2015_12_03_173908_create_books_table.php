@@ -27,7 +27,7 @@ class CreateBooksTable extends Migration
             $table->integer('category_id')->index('category_id')->foreign('category_id')->references('category_id')->on('categories');
         });
 
-        DB::unprepared('ALTER TABLE `books` DROP PRIMARY KEY, ADD PRIMARY KEY (  `book_id` ,  `isbn` )');
+        //DB::unprepared('ALTER TABLE `books` DROP PRIMARY KEY, ADD PRIMARY KEY (  `book_id` ,  `isbn` )');
     }
 
     /**
@@ -37,6 +37,6 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('books');
+        Schema::dropIfExists('books');
     }
 }

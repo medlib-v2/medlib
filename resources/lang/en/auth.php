@@ -18,7 +18,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'btn'=> [
         'login' => 'Login',
-        'forgot_passwd' => 'Forgot password ?',
+        'forgot_password' => 'Forgot password ?',
     ],
     'txt' => [
         'spacer_or' => 'OR',

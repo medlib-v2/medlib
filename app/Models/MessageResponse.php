@@ -22,12 +22,11 @@ class MessageResponse extends Model
      *
      * @var array
      */
-    protected $fillable = ['message_id','open', 'body', 'sender_id', 'receiver_id', 'sender_profile_image', 'sender_name'];
+    protected $fillable = ['message_id','open', 'body', 'sender_id', 'receiver_id'];
 
     /**
      * Many Responses belong to many users.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
@@ -51,24 +50,18 @@ class MessageResponse extends Model
      * @param string $body
      * @param $sender_id
      * @param $receiver_id
-     * @param $sender_profile_image
-     * @param $sender_name
      * @return static
-     * @internal param int $senderId
-     * @internal param int $receiverId
-     * @internal param string $senderProfileImage
-     * @internal param string $senderName
+     * @internal param int $sender_id
+     * @internal param int $receiver_id
      *
      */
-    public static function createMessageResponse($body, $sender_id, $receiver_id, $sender_profile_image, $sender_name)
+    public static function createMessageResponse($body, $sender_id, $receiver_id)
     {
         $response = new static([
-
             'body' => $body,
             'sender_id' => $sender_id,
-            'receiver_id' => $receiver_id,
-            'sender_profile_image' => $sender_profile_image,
-            'sender_name' => $sender_name]);
+            'receiver_id' => $receiver_id
+        ]);
 
         return $response;
     }

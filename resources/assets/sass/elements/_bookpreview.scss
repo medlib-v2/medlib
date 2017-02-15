@@ -1,0 +1,222 @@
+@charset "utf-8";
+
+$duration: 0.5s;
+$decalx: 100px;
+
+#wrapper-book {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.preview-book {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  background: rgba(255, 255, 255, .9)
+}
+
+.btn-preview {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 90px;
+  margin-top: -45px;
+  cursor: pointer;
+  background-size: 50px 90px;
+  @include transition(transform 0.3s);
+
+  &:hover{
+    transform: scale(1.2);
+  }
+
+}
+.btn-preview-narrow {
+  min-width: 34px;
+  padding: 0;
+}
+
+.panel-menu {
+  height: 27px;
+  position: relative;
+  z-index: 100;
+  margin: 0;
+
+  .row {
+    margin: 10px;
+  }
+}
+
+.menu-controls {
+  box-sizing: content-box !important;
+  position: absolute;
+  width: 100%;
+}
+.menu-btn {
+  cursor: default;
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+  margin-right: 16px;
+  height: 27px;
+  outline: 0;
+  padding: 5px;
+  @include border-radius(2px);
+
+  &:hover {
+    @include box-shadow(0 1px 1px rgba(0,0,0,.1));
+  }
+}
+
+.btn-preview-close{
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: url("#{$img-url}/cross.svg") transparent no-repeat;
+  background-size: 50px 50px;
+  transition: transform 0.3s;
+
+  &:hover{
+    background-color: transparent;
+    @include scale(1.2);
+  }
+}
+
+.preview-loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: #444;
+  background-color: rgba(0, 0, 0, .5);
+  @include box-shadow(0 0 40px rgba(0, 0, 0, .75 ));
+  @include border-radius(50px);
+
+  div {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+    animation: preview-loading .5s ease infinite;
+  }
+
+}
+
+.preview-book-wrapper, .light-box {
+  position: absolute;
+}
+
+.preview-book-wrapper {
+  @include border-radius(0.4em);
+  @include box-shadow(0 0 25px 0 #d5d9e0);
+  border: 1px solid #d0d7df;
+  overflow: hidden;
+  &::after {
+    clear: both;
+  }
+}
+
+.error-content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .error-content {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    .box-error {
+      padding: 1em 1.3em 0 1.3em;
+      text-align: center;
+      height: 100%;
+
+      h1 {
+        font-size: 8em;
+        font-weight: 600;
+      }
+      p {
+        margin: 1em 0 2em;
+        font-size: 1.1em;
+        line-height: 1.5em;
+      }
+      h4 {
+        font-size: 1.12em;
+        color: #7c8795;
+        text-transform: uppercase;
+        :hover {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+/**
+* Scale
+ */
+.preview-book-fade-enter-active, .preview-book-fade-leave-active {
+  transition: all $duration ease;
+}
+
+.preview-book-fade-enter, .preview-book-fade-leave-active {
+  opacity: 0;
+}
+
+
+/* Transitions
+   ========================================================================== */
+.book-to-enter-active, .book-top-leave-active, .book-bottom-enter-active, .book-bottom-leave-active{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+// top direction
+.book-top-enter-active, .book-top-leave-active {
+  transition: all $duration ease;
+}
+
+.book-top-enter-active {
+  transition-delay: $duration - .2;
+}
+
+.book-top-enter {
+  opacity: 0;
+  @include transform(translateX($decalx));
+}
+
+.book-top-leave-active {
+  opacity: 0;
+  @include transform(translateX($decalx * -1));
+}
+
+/**
+* loading
+*/
+@keyframes preview-loading {
+  from {
+    opacity: .5;
+    @include scale( .75 );
+  }
+  50% {
+    opacity: 1;
+    @include scale( 1 );
+  }
+  to {
+    opacity: .5;
+    @include scale( .75 );
+  }
+}

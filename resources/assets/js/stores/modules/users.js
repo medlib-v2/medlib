@@ -5,7 +5,7 @@ import * as types from '../mutation-types'
  * @type {{user: {}, onlineStatus: null}}
  */
 const state = {
-    users: [],
+  users: [],
 }
 
 /**
@@ -13,7 +13,7 @@ const state = {
  * @type {{users: ((p1:*)=>(*))}}
  */
 const getters = {
-    users: state => state.users
+  users: state => state.users
 }
 
 /**
@@ -21,7 +21,9 @@ const getters = {
  * @type {{setUsers: (({ commit }:{commit: *}, user?))}}
  */
 const actions = {
-    setUsers ({ commit }, user) { commit(types.SET_USER, user) }
+  setUsers ({ commit }, user) {
+    commit(types.SET_USER, user)
+  }
 }
 
 /**
@@ -29,12 +31,14 @@ const actions = {
  * @type {{[[types.SET_USER]]: ((state, user))}}
  */
 const mutations = {
-    [types.SET_USER] (state, user) { state.users.push(user) }
+  [types.SET_USER] (state, user) {
+    state.users.push(user)
+  }
 }
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations
+  state,
+  getters,
+  actions,
+  mutations
 }

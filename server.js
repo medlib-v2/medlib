@@ -50,7 +50,7 @@ function handler(req, res) {
  * Middleware to check the JWT
  */
 io.use(function(socket, next) {
-    var decoded;
+    let decoded;
 
     logger.info('socket', socket.handshake);
 

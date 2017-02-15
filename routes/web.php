@@ -80,8 +80,14 @@ Route::group(['middleware' => 'language'], function () {
 
     /** notifications */
     Route::group(['prefix' => 'notifications', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Notifications'], function () {
-        Route::get('/', ['uses' => 'NotificationsController@notifications', 'as' => 'notifications.show']);
+        Route::get('/', ['uses' => 'NotificationsController@index', 'as' => 'notifications.show']);
+        Route::post('/', ['uses' => 'NotificationsController@store', 'as' => 'notifications.store']);
+        Route::get('/last', ['uses' => 'NotificationsController@last', 'as' => 'notifications.last']);
+        Route::get('/all', ['uses' => 'NotificationsController@notifications', 'as' => 'notifications.all']);
         Route::get('/unread', ['uses' => 'NotificationsController@unread', 'as' => 'notifications.unread']);
+        Route::patch('/{id}/read', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notifications.read']);
+        Route::post('/mark-all-read', ['uses' => 'NotificationsController@markAllRead', 'as' => 'notifications.read.all']);
+        Route::post('/{id}/dismiss', ['uses' => 'NotificationsController@dismiss', 'as' => 'notifications.dismiss']);
     });
 
     /** Friends & Friends-requests **/
@@ -156,6 +162,7 @@ Route::group(['middleware' => 'language'], function () {
         /** Chat Status **/
         Route::post('chatstatus', ['uses' => 'ChatController@update', 'as' => 'chat.status', ]);
         /** Chat Message **/
+        Route::get('messages', ['uses' => 'ChatController@messages', 'as' => 'chat.all.conversation', ]);
         Route::post('message', ['uses' => 'ChatController@message', 'as' => 'chat.conversation', ]);
     });
 

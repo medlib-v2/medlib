@@ -53,7 +53,6 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof TokenMismatchException) {
-
             if ($request->expectsJson() || $request->wantsJson()) {
                 return response(['error'=>'token_mismatch','message'=> trans('messages.token_mismatch_exception')], 404);
             }

@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+/**
+* - Images
+*/
+// Rounded corners
+.img-rounded {
+  @include border-radius(4px);
+}

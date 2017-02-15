@@ -1,131 +1,127 @@
 <template lang="html">
-    <div class="cookies-wrapper" :class="{dismiss : dismissCookie, hide:cookieSet}">
-        <div class="cookies-message">
-            <p>{{message}}<a herf="javascript::void();" id="button-promp" class="button-promp" title="Politique de confidentialité" @click="showModal = true">En savoir plus</a></p>
-            <button @click.prevent="_cancelCookie" id="button-close-no" class="button-close-no">Ne pas autoriser</button>
-            <button @click.prevent="_closeCookieMessage" id="button-close" class="button-close">Autoriser</button>
-        </div>
-        <div class="button-wrapper"><button @click.prevent="_closeCookieMessage" id="close-button">&times;</button></div>
+  <div class="cookies-wrapper" :class="{dismiss : dismissCookie, hide:cookieSet}">
+    <div class="cookies-message">
+      <p>{{message}}<a herf="javascript::void();" id="button-promp" class="button-promp" title="Politique de confidentialité" @click="showModal = true">En savoir plus</a></p>
+      <button @click.prevent="_cancelCookie" id="button-close-no" class="button-close-no">Ne pas autoriser</button>
+      <button @click.prevent="_closeCookieMessage" id="button-close" class="button-close">Autoriser</button>
     </div>
+    <div class="button-wrapper"><button @click.prevent="_closeCookieMessage" id="close-button">&times;</button></div>
+  </div>
 </template>
 
 <script type="text/babel">
 import CookiesBarModel from './CookiesBarModel.vue'
 export default {
-    props : ['cookie-message', 'days-to-expire'],
-    components: { modal: CookiesBarModel },
-    data () {
-        /**
-        * @param {string} cookieName
-        * @param {message} cookieName
-        * @param {expiresIn} cookieName
-        */
-        return {
-            cookieName : 'medlib_cookie',
-            message : "Ce site utilise des cookies pour améliorer l'expérience de navigation et fournir des fonctionnalités supplémentaires..",
-            expiresIn : 365,
-            cookieSet : false,
-            dismissCookie : false,
-            showModal: false
-        }
-    },
-    mounted() {
-        //-- check for user settings/properties
-        this.message = (this.cookieMessage !== undefined || this.cookieMessage)
-                      ? this.cookieMessage
-                      : this.message
-        this.expiresIn = (this.daysToExpire !== undefined || this.daysToExpire)
-                      ? this.daysToExpire
-                      : this.expiresIn
-        //--
-        this.init()
-    },
-    methods: {
-        /**
-        * initialise the component
-        */
-        init() {
-            this._checkCookie();
-        },
-        /**
-        * check for a existing cookie
-        */
-        _checkCookie() {
-            //-- get the required cookie
-            let cookie = this._getCookie();
-            //-- check if we do have a cookie already set
-            if (cookie !== "") {
-                this.cookieSet = cookie.cookieSet;
-                this.dismissCookie = cookie.dismissCookie;
-                return;
-            }
-        },
-        /**
-        * set the cookie
-        */
-        _setCookie(cookie) {
-            let d = new Date(),
-            cvalue = this._setCookieValue();
-            cookie.value = cvalue;
-            d.setTime(d.getTime() + (this.expiresIn*24*60*60*1000));
-            let expires = "expires="+d.toUTCString();
-            document.cookie = [
-				this.cookieName, '=', this.stringifyCookieValue(cookie),
-				expires ? '; ' + expires : '', // use expires attribute, max-age is not supported by IE
-				//path    ? '; path=' + path : '',
-				//domain  ? '; domain=' + domain : '',
-				//secure  ? '; secure' : ''
-			].join('');
-        },
-        /**
-        * get the cookies and searh for ours
-        * @return {string}
-        */
-        _getCookie() {
-            let key = this.cookieName;
-            let ca = document.cookie ? document.cookie.split('; ') : [];
-            for(let i=0; i < ca.length; i++) {
-                let parts = ca[i].split('='), name = decodeURIComponent(parts.shift()), cookie = parts.join('=');
-                if (key === name) {
-                    let result = this.parseCookieValue(cookie);
-                    // If second argument (value) is a function it's a converter...
-                    return result;
-                    break;
-                }
-            }
-            return "";
-        },
-        /**
-        * set the cookie value
-        * @return {string}
-        */
-        _setCookieValue() {
-            let a = () => { return (((1 + Math.random()) * 65536) | 0).toString(16).substring(1)};
-            return (a() + a() + "-" + a() + "-" + a() + a() + a())
-        },
-        /**
-        * close cookie message
-        * @param {event} event
-        */
-        _closeCookieMessage(event) {
-            event.preventDefault();
-            this._setCookie({cookieSet: true, dismissCookie: true});
-            this.cookieSet = true;
-            this.dismissCookie = true;
-        },
-        /**
-        * cancel cookie message
-        * @param {event} event
-        */
-        _cancelCookie(event){
-            event.preventDefault();
-            this._setCookie({cookieSet: false, dismissCookie: true});
-            this.cookieSet = false;
-            this.dismissCookie = true;
-        },
-        stringifyCookieValue(value){ return JSON.stringify(value); },
-        parseCookieValue(value) { return JSON.parse(value); }
+  props : ['cookie-message', 'days-to-expire'],
+  components: { modal: CookiesBarModel },
+  data () {
+    /**
+    * @param {string} cookieName
+    * @param {message} cookieName
+    * @param {expiresIn} cookieName
+    */
+    return {
+      cookieName : 'medlib_cookie',
+      message : "Ce site utilise des cookies pour améliorer l'expérience de navigation et fournir des fonctionnalités supplémentaires..",
+      expiresIn : 365,
+      cookieSet : false,
+      dismissCookie : false,
+      showModal: false
     }
+  },
+  mounted () {
+    /** -- check for user settings/properties **/
+    this.message = (this.cookieMessage !== undefined || this.cookieMessage) ? this.cookieMessage : this.message
+    this.expiresIn = (this.daysToExpire !== undefined || this.daysToExpire) ? this.daysToExpire : this.expiresIn
+    /**-- **/
+    this.init()
+  },
+  methods: {
+    /**
+    * initialise the component
+    */
+    init () {
+      this._checkCookie()
+    },
+    /**
+    * check for a existing cookie
+    */
+    _checkCookie () {
+      /**-- get the required cookie **/
+      let cookie = this._getCookie()
+      /**-- check if we do have a cookie already set **/
+      if (cookie !== "") {
+        this.cookieSet = cookie.cookieSet
+        this.dismissCookie = cookie.dismissCookie
+        return
+      }
+    },
+    /**
+    * set the cookie
+    */
+    _setCookie (cookie) {
+      let d = new Date(),
+      cvalue = this._setCookieValue()
+      cookie.value = cvalue
+      d.setTime(d.getTime() + (this.expiresIn*24*60*60*1000))
+      let expires = "expires="+d.toUTCString()
+      document.cookie = [
+        this.cookieName, '=', this.stringifyCookieValue(cookie),
+        expires ? ' ' + expires : '', /** use expires attribute, max-age is not supported by IE **/
+				/** path    ? '; path=' + path : '', **/
+				/** domain  ? '; domain=' + domain : '', **/
+				/** secure  ? '; secure' : '' **/
+      ].join('')
+    },
+    /**
+    * get the cookies and searh for ours
+    * @return {string}
+    */
+    _getCookie () {
+      let key = this.cookieName
+      let ca = document.cookie ? document.cookie.split('; ') : []
+      for(let i=0; i < ca.length; i++) {
+        let parts = ca[i].split('='), name = decodeURIComponent(parts.shift()), cookie = parts.join('=')
+        if (key === name) {
+          let result = this.parseCookieValue(cookie)
+          /** If second argument (value) is a function it's a converter... **/
+          return result
+          break
+        }
+      }
+      return ""
+    },
+    /**
+    * set the cookie value
+    * @return {string}
+    */
+    _setCookieValue () {
+      let a = () => { return (((1 + Math.random()) * 65536) | 0).toString(16).substring(1)}
+      return (a() + a() + "-" + a() + "-" + a() + a() + a())
+    },
+    /**
+    * close cookie message
+    * @param {event} event
+    */
+    _closeCookieMessage (event) {
+      event.preventDefault()
+      this._setCookie({cookieSet: true, dismissCookie: true})
+      this.cookieSet = true
+      this.dismissCookie = true
+    },
+    /**
+    * cancel cookie message
+    * @param {event} event
+    */
+    _cancelCookie (event) {
+      event.preventDefault()
+      this._setCookie({cookieSet: false, dismissCookie: true})
+      this.cookieSet = false
+      this.dismissCookie = true
+    },
+    stringifyCookieValue (value) { return JSON.stringify(value) },
+    parseCookieValue (value) { return JSON.parse(value) }
+  }
 }
 </script>
 

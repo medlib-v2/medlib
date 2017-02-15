@@ -41,7 +41,7 @@
 		},
         methods: {
             onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files
+                let files = e.target.files || e.dataTransfer.files
                 if (!files.length) return
                 _.each(files, function(v, k) {
                     /**
@@ -54,13 +54,13 @@
                 this.createImage(files[0])
             },
             createImage(file) {
-                var image = new Image()
-                var reader = new FileReader()
-                var vm = this
+                let image = new Image()
+                let reader = new FileReader()
+                let vm = this
                 reader.onload = (e) => {
                     vm.image = e.target.result
                     vm.hovering = false
-                };
+                }
                 reader.readAsDataURL(file)
             },
             removeImage(e) {

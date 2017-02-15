@@ -7,7 +7,6 @@ use Medlib\Http\Requests\SendMessageChatRequest;
 
 class SendChatMessageService extends Service
 {
-
     /**
      * @var int
      */
@@ -40,7 +39,7 @@ class SendChatMessageService extends Service
      */
     public function handle()
     {
-        $sender_id = Auth::user()->id;
+        $sender_id = Auth::id();
         $this->client->sendMessageTo($this->receiver_id, 23, $sender_id, $this->message);
         return true;
     }

@@ -49,16 +49,22 @@ class EloquentUserRepository implements UserRepository
     /**
      * Fetch many users by id
      *
-     * @param Collection $ids
+     * @param Collection $collection_ids
      * @return mixed
      */
-    public function findManyById(Collection $ids)
+    public function findManyById(Collection $collection_ids)
     {
+        /**
+        $users = $collection->map(function($id) {
+            dd($this->findById($id));
+            return $this->findById($id);
+        });
+        **/
         $users = [];
-        foreach ($ids as $id) {
+        foreach ($collection_ids as $id) {
             $users[] = $this->findById($id);
         }
-        return    $users;
+        return $users;
     }
 
 

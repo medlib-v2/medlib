@@ -21,12 +21,13 @@
 							@foreach($friends as $friend)
 								<div class="media listed-object-close">
 									<div class="pull-left">
-										<a href="{!! url('/u/'.$friend['username']) !!}"><img class="media-object avatar medium-avatar" src="{!! $friend['user_avatar'] !!}" alt="{!! $friend['first_name'] !!}"></a>
+										<a href="{{ route('profile.user.show', ['username' => $friend['username']]) }}"><img class="media-object avatar medium-avatar" src="{{ $friend['user_avatar']  }}" alt="{{ $friend['first_name'] }}"></a>
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">{!! $friend['first_name'] !!}</h4>
+										<h4 class="media-heading">{{ $friend['first_name'] }}</h4>
 										<div class="pull-right">
-											<a href="#" data-method="DELETE" data-username="{!! $friend['username'] !!}" class="btn btn-danger unfriend-button-3 btn-sm" role="button">Unfriend</a>
+											<a href="{{ route('request.del') }}" data-method="DELETE" data-username="{{ $friend['username'] }}" data-token="{{ Session::get('_token') }}" class="btn btn-primary btn-danger del-friend-button btn-sm" role="button">
+												<i class="glyphicon glyphicon-remove"></i>&nbsp;Unfriend</a>
 										</div>
 									</div>
 								</div>

@@ -36,7 +36,6 @@ return [
     |   ['mynamespace.test1', 'mynamespace.test2']
     |
     */
-
     'messages' => [
         'app'   => ['name', 'description', 'about', 'dashboard', 'groups', 'users', 'notifications', 'created', 'edit', 'custom','confirm',
             'confirm_title', 'confirm_text', 'not_applicable', 'date', 'status', 'details', 'delete', 'save', 'close', 'never', 'none',
@@ -52,7 +51,7 @@ return [
             'friends_remove_request', 'friends_dont_have', 'settings'
                             ],
         'emails' => ['title_confirmation_email', 'title_welcome_message', 'content_title_confirmation_email', 'content_title_password_reset', 'content_title_confirmation_success',
-            'login_user_manually', 'activate_email_before_using', 'thank_you_for_using', 'login_user_now'],
+            'login_user_manually', 'activate_email_before_using', 'thank_you_for_using', 'login_user_now', 'send_friend_request'],
         'messages' => ['problems_with_input', 'token_mismatch_exception', 'error_message'],
         'pagination' => ['previous', 'next'],
         'passwords' => ['password', 'reset', 'sent', 'token', 'user', 'reset_password', 'reset_password_subtitle', 'send_reset_password',
@@ -72,6 +71,7 @@ return [
             ],
             'icons' => ['all', 'images', 'books', 'videos']
         ],
+        'notifications' => ['view_all_notifications', 'accept_request', 'cancel_request', 'accepted_friend_request', 'send_friend_request'],
     ],
 
     /*

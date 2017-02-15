@@ -5,7 +5,7 @@ import * as types from '../mutation-types'
  * @type {{shared_address: {}}}
  */
 const state = {
-    shared_address: {}
+  shared_address: {}
 }
 
 /**
@@ -13,7 +13,7 @@ const state = {
  * @type {{address: ((p1:*)=>{})}}
  */
 const getters = {
-    address: state => state.shared_address,
+  address: state => state.shared_address,
 }
 
 /**
@@ -21,9 +21,9 @@ const getters = {
  * @type {{setFeeds: (({ commit }:{commit: *}, feeds?)), setPosts: (({ commit }:{commit: *}, posts?))}}
  */
 const actions = {
-    address ({ commit }, address) {
-        commit(types.SET_ADDRESS, address )
-    }
+  address ({ commit }, address) {
+    commit(types.SET_ADDRESS, address )
+  }
 }
 
 /**
@@ -31,12 +31,12 @@ const actions = {
  * @type {{[[types.SET_ADDRESS]]: ((state, address))}}
  */
 const mutations = {
-    [types.SET_ADDRESS] (state, address) { state.shared_address = address }
+  [types.SET_ADDRESS] (state, address) { state.shared_address = address }
 }
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations
+  state,
+  getters,
+  actions,
+  mutations
 }

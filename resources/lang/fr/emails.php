@@ -22,4 +22,6 @@ return [
     'activate_email_before_using' => 'Vous devez activer votre compte avant de pouvoir utiliser tous nos services.',
     'thank_you_for_using' => "Merci d'utiliser Medlib!",
     'login_user_now' => 'Connecte-toi maintenant',
+    'send_friend_request' => "Vous avez reçu une nouvelle demande d'ami de ",
+    'view_profile' => 'Voir le profil'
 ];

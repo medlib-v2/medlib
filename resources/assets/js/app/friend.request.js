@@ -134,7 +134,7 @@
                             }
                             else {
                                 $('.side-list').each(function () {
-                                    var friendListUserId = $(this).attr('data-username');
+                                    var friendListUserId = $(this).data('username');
                                     sessionStorage.removeItem('conversation-with-' + friendListUserId);
                                 });
                                 window.location.replace("/");

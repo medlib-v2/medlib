@@ -21,9 +21,8 @@ class MessagesTableSeeder extends Seeder
         foreach (range(1, 25) as $index) {
             Message::create([
                 'body'        => $faker->sentence(),
-                'sender_profile_image' => $faker->imageUrl($width = 180, $height = 180),
                 'sender_id' => $faker->randomElement($userIds),
-                'sender_name' => $faker->firstName
+                'receiver_id' => $faker->randomElement($userIds),
             ]);
         }
     }

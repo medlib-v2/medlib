@@ -1,1 +1,1 @@
-export const trans = window.trans;
+export const trans = window.trans

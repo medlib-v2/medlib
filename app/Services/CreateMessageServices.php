@@ -10,7 +10,6 @@ use Medlib\Repositories\Message\MessageRepository;
 
 class CreateMessageService extends Service
 {
-
     /**
      * @var int
      */
@@ -27,16 +26,6 @@ class CreateMessageService extends Service
     public $sender_id;
 
     /**
-     * @var string
-     */
-    public $sender_profile_image;
-
-    /**
-     * @var string
-     */
-    public $sender_name;
-
-    /**
      * Create a new command instance.
      * @param Request $request
      */
@@ -44,11 +33,9 @@ class CreateMessageService extends Service
     {
         parent::__construct();
 
-        $this->receiver_id = $request->get('receiver_id');
         $this->body = $request->get('body');
         $this->sender_id = $request->get('sender_id');
-        $this->sender_profile_image = $request->get('sender_profile_image');
-        $this->sender_name = $request->get('sender_name');
+        $this->receiver_id = $request->get('receiver_id');
     }
 
     /**
@@ -61,9 +48,9 @@ class CreateMessageService extends Service
      */
     public function handle(UserRepository $userRepository, MessageRepository $messageRepository)
     {
-        $message = Message::createMessage($this->body, $this->sender_id, $this->sender_profile_image, $this->sender_name);
+        $message = Message::createMessage($this->body, $this->sender_id, $this->receiver_id);
 
-        $response = MessageResponse::createMessageResponse($this->body, $this->sender_id, $this->receiver_id, $this->sender_profile_image, $this->sender_name);
+        $response = MessageResponse::createMessageResponse($this->body, $this->sender_id, $this->receiver_id);
 
         $userRepository->findById($this->receiver_id)->messages()->save($message);
 

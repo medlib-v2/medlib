@@ -79,33 +79,33 @@ export default {
 			apiToken: Setting.csrfToken,
 			searchText: '',
 			currentFilter: 'recent'
-		};
+		}
 	},
 	ready() {
 	},
 	computed: {
 		isSelected() {
-			return this.active;
+			return this.active
 		},
 	},
 	methods: {
 		isActive(conversation) {
-			return conversation.active;
+			return conversation.active
 		},
 		toggleActive(conversation) {
-			conversation.active = ! conversation.active;
-			console.log(conversation.active);
-			this.$dispatch('activateConversation', conversation);
+			conversation.active = ! conversation.active
+			console.log(conversation.active)
+			this.$dispatch('activateConversation', conversation)
 			// scroll message into view
 			setTimeout(function() {
-				document.querySelector('.chatbox-content').scrollTop = 10000000;
-			}, 50);
+				document.querySelector('.chatbox-content').scrollTop = 10000000
+			}, 50)
 		},
 		lastMessage(conversation) {
 			// return the last message and the name of the sender or You said...
-			let lastMessageSent = conversation.messages[conversation.messages.length -1];
+			let lastMessageSent = conversation.messages[conversation.messages.length -1]
 			// if we don't have a message, just return
-			if (lastMessageSent === undefined) return '';
+			if (lastMessageSent === undefined) return ''
 			// otherwise see if it's from the current user or not
 			return lastMessageSent.user.id === this.user.id ?
 				'You said ' + lastMessageSent.body.substr(0, 15) + '...' :
@@ -114,91 +114,91 @@ export default {
 		search() {
 			// filter conversations by username
 			this.conversations = this.conversations.filter(function(conversation) {
-				console.log(conversation.sender.name);
-				console.log(conversation.recipient.name);
+				console.log(conversation.sender.name)
+				console.log(conversation.recipient.name)
 				return conversation.sender.name.indexOf(this.searchText)  > -1 ||
-					   conversation.recipient.name.indexOf(this.searchText) > -1;
-			}.bind(this));
+					   conversation.recipient.name.indexOf(this.searchText) > -1
+			}.bind(this))
 			if (this.searchText.length === 0) {
-				this.filter();
+				this.filter()
 			}
 		},
 		clearSearch() {
-			this.searchText = '';
-			this.conversations = this.allConversations;
+			this.searchText = ''
+			this.conversations = this.allConversations
 		},
 		filter() {
 			switch(this.currentFilter) {
 				case 'recent':
-					this.filterRecent();
-					break;
+					this.filterRecent()
+					break
 				case 'favorites':
-					this.filterFavorites();
-					break;
+					this.filterFavorites()
+					break
 				case 'archived':
-					this.filterArchived();
-					break;
+					this.filterArchived()
+					break
 				case 'blocked':
-					this.filterBlocked();
-					break;
+					this.filterBlocked()
+					break
 			}
 		},
 		filterRecent() {
-			this.conversations = this.allConversations;
-			this.currentFilter = 'recent';
-			console.log(this.allConversations);
+			this.conversations = this.allConversations
+			this.currentFilter = 'recent'
+			console.log(this.allConversations)
 			this.conversations = this.conversations.filter(function(conversation) {
-				return !conversation.favorite && !conversation.blocked && !conversation.archived;
-			});
+				return !conversation.favorite && !conversation.blocked && !conversation.archived
+			})
 			// toggle .active css class
 			// remove
-			document.querySelector('.filter-favorites').classList.remove('active');
-			document.querySelector('.filter-archived').classList.remove('active');
-			document.querySelector('.filter-blocked').classList.remove('active');
+			document.querySelector('.filter-favorites').classList.remove('active')
+			document.querySelector('.filter-archived').classList.remove('active')
+			document.querySelector('.filter-blocked').classList.remove('active')
 			// add
-			document.querySelector('.filter-recent').classList.add('active');
+			document.querySelector('.filter-recent').classList.add('active')
 		},
 		filterFavorites() {
-			this.conversations = this.allConversations;
-			this.currentFilter = 'favorites';
+			this.conversations = this.allConversations
+			this.currentFilter = 'favorites'
 			this.conversations = this.conversations.filter(function(conversation) {
-				return conversation.favorite && !conversation.blocked && !conversation.archived;
-			});
+				return conversation.favorite && !conversation.blocked && !conversation.archived
+			})
 			// toggle .active css class
 			// remove
-			document.querySelector('.filter-recent').classList.remove('active');
-			document.querySelector('.filter-archived').classList.remove('active');
-			document.querySelector('.filter-blocked').classList.remove('active');
+			document.querySelector('.filter-recent').classList.remove('active')
+			document.querySelector('.filter-archived').classList.remove('active')
+			document.querySelector('.filter-blocked').classList.remove('active')
 			// add
-			document.querySelector('.filter-favorites').classList.add('active');
+			document.querySelector('.filter-favorites').classList.add('active')
 		},
 		filterArchived() {
-			this.conversations = this.allConversations;
-			this.currentFilter = 'archived';
+			this.conversations = this.allConversations
+			this.currentFilter = 'archived'
 			this.conversations = this.conversations.filter(function(conversation) {
-				return !conversation.blocked && conversation.archived;
-			});
+				return !conversation.blocked && conversation.archived
+			})
 			// toggle .active css class
 			// remove
-			document.querySelector('.filter-favorites').classList.remove('active');
-			document.querySelector('.filter-recent').classList.remove('active');
-			document.querySelector('.filter-blocked').classList.remove('active');
+			document.querySelector('.filter-favorites').classList.remove('active')
+			document.querySelector('.filter-recent').classList.remove('active')
+			document.querySelector('.filter-blocked').classList.remove('active')
 			// add
-			document.querySelector('.filter-archived').classList.add('active');
+			document.querySelector('.filter-archived').classList.add('active')
 		},
 		filterBlocked() {
-			this.conversations = this.allConversations;
-			this.currentFilter = 'blocked';
+			this.conversations = this.allConversations
+			this.currentFilter = 'blocked'
 			this.conversations = this.conversations.filter(function(conversation) {
-				return conversation.blocked;
-			});
+				return conversation.blocked
+			})
 			// toggle .active css class
 			// remove
-			document.querySelector('.filter-favorites').classList.remove('active');
-			document.querySelector('.filter-archived').classList.remove('active');
-			document.querySelector('.filter-recent').classList.remove('active');
+			document.querySelector('.filter-favorites').classList.remove('active')
+			document.querySelector('.filter-archived').classList.remove('active')
+			document.querySelector('.filter-recent').classList.remove('active')
 			// add
-			document.querySelector('.filter-blocked').classList.add('active');
+			document.querySelector('.filter-blocked').classList.add('active')
 		}
 	}
 }

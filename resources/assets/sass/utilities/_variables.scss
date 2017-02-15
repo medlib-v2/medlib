@@ -1,0 +1,508 @@
+@charset "utf-8";
+
+$bootstrap-sass-asset-helper: false !default;
+
+$img-url:                   "../images";
+
+$gray-base:               #000;
+$gray-darker:             lighten($gray-base, 13.5%); // #222
+$gray-dark:               lighten($gray-base, 20%);   // #333
+$gray:                    lighten($gray-base, 33.5%); // #555
+$gray-light:              lighten($gray-base, 46.7%); // #777
+$gray-lighter:            lighten($gray-base, 93.5%); // #eee
+$inverse:                 lighten($gray-light, 15%);
+
+//** Background color for `<body>`.
+// Body
+$body-bg:                   #f5f8fa !default;
+//$body-bg:                 $body-background;
+
+// Borders
+$laravel-border-color:      darken($body-bg, 10%) !default;
+$list-group-border:         $laravel-border-color !default;
+$navbar-default-border:     $laravel-border-color !default;
+$panel-default-border:      $laravel-border-color !default;
+$panel-inner-border:        $laravel-border-color !default;
+
+
+//-- Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+//
+// Note: These variables are not generated into the Customizer.
+
+$zindex-navbar:            1000 !default;
+$zindex-dropdown:          1000 !default;
+$zindex-popover:           1060 !default;
+$zindex-tooltip:           1070 !default;
+$zindex-navbar-fixed:      1030 !default;
+$zindex-modal-background:  1040 !default;
+$zindex-modal:             1050 !default;
+
+//General colors palette
+$primary-color:            #4285f4 !default;
+$dark-color:               #3d3c3c !default;
+$light-color:              #ffffff !default;
+$black-color:              #000000 !default;
+$body-color:               #404040 !default;
+
+// Colour
+$color-white:             $light-color !default;
+$color-title:             #0C0C0C !default;
+$color-general:           #2E2E2E !default;
+$color-dropdown:          #888888 !default;
+$color-label:             #696969 !default;
+$color-descrete:          #A8A8A8 !default;
+$color-disabled:          #B6B6B6 !default;
+$color-placeholder:       #C7C7C7 !default;
+$color-border:            #CBCBCB !default;
+$color-cta-solid:         #12d758 !default;
+$color-cta-text:          darken($color-cta-solid, 5) !default;
+$color-ok-solid:          #5da2f5 !default;
+$color-ok-text:           darken($color-ok-solid, 5) !default;
+$color-warning-solid:     #f46374 !default;
+$color-warning-text:      darken($color-warning-solid, 5) !default;
+
+//** Global text color on `<body>`.
+$text-color:               #636b6f !default;
+//$text-color:             $body-color !default;
+
+//States Color
+$danger-color:              #ea4335 !default;
+$warning-color:             #fbbc05 !default;
+$success-color:             #34a853 !default;
+$grey-color:                #cccccc !default;
+$info-color:                $primary-color !default;
+
+//Icons colors
+$icon-default-color:        darken($light-color, 55%) !default;
+$icon-hover-color:          darken($light-color, 75%) !default;
+
+
+//Color shades
+$primary-color-dark:        darken($primary-color, 10%) !default;
+$primary-color-darkest:     darken($primary-color, 20%) !default;
+$primary-color-light:       lighten($primary-color, 10%) !default;
+$primary-color-lightest:    lighten($primary-color, 20%) !default;
+
+$danger-color-dark:         darken($danger-color, 10%) !default;
+$danger-color-darkest:      darken($danger-color, 20%) !default;
+$danger-color-light:        lighten($danger-color, 10%) !default;
+$danger-color-lightest:     lighten($danger-color, 20%) !default;
+
+$warning-color-dark:        darken($warning-color, 10%) !default;
+$warning-color-darkest:     darken($warning-color, 20%) !default;
+$warning-color-light:       lighten($warning-color, 10%) !default;
+$warning-color-lightest:    lighten($warning-color, 20%) !default;
+
+$success-color-dark:        darken($success-color, 10%) !default;
+$success-color-darkest:     darken($success-color, 20%) !default;
+$success-color-light:       lighten($success-color, 10%) !default;
+$success-color-lightest:    lighten($success-color, 20%) !default;
+
+$grey-color-dark:           darken($grey-color, 10%) !default;
+$grey-color-darkest:        darken($grey-color, 20%) !default;
+$grey-color-light:          lighten($grey-color, 10%) !default;
+$grey-color-lightest:       lighten($grey-color, 20%) !default;
+
+//Text contrast
+$primary-color-text:        #5f99f5 !default;
+$success-color-text:        #37b358 !default;
+$info-color-text:           $info-color !default;
+$warning-color-text:        #f6c163 !default;
+$danger-color-text:         #eb6357 !default;
+$grey-color-text:           darken($grey-color, 6%) !default;
+$dark-color-text:           #333333 !default;
+
+// Striped Colors
+$striped-color:             rgba(236, 236, 236, 0.1) !default;
+
+//General elements
+$logo-width:                    102px !default;
+$logo-height:                   27px !default;
+$logo-padding:                  20px !default;
+$body-background:               #EEEEEE !default;
+$content-padding:               25px !default;
+$content-padding-tablet:        25px !default;
+$content-padding-phone:         15px !default;
+$content-padding-small-phone: 	10px !default;
+$link-color:                    ($primary-color + 10%) !default;
+$scroller-size: 		        6px !default;//Scroller plugin width
+
+//Aside
+$page-aside-width: 		    280px !default;
+$page-aside-padding: 		22px !default;
+$page-aside-title-size: 	27px !default;
+
+//Top Header
+$top-header-bg:			    $light-color !default;
+$top-header-phone-bg:		#ffffff !default;
+$top-header-link-color:		darken($light-color, 55%) !default;
+$top-header-height: 		60px !default;
+$top-header-height-phone: 	70px !default;
+$top-header-navbar-color: 	lighten($text-color, 10%) !default;
+$top-header-navbar-font-size: 	14px !default;
+$top-header-navbar-padding: 	18px !default;
+$icons-nav-dropdown-width: 	    300px !default;
+$user-dropdown-width:		    220px !default;
+$user-dropdown-width-max:		100% !default;
+
+//Left Sidebar
+$left-sidebar-bg: 		    #f5f5f5 !default;
+$left-sidebar-width: 		230px !default;
+$left-sidebar-width-phone:  230px !default;
+$left-sidebar-color: 		lighten($body-color, 14%) !default;
+$left-sidebar-logo-bg: 		darken($dark-color, 1.5%) !default;
+$left-sidebar-icon-size: 	19px !default;
+$left-sidebar-main-level-font-size: 14px !default;
+$left-sidebar-main-level-padding:   20px !default;
+$left-sidebar-main-level-height:    38px !default;
+$left-sidebar-sub-level-color:      $left-sidebar-color !default;
+$left-sidebar-sub-level-bg:         darken($left-sidebar-bg, 2.8%) !default;
+$left-sidebar-sub-level-font-size:  13px !default;
+$left-sidebar-sub-level-padding:    8px 15px 8px 49px !default;
+$left-sidebar-z-index:              $zindex-navbar-fixed + 1 !default;
+//Right Sidebar
+$right-sidebar-width:               290px !default;
+$right-sidebar-width-phone:         290px !default;
+$right-sidebar-icons-color:         darken($light-color, 33.2%) !default;
+$right-sidebar-low-contrast-color:  darken($light-color, 30%) !default;
+$right-sidebar-background:          #FAFAFA !default;
+$right-sidebar-z-index:             $zindex-navbar-fixed + 8 !default;
+
+/** Color swatches **/
+$turquoise:                 #1abc9c !default;
+$green-sea:                 #16a085 !default;
+
+$emerald:                   #2ecc71 !default;
+$nephritis:                 #27ae60 !default;
+
+$peter-river:               #3498db !default;
+$belize-hole:               #2980b9 !default;
+
+$amethyst:                  #9b59b6 !default;
+$wisteria:                  #8e44ad !default;
+
+$wet-asphalt:               #292929 !default;
+$midnight-blue:             #2c3e50 !default;
+
+$sun-flower:                #f1c40f !default;
+$orange:                    #f39c12 !default;
+
+$carrot:                    #e67e22 !default;
+$pumpkin:                   #d35400 !default;
+
+$alizarin:                  #e74c3c !default;
+$pomegranate:               #c0392b !default;
+
+$clouds:                    rgba(255,255,255,0.88) !default;
+$silver:                    #c9cfd3 !default;
+
+/** Brand colors **/
+$brand-primary:             $wet-asphalt !default;
+$brand-secondary:           $clouds !default;
+$brand-success:             $emerald !default;
+$brand-warning:             $sun-flower !default;
+$brand-danger:              $alizarin !default;
+$brand-info:                $peter-river !default;
+$brand-light:               #edf1f2 !default;
+$brand-dark:                #3a3f51 !default;
+$brand-black:               #1c2b36 !default;
+
+// Typography
+$icon-font-path:            "~bootstrap-sass/assets/fonts/bootstrap/" !default;
+$icons-font:                "FontAwesome";
+$fa-font-path:              "fonts/fontawesome" !default;
+//## Font, line-height, and color for body text, headings, and more.
+$font-primary:              "Wark Sans", Helvetica, Arial, sans-serif;
+$font-secondary:            "Clear Sans", sans-serif;
+$font-family-sans-serif:    "Work Sans", sans-serif !default;
+$font-family-serif:         Georgia, "Times New Roman", Times, serif;
+$font-family-monospace:     Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:          $font-family-sans-serif;
+$font-family-semiblod:      WorkSans-SemiBold, sans-serif;
+$font-family-bold:          WorkSans-Bold, Monaco, Menlo, Consolas, monospace, sans-serif;
+$font-size-base:            14px !default;
+$line-height-base:          1.6 !default;
+
+$font-size-h1:                      floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:                      floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:                      ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4:                      ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5:                      $font-size-base;
+$font-size-h6:                      ceil(($font-size-base * 0.85)); // ~12px
+
+$paragraph-font-size:               inherit;
+$paragraph-line-height:             21px;
+$paragraph-margin:                  15px;
+
+$list-lineheight:                   20px;
+
+$display-heading-size:              40px;
+$display-heading-margin:            20px 0 15px;
+$display-description-size:          18px;
+$display-description-line-height:   29px;
+$display-description-margin:        0 0 50px;
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
+
+// Navbar
+$navbar-default-bg:         #fff !default;
+
+// Buttons
+$btn-default-color:         $text-color !default;
+
+// Panels
+$panel-default-heading-bg:  #fff !default;
+$btn-search-height:         60px !default;
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+//** Deprecated `$screen-xs` as of v3.0.1
+$screen-xs:                  480px !default;
+//** Deprecated `$screen-xs-min` as of v3.2.0
+$screen-xs-min:              $screen-xs !default;
+//** Deprecated `$screen-phone` as of v3.0.1
+$screen-phone:               $screen-xs-min !default;
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm !default;
+//** Deprecated `$screen-tablet` as of v3.0.1
+$screen-tablet:              $screen-sm-min !default;
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+$screen-md:                  992px !default;
+$screen-md-min:              $screen-md !default;
+//** Deprecated `$screen-desktop` as of v3.0.1
+$screen-desktop:             $screen-md-min !default;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg:                  1200px !default;
+$screen-lg-min:              $screen-lg !default;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop:          $screen-lg-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+// 1152px container + 40
+$widescreen: 1192px !default;
+
+
+$font-size-base:                    13px;
+$font-size-large:                   ceil(($font-size-base * 1.15)) !default; // ~15px
+$font-size-mini:                    ceil(($font-size-base - 2)) !default;
+$font-size-small:                   ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-extra-small:             ceil(($font-size-base * 0.8)) !default; // ~12px
+
+$font-weight-thin:                  100 !default;
+$font-weight-light:                 300 !default;
+$font-weight-normal:                400 !default;
+$font-weight-regular:               400 !default;
+$font-weight-medium:                500 !default;
+$font-weight-semi-bold:             600 !default;
+$font-weight-bold:                  700 !default;
+$font-weight-black:                 900 !default;
+
+//$font-weight-thin:                  300 !default;
+//$font-weight-base:                  $font-weight-thin !default;
+
+$font-size-smaller:         85%;
+
+$font-size-h1:              floor(($font-size-base * 3.444));
+$font-size-h2:              ceil(($font-size-base * 2.889));
+$font-size-h3:              ceil(($font-size-base * 2.222));
+$font-size-h4:              ceil(($font-size-base * 1.611));
+$font-size-h5:              floor(($font-size-base * 1.556));
+$font-size-h6:              ceil(($font-size-base * 1.333));
+
+$line-height-large:         1.33;
+$line-height-small:         1.5;
+
+$border-color:		  	            darken($brand-light, 5%) !default;
+
+//Dividers
+$divider-border:                    1px solid darken($light-color, 5%) !default;
+$divider-margin:                    10px !default;
+$divider-lg-margin:                 15px !default;
+$divider-xl-margin:                 20px !default;
+
+//Loader
+$loader-background:                 rgba(255, 255, 255, 0.7) !default;
+
+//Status color
+$status-online:                     #00b777 !default;
+$status-offline:                    #e65a5a !default;
+$status-away:                       #f2c329 !default;
+
+//Progress bars
+$progress-bar-height:               22px !default;
+
+//== Sidebars
+$sidebars-hardware-accelerated-animation: true;
+$sidebars-push-effect:      all .35s ease;
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+/**
+* Default font-size in components
+*/
+$component-font-size-base:  ceil(($font-size-base * 0.833)); // ~15px
+
+$padding-base-vertical:     10px;
+$padding-base-horizontal:   12px;
+
+$padding-large-vertical:    12px;
+$padding-large-horizontal:  16px;
+
+$padding-small-vertical:    5px;
+$padding-small-horizontal:  9px;
+
+$padding-xs-vertical:       1px;
+$padding-xs-horizontal:     5px;
+
+$line-height-large:         1.7; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.6;
+
+$border-radius-base:        2px;
+$border-radius-large:       4px;
+$border-radius-small:       2px;
+
+// Inputs
+$input-bg:                          #fff !default;
+$input-bg-disabled:                 $gray-lighter !default;
+$input-color:                       $body-color !default;
+//$input-border:                      lighten($text-color, 40%) !default;
+$input-border:                      #d5d8de !default;
+$input-top-border:                  #bdc0c7 !default;
+$input-border-radius:               $border-radius-base !default;
+$input-border-radius-large:         $border-radius-large !default;
+$input-border-radius-small:         $border-radius-small !default;
+//$input-border-focus:                lighten($brand-primary, 25%) !default;
+$input-border-focus:                $primary-color !default;
+$input-color-placeholder:           #999 !default;
+//$input-color-placeholder:           lighten($text-color, 30%) !default;
+
+//** Default `.form-control` height
+$input-height-base:                 ($line-height-computed + ($padding-base-vertical * 2) + 10) !default;
+$input-height-large:                57px !default;
+$input-height-small:                37px !default;
+$input-height-extra-small:          30px !default;
+
+$form-group-margin-bottom:          20px !default;
+$legend-color:                      $gray-dark !default;
+$legend-border-color:               #e5e5e5 !default;
+
+//Forms
+$input-check-component-size:            22px !default;
+$input-check-component-border:          1px solid #ccc !default;
+$input-check-component-border-radius:   3px !default;
+
+$radio-icon-component-size:             52px !default;
+$radio-icon-component-color:            lighten($input-color, 25%) !default;
+$radio-icon-component-icon-size:        36px !default;
+$radio-icon-component-border:           #d5d8de !default;
+
+//** Background color for textual input addons
+$input-group-addon-bg:              darken($light-color, 3.8%) !default;
+//** Border color for textual input addons
+$input-group-addon-border-color:    $input-border !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                   not-allowed !default;
+
+$input-label-color:                 lighten($input-color, 15%) !default;
+
+//Form validation states
+$form-validation-icon-size:         19px !default;
+
+//Form validation states
+$form-validation-icon-size:         19px !default;
+
+//Dropdowns
+$dropdown-text-color:               lighten($dark-color, 7.2%) !default;
+$dropdown-bg:                       #fff !default;
+$dropdown-border:                   darken($light-color, 11%) !default;
+$dropdown-fallback-border:          $dropdown-border !default;
+$dropdown-divider-bg:               #e5e5e5 !default;
+$dropdown-box-shadow:               0px 0px 6px 0px rgba(0, 0, 0, 0.12) !default;
+
+//Panels & Widget Panels
+$panel-border-radius:               3px !default;
+$panel-body-padding:                15px 20px 20px !default;
+$panel-heading-horizontal-padding:  20px !default;
+$panel-heading-top-padding:         20px !default;
+$panel-heading-bottom-padding:      15px !default;
+$panel-heading-padding:             $panel-heading-top-padding $panel-heading-horizontal-padding $panel-heading-bottom-padding !default;
+$panel-heading-font-size:           18px !default;
+$panel-heading-font-weight:         $font-weight-light !default;
+$panel-heading-icon-color:          darken($light-color, 27%) !default;
+$panel-heading-icon-hover:          darken($light-color, 35%) !default;
+$panel-heading-icon-size:           20px !default;
+$panel-heading-icon-separation:     2px !default;
+$panel-heading-icon-line-height:    25px !default;
+$panel-margin-bottom:               25px !default;
+$panel-box-shadow:                  0px 0px 4px 0px rgba(0,0,0,0.04) !default;
+
+$widget-heading-font-size:          18px !default;
+$widget-heading-font-weight:        300 !default;
+$widget-horizontal-padding:         20px !default;
+$widget-horizontal-padding-small:   15px !default;
+$widget-margin-bottom:              $panel-margin-bottom !default;
+
+//Pricing Tables
+$pricing-tables-margin: 			30px 0 20px !default;
+$pricing-table-border-radius: 		$panel-border-radius !default;
+$pricing-table-horizontal-space: 	10px !default;
+$pricing-table-padding: 			35px 20px !default;
+$pricing-table-margin: 				0 0 20px !default;
+$pricing-table-value-size: 			35px !default;
+$pricing-table-price-line-height:   40px !default;
+$pricing-table-frecuency-size: 		20px !default;
+$pricing-table-fatures-line-height: 33px !default;
+$pricing-table-button-height: 		36px !default;
+$pricing-table-button-min-width: 	120px !default;
+
+
+// Widgets
+// -------------------------
+
+$widget-padding-vertical:           15px !default;
+$widget-padding-horizontal:         20px !default;
+$widget-bg-color:                   white;
+
+//==Pages
+
+//Splash screen (login, sign up, forgot passwrd)
+$splash-screen-bg: 					#eee !default;
+
+//Login page
+$login-width: 						401px !default;
+$login-margin-top: 					50px !default;
+
+//Sign up page
+$sign-up-width: 					100% !default;
+$sign-up-margin-top: 				10px !default;
+$sign-up-padding: 					20px !default;
+
+//Email pages
+$email-page-favorite-color:         #FFC600 !default;
+
+@import "variables/alert";
+@import "variables/brandcolors";
+@import "variables/buttons";
+@import "variables/popovers";

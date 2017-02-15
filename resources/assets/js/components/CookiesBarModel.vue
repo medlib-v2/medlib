@@ -1,92 +1,87 @@
 <template lang="html">
-    <transition name="modal">
-        <div role="dialog" :class="{ 'modal':true, 'fade':effect === 'fade', 'zoom':effect === 'zoom'}">
-            <div :class="{'modal-dialog':true,'modal-lg':large,'modal-sm':small}" role="document" :style="{width: optionalWidth}">
-                <div class="modal-content">
-
-                    <slot name="modal-header">
-                        <div class="modal-header">
-                            <button type="button" class="close" @click="close"><span>&times;</span></button>
-                            <h4 class="modal-title">
-                                <slot name="title">
-                                    {{title}}
-                                </slot>
-                            </h4>
-                        </div>
-                    </slot>
-
-                    <slot name="modal-body">
-                        <div class="modal-body"></div>
-                    </slot>
-
-                    <slot name="modal-footer">
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" @click="close">{{ cancelText }}</button>
-                            <button type="button" class="btn btn-primary" @click="callback">{{ okText }}</button>
-                        </div>
-                    </slot>
-                </div>
+  <transition name="modal">
+    <div role="dialog" :class="{ 'modal':true, 'fade':effect === 'fade', 'zoom':effect === 'zoom'}">
+      <div :class="{'modal-dialog':true,'modal-lg':large,'modal-sm':small}" role="document" :style="{width: optionalWidth}">
+        <div class="modal-content">
+          <slot name="modal-header">
+            <div class="modal-header">
+              <button type="button" class="close" @click="close"><span>&times;</span></button>
+              <h4 class="modal-title">
+                <slot name="title"> {{title}} </slot>
+              </h4>
             </div>
+          </slot>
+          <slot name="modal-body">
+            <div class="modal-body"></div>
+          </slot>
+          <slot name="modal-footer">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" @click.prevent="close">{{ cancelText }}</button>
+              <button type="button" class="btn btn-primary" @click.prevent="callback">{{ okText }}</button>
+            </div>
+          </slot>
         </div>
-    </transition>
+      </div>
+    </div>
+  </transition>
 </template>
 <script type="text/babel">
 export default {
-    props: {
-        okText: { type: String, default: 'Save changes' },
-        cancelText: { type: String, default: 'Close' },
-        title: { type: String, default: '' },
-        show: { required: true, type: Boolean, twoWay: true },
-        width: { default: null },
-        callback: { type: Function, default () {} },
-        effect: { type: String, default: null },
-        backdrop: { type: Boolean, default: true },
-        large: { type: Boolean, default: false },
-        small: { type: Boolean, default: false }
-    },
-    computed: {
-        optionalWidth () {
-            if (this.width === null) {
-                return null
-            } else if (Number.isInteger(this.width)) {
-                return this.width + 'px'
-            }
-            return this.width
-        }
-    },
-    watch: {
-        show (val) {
-            const el = this.$el
-            const body = document.body
-            const scrollBarWidth = getScrollBarWidth()
-            if (val) {
-                $(el).find('.modal-content').focus()
-                el.style.display = 'block'
-                setTimeout(() => $(el).addClass('in'), 0)
-                $(body).addClass('modal-open')
-                if (scrollBarWidth !== 0) {
-                    body.style.paddingRight = scrollBarWidth + 'px'
-                }
-                if (this.backdrop) {
-                    $(el).on('click', e => {
-                        if (e.target === el) this.show = false
-                    })
-                }
-            } else {
-                body.style.paddingRight = null
-                $(body).removeClass('modal-open')
-                $(el).removeClass('in').on('transitionend', () => {
-                    $(el).off('click transitionend')
-                    el.style.display = 'none'
-                })
-            }
-        }
-    },
-    methods: {
-        close () {
-            this.show = false
-        }
+  props: {
+    okText: { type: String, default: 'Save changes' },
+    cancelText: { type: String, default: 'Close' },
+    title: { type: String, default: '' },
+    show: { required: true, type: Boolean, twoWay: true },
+    width: { default: null },
+    callback: { type: Function, default () {} },
+    effect: { type: String, default: null },
+    backdrop: { type: Boolean, default: true },
+    large: { type: Boolean, default: false },
+    small: { type: Boolean, default: false }
+  },
+  computed: {
+    optionalWidth () {
+      if (this.width === null) {
+        return null
+      } else if (Number.isInteger(this.width)) {
+        return this.width + 'px'
+      }
+      return this.width
     }
+  },
+  watch: {
+    show (val) {
+      const el = this.$el
+      const body = document.body
+      const scrollBarWidth = getScrollBarWidth()
+      if (val) {
+        $(el).find('.modal-content').focus()
+        el.style.display = 'block'
+        setTimeout(() => $(el).addClass('in'), 0)
+        $(body).addClass('modal-open')
+        if (scrollBarWidth !== 0) {
+          body.style.paddingRight = scrollBarWidth + 'px'
+        }
+        if (this.backdrop) {
+          $(el).on('click', e => {
+            if (e.target === el) this.show = false
+          })
+        }
+      } else {
+        body.style.paddingRight = null
+        $(body).removeClass('modal-open')
+        $(el).removeClass('in').on('transitionend', () => {
+          $(el).off('click transitionend')
+          el.style.display = 'none'
+        })
+      }
+    }
+  },
+  methods: {
+    close () {
+      this.show = false
+    }
+  }
 }
 </script>
 <style>

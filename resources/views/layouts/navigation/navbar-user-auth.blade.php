@@ -32,6 +32,6 @@
             </li>
             <!-- / user profile -->
         </ul>
-        <notifications link-notifications="{{ route('notifications.show') }}"></notifications>
+        <notifications link-notifications="{{ route('notifications.show') }}" id="{{ Auth::id() }}"></notifications>
     </div>
     <!-- / navbar collapse -->

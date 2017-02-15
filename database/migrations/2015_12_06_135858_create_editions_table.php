@@ -25,6 +25,6 @@ class CreateEditionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('editions');
+        Schema::dropIfExists('editions');
     }
 }

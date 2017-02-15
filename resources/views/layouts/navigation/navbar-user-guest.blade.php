@@ -23,7 +23,7 @@
                     <li class="login-form-dropdown">
                         <div class="row no-margin">
                             <div class="col-md-7 col-sm-7">
-                                <div class="form-group"><h4>@lang('auth.btn.login')</h4></div>
+                                <div class="form-group"><h4 class="login-title">@lang('auth.btn.login')</h4></div>
                                 <form class="form-login" role="login" method="POST"  action="{{ route('auth.login') }}" accept-charset="UTF-8">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group @if(isset($errors) and $errors->has('email')) has-error @endif field">
@@ -56,7 +56,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li class="social-buttons">
-                                        <a href="{{ route('auth.social', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook" role="button" id="sign-in-facebook"><span class="fa fa-facebook"></span>Login via Facebook</a>
+                                        <a href="{{ route('auth.social', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook" type="button" id="sign-in-facebook"><span class="fa fa-facebook"></span>Login via Facebook</a>
                                         <a href="{{ route('auth.social', ['provider' => 'twitter']) }}" class="btn btn-block btn-social btn-twitter" type="button" id="sign-in-twitter"><span class="fa fa-twitter"></span>Login via Twitter</a>
                                     </li>
                                 </ul>
@@ -64,7 +64,7 @@
                         </div>
                     </li>
                     <li class="panel-footer text-sm">
-                        <span class="fs-mini">@lang('auth.login.can_not_login') <a href="{{ route('password.reset') }}">@lang('auth.txt.forgot_password')</a></span>
+                        <span class="fs-login">@lang('auth.login.can_not_login') <a href="{{ route('password.reset') }}">@lang('auth.txt.forgot_password')</a></span>
                     </li>
                 </ul>
             </li>

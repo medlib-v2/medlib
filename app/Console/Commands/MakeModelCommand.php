@@ -173,7 +173,7 @@ class MakeModelCommand extends Command
 
         $s = file_get_contents('app/Console/Commands/stubs/Model.stub');
         $s = $this->replace($s, $model);
-        $output = $modelPath . str_singular($model) . '.php';
+        $output = $modelPath . ucfirst(str_singular($model)) . '.php';
 
         file_put_contents($output, $s);
     }
@@ -185,7 +185,7 @@ class MakeModelCommand extends Command
     {
         $s = file_get_contents('app/Console/Commands/stubs/RequestForm.stub');
         $s = $this->replace($s, $model);
-        $output = "app/Http/Requests/" . str_plural($model) . 'Request.php';
+        $output = "app/Http/Requests/" . ucfirst(str_plural($model)) . 'Request.php';
         file_put_contents($output, $s);
     }
     /**
@@ -195,7 +195,7 @@ class MakeModelCommand extends Command
     {
         $s = file_get_contents('app/Console/Commands/stubs/Controller.stub');
         $s = $this->replace($s, $model);
-        $output = "app/Http/Controllers/" . str_plural($model) . 'Controller.php';
+        $output = "app/Http/Controllers/" . ucfirst(str_plural($model)) . 'Controller.php';
         file_put_contents($output, $s);
     }
 
@@ -228,7 +228,7 @@ class MakeModelCommand extends Command
     {
         $s = file_get_contents('app/Console/Commands/stubs/Seeder.stub');
         $s = $this->replace($s, $model);
-        $output = "database/seeds/" . str_plural($model) . 'TableSeeder.php';
+        $output = "database/seeds/" . ucfirst(str_plural($model)) . 'TableSeeder.php';
         file_put_contents($output, $s);
 
         /**

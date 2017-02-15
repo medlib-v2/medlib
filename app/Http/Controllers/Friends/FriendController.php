@@ -35,7 +35,7 @@ class FriendController extends Controller
      */
     public function index(UserRepository $repository)
     {
-        $user = $this->currentUser = Auth::user();
+        $user = Auth::user();
 
         $friends = $repository->findByIdWithFriends($user->id);
 

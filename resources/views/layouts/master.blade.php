@@ -41,24 +41,24 @@
         <div id="cookiebar"></div>
         <!-- common libraries. required for every page -->
         <script type="text/javascript">
-            const Setting = {!! json_encode([
+            window.Setting = {!! json_encode([
                     'language' => app()->getLocale(),
                     'csrfToken' => csrf_token(),
                     'jwt' => session()->has('jwt-token') ? session()->get('jwt-token') : '',
                     'socket_url' => config('medlib.socket_url')
                     ])
                 !!}
-            const me = {!! Auth::check() ? json_encode(Auth::user()->getUsername()) : json_encode('') !!}
+            window.me = {!! Auth::check() ? json_encode(Auth::user()->getUsername()) : json_encode('') !!}
         </script>
-        <script type="text/javascript" src="{{ App::rev('js/jquery.min.js') }}"></script>
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{ App::rev('/js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-        <script type="text/javascript" src="{{ App::rev('js/plugins.vendor.min.js') }}"></script>
+        <script type="text/javascript" src="{{ App::rev('/js/plugins.vendor.min.js') }}"></script>
         <script type="text/javascript" src="/js-localization/messages"></script>
         <script type="text/javascript"> Lang.setLocale("{!! app()->getLocale() !!}"); </script>
-        <script type="text/javascript" src="{{ App::rev('js/medlib.min.js') }}"></script>
-        <script type="text/javascript" src="{{ App::rev('js/app.min.js') }}"></script>
+        <script type="text/javascript" src="{{ App::rev('/js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ App::rev('/js/medlib.min.js') }}"></script>
         @yield('script')
+        @if(!app()->environment() == "local" && !app()->environment() == "testing")
         <script type="text/javascript">
             function _getCookie() {
                 var key = 'medlib_cookie';
@@ -91,5 +91,6 @@
                 document.write('<script type="text/javascript" src=\'{{ App::rev("js/cookiesbar.min.js") }}\'><\/script>')
             }
         </script>
+        @endif
     </body>
 </html>

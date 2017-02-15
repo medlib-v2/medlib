@@ -113,7 +113,7 @@
 
 @section('script')
 <!-- page specific js -->
-        <script type="text/javascript" src="{{ App::rev('js/books/app.min.js') }}"></script>
+        <script type="text/javascript" src="{{ App::rev('/js/books/app.min.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 /**

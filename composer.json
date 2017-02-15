@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^6.2",
         "intervention/image": "^2.3",
         "james-heinrich/getid3": "^1.9",
+        "laravel-notification-channels/webpush": "^0.2.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
@@ -40,6 +41,7 @@
         "block8/php-docblock-checker": "^1.1",
         "codeclimate/php-test-reporter": "^0.4.2",
         "diablomedia/phpunit-pretty-printer": "^1.0",
+        "doctrine/dbal": "^2.5",
         "filp/whoops": "^2.1",
         "friendsofphp/php-cs-fixer": "^2.0",
         "fzaninotto/faker": "~1.4",
@@ -86,7 +88,9 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "([ -f .env ] && php artisan optimize) || exit 0",
-            "([ -f .env ] && php artisan js-localization:refresh) || exit 0"
+            "([ -f .env ] && php artisan js-localization:refresh) || exit 0",
+            "php artisan cache:clear",
+            "php artisan view:clear"
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled"

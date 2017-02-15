@@ -26,6 +26,6 @@ class CreateLanguageSupportTable extends Migration
      */
     public function down()
     {
-        Schema::drop('languages');
+        Schema::dropIfExists('languages');
     }
 }

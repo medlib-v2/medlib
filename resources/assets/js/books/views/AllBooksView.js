@@ -1,8 +1,6 @@
-import _ from 'lodash';
+import { bindAll } from 'lodash';
 import Backbone  from 'backbone';
 import BookView from './BookView';
-
-let $ = window.jQuery;
 
 const AllBooksView = Backbone.View.extend({
 
@@ -16,7 +14,7 @@ const AllBooksView = Backbone.View.extend({
      * bind 'this' object to book method
      */
     initialize() {
-        _.bindAll(this, "book");
+        bindAll(this, "book");
     },
 
     /**

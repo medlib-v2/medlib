@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+/**
+* - Code
+*/
+pre{
+	padding: 20px;
+	border: 0;
+	@include border-radius(0);
+}

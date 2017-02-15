@@ -3,6 +3,7 @@
 namespace Medlib\Services;
 
 use Medlib\Models\User;
+use Medlib\Models\Notification;
 use Medlib\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Events\FriendRequestWasAccepted;
@@ -21,6 +22,8 @@ class FriendRequestAcceptedService extends Service
      */
     private $currentUser;
 
+    private $notificationId;
+
     /**
      * Create a new command instance.
      * @param FriendUserRequest $request
@@ -30,9 +33,9 @@ class FriendRequestAcceptedService extends Service
     {
         parent::__construct();
         $this->requestedName = $request->get('username');
+        $this->notificationId = $request->has('not_id') ? $request->get('not_id') : null;
         $this->currentUser = Auth::user();
     }
-
 
     /**
      * Execute the command.
@@ -44,16 +47,21 @@ class FriendRequestAcceptedService extends Service
     {
         $friend = User::whereUsername($this->requestedName)->first();
 
-        $this->currentUser->createFriendShipWith($friend->id);
+        $isFriend = $friend->isFriendsWith($this->currentUser->id);
 
-        $repository->findByUsername($friend->getUsername())->createFriendShipWith($this->currentUser->id);
+        if (!$isFriend) {
+            $this->currentUser->createFriendShipWith($friend->id);
 
-        FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
+            $repository->findByUsername($friend->getUsername())->createFriendShipWith($this->currentUser->id);
 
-        $friendRequestCount = $this->currentUser->friendRequests()->count();
+            FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $friend->id)->delete();
 
-        event(new FriendRequestWasAccepted($this->currentUser, $friend));
-
-        return $friendRequestCount;
+            if ($this->notificationId) {
+                $notification = Notification::find($this->notificationId);
+                $notification->readAt();
+            }
+            event(new FriendRequestWasAccepted($this->currentUser, $friend));
+        }
+        return $this->currentUser->friendRequests()->count();
     }
 }

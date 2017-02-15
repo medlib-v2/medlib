@@ -1,4 +1,4 @@
 {
 	"dist": "public/js/books/app.min.js",
-	"src": "books/app.js"
+	"src": "resources/assets/js/books/app.js"
 }

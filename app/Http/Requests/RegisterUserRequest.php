@@ -38,7 +38,7 @@ class RegisterUserRequest extends Request
             'day'    =>    'required|numeric|between:01,31',
             'month'    =>    'required|numeric|between:01,12',
             'year'    =>    'required|numeric|before:'.date('Y', $timestamp),
-            'gender' =>    'required',
+            'gender' =>    'required|in:male,female',
             'profileimage' =>    'required|image|mimes:jpeg,jpg,bmp,png,gif',
             'g-recaptcha-response' => 'required|recaptcha',
         ];

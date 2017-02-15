@@ -51,7 +51,7 @@ export default {
          * @return {Void}
          */
         address() {
-            Store.commit('SET_ADDRESS', this.address);
+            Store.commit('SET_ADDRESS', this.address)
         }
     },
     methods: {
@@ -63,11 +63,11 @@ export default {
          * @return {Void}
          */
         loadScript(src, callback) {
-            let script = document.createElement("script");
-            document.body.appendChild(script);
+            let script = document.createElement("script")
+            document.body.appendChild(script)
             if (callback)
-                script.onload = callback;
-            script.src = src;
+                script.onload = callback
+            script.src = src
         },
         /**
          * Bind autocomplete to its property.
@@ -75,7 +75,7 @@ export default {
          * @return {Void}
          */
         bindAutocomplete () {
-            this.autocomplete = new google.maps.places.Autocomplete(this.$refs.complete, { types: ['geocode'] } );
+            this.autocomplete = new google.maps.places.Autocomplete(this.$refs.complete, { types: ['geocode'] } )
             this.autocomplete.addListener('place_changed', this.pipeAddress)
         },
         /**
@@ -84,16 +84,16 @@ export default {
          * @return {Void}
          */
         pipeAddress () {
-            let data  = {};
-            let place = this.autocomplete.getPlace();
+            let data  = {}
+            let place = this.autocomplete.getPlace()
             if (place.address_components !== undefined) {
                 for (let i = 0; i < place.address_components.length; i++) {
-                    let input = place.address_components[i].types[0];
+                    let input = place.address_components[i].types[0]
                     if (this.inputs[input]) {
                         data[input] = place.address_components[i][this.inputs[input]]
                     }
                 }
-                data = JSON.stringify(data);
+                data = JSON.stringify(data)
                 Store.commit('SET_ADDRESS', JSON.parse(data))
             }
         },
@@ -104,18 +104,18 @@ export default {
          */
         geolocate() {
             if (navigator.geolocation) {
-                let vm = this;
+                let vm = this
                 navigator.geolocation.getCurrentPosition((position) => {
                     let geolocation = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
-                    };
+                    }
                     let circle = new google.maps.Circle({
                         center: geolocation,
                         radius: position.coords.accuracy
-                    });
+                    })
                     vm.autocomplete.setBounds(circle.getBounds())
-                });
+                })
             }
         }
     }

@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="center-form">
+  <div class="center-form">
         <form role="form" :method="method" :action="action" accept-charset="UTF-8" enctype="multipart/form-data" class="mt" @submit.prevent="submit">
             <div class="form-group mb-0">
                 <textarea rows="3" :placeholder="placeholder" v-model="content" cols="50" class="form-control"></textarea>
@@ -113,7 +113,8 @@ export default {
             this.place_class = false
         },
         submit() {
-            let data = new FormData()
+            let form = document.querySelector('form')
+            let data = new FormData(form)
             data.append('body', this.content)
 
             if (this.image) {

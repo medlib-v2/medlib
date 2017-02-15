@@ -26,9 +26,7 @@ class MessageResponsesTableSeeder extends Seeder
                 'body'        => $faker->sentence,
                 'message_id' => $messageId,
                 'sender_id' => $faker->randomElement($messageSenderIds),
-                'receiver_id' => 1,
-                'sender_name' => $faker->name,
-                'sender_profile_image' => $faker->imageUrl($width = 180, $height = 180)
+                'receiver_id' => 1
             ]);
         }
     }

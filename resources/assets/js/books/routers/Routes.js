@@ -10,7 +10,6 @@ export default Backbone.Router.extend({
         "browse/publisher/:query/:index": "publisher",
         "browse/author/:query/:index": "author"
     },
-
     index() {
         let search = new SearchView();
     },
@@ -30,5 +29,4 @@ export default Backbone.Router.extend({
         let search = new SearchView();
         search.browse('inauthor:' + term, index, v.MAX_DEFAULT);
     }
-
 });

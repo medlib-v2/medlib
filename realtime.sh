@@ -6,7 +6,7 @@ function start_server()
 
 	if [ "${response}" != "0" ]; then
    		cd ~/medlib
-   		supervisor server.js &
+   		node server.js &
    		cd -
    	fi
 }

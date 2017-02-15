@@ -58,5 +58,8 @@ return [
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
         'redirect' => env('LINKEDIN_OAUTH_REDIRECT'),
     ],
-
+    'gcm' => [
+        'key' => '',
+        'sender_id' => '',
+    ],
 ];

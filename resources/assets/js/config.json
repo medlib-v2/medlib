@@ -1,7 +1,5 @@
 {
-	"cookiesBar": {
-		"css": "css/cookiebar.css",
-		"dist": "public/js/cookiesbar.min.js",
-		"src": "cookiesbar.js"
-	}
+	"css": "css/cookiebar.css",
+	"dist": "public/js/cookiesbar.min.js",
+	"src": "resources/assets/js/cookiesbar.js"
 }

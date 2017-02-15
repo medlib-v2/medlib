@@ -13,7 +13,7 @@ class UsersController extends Controller
 {
 
     /**
-     * @var \Illuminate\Support\Facades\Auth
+     * @var \Medlib\Models\User
      */
     private $currentUser;
 
@@ -29,9 +29,7 @@ class UsersController extends Controller
         $this->currentUser = Auth::user();
 
         if ($this->currentUser->getUsername() == $username) {
-            $user = $this->currentUser;
-
-            return $this->showFriendsAndFeeds($user);
+            return $this->showFriendsAndFeeds($this->currentUser);
         } else {
             $user = $userRepository->findByUsername($username);
             if (!$user == null) {

@@ -14,8 +14,10 @@ class CreateMessageUserTable extends Migration
     {
         Schema::create('message_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('message_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('message_id')->unsigned()->index();
+            $table->foreign('message_id')->references('id')->on('messages');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateMessageUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('message_user');
+        Schema::dropIfExists('message_user');
     }
 }

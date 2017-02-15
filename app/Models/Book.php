@@ -17,7 +17,11 @@ class Book extends Model
      */
     protected $table = 'books';
 
-    protected $guarded = ['id'];
+    //protected $primaryKey = 'book_id';
+
+    protected $guarded = ['book_id'];
+
+    public $incrementing = true;
 
     /**
      * The attributes that are mass assignable.

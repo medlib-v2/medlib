@@ -2,7 +2,6 @@ const API_URL = 'https://medlib.app/'
 const LOGIN_URL = API_URL + 'login'
 const SIGNUP_URL = API_URL + 'users/'
 
-
 export default {
 
     user: {

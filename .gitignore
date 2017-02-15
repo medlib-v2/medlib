@@ -8,7 +8,6 @@
 
 Homestead.yaml
 Homestead.json
-composer.lock
 common.js
 .env
 .env.save

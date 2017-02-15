@@ -1,0 +1,269 @@
+@charset "utf-8";
+
+
+$displays: 'block', 'flex', 'inline', 'inline-block', 'inline-flex';
+
+@each $display in $displays {
+  is-#{$display} {
+    display: #{$display};
+  }
+
+  is-#{$display}-mobile {
+    @include phone {
+      display: #{$display} !important;
+    }
+  }
+}
+
+.transition-height{
+  @include transition(height .15s ease-in-out);
+}
+
+/**
+ * .circle & .rounded are pretty cool way to add a bit of beauty to raw data.
+ * should be used with bg-* and text-* classes for colors.
+ */
+.circle, .rounded, .circle-o{
+  display: inline-block;
+  width: #{$line-height-base}em;
+  height: #{$line-height-base}em;
+  line-height: #{$line-height-base}em;
+  text-align: center;
+}
+
+.circle, .circle-o{
+  @include border-radius(50%);
+}
+
+.rounded{
+  @include border-radius(5px);
+}
+
+.circle-lg, .rounded-lg{
+  width: 2.2em;
+  height: 2.2em;
+  line-height: 2.2em;
+}
+
+.circle-o{
+  border: #{$line-height-base/5}em solid transparent;
+
+  &.circle-o-danger{ border-color: $brand-danger };
+  &.circle-o-warning{ border-color: $brand-warning };
+  &.circle-o-success{ border-color: $brand-success };
+  &.circle-o-info{ border-color: $brand-info };
+  &.circle-o-primary{ border-color: $brand-primary };
+  &.circle-o-black{ border-color: black };
+  &.circle-o-gray-darker{ border-color: $gray-darker };
+  &.circle-o-gray-dark{ border-color: $gray-dark };
+  &.circle-o-gray{ border-color: $gray };
+  &.circle-o-gray-light{ border-color: $gray-light };
+  &.circle-o-gray-lighter{ border-color: $gray-lighter };
+  &.circle-o-white{ border-color: white };
+}
+
+@include thumb('.thumb-lg', 60px);
+@include thumb('.thumb', 48px);
+@include thumb('.thumb-sm', 34px);
+@include thumb('.thumb-xs', 28px);
+
+.thumb-xs,
+.thumb-sm,
+.thumb-lg,
+.thumb{
+  position: relative;
+  display: inline-block;
+  text-align: center;
+
+  img{
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+
+  .status{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border: 0.15em solid white;
+    @include border-radius(50%);
+
+    &.status-bottom{
+      top: auto;
+      left: auto;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.text-ellipsis {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input-dark{
+  background-color: rgba(0,0,0,.4);
+  border: 0;
+  color: $gray;
+  &:focus{
+    background-color: $gray-lighter
+  }
+}
+
+.input-group-dark{
+  .input-group-addon,
+  .form-control{
+    background-color: rgba(0,0,0,.4);
+    border: 0;
+    color: $gray;
+    @include transition(background-color .15s ease-in-out);
+  }
+
+  .form-control:focus,
+  .form-control:focus + .input-group-addon,
+  &.focus .input-group-addon{
+    background-color: $gray-lighter
+  }
+}
+
+.input-group-transparent{
+  .form-control:first-child,
+  .input-group-addon:first-child,
+  .input-group-btn:first-child > .btn,
+  .input-group-btn:first-child > .btn-group > .btn,
+  .input-group-btn:first-child > .dropdown-toggle,
+  .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+  .input-group-btn:last-child > .btn-group:not(:last-child) > .btn{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+
+  .form-control:last-child,
+  .input-group-addon:last-child,
+  .input-group-btn:last-child > .btn,
+  .input-group-btn:last-child > .btn-group > .btn,
+  .input-group-btn:last-child > .dropdown-toggle,
+  .input-group-btn:first-child > .btn:not(:first-child),
+  .input-group-btn:first-child > .btn-group:not(:first-child) > .btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .input-group-addon{
+    background-color: $input-bg;
+    @include transition(border-color ease-in-out .15s);
+  }
+
+  .form-control:focus + .input-group-addon,
+  &.focus .input-group-addon{
+    border-color: $input-border-focus;
+  }
+}
+
+.input-no-border{
+  border: none;
+  @include transition(background-color ease-in-out .15s);
+
+  &:focus{
+    background-color: #f1f1f1;
+  }
+}
+
+.input-group-no-border{
+  @extend .input-group-transparent;
+
+  .form-control,
+  .input-group-addon{
+    @extend .input-no-border;
+  }
+
+  .form-control:focus,
+  .form-control:focus + .input-group-addon,
+  &.focus .input-group-addon{
+    @extend .input-no-border:focus;
+  }
+}
+
+.input-group-rounded{
+  .form-control:first-child,
+  .input-group-addon:first-child,
+  .input-group-btn:first-child > .btn,
+  .input-group-btn:first-child > .btn-group > .btn,
+  .input-group-btn:first-child > .dropdown-toggle,
+  .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+  .input-group-btn:last-child > .btn-group:not(:last-child) > .btn{
+    border-top-left-radius: $border-radius-base;
+    border-bottom-left-radius: $border-radius-base;
+  }
+
+  .form-control:last-child,
+  .input-group-addon:last-child,
+  .input-group-btn:last-child > .btn,
+  .input-group-btn:last-child > .btn-group > .btn,
+  .input-group-btn:last-child > .dropdown-toggle,
+  .input-group-btn:first-child > .btn:not(:first-child),
+  .input-group-btn:first-child > .btn-group:not(:first-child) > .btn{
+    border-top-right-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+  }
+}
+
+.chart-overflow-bottom{
+  margin: 0 (-$widget-padding-horizontal) (-$widget-padding-vertical);
+}
+
+.globe{
+  font-size: 64px;
+  > i {
+    position: relative;
+    > i {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
+.thin-scroll{
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  &::-webkit-scrollbar:hover {
+    background-color: #e9e9e9;
+    border: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: none;
+    background-color: rgba(0, 0, 0, .2);
+    @include box-shadow(inset 1px 1px 0 rgba(0, 0, 0, .1));
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $gray-light;
+  }
+}
+
+@include keyframes('bg-attention'){
+  0%{
+    background-color: lighten($brand-warning, 43%);
+  }
+  5%{
+    background-color: lighten($brand-warning, 33%);
+  }
+  0%{
+    background-color: rgba(0,0,0,0);
+  }
+};
+
+.bg-attention{
+  @include animation(bg-attention 10s);
+}
+

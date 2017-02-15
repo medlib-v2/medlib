@@ -2,11 +2,13 @@
 
 namespace Medlib\Notifications;
 
+use Medlib\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Medlib\Models\User;
+use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
 class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
 {
@@ -35,7 +37,7 @@ class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'broadcast','database'];
+        return ['mail', 'broadcast','database', WebPushChannel::class];
     }
 
     /**
@@ -47,8 +49,8 @@ class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('You received a new friend request from '. $this->user->getName())
-            ->action('View profile', route('profile.user.show', ['username' => $this->user->getUsername()]))
+            ->line(trans('emails.send_friend_request'). $this->user->getName())
+            ->action(trans('emails.view_profile'), route('profile.user.show', ['username' => $this->user->getUsername()]))
             ->line(trans('emails.thank_you_for_using'));
     }
 
@@ -61,13 +63,29 @@ class SendFriendRequestAlertEmail extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'type'  => 'send_friend_request',
             'username' => $this->user->getUsername(),
             'full_name' => $this->user->getName(),
             'user_avatar' => $this->user->getAvatar(),
-            'message' => ' sent you a friend request.',
-            'profile_url' => route('profile.user.show', ['username' => $this->user->getUsername()]),
-            'cancel_request'  => route('request.del'),
-            'accept_request' => route('request.post'),
+            'message' => trans('notifications.send_friend_request'),
+            'profile_url' => route('profile.user.show', ['username' => $this->user->getUsername()])
         ];
+    }
+
+    /**
+     * Get the web push representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @param  mixed  $notification
+     * @return \Illuminate\Notifications\Messages\DatabaseMessage|WebPushMessage
+     */
+    public function toWebPush($notifiable, $notification)
+    {
+        return (new WebPushMessage)
+            ->id($notification->id)
+            ->title('You receive a friend request')
+            ->icon($this->user->getAvatar())
+            ->body(trans('notifications.send_friend_request'))
+            ->action(trans('emails.view_profile'), route('profile.user.show', ['username' => $this->user->getUsername()]));
     }
 }

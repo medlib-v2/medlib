@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\WebPush\WebPushChannel;
 
 class SendConfirmationRequestAccepted extends Notification implements ShouldQueue
 {
@@ -35,7 +37,7 @@ class SendConfirmationRequestAccepted extends Notification implements ShouldQueu
      */
     public function via($notifiable)
     {
-        return ['mail', 'broadcast','database'];
+        return ['mail', 'broadcast','database', WebPushChannel::class];
     }
 
     /**
@@ -47,7 +49,7 @@ class SendConfirmationRequestAccepted extends Notification implements ShouldQueu
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line($this->user->getName() . ' Accepted your friend request. ')
+            ->line($this->user->getName() . ' '. trans('notifications.accepted_friend_request'))
             ->action('View profile', route('profile.user.show', ['username' => $this->user->getUsername()]))
             ->line(trans('emails.thank_you_for_using'));
     }
@@ -61,11 +63,29 @@ class SendConfirmationRequestAccepted extends Notification implements ShouldQueu
     public function toArray($notifiable)
     {
         return [
+            'type'  => 'accepted_friend_request',
             'username' => $this->user->getUsername(),
             'full_name' => $this->user->getName(),
             'user_avatar' => $this->user->getAvatar(),
-            'message' => 'Accepted your friend request',
+            'message' => trans('notifications.accepted_friend_request'),
             'profile_url' => route('profile.user.show', ['username' => $this->user->getUsername()])
         ];
+    }
+
+    /**
+     * Get the web push representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @param  mixed  $notification
+     * @return \Illuminate\Notifications\Messages\DatabaseMessage|WebPushMessage
+     */
+    public function toWebPush($notifiable, $notification)
+    {
+        return (new WebPushMessage)
+            ->id($notification->id)
+            ->title($this->user->getName(). ' accepted your friend request')
+            ->icon($this->user->getAvatar())
+            ->body(trans('notifications.accepted_friend_request'))
+            ->action(trans('emails.view_profile'), route('profile.user.show', ['username' => $this->user->getUsername()]));
     }
 }

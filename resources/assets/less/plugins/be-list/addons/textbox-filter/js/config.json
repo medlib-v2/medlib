@@ -1,7 +1,7 @@
 {
 	"dist": "public/js/be-list.textbox-filter.min.js",
 	"src": [
-		"addons/textbox-filter/js/textbox-view.js",
-		"addons/textbox-filter/js/textbox-dto.js"
+		"resources/assets/less/plugins/be-list/addons/textbox-filter/js/textbox-view.js",
+		"resources/assets/less/plugins/be-list/addons/textbox-filter/js/textbox-dto.js"
 	]
 }

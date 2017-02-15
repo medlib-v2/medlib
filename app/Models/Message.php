@@ -19,7 +19,7 @@ class Message extends Model
     /**
      * These fields could be mass assigned
      */
-    protected $fillable = ['user_id', 'body', 'sender_id', 'sender_profile_image', 'sender_name'];
+    protected $fillable = ['body', 'sender_id', 'receiver_id'];
 
     /**
      * A message belongs to Many Users.
@@ -35,18 +35,16 @@ class Message extends Model
      * Create a new message object.
      *
      * @param string $body
-     * @param int $senderId
-     * @param string $senderProfileImage
-     * @param string $senderName
+     * @param int $sender_id
+     * @param int $receiver_id
      * @return static
      */
-    public static function createMessage($body, $senderId, $senderProfileImage, $senderName)
+    public static function createMessage($body, $sender_id, $receiver_id)
     {
         $message = new static([
             'body' => $body,
-            'sender_id' => $senderId,
-            'sender_profile_image' => $senderProfileImage,
-            'sender_name' => $senderName]);
+            'sender_id' => $sender_id,
+            'receiver_id' => $receiver_id]);
 
         return $message;
     }
@@ -74,20 +72,20 @@ class Message extends Model
     /**
      * Determine if a message belongs to a user.
      *
-     * @param int $userId
+     * @param int $user_id
      *
      * @return mixed
      */
-    public function belongsToUser($userId)
+    public function belongsToUser($user_id)
     {
         $users = $this->users()->get();
 
-        $userIds = [];
+        $user_ids = [];
 
         foreach ($users as $user) {
-            $userIds[] = $user->id;
+            $user_ids[] = $user->id;
         }
 
-        return in_array($userId, $userIds);
+        return in_array($user_id, $user_ids);
     }
 }

@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
         factory(Medlib\Models\User::class, 30)->create()->each(
             function($user) {
                 $user->profile()->save(
-                    factory(Medlib\Models\Profile::class, 1)->make()
+                    factory(Medlib\Models\Profile::class)->make()
                 );
             }
         );
