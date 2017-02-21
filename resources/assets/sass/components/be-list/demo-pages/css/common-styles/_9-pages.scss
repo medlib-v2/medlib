@@ -1,7 +1,7 @@
 /**
 * product page
 */
-.product-page-mixin(){
+@mixin product-page-mixin {
 	
 	.product-page{
 		
@@ -54,11 +54,11 @@
 		* product dark section
 		*/
 		.product-strip{		
-			background: @light-grey2;			
+			background: $light-grey2;
 			border-top: 1px solid #fff;
-			border-bottom: 1px solid @light-grey2;
+			border-bottom: 1px solid $light-grey2;
 			padding: 25px 0;
-			//box-shadow: 0 0 20px @grey1;
+			//box-shadow: 0 0 20px $grey1;
 		}
 		
 		.product-strip-border{
@@ -69,7 +69,7 @@
 		* product page title
 		*/
 		.product-page-title{
-			border-bottom: 1px solid @light-grey2;
+			border-bottom: 1px solid $light-grey2;
 		}
 		
 		/**
@@ -104,8 +104,8 @@
 				max-width: 100%;
 				//padding: 20px;				
 				//background: #fff;
-				border: 1px solid @grey3;
-				box-shadow: 0 0 10px @grey3;	
+				border: 1px solid $grey3;
+				box-shadow: 0 0 10px $grey3;
 				border-radius: 3px;
 			}
 			
@@ -115,16 +115,16 @@
 		}
 		
 		.product-buy-section{			
-			border-bottom: 1px dotted @blue;
+			border-bottom: 1px dotted $blue;
 			
 			.price{
 				font-size: 18px;
-				font-family: @lato;
+				font-family: $lato;
 			}
 						
 			.download{				
 				font-size: 18px;				
-				font-family: @lato;
+				font-family: $lato;
 				
 				a{
 					font-weight: normal;
@@ -165,4 +165,4 @@
 /**
 * mixin calls
 */
-.product-page-mixin();
+@include product-page-mixin;

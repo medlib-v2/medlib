@@ -182,7 +182,7 @@ $arrow-color: $gray;
 }
 
 .be-select-all, .be-select-none {
-  @include be-list-control-mixin();
+  @include be-list-control-mixin;
   text-decoration: none;
   outline: none;
   padding: 10px;

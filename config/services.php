@@ -59,7 +59,7 @@ return [
         'redirect' => env('LINKEDIN_OAUTH_REDIRECT'),
     ],
     'gcm' => [
-        'key' => '',
-        'sender_id' => '',
+        'key' => env('GCM_KEY'),
+        'sender_id' => env('GCM_SENDER_ID'),
     ],
 ];

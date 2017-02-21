@@ -1,10 +1,12 @@
-/*------------------------------------------------------------------
-  [Bootstrap dateTime Picker]
-*/
+@charset "utf-8";
+
+/**
+* - DateTime Picker
+**/
 .datetimepicker {
 	padding: 4px 0;
 
-	.input-group-addon{
+	.input-group-addon {
 		padding: 0 13px;
 		font-size: 24px;
 		line-height: 23px;
@@ -14,9 +16,9 @@
 		}
 	}
 
-	&.input-group-sm{
+	&.input-group-sm {
 
-		.input-group-addon{
+		.input-group-addon {
 			font-size: 20px;
 			line-height: 21px;
 			padding: 0 11px;
@@ -25,7 +27,7 @@
 
 	&.input-group-lg{
 
-		.input-group-addon{
+		.input-group-addon {
 			padding: 0 15px;
 		}
 	}
@@ -51,7 +53,7 @@
 
 						&:hover{
 							background-color: transparent;
-							color: @primary-color;
+							color: $primary-color;
 						}
 					}
 
@@ -61,7 +63,7 @@
 
 						&:hover{
 							background-color: transparent;
-							color: lighten(@text-color, 10%);
+							color: lighten($text-color, 10%);
 						}
 					}
 
@@ -84,37 +86,37 @@
 
   				&.day{
   					border-radius: 50%;
-  					color: lighten(@text-color, 20%);
+  					color: lighten($text-color, 20%);
 
   					&.old, &.new{
-  						color: lighten(@text-color, 45%);
+  						color: lighten($text-color, 45%);
   					}
 
   					&.active{
-  						background: @primary-color;
-  						color: @light-color;
+  						background: $primary-color;
+  						color: $light-color;
   						text-shadow: none;
 
   						&:hover{
-  							background: darken(@primary-color, 10%);
+  							background: darken($primary-color, 10%);
   						}
   					}
   				}
 
   				.year, .month, .hour, .minute{
-  					color: lighten(@text-color, 20%);
+  					color: lighten($text-color, 20%);
 
   					&.old, &.new{
-  						color: lighten(@text-color, 45%);
+  						color: lighten($text-color, 45%);
   					}
 
   					&.active{
-  						background: @primary-color;
-  						color: @light-color;
+  						background: $primary-color;
+  						color: $light-color;
   						text-shadow: none;
 
   						&:hover{
-  							background: darken(@primary-color, 10%);
+  							background: darken($primary-color, 10%);
   						}
   					}
   				}
@@ -124,7 +126,7 @@
   					legend{
   						font-size: 17px;
   						font-weight: 400;
-  						color: lighten(@text-color, 10%);
+  						color: lighten($text-color, 10%);
   						margin-bottom: 5px;
   					}
   				}
@@ -135,7 +137,7 @@
 
 	//Datepicker dropdown
 	&.dropdown-menu{
-		.box-shadow(0 2px 4px rgba(0,0,0,.08));
+		@include box-shadow(0 2px 4px rgba(0,0,0,.08));
 		border-color: rgba(0, 0, 0, 0.1);
 		padding: 10px;
 

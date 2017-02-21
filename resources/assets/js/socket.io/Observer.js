@@ -1,11 +1,11 @@
 import Emitter from './Emitter'
-import Socket from 'socket.io-client'
+import SocketIO from './SocketIO'
 
 export default class {
 
-  constructor (connection, store) {
+  constructor (connection, options, store) {
     if (typeof connection === 'string') {
-      this.Socket = Socket(connection)
+      this.Socket = new SocketIO(connection, options)
     } else {
       this.Socket = connection
     }
@@ -21,7 +21,8 @@ export default class {
     }
     let _this = this
 
-    ['connect', 'error', 'disconnect', 'reconnect', 'reconnect_attempt', 'reconnecting', 'reconnect_error', 'reconnect_failed', 'connect_error', 'connect_timeout', 'connecting', 'ping', 'pong'].forEach((value) => {
+    let listEvent = ['connect', 'error', 'disconnect', 'reconnect', 'reconnect_attempt', 'reconnecting', 'reconnect_error', 'reconnect_failed', 'connect_error', 'connect_timeout', 'connecting', 'ping', 'pong']
+    listEvent.forEach((value) => {
         _this.Socket.on(value, (data) => {
           Emitter.emit(value, data)
           if (_this.store) _this.commitStore('SOCKET_' + value.toUpperCase(), data)

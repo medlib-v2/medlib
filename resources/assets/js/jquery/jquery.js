@@ -4,5 +4,8 @@
  * code may be modified to fit the specific needs of your application.
  */
 window.$ = require('jquery')
-window.jQuery = require('jquery')
+window.jQuery = window.$
+global.jQuery = window.$
 require('bootstrap-sass')
+require('select2')
+require('perfect-scrollbar/jquery')(window.$)

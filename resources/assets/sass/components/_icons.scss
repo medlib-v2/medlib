@@ -2,58 +2,57 @@
 * - Icons
 */
 .icon-container{
-	background-color: @light-color;
+	background-color: $light-color;
 	padding: 20px;
 	cursor: default;
 
 	.icon{
-		transition: background-color 300ms ease-in-out;
-		background-color: darken(@light-color, 4%);
+		@include transition(background-color 300ms ease-in-out);
+		background-color: darken($light-color, 4%);
 		border-radius: 50%;
 		display: inline-block;
 		height: 50px;
 		width: 50px;
 		margin-right:8px;
-		padding: 12px;
 		padding: 13px;
 		text-align: center;
 		vertical-align: middle;
 
-		span{
-			transition: color 300ms ease-in-out;
+		span {
+			@include transition(color 300ms ease-in-out);
 			font-size: 25px;
-			color: lighten(@dark-color, 17%);
+			color: lighten($dark-color, 17%);
 		}
 
-		&:hover{
-			background-color: @primary-color;
+		&:hover {
+			background-color: $primary-color;
 
-			span{
-				color: @light-color;
+			span {
+				color: $light-color;
 			}
 		}
 	}
 
-	.icon-class{
-		transition: color 300ms ease-in-out;
+	.icon-class {
+		@include transition( color 300ms ease-in-out);
 		font-size: 18px;
 		font-weight: 300;
 		vertical-align: middle;
-		color: lighten(@dark-color, 17%);
+		color: lighten($dark-color, 17%);
 	}
 
-	&:hover{
+	&:hover {
 
-		.icon{
-			background-color: @primary-color;
+		.icon {
+			background-color: $primary-color;
 
 			span{
-				color: @light-color;
+				color: $light-color;
 			}
 		}
 
 		.icon-class{
-			color: @primary-color;
+			color: $primary-color;
 		}
 	}
 }
@@ -84,7 +83,7 @@
 		cursor: pointer;
 	}
 	&.fa-messages {
-		background: url('../../images/messages.svg') no-repeat;
+		background: url("#{$img-url}/messages.svg") no-repeat;
 		width: 24px;
 		height: 24px;
 		display: inline-block;

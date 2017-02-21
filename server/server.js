@@ -1,67 +1,187 @@
-const port = process.env.PORT || 3000,
-    server   = require('http').createServer(),
-    io       = require('socket.io').listen(server),
-    crypto   = require('crypto'),
-    users = {},
-    socks = {},
-    clients = [],
-    users = [],
-    oldSocket = "";
+let jwt = require('jsonwebtoken'),
+    fs = require('fs'),
+    logger = require('winston'),
+    clients = {},
+    server;
 
-io.sockets.on('connection', (socket) => {
+/**
+ * Logger config
+ */
+logger.remove(logger.transports.Console);
+logger.add(logger.transports.Console, { colorize: true, timestamp: true });
 
-    socket.on('online', (data) => {
-        let data = JSON.parse(data);
-        //检查是否是已经登录绑定
-        if(!clients[data.user]) {
-            //新上线用户，需要发送用户上线提醒,需要向客户端发送新的用户列表
-            users.unshift(data.user);
-            for(let index in clients) {
-                clients[index].emit('system',JSON.stringify({type:'online',msg:data.user,time:(new Date()).getTime()}));
-                clients[index].emit('userflush',JSON.stringify({users:users}));
-            }
-            socket.emit('system',JSON.stringify({type:'in',msg:'',time:(new Date()).getTime()}));
-            socket.emit('userflush',JSON.stringify({users:users}));
-        }
-        clients[data.user] = socket;
-        socket.emit('userflush',JSON.stringify({users:users}));
+require('dotenv').load();
+
+let debug = (process.env.APP_DEBUG === 'true' || process.env.APP_DEBUG === true),
+    Redis = require('ioredis'),
+    redis = new Redis({
+        port: process.env.REDIS_PORT || 6379,
+        host: process.env.REDIS_HOST || '127.0.0.1',
+        db: process.env.REDIS_DATABASE || 0,
+        password: process.env.REDIS_PASSWORD || null
     });
-    socket.on('say', (data) => {
-        //dataformat:{to:'all',from:'Nick',msg:'msg'}
-        data = JSON.parse(data);
-        let msgData = {
-            time : (new Date()).getTime(),
-            data : data
-        };
 
-        if(data.to == "all") {
-            //对所有人说
-            for(let index in clients) {
-                clients[index].emit('say',msgData);
-            }
+if (/^https/i.test(process.env.SOCKET_URL)) {
+    let ssl_conf = {
+        key:  (process.env.SOCKET_SSL_KEY_FILE  ? fs.readFileSync(process.env.SOCKET_SSL_KEY_FILE)  : null),
+        cert: (process.env.SOCKET_SSL_CERT_FILE ? fs.readFileSync(process.env.SOCKET_SSL_CERT_FILE) : null),
+        ca:   (process.env.SOCKET_SSL_CA_FILE   ? fs.readFileSync(process.env.SOCKET_SSL_CA_FILE)   : null)
+    };
+    server = require('https').createServer(ssl_conf, handler);
+} else {
+    server = require('http').createServer(handler);
+}
+
+let io  = require('socket.io')(server);
+
+server.listen(parseInt(process.env.SOCKET_PORT), function() {
+    if (debug) {
+        logger.info('Server is running! ', process.env.SOCKET_URL ,process.env.SOCKET_PORT);
+    }
+});
+
+function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.writeHead(200);
+    res.end('');
+}
+
+/**
+ * Middleware to check the JWT
+ */
+io.use(function(socket, next) {
+    let decoded;
+
+    logger.info('socket', socket.handshake);
+
+    if (debug) {
+        logger.info('Token - ' + socket.handshake.query.jwt);
+    }
+
+    try {
+        decoded = jwt.verify(socket.handshake.query.jwt, process.env.JWT_SECRET);
+
+        if (debug) {
+            logger.info(decoded);
+        }
+
+    } catch (err) {
+        if (debug) {
+            logger.error(err);
+        }
+
+        next(new Error('Invalid token!'));
+    }
+
+    if (decoded) {
+        /**
+         * everything went fine - save user_id as property of given connection instance
+         */
+        socket.user_id = decoded.data.user_id;
+        next();
+    } else {
+        /**
+         * invalid token - terminate the connection
+         */
+        next(new Error('Invalid token!'));
+    }
+});
+
+io.on('connection', function(socket) {
+    // io.emit('chat.message', 'User joined the chat');
+    /**
+     * Regiter a client based on user_id
+     */
+    socket.on('register', function(data) {
+        if (clients[data.user_id] && clients[data.user_id].sockets instanceof Array) {
+            /**
+             * if user is already registered
+             * with one or many socket clients,
+             * just push socket id to array of sockets
+             */
+            clients[data.user_id].sockets.push(socket.id);
+
         } else {
-            //对某人说
-            clients[data.to].emit('say',msgData);
-            clients[data.from].emit('say',msgData);
+            /**
+             * if it is the first socket client
+             * add an array and push socket id
+             * @type {{sockets: Array}}
+             */
+            clients[data.user_id] = { sockets: []};
+
+            clients[data.user_id].sockets.push(socket.user_id);
+        }
+        if (debug) {
+            logger.info('connection -> user_id = ' + data.user_id +' socket_id = ' + socket.user_id);
         }
     });
-    socket.on('offline', (user) => {
-        console.log(user);
-        socket.disconnect();
+
+    socket.on('broadcast', function (data) {
+
+        /**
+         * When LAMP server broadcast look for user in list of clients
+         */
+        if(clients[data.user_id]) {
+            for(var soct in clients[data.user_id].sockets) {
+
+                /**
+                 * Proxy event to all connected sockets
+                 */
+                io.sockets.connected[clients[data.user_id].sockets[soct]].emit(data.receiver_id, data);
+
+                if (debug) {
+                    logger.info('New data was sent = ' + JSON.stringify(data));
+                }
+            }
+        }
+        else
+        {
+            if (debug) {
+                logger.info('user_id is not open for communication: ' + data.user_id);
+            }
+        }
     });
 
-    socket.on('disconnect', () => {
-        //有人下线
-        setTimeout(userOffline,5000);
+    /**
+     * message sent
+     */
+    socket.on('chat.message', function(message) {
+        /**
+         * broadcast message to all listeners
+         */
+        io.emit('chat.message', message);
+    });
 
-        function userOffline() {
-            for(let index in clients) {
-                if(clients[index] == socket) {
-                    users.splice(users.indexOf(index),1);
-                    delete clients[index];
-                    for(let index_inline in clients) {
-                        clients[index_inline].emit('system',JSON.stringify({type:'offline',msg:index,time:(new Date()).getTime()}));
-                        clients[index_inline].emit('userflush',JSON.stringify({users:users}));
+    socket.on('disconnect', function () {
+
+        // io.emit('chat.message', 'User has disconnected');
+        /**
+         * when socket  disconnects remove socket from list of sockets
+         */
+        for(var name in clients) {
+
+            for (var soct in clients[name].sockets) {
+
+                if(clients[name].sockets[soct] === socket.user_id) {
+                    /**
+                     * remove socket from array of sockets
+                     */
+                    clients[name].sockets.splice(soct, 1);
+
+                    if (debug) {
+                        logger.info('socket removed');
+                    }
+
+                    /**
+                     * if no more sockets are connected
+                     * remove user from list of clients
+                     */
+                    if (clients[name].sockets.length === 0) {
+                        delete clients[name];
+
+                        if (debug) {
+                            logger.info('user_id completely removed');
+                        }
                     }
                     break;
                 }
@@ -70,131 +190,43 @@ io.sockets.on('connection', (socket) => {
     });
 });
 
-/**
- * Avatar config
- * @type {string}
- */
-//let avatar_url = "http://cdn.libravatar.org/avatar/";
-let avatar_url = "http://www.gravatar.com/avatar/";
-let avatar_404 = ['mm', 'identicon', 'monsterid', 'wavatar', 'retro'];
+redis.psubscribe('*', function(err, count) {
+    if (debug) {
+        logger.info('subscribe');
 
-function Uid() { this.id = ++Uid.lastid; }
+        if(err) throw err;
 
-Uid.lastid = 0;
-
-/**
- * Handle users
- */
-io.sockets.on('connection', function (socket) {
-
-    // Event received by new user
-    socket.on('join', function (recv, fn) {
-
-        if (!recv.user) {
-            socket.emit('custom_error', { message: 'User not found or invalid' });
-            return;
-        }
-
-        // The user is already logged
-        if (users[recv.user]) {
-            socket.emit('custom_error', { message: 'The user '+ recv.user +' is already logged' });
-            return;
-        }
-
-        // If there is users online, send the list of them
-        if (Object.keys(users).length > 0)
-            socket.emit('chat', JSON.stringify( { 'action': 'usrlist', 'user': users } ));
-
-        // Set new uid
-        uid = new Uid();
-        socket.user = recv.user;
-        my_avatar = get_avatar_url(socket.user);
-
-        // Add the new data user
-        users[socket.user] = {'uid': Uid.lastid, 'user': socket.user, 'name': recv.name, 'status': 'online', 'avatar': my_avatar}
-        socks[socket.user] = {'socket': socket};
-
-        // Send to me my own data to get my avatar for example, usefull in future for db things
-        //socket.emit('chat', JSON.stringify( { 'action': 'update_settings', 'data': users[socket.user] } ));
-
-        // Send new user is connected to everyone
-        socket.broadcast.emit('chat', JSON.stringify( {'action': 'newuser', 'user': users[socket.user]} ));
-
-        if (typeof fn !== 'undefined')
-            fn(JSON.stringify( {'login': 'successful', 'my_settings': users[socket.user]} ));
-    });
-
-    // Event received when user want change his status
-    socket.on('user_status', function (recv) {
-        if (users[socket.user]) {
-            users[socket.user].status = recv.status;
-            socket.broadcast.emit('chat', JSON.stringify( {'action': 'user_status', 'user': users[socket.user]} ));
-        }
-    });
-
-    // Event received when user is typing
-    socket.on('user_typing', function (recv) {
-        let id = socks[recv.user].socket.id;
-        io.sockets.socket(id).emit('chat', JSON.stringify( {'action': 'user_typing', 'data': users[socket.user]} ));
-    });
-
-    // Event received when user send message to another
-    socket.on('message', function (recv, fn) {
-        let d = new Date();
-        let id = socks[recv.user].socket.id;
-        let msg = {'msg': recv.msg, 'user': users[socket.user]};
-        if (typeof fn !== 'undefined')
-            fn(JSON.stringify( {'ack': 'true', 'date': d} ));
-        io.sockets.socket(id).emit('chat', JSON.stringify( {'action': 'message', 'data': msg, 'date': d} ));
-    });
-
-    // Event received when user has disconnected
-    socket.on('disconnect', function () {
-        if (users[socket.user]) {
-            socket.broadcast.emit('chat', JSON.stringify( {'action': 'disconnect', 'user': users[socket.user]} ));
-            delete users[socket.user];
-            delete socks[socket.user];
-        }
-    });
-});
-
-/**
- * Listen to the server port
- */
-server.listen(port, function () {
-    let addr = server.address();
-    console.log('jqchat listening on ' + addr.address + addr.port);
-});
-
-/**
- * Generate url for avatar purpose
- * @param user
- * @returns {string}
- */
-function get_avatar_url(user) {
-    let mymd5 = crypto.createHash('md5').update(user);
-    let rand = random(0, avatar_404.length);
-    let end = '?d=' + avatar_404[rand];
-    return avatar_url + mymd5.digest("hex") + "/" + end
-}
-
-/**
- *
- * @param low
- * @param high
- * @returns {number}
- */
-function random(low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
-}
-
-/**
- *
- * @returns {*}
- */
-function get_diff_time() {
-    if(disconnect)  {
-        return connect - disconnect;
+        logger.info("count: " + count);
     }
-    return false;
-}
+});
+
+redis.on('pmessage', function(subscribed, channel, message) {
+    message = JSON.parse(message);
+
+    if (message.event.indexOf('RestartSocketServer') !== -1) {
+
+        if (debug) {
+            logger.info('Restart command received');
+        }
+
+        process.exit();
+        return;
+    }
+
+    if (debug) {
+        logger.info('Message received from event ' + message.event + ' to channel ' + channel);
+    }
+
+    //channel + ':' + message.event
+    const emitChannel = `${channel}:${message.event}`;
+    io.emit(emitChannel, message.data);
+});
+
+redis.on('error', function(err) {
+    if(err) throw err;
+    logger.info("Redis is not running");
+});
+
+redis.on('ready', function(){
+    logger.info("Redis is running");
+});

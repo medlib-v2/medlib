@@ -1,18 +1,18 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * reset box and button
 */
-.reset-btn-mixin(){
+@mixin reset-btn-mixin {
 
-    .jplist-reset-btn{		
+    .be-ist-reset-btn {
 		width: 75px;
     }
 }
 
-.reset-btn-mixin();
+@include reset-btn-mixin;

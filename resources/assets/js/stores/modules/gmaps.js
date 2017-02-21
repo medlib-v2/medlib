@@ -10,10 +10,10 @@ const state = {
 
 /**
  * getters
- * @type {{address: ((p1:*)=>{})}}
+ * @type {{shared_address: ((p1:*)=>{})}}
  */
 const getters = {
-  address: state => state.shared_address,
+  shared_address: state => state.shared_address,
 }
 
 /**

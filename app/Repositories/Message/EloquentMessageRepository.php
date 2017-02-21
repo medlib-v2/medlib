@@ -27,6 +27,11 @@ class EloquentMessageRepository implements MessageRepository
      */
     public function findByIdWithMessageResponses($id)
     {
-        return Message::with(['MessageResponses'])->find($id);
+        return Message::with(['user', 'conversation'])
+            ->where([
+                ['user_id', '=', $id]
+            ])->orderBy('created_at', 'desc')->get();
+
+        //return Message::with(['MessageResponses'])->find($id);
     }
 }

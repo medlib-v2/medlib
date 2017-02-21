@@ -99,8 +99,7 @@ class InstallCommand extends Command
         $admin = $this->getAdminInformation();
         User::create($admin);
 
-        $this->info('Executing yarn install, gulp and whatnot');
-        system('yarn install');
+        $this->runNpmInstall();
 
         $this->line('');
         $this->info('🎆  Success! Medlib is now installed');
@@ -550,6 +549,23 @@ class InstallCommand extends Command
             'email'    => $email_address,
             'password' => bcrypt($password),
         ];
+    }
+
+    /**
+     * Run the installation helper.
+     */
+    protected function runNpmInstall()
+    {
+        $this->info('Installing NPM Dependencies...');
+        $path = getcwd();
+
+        $process = (new Process('yarn install --no-progress', $path))->setTimeout(null);
+        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
+            $process->setTty(true);
+        }
+        $process->run(function ($type, $line) {
+            $this->info($line);
+        });
     }
 
     /**

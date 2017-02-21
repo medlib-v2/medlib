@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .chatbox {
   position: fixed;
   bottom: 0;
@@ -10,7 +12,7 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   border: 1px solid rgba(29, 49, 91, .3);
-  border-radius: 3px 3px 0 0;
+  @include border-radius(3px 3px 0 0);
   /*box-shadow: 0 1px 1px rgba(0, 0, 0, .3);*/
 
   &-expanded {
@@ -439,7 +441,7 @@
 }
 
 .messages-icon {
-  background: url('../images/messages.svg') no-repeat;
+  background: url("#{$img-url}/messages.svg") no-repeat;
   width: 16px;
   height: 16px;
   display: inline-block;

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -35,6 +34,6 @@ class CreatePushSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('push_subscriptions');
+        Schema::dropIfExists('push_subscriptions');
     }
 }

@@ -1,19 +1,19 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * Preloader control
 */
-.be-list-preloader-mixin(){
-	.be-list-hide-preloader{
+@mixin be-list-preloader-mixin {
+	.be-list-hide-preloader {
 		display: none;
 	}
 
-	.be-list-preloader{
+	.be-list-preloader {
 		height: 30px;
 		line-height: 30px;
 		margin: 10px 10px 0 0;
@@ -21,5 +21,5 @@
 	}
 }
 
-.be-list-preloader-mixin();
+@include be-list-preloader-mixin;
 

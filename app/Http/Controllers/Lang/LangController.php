@@ -26,7 +26,7 @@ class LangController extends Controller
          * Cookie::make('lang', $lang, 360);
          **/
         if (Session::has('lang') === false or Session::get('lang') != $lang) {
-            Session::set('lang', $lang);
+            Session::put('lang', $lang);
         }
         if (Request::ajax()) {
             return Response::json(['response' => 'success', 'message' => 'Change with success']);

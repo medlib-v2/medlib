@@ -51,7 +51,7 @@ class FeedController extends Controller
     public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, CommentRepository $commentRepository)
     {
         $this->currentUser = Auth::user();
-        
+
         if ($username == $this->currentUser->getUsername()) {
             $user = $this->currentUser;
 
@@ -101,38 +101,45 @@ class FeedController extends Controller
         $validator = Validator::make($request->all(), ['body'    => 'required']);
 
         if ($validator->fails()) {
-            return Response::json([$validator->messages()], 400);
+            return Response::json([$validator->messages()], 403);
         }
 
         $this->currentUser = Auth::user();
 
-        $file = $request->file('image');
+        $errors = [];
+        $files = $request->file('image');
         $videoUrl = $request->input('videoUrl');
         $location = $request->input('location');
 
-        if (isset($file) && !empty($file)) {
-            $imgfile = ['image' => $file];
-            $rules = ['image' => 'required|mimes:jpeg,jpg,png|image'];
-            $validator = Validator::make($imgfile, $rules);
+        if (isset($files) && !empty($files)) {
+            $imgfiles = ['image' => $files];
+            $rules = ['image.*' => 'required|mimes:jpeg,jpg,png|image'];
+            $validator = Validator::make($imgfiles, $rules);
 
             if ($validator->fails()) {
-                return Response::json([$validator->messages()], 400);
+                return Response::json([$validator->messages()], 403);
             }
 
-            if ($request->file('image')->isValid()) {
+            foreach ($files as $file) {
+              if (!$file->isValid()) {
+                $errors[$file->getClientOriginalName()] = "Sorry, This file ". $file->getClientOriginalName() ." is not valide";
+              }
+            }
+
+            if (empty($errors)) {
                 $destinationPath = Config::get('image.upload_path').'images';
 
-                $pathImage = App::make(ProcessImage::class)->upload($file, $destinationPath);
+                $pathImage = App::make(ProcessImage::class)->upload($files[0], $destinationPath);
 
                 return $this->storeFeed($request->get('body'), $this->currentUser->getUsername(), $this->currentUser->getAvatar(), $pathImage, null, null);
             } else {
-                return $this->setStatusCode(400)->response(['response' => 'error', 'message' => 'Uploaded file is not valid']);
+                return $this->setStatusCode(403)->response(['response' => 'error', 'message' => $errors]);
             }
         }
 
         if (isset($videoUrl) && !empty($videoUrl)) {
             if (!self::validateUrl($videoUrl)) {
-                return $this->setStatusCode(400)->response(['response' => 'error', 'message' => 'Url not valid']);
+                return $this->setStatusCode(403)->response(['response' => 'error', 'message' => 'Url not valid']);
             }
 
             return $this->storeFeed($request->get('body'), $this->currentUser->getUsername(), $this->currentUser->getAvatar(), null, $videoUrl, null);

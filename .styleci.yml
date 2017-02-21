@@ -1,3 +1,10 @@
-preset: psr2
-
+preset: recommended
+risky: true
 linting: true
+disabled:
+  - align_double_arrow
+  - phpdoc_to_comment
+  - phpdoc_var_without_name
+  - concat_without_spaces
+enabled:
+  - concat_with_spaces

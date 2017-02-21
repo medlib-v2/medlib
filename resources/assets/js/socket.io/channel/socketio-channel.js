@@ -13,7 +13,7 @@ export class SocketIOChannel extends Channel {
   * @param  {Object} options
   */
   constructor (socket, name, options) {
-    super()
+    super(socket, name, options)
     this.socket = null
     this.name = null
     this.options = {}
@@ -59,7 +59,7 @@ export class SocketIOChannel extends Channel {
   *
   * @param  {string} event
   * @param  {Function} callback
-  * @return {SocketIoChannel}
+  * @return {SocketIOChannel}
   */
   listen (event, callback) {
     this.on(this.eventFormatter.format(event), callback)

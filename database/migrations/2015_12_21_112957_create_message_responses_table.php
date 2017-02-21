@@ -20,6 +20,7 @@ class CreateMessageResponsesTable extends Migration
             $table->foreign('sender_id')->references('id')->on('users');
             $table->integer('receiver_id')->unsigned()->index();
             $table->foreign('receiver_id')->references('id')->on('users');
+            $table->boolean('open')->default(0);
             $table->timestamps();
         });
     }

@@ -1,9 +1,9 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * list/grid view control
@@ -22,15 +22,15 @@
 			}
 			
 			.be-list-list-view{
-				background: url('../images/icons/list-btn.png') no-repeat 50% 50%;
+				background: url("#{$list-btn}") no-repeat 50% 50%;
 			}
 
 			.be-list-grid-view{
-				background: url('../images/icons/grid-btn-disabled.png') no-repeat 50% 50%;
+				background: url("#{$grid-btn-disabled}") no-repeat 50% 50%;
 			}
 			
 			.be-list-thumbs-view{
-				background: url('../images/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
+				background: url("#{$thumbs-btn-disabled}") no-repeat 50% 50%;
 			}
 		}		
 	}
@@ -40,15 +40,15 @@
 			.be-list-views{
 			   
 			    .be-list-list-view{
-					background: url('../images/icons/list-btn-disabled.png') no-repeat 50% 50%;
+					background: url("#{$list-btn-disabled}") no-repeat 50% 50%;
 			    }
 
 			    .be-list-grid-view{
-					background: url('../images/icons/grid-btn.png') no-repeat 50% 50%;
+					background: url("#{$grid-btn}") no-repeat 50% 50%;
 			    }
 				
 				.be-list-thumbs-view{
-					background: url('../images/icons/thumbs-btn-disabled.png') no-repeat 50% 50%;
+					background: url("#{$thumbs-btn-disabled}") no-repeat 50% 50%;
 				}
 		   }
 	   }
@@ -59,19 +59,19 @@
 			.be-list-views{
 			   
 			    .be-list-list-view{
-					background: url('../images/icons/list-btn-disabled.png') no-repeat 50% 50%;
+					background: url("#{$list-btn-disabled}") no-repeat 50% 50%;
 			    }
 
 			    .be-list-grid-view{
-					background: url('../images/icons/grid-btn-disabled.png') no-repeat 50% 50%;
+					background: url("#{$grid-btn-disabled}") no-repeat 50% 50%;
 			    }
 				
 				.be-list-thumbs-view{
-					background: url('../images/icons/thumbs-btn.png') no-repeat 50% 50%;
+					background: url("#{$thumbs-btn}") no-repeat 50% 50%;
 				}
 		   }
 	   }
 	}
 }
 
-.list-grid-view-mixin();
+@include list-grid-view-mixin;

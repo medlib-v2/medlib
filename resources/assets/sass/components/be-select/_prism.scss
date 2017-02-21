@@ -1,7 +1,9 @@
+@charset "utf-8";
+
 code[class*="language-"],
 pre[class*="language-"] {
   border-radius: 2px;
-  color: @gray-dark;
+  color: $gray-dark;
   hyphens: none;
   line-height: 1.5;
   tab-size: 4;
@@ -25,7 +27,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: @gray-lighter;
+  background: $gray-lighter;
 }
 
 /* Inline code */
@@ -37,7 +39,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: @gray;
+  color: $gray;
 }
 
 .token.punctuation {
@@ -79,7 +81,7 @@ pre[class*="language-"] {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: @blue;
+  color: blue;
 }
 
 .token.function {

@@ -1,5 +1,6 @@
-//window.GOOGLE_AUTOCOMPLETE_KEY = 'AIzaSyASWIWXTQSF8spzI3X3Esk4pnoq-gPoLHQ'
+window.GOOGLE_AUTOCOMPLETE_KEY = 'AIzaSyASWIWXTQSF8spzI3X3Esk4pnoq-gPoLHQ'
 
+/**
 window.GOOGLE_AUTOCOMPLETE = {
     'domain': 'https://maps.googleapis.com/maps/api/js',
     'key': 'AIzaSyASWIWXTQSF8spzI3X3Esk4pnoq-gPoLHQ',
@@ -15,8 +16,4 @@ window.GOOGLE_AUTOCOMPLETE = {
         route: 'long_name'
     }
 }
-
-/**
-import SocketIO from './socket.io/SocketIO'
-window.socket = new SocketIO(window.location.hostname + ':6001', { query: ''})
 **/

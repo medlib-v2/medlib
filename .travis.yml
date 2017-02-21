@@ -4,7 +4,6 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
 
 env:
   global:
@@ -28,6 +27,12 @@ branches:
   - master
   - develop
 
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
 #Start MySQL
 sudo: required
 services:
@@ -36,6 +41,9 @@ services:
 
 # Setting up pre-requirements
 before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - git clone git://github.com/medlib-v2/test-unit.git tests
   - cp .env.travis .env
   - rm -rf .env.testing
@@ -47,7 +55,7 @@ before_install:
   - printf "\n" | pecl install yaz
   - npm i maildev
   - travis_retry composer self-update
-  - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
+  - travis_retry node_modules/maildev/bin/maildev 1>&2>/dev/null
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -61,18 +69,16 @@ install:
   - make file-permission
   - sleep 5
   - npm install
-  - node server.js 1&2>/dev/null
-  #- php artisan migrate
-  #- php artisan db:seed
+  - node server.js 1>&2>/dev/null
 
 script:
   - make cs
   - make test
-  #- php artisan test:run
-  #- npm test
 
 matrix:
   allow_failures:
     - php: 7.1
-    - php: hhvm
   fast_finish: true
+
+after_success:
+  - npm run report-coverage

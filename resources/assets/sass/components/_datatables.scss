@@ -1,65 +1,64 @@
-/*------------------------------------------------------------------
-  [dataTables]
-*/
-table.dataTable{
+@charset "utf-8";
+
+/**
+* - DataTables
+**/
+table.dataTable {
 	margin: 0 !important;
 }
 
-div.dataTables_wrapper{
+div.dataTables_wrapper {
 
-	div.dataTables_info{
-		color: lighten(@text-color, 13%);
+	div.dataTables_info {
+		color: lighten($text-color, 13%);
 		padding-top: 9px;
 	}
 
-	div.dataTables_paginate{
+	div.dataTables_paginate {
 
-		ul.pagination{
+		ul.pagination {
 			margin: 0;
 		}
 	}
 
-	div.dataTables_filter{
+	div.dataTables_filter {
 	
-		input{
+		input {
 			padding-top: 6px;
 			padding-bottom: 6px;
 		}
 	}
 
-	div.dataTables_length label, div.dataTables_filter label{
+	div.dataTables_length label, div.dataTables_filter label {
 		margin-bottom: 0;
 		font-size: 13px;
-		color: lighten(@text-color, 13%);
+		color: lighten($text-color, 13%);
 	}
 
-	div.dataTables_length label{
-
-		select{
+	div.dataTables_length label {
+		select {
 			padding: 2px;
 		}
 	}
 }
 
-.be-datatable-header{
-  border-bottom: 1px solid @input-border;
+.be-datatable-header {
+  border-bottom: 1px solid $input-border;
   margin: 2px 0 0;
   padding: 15px 10px 22px;
 
-  .dt-buttons{
-
-		.btn{
-
-			embed{
+  .dt-buttons {
+		.btn {
+			embed {
 				outline: none;
 			}
 		}
   }
 }
 
-.be-datatable-footer{
+.be-datatable-footer {
 	margin: 0;
 	padding: 15px 3px 13px;
-	background-color: darken(@light-color, 3%);
-	border-top: 1px solid @input-border;
+	background-color: darken($light-color, 3%);
+	border-top: 1px solid $input-border;
 }

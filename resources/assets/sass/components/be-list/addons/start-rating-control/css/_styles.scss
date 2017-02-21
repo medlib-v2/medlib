@@ -1,14 +1,14 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * star rating control
 */
-.be-list-star-rating-mixin(){
+@mixin be-list-star-rating-mixin {
 
 	.be-list-star-rating-outer{
 		position: relative;
@@ -65,4 +65,4 @@
 /**
 * mixin calls
 */
-.be-list-star-rating-mixin();
+@include be-list-star-rating-mixin;

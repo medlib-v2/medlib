@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel v0.2.11-dev on 2017-02-10.
+ * Generated for Laravel v0.2.11-dev on 2017-02-20.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -13,7 +13,7 @@ namespace {
     class App extends \Illuminate\Support\Facades\App{
         
         /**
-         * Loads a revision'ed asset file, making use of gulp-rev
+         * Loads a revision'ed asset file, making use of laravel-mix
          * This is a copycat of L5's Elixir, but catered to our directory structure.
          *
          * @param string $file

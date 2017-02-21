@@ -2,6 +2,18 @@
  * This class represents a basic channel.
  */
 export class Channel {
+  /**x
+  * Create a new class instance.
+  *
+  * @param  {any} socket
+  * @param  {string} name
+  * @param  {Object} options
+  */
+  constructor (socket, name, options) {
+    this.name = name
+    this.socket = socket
+    this.options = options
+  }
   /**
   * Listen for an event on the channel instance.
   *

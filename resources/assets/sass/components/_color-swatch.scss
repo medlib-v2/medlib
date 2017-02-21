@@ -1,5 +1,7 @@
-/*------------------------------------------------------------------
-  [Color swatch]
+@charset "utf-8";
+
+/**
+* - Color swatch
 */
 .color-swatch{
 	margin-top: 20px;
@@ -21,10 +23,10 @@
 
   	> div{
   		text-align: center;
-  		background-color: @light-color;
+  		background-color: $light-color;
   		line-height: 50px;
   		font-weight: 600;
-  		color: lighten(@text-color, 7.5%);
+  		color: lighten($text-color, 7.5%);
   	}
   }
 }

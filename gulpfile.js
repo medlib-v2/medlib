@@ -9,15 +9,16 @@ const elixir = require('laravel-elixir'),
     booksApp = require('./resources/assets/js/books/config.json'),
     Medlib = require('./resources/assets/js/app/config.json'),
     vue = require('./resources/assets/js/config.json'),
-    beList = require('./resources/assets/less/plugins/be-list/core/js/config.json'),
-    sortBundele = require('./resources/assets/less/plugins/be-list/addons/sort-bundle/js/config.json'),
-    textboxFilter = require('./resources/assets/less/plugins/be-list/addons/textbox-filter/js/config.json'),
-    paginationBundle = require('./resources/assets/less/plugins/be-list/addons/pagination-bundle/js/config.json'),
-    historyBundle = require('./resources/assets/less/plugins/be-list/addons/history-bundle/js/config.json'),
-    filterToggleBundle = require('./resources/assets/less/plugins/be-list/addons/filter-toggle-bundle/js/config.json'),
-    filterDropdownBundle = require('./resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/config.json');
+    beList = require('./resources/assets/sass/components/be-list/core/js/config.json'),
+    sortBundele = require('./resources/assets/sass/components/be-list/addons/sort-bundle/js/config.json'),
+    textboxFilter = require('./resources/assets/sass/components/be-list/addons/textbox-filter/js/config.json'),
+    paginationBundle = require('./resources/assets/sass/components/be-list/addons/pagination-bundle/js/config.json'),
+    historyBundle = require('./resources/assets/sass/components/be-list/addons/history-bundle/js/config.json'),
+    filterToggleBundle = require('./resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/config.json'),
+    filterDropdownBundle = require('./resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/config.json');
 
-require('laravel-elixir-vue-2');
+
+require('./build/laravel-elixir-vue');
 
 require('laravel-elixir-browserify-official');
 require('laravel-elixir-browserify-hmr');
@@ -69,7 +70,6 @@ elixir.extend('lang', function() {
     new Task('lang', function(){
         return gulp.src('').pipe(shell('php artisan js-localization:refresh'));
     });
-
 });
 
 elixir(mix => {
@@ -127,13 +127,12 @@ elixir(mix => {
         ]).clean([
             'public/css',
             'public/js'
-        ]);//.lang();
+        ]).lang();
     }
 
     if (process.env.NODE_ENV !== 'production') {
-
         mix.browserSync({
-            proxy: 'http://127.0.0.1:8000',
+            proxy: 'http://medlib.app',
             files: [
                 elixir.config.appPath + '/**/*.php',
                 elixir.config.get('public.css.outputFolder') + '/**\/*.css',
@@ -141,16 +140,6 @@ elixir(mix => {
                 'resources/views/**/*.php'
             ],
             browser: ['yandex']
-        }).version([
-            'css/application.css',
-            'css/vendors.min.css',
-            'js/jquery.min.js',
-            'js/app.min.js',
-            'js/plugins.vendor.min.js',
-            'js/books/app.min.js',
-            'js/cookiesbar.min.js',
-            'js/be-list.min.js',
-            'js/medlib.min.js'
-        ]);
+        });
     }
 });

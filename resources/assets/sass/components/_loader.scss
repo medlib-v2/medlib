@@ -1,5 +1,7 @@
-/*------------------------------------------------------------------
-  Loader
+@charset "utf-8";
+
+/**
+* Loader
 */
 .be-loading{
 	position: relative;
@@ -14,7 +16,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: @loader-background;
+    background: $loader-background;
     transition: all .2s ease;
     z-index: 2;
   }
@@ -47,26 +49,26 @@
     z-index: 3;
   }
 
-	svg{
-  	animation: be-spinner-rotation 1.4s linear infinite;
-  	stroke: @primary-color;
+	svg {
+  	@include animation(be-spinner-rotation 1.4s linear infinite);
+  	stroke: $primary-color;
 
     .circle{
 		  stroke-dasharray: 187;
 		  stroke-dashoffset: 0;
 		  transform-origin: center;
-		  animation: be-spinner-turn 1.4s ease-in-out infinite;
+		  @include animation(be-spinner-turn 1.4s ease-in-out infinite);
 		}
 	}
 }
 
 @keyframes be-spinner-rotation{
   0% {
-    transform: rotate(0deg);
+    @include rotate(0deg);
   }
 
   100% {
-    transform: rotate(270deg);
+    @include rotate(270deg);
   }
 }
 
@@ -77,11 +79,11 @@
 
   50% {
     stroke-dashoffset: 46.75;
-    transform: rotate(135deg);
+    @include rotate(135deg);
   }
 
   100% {
     stroke-dashoffset: 187;
-    transform: rotate(450deg);
+    @include rotate(450deg);
   }
 }

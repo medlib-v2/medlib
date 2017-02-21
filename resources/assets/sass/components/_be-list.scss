@@ -1,2 +1,6 @@
-@import "../../sass/components/be-list/core/css/be-list.less";
-@import "../../sass/components/be-list/addons/pagination-bundle/css/styles";
+@charset "utf-8";
+
+@import "be-list/themes/core";
+
+@import "./be-list/core/css/be-list";
+@import "./be-list/addons/pagination-bundle/css/styles";

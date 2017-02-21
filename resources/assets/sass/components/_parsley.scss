@@ -1,13 +1,15 @@
-/*------------------------------------------------------------------
-  [Parsley]
-*/
-.parsley-errors-list.filled{
+@charset "utf-8";
+
+/**
+* - Parsley
+**/
+.parsley-errors-list.filled {
 	margin-top: 10px;
 	margin-bottom: 0;
 	padding: 15px 20px;
 	position: relative;
-	background-color: @parsley-error-bg;
-	color: @light-color;
+	background-color: $parsley-error-bg;
+	color: $light-color;
 	
 	&:after{
 		content: "";
@@ -15,7 +17,7 @@
 		position: absolute;
 		top: -6px;
 		left: 20px;
-		.triangle(up, 7px, @parsley-error-bg);
+		@include triangle-size(up, 7px, $parsley-error-bg);
 	}
 
 	> li{

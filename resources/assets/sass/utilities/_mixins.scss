@@ -236,10 +236,14 @@
   -o-transform		: $transform;
   -webkit-transform	: $transform;
 }
-@mixin animation ($name, $duration: 300ms, $delay: 0, $ease: ease) {
-  -moz-animation		: $name, $duration, $delay, $ease;
-  -ms-animation		: $name, $duration, $delay, $ease;
-  -webkit-animation	: $name, $duration, $delay, $ease;
+@mixin animation ($animation...) {
+  animation             : $animation;
+  -webkit-animation     : $animation;
+  -o-animation          : $animation;
+  -moz-animation		: $animation;
+  -ms-animation		    : $animation;
+
+
 }
 
 @mixin scale ($multiplier) {
@@ -394,4 +398,42 @@
     border-bottom: ($width / 2) solid transparent;
     border-left: $height solid $color;
   }
+}
+
+/**
+* Social Color Mixin
+**/
+@mixin social-notification($background){
+  background: $background;
+
+  .notification-item {
+    .notification-img-container {
+      background-color: darken($background, 3%);
+    }
+  }
+}
+
+/**
+* Social Color Mixin
+**/
+@mixin social-gritter($background){
+  background: $background;
+  .gritter-item {
+    .gritter-img-container {
+      background-color: darken($background, 3%);
+    }
+  }
+}
+
+
+@mixin text-dropdown {
+  @include font-size(13);
+  color: $color-dropdown;
+  letter-spacing: 0.4px;
+}
+
+@mixin text-descrete {
+  @include font-size(13);
+  color: $color-descrete;
+  letter-spacing: 0.4px;
 }

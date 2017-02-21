@@ -6,7 +6,7 @@ function start_server()
 
 	if [ "${response}" != "0" ]; then
    		cd ~/medlib
-   		node server.js &
+   		node server.js start >> /dev/null 2>&1
    		cd -
    	fi
 }
@@ -16,7 +16,7 @@ function start_maildev()
     response=$(check_process maildev)
 
     if [ "${response}" != "0" ]; then
-   		maildev > /dev/null 1>&2
+   		maildev >> /dev/null 2>&1
    	fi
 }
 

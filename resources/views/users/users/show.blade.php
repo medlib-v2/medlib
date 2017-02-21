@@ -31,7 +31,7 @@
 			/**
 			 * Medlib Application
 			 */
-			Medlib.Pushed(null);
+			//Medlib.Pushed(null);
 			Medlib.FriendRequest(null);
 			Medlib.FormElements(null);
 		});

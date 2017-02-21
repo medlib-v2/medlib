@@ -1,16 +1,16 @@
 /**
 * cart table
 */
-.cart-tbl-mixin(){
+@mixin cart-tbl-mixin{
 
     .cart-tbl{
-		border: 1px solid @light-grey1;
+		border: 1px solid $light-grey1;
 		border-collapse: collapse;
 		background: #fff;
 		width: 100%;
 		
 		td, th{
-			border: 1px solid @light-grey1;
+			border: 1px solid $light-grey1;
 			border-right: 0;
 			border-left: 0;
 			padding: 5px 15px;
@@ -24,7 +24,7 @@
 			width: 120px;
 			
 			img{
-				border: 1px solid @grey3;
+				border: 1px solid $grey3;
 				width: 100px;
 			}
 		}
@@ -38,7 +38,7 @@
 			}
 			
 			.fa{
-				color: @blue;
+				color: $blue;
 				cursor: pointer;
 			}
 		}
@@ -68,7 +68,7 @@
 				width: 100%;
 				display: block;
 				float: left;
-				border-bottom: 1px solid @light-grey1;
+				border-bottom: 1px solid $light-grey1;
 			}
 			
 			tr:last-child{
@@ -90,20 +90,20 @@
 /**
 * settings table
 */
-.settings-table-mixin(){
+@mixin settings-table-mixin {
 
     .settings-tbl{
         border-collapse: collapse;
-        border-left: 1px solid @light-grey2;
-        border-top: 1px solid @light-grey2;
+        border-left: 1px solid $light-grey2;
+        border-top: 1px solid $light-grey2;
         margin-bottom: 40px;
         background: #fff;
         width: 100%;
 
         td,
         th{
-            border-right: 1px solid @light-grey2;
-            border-bottom: 1px solid @light-grey2;
+            border-right: 1px solid $light-grey2;
+            border-bottom: 1px solid $light-grey2;
             padding: 5px 15px;
             margin: 0;
         }
@@ -119,22 +119,22 @@
     }
 	
 	.settings-tbl.bg-white3{
-		background-color: @white3;
-		border-left: 1px dotted @light-grey2;
-        border-top: 1px dotted @light-grey2;
+		background-color: $white3;
+		border-left: 1px dotted $light-grey2;
+        border-top: 1px dotted $light-grey2;
 		
 		th{
-			background: @white1;
+			background: $white1;
 		}
 		
 		td,
         th{
-			border-right: 1px dotted @light-grey2;
-            border-bottom: 1px dotted @light-grey2;
+			border-right: 1px dotted $light-grey2;
+            border-bottom: 1px dotted $light-grey2;
 		}
 				
 		.title{
-			background: @white2;
+			background: $white2;
 		}
 	}
 	
@@ -166,5 +166,5 @@
 /**
 * mixin calls
 */
-.cart-tbl-mixin();
-.settings-table-mixin();
+@include cart-tbl-mixin;
+@include settings-table-mixin;

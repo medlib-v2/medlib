@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+//Widgets
+
+//User profile display widget
+$user-profile-widget-avatar-size:       110px;
+
+//User progress widget
+$user-progress-height: 					10px;
+
+//==Plugins
+
+//Nifty Modals
+$modal-prefix:                          modal;
+$modal-zindex: 							$zindex-modal;
+
+//Gritter Notifications
+$notification-width: 					360px;
+$notification-top-position:             82px;
+
+//Select2
+$select2-border-width:                  1px;
+
+//Parsley
+$parsley-error-bg: 						$danger-color-text;
+
+//Vector Maps
+$vector-map-zoom-button-size:   30px;
+$vector-map-zoom-font-size:     22px;
+$vector-map-zoom-line-height:   24px;

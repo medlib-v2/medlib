@@ -1,87 +1,87 @@
 <template lang="html">
     <transition name="conversations">
-    <div class="conversations" v-show="show">
-        <header>
-            <div>
-                <i class="messages-icon"></i>
-                <span class="conversations-title">Messages</span>
+        <div class="conversations" v-show="show">
+            <header>
+                <div>
+                    <i class="messages-icon"></i>
+                    <span class="conversations-title">Messages</span>
+                    <nav>
+                        <ul><li><i @click.prevent="show = false" class="fa fa-close">&nbsp;</i></li></ul>
+                    </nav>
+                </div>
+            </header>
+            <div class="conversations-filters">
                 <nav>
-                    <ul><li><i @click.prevent="show = false" class="fa fa-close">&nbsp;</i></li></ul>
+                    <ul>
+                        <li class="active filter-recent"><a @click.prevent="filterRecent"><i class="fa fa-history"></i> Recent</a></li>
+                        <li class="filter-favorites"><a @click.prevent="filterFavorites"><i class="fa fa-star"></i> Favorites</a></li>
+                        <li class="filter-archived"><a @click.prevent="filterArchived"><i class="fa fa-archive"></i> Archived</a></li>
+                        <li class="filter-blocked"><a @click.prevent="filterBlocked"><i class="fa fa-ban"></i> Blocked</a></li>
+                    </ul>
                 </nav>
             </div>
-        </header>
-        <div class="conversations-filters">
-            <nav>
-                <ul>
-                    <li class="active filter-recent"><a @click.prevent="filterRecent"><i class="fa fa-history"></i> Recent</a></li>
-                    <li class="filter-favorites"><a @click.prevent="filterFavorites"><i class="fa fa-star"></i> Favorites</a></li>
-                    <li class="filter-archived"><a @click.prevent="filterArchived"><i class="fa fa-archive"></i> Archived</a></li>
-                    <li class="filter-blocked"><a @click.prevent="filterBlocked"><i class="fa fa-ban"></i> Blocked</a></li>
-                </ul>
-            </nav>
+            <div class="conversations-search">
+                <input v-model="searchText" @keyup="search"  placeholder="Search conversations">
+            </div>
+            <ul class="list">
+                <li v-for="conversation in conversations" @click.prevent="toggleActive(conversation)" :class="isActive(conversation) ? 'active' : ''">
+                    <div v-if="conversation.sender_id === user.id">
+                        <img :src="conversation.recipient.avatar" :alt="conversation.recipient.name"/>
+                        <span class="conversation-content">
+                                <span class="conversation-name">{{ conversation.recipient.name }}</span><br>
+                                <span class="conversation-last-message">{{ lastMessage(conversation) }}</span>
+                            </span>
+                        <span v-if="conversation.messages.length > 0" class="last-message-timestamp">
+                            {{ conversation.messages[conversation.messages.length -1].created_at | timeago }}
+                            </span>
+                        <span v-else><br></span>
+                    </div>
+                    <div v-else>
+                        <img :src="conversation.sender.avatar" :alt="conversation.sender.name"/>
+                        <span class="conversation-content">
+                                <span class="conversation-name">{{ conversation.sender.name }}</span><br>
+                                <span class="conversation-last-message">{{ lastMessage(conversation) }}</span>
+                            </span>
+                        <span v-if="conversation.messages.length > 0" class="last-message-timestamp">
+                            {{ conversation.messages[conversation.messages.length -1].created_at | timeago }}
+                            </span>
+                        <span v-else><br></span>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="conversations-search">
-            <input v-model="searchText" @keyup="search"  placeholder="Search conversations">
-        </div>
-        <ul class="list">
-            <li v-for="conversation in conversations" @click.prevent="toggleActive(conversation)" :class="isActive(conversation) ? 'active' : ''">
-                <div v-if="conversation.sender_id === user.id">
-                    <img :src="conversation.recipient.avatar" :alt="conversation.recipient.name"/>
-                    <span class="conversation-content">
-							<span class="conversation-name">{{ conversation.recipient.name }}</span><br>
-							<span class="conversation-last-message">{{ lastMessage(conversation) }}</span>
-						</span>
-                    <span v-if="conversation.messages.length > 0" class="last-message-timestamp">
-						{{ conversation.messages[conversation.messages.length -1].created_at | timeago }}
-						</span>
-                    <span v-else><br></span>
-                </div>
-                <div v-else>
-                    <img :src="conversation.sender.avatar" :alt="conversation.sender.name"/>
-                    <span class="conversation-content">
-							<span class="conversation-name">{{ conversation.sender.name }}</span><br>
-							<span class="conversation-last-message">{{ lastMessage(conversation) }}</span>
-						</span>
-                    <span v-if="conversation.messages.length > 0" class="last-message-timestamp">
-						{{ conversation.messages[conversation.messages.length -1].created_at | timeago }}
-						</span>
-                    <span v-else><br></span>
-                </div>
-            </li>
-        </ul>
-    </div>
     </transition>
 </template>
 
 <script type="text/babel">
 export default {
+    name: 'conversations',
 	props: {
 		allConversations: {
+            type: Array,
 			require: true,
-			twoWay: true
+            default: []
 		},
 		conversations: {
-			require: true,
-			twoWay: true
+            type: Array,
+            require: true,
+            default: []
 		},
 		show: {
-			 type: Boolean,
-			 required: true,
-			 twoWay: true
+		    type: Boolean,
+            required: true,
+            default: false
 		},
 		user: {
-			required: true,
-			twoWay: true
+            type: Object,
+			required: true
 		}
 	},
 	data() {
 		return {
-			apiToken: Setting.csrfToken,
 			searchText: '',
 			currentFilter: 'recent'
 		}
-	},
-	ready() {
 	},
 	computed: {
 		isSelected() {

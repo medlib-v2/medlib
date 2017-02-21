@@ -44,7 +44,6 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ App::rev('/css/vendors.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ App::rev('/css/application.css') }}" type="text/css">
         @yield('sytle')
 

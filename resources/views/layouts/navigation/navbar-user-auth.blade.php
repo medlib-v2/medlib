@@ -18,6 +18,26 @@
                    data-tooltip=""
                    data-original-title="Turn on/off sidebar collapsing"><i class="fa fa-bars fa-lg"></i></a></li>
         </ul>
+        <el-search
+                :suggestion-attribute="suggestionAttribute"
+                v-model="value"
+                :disabled="false"
+                @input="changed"
+                @click-input="clickInput"
+                @click-button="clickButton"
+                @selected="selected"
+                @enter="enter"
+                @key-up="keyUp"
+                @key-down="keyDown"
+                @key-right="keyRight"
+                @clear="clear"
+                @escape="escape"
+                :show-autocomplete="true"
+                :autofocus="false"
+                :suggestions="suggestions"
+                name="customName"
+                placeholder="custom placeholder"
+                type="facebook"></el-search>
         <!-- / buttons -->
         <ul class="nav navbar-nav navbar-right be-user-nav">
             <!-- user profile -->

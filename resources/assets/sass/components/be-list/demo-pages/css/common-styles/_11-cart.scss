@@ -1,7 +1,7 @@
 /**
 * common cart
 */
-.common-cart-mixin(){
+@mixin common-cart-mixin {
 	
 	.checkout-btn{
 		backrgound: transparent;
@@ -34,7 +34,7 @@
 /**
 * empty cart
 */
-.empty-cart-mixin(){
+@mixin empty-cart-mixin {
 	
 	.empty-cart-img{
 		font-size: 100px;
@@ -52,13 +52,13 @@
 /**
 * thank you page
 */
-.thank-you-page-mixin(){
+@mixin thank-you-page-mixin {
 
 }
 
 /**
 * mixin calls
 */
-.common-cart-mixin();
-.empty-cart-mixin();
-.thank-you-page-mixin();
+@include common-cart-mixin;
+@include empty-cart-mixin;
+@include thank-you-page-mixin;

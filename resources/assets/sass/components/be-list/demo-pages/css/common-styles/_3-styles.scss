@@ -2,14 +2,14 @@
 /**
 * common styles
 */
-.common-mixin(){
+@mixin common-mixin{
 	
 	html, body{
         padding: 0;
         margin: 0;
-        background: @light-grey;
-        color: @dark-grey;
-        font-family: @arial;
+        background: $light-grey;
+        color: $dark-grey;
+        font-family: $arial;
         font-size: 13px;
         line-height: 24px;
     }
@@ -31,7 +31,7 @@
 
     a{
         text-decoration: none;
-        color: @blue;
+        color: $blue;
         font-weight: bold;
     }
 	
@@ -71,20 +71,20 @@
 	}
 	
 	.error{
-		color: @orange;
+		color: $orange;
 	}
 	
 	.ok{
-		color: @green;
+		color: $green;
 	}
 	
 	::-moz-selection {
-		background: @yellow3;
+		background: $yellow3;
 		text-shadow: none;
 	}
 
 	::selection {
-		background: @yellow3;
+		background: $yellow3;
 		text-shadow: none;
 	}
 	
@@ -104,7 +104,7 @@
 /**
 * fork me on github banner
 */
-.fork-me-on-gihub-mixin(){
+@mixin fork-me-on-gihub-mixin{
 	
 	.fork-me-on-github{
 		
@@ -122,19 +122,19 @@
 /**
 * main sections styles
 */
-.sections-mixin(){
+@mixin sections-mixin{
 
     #black-top-bar{
         height:45px;
-        border-top: 1px solid @light-grey1;
+        border-top: 1px solid $light-grey1;
         border-bottom: 1px solid #fff;
-        background: @dark-grey;
+        background: $dark-grey;
     }
 
     #logo{
         padding: 40px 0 15px 0;
         margin: 0;
-		font-family: @lato;
+		font-family: $lato;
 		font-size: 32px;
 		vertical-align: middle;
 		
@@ -156,7 +156,7 @@
 		}
 		
 		a:hover{
-			text-shadow: 1px 1px 10px @grey3;
+			text-shadow: 1px 1px 10px $grey3;
 		}
     }
 	
@@ -166,8 +166,8 @@
     }
 	
     #bread-crumbs{
-        background: @light-grey3;
-        border-bottom: 1px solid @light-grey2;
+        background: $light-grey3;
+        border-bottom: 1px solid $light-grey2;
 		
         p{
             padding:10px 0;
@@ -176,13 +176,13 @@
     }
 
     #footer{
-        background:@black1;
-        color:@light-grey;
+        background:$black1;
+        color:$light-grey;
 		margin-top: 30px;
 		
         a{
             font-weight: normal;
-			color: @light-grey5;
+			color: $light-grey5;
         }
     }
 		
@@ -195,7 +195,7 @@
 	}
 	
 	.footer-bot-row{
-		background: @black2;
+		background: $black2;
 	}
 	
 	@media only screen and (max-width: 550px){
@@ -233,16 +233,16 @@
 /**
 * home page colored preview
 */
-.hp-colored-preview-mixin(){
-	
+@mixin hp-colored-preview-mixin{
+	$homepage: "/content/img/homepage/hp-bg.jpg";
 	/**
 	* home page colored preview box
 	*/
 	#hp-colored-preview-box{
 	
-		background-image: url('/content/img/homepage/hp-bg.jpg');
+		background-image: url("#{$homepage}");
 		background-repeat: no-repeat;
-		background-color: @dark-blue;
+		background-color: $dark-blue;
 		padding: 100px 0;
 		text-align: center;
 		background-position: 50% 50%;
@@ -250,7 +250,7 @@
 		margin: 0 0 50px 0;
 			
 		p{
-			font-family: @lato;
+			font-family: $lato;
 			font-size: 40px;
 			color: #fff;
 			text-shadow: 0 0 9px #000;
@@ -288,7 +288,7 @@
 /**
 * elements with icons
 */
-.icons-mixin(){
+@mixin icons-mixin {
 
     .icon,
     .github-icon,
@@ -302,16 +302,16 @@
     }
 
     .download-icon{
-        background:url(@download-icon) no-repeat 0 50%;
+        background:url($download-icon) no-repeat 0 50%;
     }
 
     .read-more-blue-icon{
-        background:url(@next-blue-icon) no-repeat center right;
+        background:url($next-blue-icon) no-repeat center right;
         padding-right:15px;
     }
 
     .read-more-orange-icon{
-        background:url(@next-orange-icon) no-repeat center right;
+        background:url($next-orange-icon) no-repeat center right;
         padding-right:15px;
     }
 }
@@ -319,11 +319,11 @@
 /**
 * images
 */
-.images-mixin(){
+@mixin images-mixin{
 
     .border-img{
         border:4px solid #fff;
-        outline:1px solid @grey;
+        outline:1px solid $grey;
     }
 
     .border-img-black{
@@ -331,23 +331,23 @@
     }
 
     .border-img-grey4{
-        border:1px solid @grey;
+        border:1px solid $grey;
     }
 }
 
 /**
 * buttons
 */
-.buttons-mixin(){
+@mixin buttons-mixin{
 
     .white-btn,
     .big-white-btn{
-        border: 1px solid @light-grey1;
+        border: 1px solid $light-grey1;
         border-radius: 3px;
-        color: @dark-grey1;
+        color: $dark-grey1;
         padding: 5px 10px;
         display: inline-block;
-       .linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to
+       .linear-gradient(#fff, #fff, $light-grey4); //bgcolor, from, to
     }
 
     .big-white-btn{
@@ -360,26 +360,26 @@
 
     .white-btn.orange,
     .big-white-btn.orange{
-        color: @orange;
-        border: 1px solid @light-orange;
+        color: $orange;
+        border: 1px solid $light-orange;
     }
 
     .white-btn.blue,
     .big-white-btn.blue{
-        color: @blue;
-        border: 1px solid @light-blue;
+        color: $blue;
+        border: 1px solid $light-blue;
     }
 
     .white-btn.grey,
     .big-white-btn.grey{
-        border:1px solid @grey;
+        border:1px solid $grey;
     }
 }
 
 /**
 * text styles
 */
-.text-mixin(){
+@mixin text-mixin {
 
     .f15{
 	    font-size:15px;
@@ -402,15 +402,15 @@
     }
 
     .orange{
-        color: @orange;
+        color: $orange;
     }
 	
 	.blue{
-		color: @blue;
+		color: $blue;
 	}
 	
 	.light-blue2{
-		color: @light-blue2;
+		color: $light-blue2;
 	}	
 
     .text-shadow{
@@ -423,13 +423,13 @@
 
     .title-24-orange{
         font-size: 24px;
-        color: @orange;
+        color: $orange;
     }
 
     .title-24-blue{
 
         font-size: 24px;
-        color: @blue;
+        color: $blue;
 
         a{
             font-weight: normal;
@@ -437,7 +437,7 @@
     }
 
     .title-16-bold-black2{
-        color: @black1;
+        color: $black1;
         font-size: 16px;
         font-weight: bold;
     }
@@ -451,9 +451,8 @@
     .h1-30-normal{
         margin: 10px 0 0 0;
         padding: 0;
-        font-size:3 0px;
         font-weight: normal;
-		font-family: @lato;
+		font-family: $lato;
 		font-size: 26px;
 		color: red;
     }
@@ -471,11 +470,10 @@
 		h3{
 			margin: 0 0 0 -10px;
 			padding: 10px;
-			font-size:3 0px;
 			font-weight: normal;
-			font-family: @lato;
+			font-family: $lato;
 			font-size: 24px;	
-			background: @light-grey;
+			background: $light-grey;
 			float: left;
 			position: relative;
 		}
@@ -489,7 +487,7 @@
 		height: 1px;
 		top: 50%;
 		bottom: 0;
-		border-bottom: 1px solid @light-grey2;
+		border-bottom: 1px solid $light-grey2;
 	}
 	
 	@media only screen and (max-width: 320px){
@@ -509,7 +507,7 @@
         padding: 0;
         font-size:3 0px;
         font-weight: normal;
-		font-family: @lato;
+		font-family: $lato;
 		font-size: 26px;
     }
 
@@ -534,14 +532,14 @@
 /**
 * preview
 */
-.preview-mixin(){
+@mixin preview-mixin{
 
     .demo-preview{
         background: #fff;
         margin: 10px 0 40px 0;
 		border-radius: 3px;
         .border-box-mixin();
-        border: 1px solid @light-grey2;
+        border: 1px solid $light-grey2;
 
         img{
             max-width: 100%;
@@ -553,9 +551,9 @@
 /**
 * spacers
 */
-.spacers-mixin(){
+@mixin spacers-mixin {
 	.vspacer{
-		border-top: 1px solid @light-grey5;
+		border-top: 1px solid $light-grey5;
 		border-bottom: 1px solid #fff;
 		line-height: 1px;
 		font-size: 1px;
@@ -565,9 +563,9 @@
 /**
 * license
 */
-.license-mixin(){
+@mixin license-mixin {
 	#license{
-		background: @light-blue3;
+		background: $light-blue3;
 		margin: 20px 0;
 		padding-top: 10px;
 		
@@ -602,7 +600,7 @@
 	
 	#binpress-product-widget{
 		.component{
-			box-shadow: 0 0 10px @grey3;
+			box-shadow: 0 0 10px $grey3;
 			border-radius: 2px;
 		}
 	}
@@ -611,18 +609,18 @@
 /**
 * backgrounds mixin
 */
-.bg-mixin(){
+@mixin bg-mixin {
 	
 	.bg-white1{
-		background-color: @white1;
+		background-color: $white1;
 		border-top: 1px solid #fff;
 		border-bottom: 1px solid #fff;
 	}
 	
 	.bg-white2-noise{
-		background-color: @light-grey4;
-		border-top: 1px solid @light-grey5;
-		border-bottom: 1px solid @light-grey5;
+		background-color: $light-grey4;
+		border-top: 1px solid $light-grey5;
+		border-bottom: 1px solid $light-grey5;
 	}
 	
 }
@@ -630,7 +628,7 @@
 /**
 * forms
 */
-.form-mixin(){
+@mixin form-mixin {
 	.form{
 		.row{
 			margin: 0 0 15px 0;
@@ -644,7 +642,7 @@
 		
 		input[type="text"],
 		input[type="password"]{
-			border: 1px solid @grey2;
+			border: 1px solid $grey2;
 			width: 200px;
 		}
 		
@@ -664,28 +662,28 @@
 /**
 * new
 */
-.new-mixin(){
+@mixin new-mixin {
 	.new{
-		color: @orange;
+		color: $orange;
 		font-style: italic;
-		font-family: @lato;
+		font-family: $lato;
 	}
 }
 
 /**
 * mixin calls
 */
-.common-mixin();
-.sections-mixin();
-.icons-mixin();
-.images-mixin();
-.buttons-mixin();
-.text-mixin();
-.preview-mixin();
-.spacers-mixin();
-.license-mixin();
-.hp-colored-preview-mixin();
-.bg-mixin();
-.form-mixin();
-.fork-me-on-gihub-mixin();
-.new-mixin();
+@include common-mixin;
+@include sections-mixin;
+@include icons-mixin;
+@include images-mixin;
+@include buttons-mixin;
+@include text-mixin;
+@include preview-mixin;
+@include spacers-mixin;
+@include license-mixin;
+@include hp-colored-preview-mixin;
+@include bg-mixin;
+@include form-mixin;
+@include fork-me-on-gihub-mixin;
+@include new-mixin;

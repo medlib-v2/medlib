@@ -38,8 +38,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        //$schedule->command('inspire')->hourly();
+        $schedule->command(Commands\DeleteExpiredConfirmationTokensCommand::class)
+                ->daily()
+                ->withoutOverlapping();
+                
+        $schedule->command(Commands\ClearOrphanAvatarsCommand::class)
+                ->weekly()
+                ->sundays()
+                ->between('00:30', '7:00')
+                ->withoutOverlapping();
     }
 
     /**

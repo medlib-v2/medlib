@@ -1,10 +1,10 @@
 {
 	"dist": "public/js/be-list.filter-dropdown-bundle.min.js",
 	"src": [
-		"resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/dropdown-view.js",
-		"resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/select-view.js",
-		"resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/dropdown-group-select-text-view.js",
-		"resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/dto/dropdown-filter-dto.js",
-		"resources/assets/less/plugins/be-list/addons/filter-dropdown-bundle/js/dto/dropdown-group-select-text-dto.js"
+		"resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/dropdown-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/select-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/dropdown-group-select-text-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/dto/dropdown-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-dropdown-bundle/js/dto/dropdown-group-select-text-dto.js"
 	]
 }

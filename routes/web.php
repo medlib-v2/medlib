@@ -116,8 +116,18 @@ Route::group(['middleware' => 'language'], function () {
         /**
          * MessageResponses
          */
-        Route::put('/response', ['uses' => 'MessageResponseController@update', 'as' => 'message.response']);
-        Route::post('/response', ['uses' => 'MessageResponseController@store', 'as' => 'message.response']);
+        Route::put('/response', ['uses' => 'MessageResponseController@update', 'as' => 'message.response.update']);
+        Route::post('/response', ['uses' => 'MessageResponseController@store', 'as' => 'message.response.store']);
+    });
+
+    Route::group(['prefix' => 'conversations', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Messages'], function(){
+        /**
+         * conversations
+         */
+        Route::get('/', ['uses' => 'ConversationsController@index', 'as' => 'conversation.all']);
+        Route::post('/', ['uses' => 'ConversationsController@store', 'as' => 'conversation.store']);
+        Route::get('/{id}', ['uses' => 'ConversationsController@show', 'as' => 'conversation.show']);
+
     });
 
     /** User settings **/

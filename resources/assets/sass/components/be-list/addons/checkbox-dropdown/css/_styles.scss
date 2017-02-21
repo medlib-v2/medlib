@@ -1,19 +1,19 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * be-list checkbox dropdown control
 */
-.be-list-checkbox-dropdown-control-mixin(){
+@mixin be-list-checkbox-dropdown-control-mixin {
 
 	.be-list-checkbox-dropdown{
 		
 		.be-list-control-mixin();        	
-		.linear-gradient(#fff, #fff, @light-grey4); //bgcolor, from, to		
+		.linear-gradient(#fff, #fff, $light-grey4); //bgcolor, from, to
 		
 		width: 150px;	
 		margin: 10px 10px 0 0;
@@ -39,7 +39,7 @@
 		}
 		
 		.be-list-dd-panel:after{
-			content: @arrow-down;
+			content: $arrow-down;
 			color: #111;
 			
 			display: inline-block;
@@ -51,8 +51,8 @@
 		}
 		
         ul {
-			.border-box-mixin();
-			border:1px solid @light-grey5;
+			@include border-box-mixin;
+			border:1px solid $light-grey5;
 			border-radius:0 0 3px 3px;
 			
             position:relative;
@@ -69,7 +69,7 @@
             margin:0;
             padding:0;
 			
-			box-shadow: 0 3px 6px @grey2;
+			box-shadow: 0 3px 6px $grey2;
 
             li{
                 width: 90%;
@@ -82,18 +82,18 @@
             }
 
             li:hover {
-                background-color:@light-grey3;
+                background-color: $light-grey3;
             }
         }
 	}
 
 	.be-list-checkbox-dropdown:hover{
 		.be-list-dd-panel{
-			color: @blue;
+			color: $blue;
 		}
 		
 		.be-list-dd-panel:after{
-			color: @blue;
+			color: $blue;
 		}
 	}
 }
@@ -101,4 +101,4 @@
 /**
 * mixin calls
 */
-.be-list-checkbox-dropdown-control-mixin();
+@include be-list-checkbox-dropdown-control-mixin;

@@ -1,10 +1,10 @@
 {
 	"dist": "public/js/be-list.sort-bundle.min.js",
 	"src": [
-		"resources/assets/less/plugins/be-list/addons/sort-bundle/js/default-sort/default-sort-view.js",
-		"resources/assets/less/plugins/be-list/addons/sort-bundle/js/default-sort/default-sort-dto.js",
-		"resources/assets/less/plugins/be-list/addons/sort-bundle/js/dropdown/sort-select-view.js",
-		"resources/assets/less/plugins/be-list/addons/sort-bundle/js/dropdown/sort-dropdown-view.js",
-		"resources/assets/less/plugins/be-list/addons/sort-bundle/js/dropdown/dto/dropdown-sort-dto.js"
+		"resources/assets/sass/components/be-list/addons/sort-bundle/js/default-sort/default-sort-view.js",
+		"resources/assets/sass/components/be-list/addons/sort-bundle/js/default-sort/default-sort-dto.js",
+		"resources/assets/sass/components/be-list/addons/sort-bundle/js/dropdown/sort-select-view.js",
+		"resources/assets/sass/components/be-list/addons/sort-bundle/js/dropdown/sort-dropdown-view.js",
+		"resources/assets/sass/components/be-list/addons/sort-bundle/js/dropdown/dto/dropdown-sort-dto.js"
 	]
 }

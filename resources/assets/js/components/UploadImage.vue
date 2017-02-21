@@ -18,40 +18,61 @@
 
 <script type="text/babel">
     import Store from '../stores'
-    import _ from 'lodash'
+    import each from 'lodash/each'
+    function noop() {}
 
     export default {
         name: 'upload-image',
-        props: ['info'],
+        props: {
+          info: {
+            type: String,
+            required: true
+          },
+          onRemove: {
+            type: Function,
+            default: noop
+          },
+          onChange: {
+            type: Function,
+            default: noop
+          },
+          onError: {
+            type: Function,
+            default: noop
+          },
+          fileList: {
+            type: Array,
+            default() {
+              return []
+            }
+          }
+        },
         data() {
             return {
                 image: '',
-                hovering: false
+                hovering: false,
+                uploadFiles: []
             }
         },
         watch: {
-			/**
-			 * Store the image retrieved in the vuex store.
-			 *
-			 * @return {Void}
-			 */
-			image() {
-				Store.commit('SET_IMAGE', this.image)
-			}
-		},
+    			/**
+    			 * Store the image retrieved in the vuex store.
+    			 *
+    			 * @return {Void}
+    			 */
+    			image() {
+    				Store.commit('SET_IMAGE', this.image)
+    			}
+    		},
         methods: {
             onFileChange(e) {
                 let files = e.target.files || e.dataTransfer.files
                 if (!files.length) return
-                _.each(files, function(v, k) {
-                    /**
-                    * this.createImage(files[k])
-                    * data.append('avatars['+k+']', v)
-                    **/
-                    console.log(v, k, 'image')
+                each(files, (file, index) => {
+                    this.uploadFiles.push(file);
+                    this.createImage(files[index])
                 })
-                /** Store.commit('SET_IMAGE', files) **/
-                this.createImage(files[0])
+                this.onChange(this.uploadFiles);
             },
             createImage(file) {
                 let image = new Image()
@@ -65,6 +86,9 @@
             },
             removeImage(e) {
                 this.image = ''
+                let fileList = this.uploadFiles
+                fileList.splice(fileList.indexOf(file), 1)
+                this.onRemove(file)
             }
         }
     }

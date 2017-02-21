@@ -499,10 +499,14 @@ $sign-up-width: 					100% !default;
 $sign-up-margin-top: 				10px !default;
 $sign-up-padding: 					20px !default;
 
-//Email pages
-$email-page-favorite-color:         #FFC600 !default;
+
 
 @import "variables/alert";
 @import "variables/brandcolors";
 @import "variables/buttons";
+@import "variables/chart";
+@import "variables/email";
+@import "variables/invoice";
+@import "variables/plugins";
 @import "variables/popovers";
+@import "variables/timeline";

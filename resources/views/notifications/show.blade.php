@@ -15,6 +15,7 @@
                         <div class="panel-heading text-center">@lang('app.notifications')</div>
                         @foreach($notifications as $notification)
                             <div class="media listed-object-close">
+                              @if(isset($notification->data['username']))
                                 <div class="pull-left">
                                     <a href="{!! route('profile.user.show', ['username' => $notification->data['username']]) !!}">
                                         <img class="media-object avatar medium-avatar" src="{!! $notification->data['user_avatar'] !!}" alt="{!! $notification->data['full_name'] !!}"></a>
@@ -31,6 +32,12 @@
                                     </div>
                                     @endif
                                 </div>
+                              @else
+                                <div class="media-body">
+                                    <h4 class="media-heading">{!! $notification->data['title'] !!}</h4>
+                                    {{ $notification->data['body'] }} <span class="pull-right">{{ $notification->created_at->diffForHumans() }}</span>
+                              </div>
+                              @endif
                             </div>
                         @endforeach
                     </div>

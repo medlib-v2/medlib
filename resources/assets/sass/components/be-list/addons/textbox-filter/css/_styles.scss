@@ -1,14 +1,14 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * be-list textbox control
 */
-.be-list-textbox-control-mixin(){
+@mixin be-list-textbox-control-mixin {
 
 	.be-list-panel{	
 		.text-filter-box{
@@ -17,13 +17,13 @@
 			margin: 10px 10px 0 0;
 			
 			.be-list-icon{
-				background: @light-blue1;
+				background: $light-blue1;
 			}
 			
 			.be-list-label{
 				margin: 0;
 				border-right: 0;
-				background: @light-grey;
+				background: $light-grey;
 			}
 			
 			button{
@@ -35,4 +35,4 @@
 	}
 }
 
-.be-list-textbox-control-mixin();
+@include be-list-textbox-control-mixin;

@@ -52,4 +52,8 @@ cache-config:
 	php artisan optimize
 
 test:
-	php artisan test:run
+	composer run phpunit
+	composer run phpcs
+	composer run phpmd
+	npm run unit
+	npm run lint

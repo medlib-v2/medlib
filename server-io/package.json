@@ -1,0 +1,28 @@
+{
+  "name": "server-io",
+  "version": "1.2.6",
+  "description": "Medlib Application Node JS Server for Socket.io",
+  "keywords": [
+    "medlib",
+    "server",
+    "socket.io"
+  ],
+  "author": "Patrick LUZOLO SIASIA",
+  "license": "MIT",
+  "jshintConfig": {
+    "esversion": 6
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "crypto": "^0.0.3",
+    "dotenv": "^4.0.0",
+    "inquirer": "^3.0.1",
+    "ioredis": "^2.5.0",
+    "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.4",
+    "request": "^2.79.0",
+    "socket.io": "^1.7.3",
+    "sqlite3": "^3.1.8",
+    "yargs": "^6.6.0"
+  }
+}

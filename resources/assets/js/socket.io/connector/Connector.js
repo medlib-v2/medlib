@@ -67,7 +67,7 @@ export class SocketIOConnector {
     if (typeof host === 'string') {
       this.socket = Socket(host, this.options)
     } else {
-      this.Socket = host
+      this.socket = host
     }
     return this.socket
   }
@@ -88,7 +88,7 @@ export class SocketIOConnector {
   * Get a channel instance by name.
   *
   * @param  {string} name
-  * @return {SocketIoChannel}
+  * @return {SocketIOChannel}
   */
   channel (name) {
     if (!this.channels[name]) {
@@ -101,7 +101,7 @@ export class SocketIOConnector {
   * Get a private channel instance by name.
   *
   * @param  {string} name
-  * @return {SocketIoChannel}
+  * @return {SocketIOChannel}
   */
   privateChannel (name) {
     if (!this.channels['private-' + name]) {
@@ -114,7 +114,7 @@ export class SocketIOConnector {
   * Get a presence channel instance by name.
   *
   * @param  {string} name
-  * @return {SocketIoPresenceChannel}
+  * @return {SocketIOPresenceChannel}
   */
   presenceChannel (name) {
     if (!this.channels['presence-' + name]) {
@@ -138,6 +138,25 @@ export class SocketIOConnector {
         delete this.channels[name]
       }
     })
+  }
+
+  /**
+  * Leave the any channel.
+  *
+  * @param name
+  * @param callback
+  */
+  on (name, callback) {
+    this.socket.on(name, callback)
+  }
+
+  /**
+  *
+  * @param name
+  * @param data
+  */
+  emit (name, data = {}) {
+    this.socket.emit(name, data)
   }
 
   /**

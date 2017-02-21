@@ -7,6 +7,7 @@ use Medlib\Events\NotificationRead;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Events\NotificationReadAll;
 use Medlib\Http\Controllers\Controller;
+use Medlib\Notifications\HelloNotification;
 use Medlib\Notifications\SendFriendRequestAlertEmail;
 use Medlib\Notifications\SendConfirmationRequestAccepted;
 use NotificationChannels\WebPush\PushSubscription;
@@ -29,7 +30,6 @@ class NotificationsController extends Controller
      */
     public function unread(Request $request)
     {
-        //return Auth::user()->unreadNotifications;
         $user = $request->user();
 
         /**
@@ -56,8 +56,8 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        //$request->user()->notify(new HelloNotification);
-        //return response()->json('Notification sent.', 201);
+        $request->user()->notify(new HelloNotification);
+        return response()->json('Notification sent.', 201);
     }
 
     /**

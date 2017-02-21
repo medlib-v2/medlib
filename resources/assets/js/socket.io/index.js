@@ -2,7 +2,6 @@ import Observer from './Observer'
 import Emitter from './Emitter'
 
 export default {
-
   install (Vue, connection, store) {
     if(!connection) throw new Error('[Vue-Socket.io] cannot locate connection')
 

@@ -7,11 +7,11 @@
         <section class="activities">
           <section class="event" :data-feed-id="post.id" v-for="post in posts">
             <span class="thumb-sm avatar pull-left mr-sm">
-              <a href="#" class="pull-left"><img :src="post.user.user_avatar" class="img-circle"></a>
+              <a :href="'/u/' + post.user.username" class="pull-left"><img :src="post.user.user_avatar" class="img-circle"></a>
             </span>
             <h4 class="event-heading"><a href="#">{{ post.user.full_name }}</a></h4>
             <p class="fs-sm text-muted">{{ post.created_at | timeago }}</p>
-            <p class="fs-mini content">{{ post.body }}</p>
+            <div class="fs-mini content" v-emoji="post.body"></div>
             <p class="event-image" v-if="post.image_url">
               <img :src="post.image_url" alt="">
             </p>

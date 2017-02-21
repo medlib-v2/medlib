@@ -14,7 +14,7 @@ const state = {
  * GET_IMAGE (state){ return state.shared_image }
  */
 const getters = {
-  image: state => state.shared_image
+  shared_image: state => state.shared_image
 }
 
 /**

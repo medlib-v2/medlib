@@ -39,27 +39,25 @@ export default class SocketIO {
   * Register an Axios HTTP interceptor to add the X-Socket-ID header.
   */
   registerAxiosRequestInterceptor () {
-    /**
+
     axios.interceptors.request.use((config) => {
       if (this.socketId()) {
         config.headers['X-Socket-Id'] = this.socketId()
       }
       return config
     })
-    **/
   }
 
   /**
   * Register jQuery AjaxSetup to add the X-Socket-ID header.
   */
   registerjQueryAjaxSetup () {
-    /**
+
     jQuery.ajaxSetup({
       beforeSend: (xhr) => {
         xhr.setRequestHeader('X-Socket-Id', this.socketId())
       }
     })
-    **/
   }
 
   /**
@@ -106,6 +104,24 @@ export default class SocketIO {
   */
   leave (channel) {
     this.connector.leave(channel)
+  }
+
+  /**
+  * Leave the any channel.
+  * @param channel
+  * @param callback
+  */
+  on (channel, callback) {
+    this.connector.on(channel, callback)
+  }
+
+  /**
+  *
+  * @param channel
+  * @param data
+  */
+  emit (channel, data) {
+    this.connector.emit(channel, data)
   }
 
   /**

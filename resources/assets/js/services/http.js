@@ -56,7 +56,6 @@ export const http = {
     return Vue.http.put(url, data).then(successCallback).catch(errorCallback)
   },
 
-
   /**
    *
    * @param url
@@ -67,5 +66,24 @@ export const http = {
    */
    delete (url, data = {}, successCallback = null, errorCallback = null) {
      return Vue.http.delete(url, data).then(successCallback).catch(errorCallback)
+   },
+
+   /**
+    *
+    * @param url
+    * @param data
+    * @returns {*}
+    */
+   makeUrl (url, data) {
+     //let link = this.data.serviceHost + url;
+     let link = url;
+        if (typeof data != "undefined" && data != "") {
+            let paramArr = [];
+            for (let attr in  data) {
+                paramArr.push(attr + '=' +  data[attr]);
+            }
+            link += '?' + paramArr.join('&');
+        }
+        return link;
    }
 }

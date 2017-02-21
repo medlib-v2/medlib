@@ -1,14 +1,9 @@
-/**
-* import files
-*/
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@charset "utf-8";
 
 /**
 * pagination
 */
-.pagination-mixin(){
+@mixin pagination-mixin {
 
 	.be-list-panel{
 		.be-list-pagination{		
@@ -19,7 +14,7 @@
 
 			button{
 				display: inline-block;           
-				color: @blue;
+				color: $blue;
 				height: 30px;
 				line-height: 30px;
 				padding: 0 10px;
@@ -27,7 +22,7 @@
 
 			.be-list-current{
 				font-weight: bold;
-				color: @orange;
+				color: $orange;
 			}
 			
 			.be-list-pagingprev,
@@ -40,7 +35,7 @@
 			.be-list-pagingnext{
 				button{
 					font-size: 20px;
-					font-family: @courier;
+					font-family: $courier;
 				}
 			}
 		}
@@ -58,4 +53,4 @@
 	}
 }
 
-.pagination-mixin();
+@include pagination-mixin;

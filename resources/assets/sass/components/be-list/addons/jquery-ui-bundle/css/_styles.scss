@@ -1,14 +1,14 @@
 /**
 * import files
 */
-@import "../../../themes/core/helpers.less";
-@import "../../../themes/core/vars.less";
-@import "../../../themes/core/common.less";
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
 
 /**
 * datepicker
 */
-.datepicker-mixin(){
+@mixin datepicker-mixin {
 
   .be-list-panel {
     .be-list-date-picker-range {
@@ -26,14 +26,14 @@
         border-radius: 0 3px 3px 0;
       }
 
-      .be-list-icon{
+      .be-list-icon {
         border-radius: 3px 0 0 3px;
       }
     }
 
     .date-picker {
       float: left;
-      border: 1px solid @light-grey5;
+      border: 1px solid $light-grey5;
       margin-right: 5px;
       width: 100px;
     }
@@ -43,7 +43,7 @@
 /**
 * range slider
 */
-.range-slider-mixin(){
+@mixin range-slider-mixin {
 
     .be-list-range-slider{
         float: left;
@@ -66,5 +66,5 @@
     }
 }
 
-.datepicker-mixin();
-.range-slider-mixin();
+@include datepicker-mixin;
+@include range-slider-mixin;

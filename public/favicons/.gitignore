@@ -1,9 +1,1 @@
-*
-!.gitignore
-!.htaccess
-!index.php
-!robots.txt
-!web.config
-!uploads
-!favicons
-!avatars
+!*

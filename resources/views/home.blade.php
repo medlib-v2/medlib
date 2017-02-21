@@ -81,6 +81,7 @@
     <main id="content" class="content" role="main">
         @include('flash.message')
         <div class="form-group">
+            <notifications-demo></notifications-demo>
             <div class="now">
                 <div id="wrapper" class="col-sm-6 col-md-6">
                     <div id="book-details"></div>

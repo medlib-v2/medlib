@@ -1,12 +1,12 @@
 {
 	"dist": "public/js/be-list.pagination-bundle.min.js",
 	"src": [
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/pagination-info/pagination-info-view.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/pagination/pagination-controller.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/pagination/pagination-view.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/pagination/pagination-dto.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/dropdown/dropdown-view.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/dropdown/select-view.js",
-		"resources/assets/less/plugins/be-list/addons/pagination-bundle/js/dropdown/dto/dropdown-pagination-dto.js"
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/pagination-info/pagination-info-view.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/pagination/pagination-controller.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/pagination/pagination-view.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/pagination/pagination-dto.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/dropdown/dropdown-view.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/dropdown/select-view.js",
+		"resources/assets/sass/components/be-list/addons/pagination-bundle/js/dropdown/dto/dropdown-pagination-dto.js"
 	]
 }

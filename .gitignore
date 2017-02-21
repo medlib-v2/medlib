@@ -18,4 +18,5 @@ common.js
 ._.DS_Store
 ._*
 dump.rdb
-package-2.json
+2package.json
+server-io.json

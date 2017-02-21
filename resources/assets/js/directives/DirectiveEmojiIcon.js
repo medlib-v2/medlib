@@ -9,6 +9,11 @@ if (emojione.sprites && emojione.imageType === 'svg') {
     emojione.imagePathSVGSprites = require('emojione/assets/sprites/emojione.sprites.svg')
 }
 
-Vue.filter('emoji', (value, method = 'toImage') => {
-    return emojione[method](value)
+const emoji = (value, method = 'toImage') => emojione[method](value);
+
+Vue.directive('emoji', {
+    inserted(el, binding) {
+        // Focus the element
+        el.innerHTML = emoji(binding.value);
+    }
 })

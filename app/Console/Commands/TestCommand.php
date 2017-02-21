@@ -3,6 +3,7 @@
 namespace Medlib\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\FormatterHelper;
 
 class TestCommand extends Command
@@ -37,19 +38,33 @@ class TestCommand extends Command
     public function handle()
     {
         $this->info('Running the phpunit');
-        $result = system('./vendor/bin/phpunit --configuration phpunit.xml');
+        $path = getcwd();
 
-        try {
-            list($tests, $assertions, $status) = explode(",", $result);
+        $process = (new Process('./vendor/bin/phpunit --configuration phpunit.xml', $path))->setTimeout(null);
 
-            $this->block($status);
+        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
+            $process->setTty(true);
+        }
+        $process->run(function ($type, $line) {
+            $this->info($line);
+        });
+
+        if (!$process->isSuccessful()) {
             /**
-            if (isset($status)) {
+            try {
+                list($tests, $assertions, $status) = explode(",", $result);
+
                 $this->block($status);
-            } else {
+                if (isset($status)) {
+                $this->block($status);
+                } else {
                 $this->comment('KTHXBYE.');
-            } **/
-        } catch (\ErrorException $e) {
+                }
+            } catch (\ErrorException $e) {
+                $this->comment('KTHXBYE.');
+            }
+            **/
+        } else {
             $this->comment('KTHXBYE.');
         }
     }

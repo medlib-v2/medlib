@@ -19,21 +19,21 @@
             </main>
             <!-- / end main content -->
             @include('layouts.sidebar.right-sidebar')
+
+            @if(Auth::check())
+                <!-- conversations -->
+                <conversations :show.sync="showConversations"
+                               :all-conversations.sync="allConversations"
+                               :conversations.sync="conversations"
+                               :user.sync="user"></conversations>
+                <!-- chat box -->
+                <chatbox v-if="activeConversation"
+                         :conversation.sync="activeConversation"
+                         :show.sync="showChatbox"
+                         :user.sync="user"></chatbox>
+            @endif
         </div>
         <!-- / end main -->
-
-        @if(Auth::check())
-            <!-- conversations -->
-            <conversations :show.sync="showConversations"
-                           :all-conversations.sync="allConversations"
-                           :conversations.sync="conversations"
-                           :user.sync="user"></conversations>
-            <!-- chat box -->
-            <chatbox v-if="activeConversation"
-                     :conversation.sync="activeConversation"
-                     :show.sync="showChatbox" :user.sync="user"></chatbox>
-        @endif
-
         <!-- The Loader. Is shown when pjax happens -->
         <div class="loader-wrap hiding hide">
             <i class="fa fa-circle-o-notch fa-spin-fast"></i>
@@ -53,7 +53,8 @@
         <script type="text/javascript" src="{{ App::rev('/js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
         <script type="text/javascript" src="{{ App::rev('/js/plugins.vendor.min.js') }}"></script>
-        <script type="text/javascript" src="/js-localization/messages"></script>
+        <script type="text/javascript" src="{{ asset('/js-localization/localization.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js-localization/messages') }}"></script>
         <script type="text/javascript"> Lang.setLocale("{!! app()->getLocale() !!}"); </script>
         <script type="text/javascript" src="{{ App::rev('/js/app.js') }}"></script>
         <script type="text/javascript" src="{{ App::rev('/js/medlib.min.js') }}"></script>

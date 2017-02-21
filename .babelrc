@@ -6,8 +6,15 @@
   "plugins": ["transform-runtime"],
   "comments": false,
   "env": {
-    "test": {
-      "plugins": [ "istanbul" ]
+    "testing": {
+      "plugins": ["istanbul", {
+        "exclude": [
+          "**/*.spec.js",
+          "resources/assets/js/*.js",
+          "resources/assets/js/Components/**/*.(js|vue)",
+          "resources/assets/test/unit/*.js"
+        ]
+      }]
     }
   }
 }

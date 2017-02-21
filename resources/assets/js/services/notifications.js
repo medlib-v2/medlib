@@ -7,18 +7,18 @@ export const notifications = {
   unread () {
     return new Promise((resolve, reject) => {
       http.get('/notifications/unread').then(({body: { total, notifications }}) => {
-        resolve(total, notifications)
+        resolve({total, notifications})
       }).catch(error => reject(error))
     })
   },
-  accept_request(username, id) {
+  acceptRequest(username, id) {
     return new Promise((resolve, reject) => {
       http.post('/friends', { username: username, not_id: id }).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
   },
-  cancel_request(username, id) {
+  cancelRequest(username, id) {
     return new Promise((resolve, reject) => {
       http.delete('/friends/requests', { username: username, not_id: id }).then(({ body }) => {
         resolve(body)
@@ -31,18 +31,8 @@ export const notifications = {
   */
   fetch (limit = 5) {
     return new Promise((resolve, reject) => {
-      http.get('/notifications', { params: { limit } }).then(({ body: { total, notifications } }) => {
-        resolve(total, notifications)
-        this.total = total
-        this.notifications = notifications.map(({ id, data, created }) => {
-          return {
-            id: id,
-            title: data.title,
-            body: data.body,
-            created: created,
-            action_url: data.action_url
-          }
-        })
+      http.get('/notifications/unread', { params: { limit } }).then(({ body: { total, notifications } }) => {
+        resolve({total, notifications})
       }).catch(error => reject(error))
     })
   }

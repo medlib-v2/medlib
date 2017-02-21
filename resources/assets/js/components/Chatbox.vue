@@ -1,66 +1,61 @@
 <template lang="html">
-  <div class="chatbox effect8" transition="chatbox" v-show="show">
-    <header>
-      <div class="title">
-        <i class="fa fa-circle"></i>
-        <span>{{ title }}</span>
+  <transition name="chatbox">
+    <div class="chatbox effect8" v-show="show">
+      <header>
+        <div class="title">
+          <i class="fa fa-circle"></i>
+          <span>{{ title }}</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a @click.prevent="minimize"><i class="fa fa-minus">&nbsp;</i></a></li>
+            <!-- <li>
+            <a @click="maximize"><i class="fa fa-square-o">&nbsp;</i></a>
+            </li> -->
+            <li><a @click.prevent="close"><i class="fa fa-close">&nbsp;</i></a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="chatbox-content">
+        <li v-for="message in conversation.messages" :key="message.id" :class="message.user.id === user.id ? 'self' : 'other'">
+          <div class="avatar">
+            <img :src="message.user.avatar">
+          </div>
+          <div class="chatbox-message-content">
+            <p>{{ message.body }}</p>
+            <time :datetime="message.created_at" :title="message.created_at">
+              {{ message.user.name }} • {{ message.created_at | timeago }}
+            </time>
+          </div>
+        </li>
       </div>
-      <nav>
-        <ul>
-          <li><a @click.prevent="minimize"><i class="fa fa-minus">&nbsp;</i></a></li>
-          <!-- <li>
-          <a @click="maximize"><i class="fa fa-square-o">&nbsp;</i></a>
-          </li> -->
-          <li><a @click.prevent="close"><i class="fa fa-close">&nbsp;</i></a></li>
-        </ul>
-      </nav>
-    </header>
-    <div class="chatbox-content">
-      <li v-for="message in conversation.messages" track-by="$index" :class="message.user.id === user.id ? 'self' : 'other'">
-        <div class="avatar">
-          <img :src="message.user.avatar">
-        </div>
-        <div class="chatbox-message-content">
-          <p>{{ message.body }}</p>
-          <time :datetime="message.created_at" :title="message.created_at">
-            {{ message.user.name }} • {{ message.created_at | timeago }}
-          </time>
-        </div>
-      </li>
+      <div class="chatbox-input">
+        <textarea v-model="message" @keyup.enter="send" placeholder="Enter a message..." autofocus="true" autocomplete="off"></textarea>
+      </div>
     </div>
-    <div class="chatbox-input">
-      <textarea v-model="message" @keyup.enter="send" placeholder="Enter a message..." autofocus="true" autocomplete="off"></textarea>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script type="text/babel">
-/**
-let socket = io(Setting.socket_url, {
-    query: 'jwt=' + Setting.jwt
-})
-**/
+
 export default {
+  name: 'chatbox',
   props: {
     conversation: {
-      required: true,
-      twoWay: true
+      required: true
     },
     show: {
       type: Boolean,
       required: true,
-      twoWay: true,
       default: true
     },
     user: {
-      require: true,
-      twoWay: true
+      require: true
     }
   },
   data () {
     return {
-      message: '',
-      apiToken: Setting.csrfToken,
+      message: ''
     }
   },
   computed: {
@@ -77,6 +72,7 @@ export default {
   },
   methods: {
     send (e) {
+        e.preventDefault()
       console.log('send event', e)
       if (this.message.trim().length > 0 && !e.shiftKey) {
         /** replace newline in message with <br> **/
@@ -94,7 +90,7 @@ export default {
             /** clear the message input **/
             this.message = ''
             /** scroll message into view **/
-            setTimeout(function() {
+            setTimeout(() => {
               document.querySelector('.chatbox-content').scrollTop = 10000000
             }, 50)
           },function(response) {

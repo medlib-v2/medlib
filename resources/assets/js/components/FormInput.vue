@@ -6,14 +6,14 @@
             </div>
             <div class="share">
                 <div class="image" :class="image_hide">
-                    <upload-image info="Minimum width 700px, will be cropped to 16:9"></upload-image>
+                    <upload-image info="Minimum width 700px, will be cropped to 16:9" @on-change="onChange"></upload-image>
                 </div>
                 <div class="video" :class="video_hide">
                     <input type="text" class="form-control" placeholder="Youtube or Vimeo video URL" id="videoUrl" name="videoUrl">
                 </div>
                 <div class="place" :class="place_hide">
                     <google-autocomplete type="input" placeholder="type your address"></google-autocomplete>
-                    <span class="help is-danger" v-if="sent && isNotValid()">Select a valid address!</span>
+                    <span class="help is-danger" v-if="isNotValid()">Select a valid address!</span>
                 </div>
             </div>
             <div class="btn-toolbar share-components">
@@ -36,10 +36,8 @@
 <script type="text/babel">
 import GoogleAutocomplete from './GoogleAutocomplete.vue'
 import UploadImage from './UploadImage.vue'
-
 import { mapGetters } from 'vuex'
-//import store from '../stores'
-//import $ from '../utils'
+import each from 'lodash/each'
 
 export default {
     name: 'form-input',
@@ -64,6 +62,7 @@ export default {
             content: '',
             address: {},
             image: {},
+            files: [],
             not_working: true,
             image_class: true,
             video_class: true,
@@ -113,12 +112,14 @@ export default {
             this.place_class = false
         },
         submit() {
-            let form = document.querySelector('form')
-            let data = new FormData(form)
+            let data = new FormData();
             data.append('body', this.content)
 
             if (this.image) {
-                data.append('image', this.image)
+                let fileList = this.files
+                each(fileList, (file, index) => {
+                    data.append('image['+index+']', file)
+                })
             }
 
             if (this.address) {
@@ -126,19 +127,34 @@ export default {
             }
 
             this.$http.post(this.action, data)
-                .then((resp) => {
+                .then((response) => {
                     this.content = ''
                     this.address = {}
                     this.image = {}
-                    console.log(resp, 'Medlib %o', Medlib)
+                    this.image_class = true
+                    this.video_class = true
+                    this.place_class = true
+                    window.console.log(response, 'response::submit')
+                }).catch((error) => {
+                  window.console.log(error, 'response::error');
                 })
         },
-        isValid () {
-			return Object.keys(this.address).length > 0
-		},
-		isNotValid () {
-			return ! this.isValid()
-		}
+        onChange (files) {
+          this.files = files
+        },
+        onRemove(file) {
+          let fileList = this.files
+          fileList.splice(fileList.indexOf(file), 1)
+        },
+        onError(error) {
+          console.error(error, 'form-input');
+        },
+        isValid() {
+          return Object.keys(this.address).length > 0
+        },
+        isNotValid() {
+          return ! this.isValid()
+        }
     },
     watch: {
         content() {
@@ -148,11 +164,11 @@ export default {
                 this.not_working = true
         },
         shared_address() {
-			this.address = this.shared_address
-		},
-		shared_image() {
-			this.image = this.shared_address
-		}
+          this.address = this.shared_address
+        },
+        shared_image() {
+          this.image = this.shared_address
+        }
     }
 }
 </script>
