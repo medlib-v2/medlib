@@ -15,4 +15,5 @@ interface UserRepository
     public function findByIdWithMessages($id);
     public function findByIdWithFriends($userId);
     public function findByIdWithFriendRequests($id);
+    public function findByTimelineId($id);
 }

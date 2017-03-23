@@ -6,18 +6,17 @@ import Vue from 'vue'
 export const http = {
   /**
    *
-   * @param method
    * @param url
+   * @param method
    * @param data
-   * @param successCallback
-   * @param errorCallback
    */
-  request (method, url, data, successCallback = null, errorCallback = null) {
+  request (url, method, data) {
     method = method.toLowerCase()
-    Vue.http[method]({
-      url,
-      data,
-    }).then(successCallback).catch(errorCallback)
+      return new Promise((resolve, reject) => {
+        Vue.http[method](url, data)
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+      })
   },
 
   /**

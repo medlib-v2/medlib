@@ -1,0 +1,8 @@
+import {{view_name}}  from '../components/{{view_name}}.vue';
+
+export default {
+    path: '/{{view_name_lowercase}}',
+    name: '{{view_name_lowercase}}',
+    meta: {},
+    component: {{view_name}}
+}

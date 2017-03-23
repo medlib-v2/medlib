@@ -1,4 +1,4 @@
-import * as types from '../mutation-types'
+import { SET_USER } from '../types'
 
 /**
  * initial stat
@@ -22,16 +22,16 @@ const getters = {
  */
 const actions = {
   setUsers ({ commit }, user) {
-    commit(types.SET_USER, user)
+    commit(SET_USER, user)
   }
 }
 
 /**
  * mutations
- * @type {{[[types.SET_USER]]: ((state, user))}}
+ * @type {{[[SET_USER]]: ((state, user))}}
  */
 const mutations = {
-  [types.SET_USER] (state, user) {
+  [SET_USER] (state, user) {
     state.users.push(user)
   }
 }

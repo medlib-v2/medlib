@@ -1,49 +1,60 @@
-import * as types from '../mutation-types'
+import { SET_AUTH_USER, SET_AUTH_USER_ONLINE, SET_AUTH_USER_LOGOUT } from '../types'
 
 /**
  * initial stat
- * @type {{user: {}, onlineStatus: null}}
+ * @type {{auth_user: {}, onlineStatus: boolean, authenticated: boolean}}
  */
 const state = {
-  auth_user: {},
-  onlineStatus: false
-}
+    auth_user: {},
+    onlineStatus: false,
+    authenticated: false
+};
 
 /**
  * getters
- * @type {{onlineStatus: ((p1:*)=>null), user: ((p1:*)=>(*))}}
+ * @type {{onlineStatus: ((p1:*)=>boolean), authenticated: ((p1:*)=>boolean), user: ((p1:*)=>{})}}
  */
 const getters = {
-  onlineStatus: state => state.onlineStatus,
-  user: state => state.auth_user
-}
+    onlineStatus: state => state.onlineStatus,
+    authenticated: state => state.authenticated,
+    user: state => state.auth_user
+};
 
 /**
  * actions
- * @type {{setUserAuth: (({ commit }:{commit: *}, auth_user?))}}
+ * @type {{user: (({commit}:{commit: *}, auth_user?)), logout: (({commit}:{commit: *}, logout?))}}
  */
 const actions = {
-  user ({ commit }, auth_user) {
-    commit(types.SET_AUTH_USER, auth_user)
-  }
-}
+    user ({commit}, auth_user) {
+        commit(SET_AUTH_USER, auth_user)
+    },
+    logout ({commit}, logout = {}) {
+        commit(SET_AUTH_USER_LOGOUT, logout)
+    }
+};
 
 /**
  * mutations
- * @type {{[[types.SET_AUTH_USER]]: ((state, user)), [[types.SET_AUTH_USER_ONLINE]]: ((state, user))}}
+ * @type {{[SET_AUTH_USER]: ((state, user)), [SET_AUTH_USER_LOGOUT]: ((state, logout)), [SET_AUTH_USER_ONLINE]: ((state, user))}}
  */
 const mutations = {
-  [types.SET_AUTH_USER] (state, user) {
-    state.auth_user = user
-  },
-  [types.SET_AUTH_USER_ONLINE] (state, user) {
-    state.onlineStatus = user.onlinestatus
-  }
-}
+    [SET_AUTH_USER] (state, user) {
+        state.auth_user = user
+        state.authenticated = true
+    },
+    [SET_AUTH_USER_LOGOUT] (state, logout) {
+        state.auth_user = logout
+        state.onlineStatus = false
+        state.authenticated = false
+    },
+    [SET_AUTH_USER_ONLINE] (state, user) {
+        state.onlineStatus = user.onlinestatus
+    }
+};
 
 export default {
-  state,
-  getters,
-  actions,
-  mutations
+    state,
+    getters,
+    actions,
+    mutations
 }

@@ -4,6 +4,8 @@ namespace Medlib\Repositories\Feed;
 
 use Medlib\Models\User;
 use Medlib\Models\Feed;
+use Medlib\Models\Setting;
+use Medlib\Models\Timeline;
 
 class EloquentFeedRepository implements FeedRepository
 {
@@ -42,5 +44,23 @@ class EloquentFeedRepository implements FeedRepository
         $friendsUserIds = $user->friends()->pluck('requester_id');
         $friendsUserIds[] = $user->id;
         return Feed::whereIn('user_id', $friendsUserIds)->latest()->skip($startingPoint)->take(10)->get();
+    }
+
+    /**
+     * Get feeds and comments via timeline.
+     *
+     * @param \Medlib\Models\Timeline $timeline
+     * @param \Medlib\Models\User $user
+     * @return mixed
+     */
+    public function getPublishedByTimelineOrByUser(Timeline $timeline, User $user)
+    {
+        $feeds = $timeline->feeds()->orderBy('created_at', 'desc')->paginate(Setting::get('items_page'));
+
+        if ($feeds == null || empty($feeds)) {
+            $feeds = $this->getPublishedByUserAndFriends($user);
+        }
+
+        return $feeds;
     }
 }

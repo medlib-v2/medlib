@@ -93,7 +93,7 @@ class EloquentUserRepository implements UserRepository
      */
     public function findByIdWithMessages($id)
     {
-        return User::find($id)->messages()->paginate(10);
+        return User::find($id)->messages()->orderBy('created_at', 'desc')->paginate(10);
     }
 
     /**
@@ -127,5 +127,17 @@ class EloquentUserRepository implements UserRepository
             }])->findOrFail($userId)->toArray();
         
         return $user['friends'];
+    }
+
+    /**
+     * Fetch a user by id with timeline attached
+     *
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function findByTimelineId($id)
+    {
+        return User::where('timeline_id', $id)->first();
     }
 }

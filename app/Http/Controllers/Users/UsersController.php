@@ -3,11 +3,10 @@
 namespace Medlib\Http\Controllers\Users;
 
 use Medlib\Models\User;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Medlib\Repositories\User\UserRepository;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class UsersController extends Controller
 {
@@ -22,7 +21,7 @@ class UsersController extends Controller
      *
      * @param $username
      * @param UserRepository $userRepository
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index($username, UserRepository $userRepository)
     {
@@ -35,7 +34,7 @@ class UsersController extends Controller
             if (!$user == null) {
                 return $this->showFriendsAndFeeds($user);
             }
-            return Redirect::back()->withErrors("User does not exist $username");
+            return $this->responseWithError(['message' => "User does not exist $username"], IlluminateResponse::HTTP_NOT_FOUND);
         }
     }
 
@@ -44,7 +43,7 @@ class UsersController extends Controller
      *
      * @param $username
      * @param UserRepository $userRepository
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($username, UserRepository $userRepository)
     {
@@ -61,7 +60,7 @@ class UsersController extends Controller
                 return $this->showFriendsAndFeeds($user);
             }
 
-            return Redirect::back()->withErrors("User does not exist $username");
+            return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->responseWithError(['message' => "User does not exist $username"]);
         }
     }
 
@@ -74,20 +73,22 @@ class UsersController extends Controller
         if (Auth::user()->getUsername() == $username) {
             return $this->response(Auth::user());
         }
-        return $this->setStatusCode(401)->response(['response' => 'Unauthorized.']);
+        return $this->setStatusCode(IlluminateResponse::HTTP_UNAUTHORIZED)->responseWithError(['response' => 'Unauthorized.']);
     }
 
     /**
      * Display the specified user.
      *
      * @param User $user
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
     private function showFriendsAndFeeds(User $user)
     {
         $friends = $user->friends()->take(8)->get();
-
-        return view('users.users.show', compact('user', 'friends'));
+        return $this->response([
+            compact('user', 'friends')
+        ]);
+        //return view('users.users.show', compact('user', 'friends'));
     }
 
     /**

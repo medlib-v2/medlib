@@ -11,6 +11,7 @@ use Medlib\Repositories\User\UserRepository;
 use Medlib\Services\CreateFriendRequestService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Medlib\Repositories\FriendRequest\FriendRequestRepository;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class FriendRequestController extends Controller
 {
@@ -36,7 +37,8 @@ class FriendRequestController extends Controller
 
         $usersWhoRequested = new LengthAwarePaginator($userObjects, count($userObjects), 10, 1, ['path' => '/friends/requests']);
 
-        return view('friends.friend-requests', compact('usersWhoRequested'));
+        return $this->responseWithError(compact('usersWhoRequested'), IlluminateResponse::HTTP_OK);
+        //return view('friends.friend-requests', compact('usersWhoRequested'));
     }
 
     /**
@@ -60,7 +62,9 @@ class FriendRequestController extends Controller
     {
         $this->dispatch(new CreateFriendRequestService($request));
 
-        return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
+        return $this->responseWithSuccess([
+            'message' => 'Friend request submitted'
+        ], IlluminateResponse::HTTP_OK);
     }
 
     /**
@@ -81,6 +85,13 @@ class FriendRequestController extends Controller
 
         $friendRequestCount = $this->currentUser->friendRequests()->count();
 
-        return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'friend request removed']);
+        /**
+         * return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'friend request removed']);
+         *
+         */
+        return $this->responseWithSuccess([
+            'count' => $friendRequestCount,
+            'message' => 'friend request removed'
+        ], IlluminateResponse::HTTP_OK);
     }
 }

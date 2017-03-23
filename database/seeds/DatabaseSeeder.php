@@ -21,29 +21,49 @@ class DatabaseSeeder extends Seeder
         'languages',
         'likes',
         'messages',
-        'message_responses',
-        'message_response_user',
-        'message_user',
+        'conversations',
         'password_resets',
         'publishers',
+        'settings',
+        'roles',
         'users',
+        'profiles',
+        'role_user',
+        'permissions',
+        'permission_role',
+        'timelines',
+        'comment_likes',
+        'media',
+        'followers',
     ];
 
-    protected $seeders = [
-        UserTableSeeder::class,
-		AuthorsTableSeeder::class,
-		BookTableSeeder::class,
-		CategoryTableSeeder::class,
-		EditionTableSeeder::class,
-		FeedTableSeeder::class,
-		FriendRequestTableSeeder::class,
-		LanguageTableSeeder::class,
-		MessageResponseUserTableSeeder::class,
-		MessageResponsesTableSeeder::class,
-		MessageUserTableSeeder::class,
-		MessagesTableSeeder::class,
-		PublisherTableSeeder::class,
+    protected $localSeeders = [
+        AuthorsTableSeeder::class,
+        BookTableSeeder::class,
+        CategoryTableSeeder::class,
+        EditionTableSeeder::class,
+        LanguageTableSeeder::class,
+        PublisherTableSeeder::class,
+        //UserTableSeeder::class,
+        MediumTableSeeder::class,
+        RolesTableSeeder::class,
+        TimelinesTableSeeder::class,
+        FriendRequestTableSeeder::class,
+        SettingsTableSeeder::class,
+        HashtagsTableSeeder::class,
+        AnnouncementsTableSeeder::class,
+        FeedTableSeeder::class,
+        CommentsTableSeeder::class,
+        StaticpageTableSeeder::class,
+        MessagesTableSeeder::class,
 	];
+
+    protected $productionSeeders = [
+        //CategoriesTableSeeder::class,
+        RolesTableSeeder::class,
+        StaticpageTableSeeder::class,
+        ProductionSeeder::class,
+    ];
 
     /**
      * Run the database seeds.
@@ -56,7 +76,9 @@ class DatabaseSeeder extends Seeder
 
         $this->cleanDatabase();
 
-        foreach ($this->seeders as $seedClass) {
+        $seeders = (Config::get('app.env') == 'local') ? $this->localSeeders : $this->productionSeeders;
+
+        foreach ($seeders as $seedClass) {
             $this->call($seedClass);
         }
         

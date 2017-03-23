@@ -2,13 +2,15 @@
 
 namespace Medlib\Http\Controllers\Friends;
 
+use Medlib\Models\User;
+use Medlib\Models\Timeline;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Response;
-use Medlib\Services\FriendRequestAcceptedService;
 use Medlib\Services\RemoveFriendService;
 use Medlib\Http\Requests\FriendUserRequest;
 use Medlib\Repositories\User\UserRepository;
+use Medlib\Services\FriendRequestAcceptedService;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class FriendController extends Controller
 {
@@ -31,7 +33,7 @@ class FriendController extends Controller
      *
      * @param UserRepository $repository
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(UserRepository $repository)
     {
@@ -39,26 +41,37 @@ class FriendController extends Controller
 
         $friends = $repository->findByIdWithFriends($user->id);
 
-        return view('friends.index', compact('friends', 'user'));
+        return $this->responseWithSuccess(compact('friends', 'user'), IlluminateResponse::HTTP_OK);
     }
 
     /**
      * Store a newly created friend
      *
      * @param FriendUserRequest $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(FriendUserRequest $request)
     {
         $friendRequestCount = $this->dispatch(new FriendRequestAcceptedService($request));
 
-        return $this->setStatusCode(200)->response(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.']);
+        return $this->responseWithSuccess([
+            'count' => $friendRequestCount,
+            'message' => 'Friend request accepted.'
+        ], IlluminateResponse::HTTP_OK);
     }
 
     public function friends($username)
     {
+        $user = Timeline::where('username', '=' ,$username)->first();
 
-        return $this->response(Auth::user()->friends);
+        if ($user == null) {
+            $user = User::where('username', '=', $username)->first();
+
+            if ($user == null) {
+                return $this->responseWithError('User does not exist '.$username, IlluminateResponse::HTTP_NOT_FOUND);
+            }
+        }
+        return $this->responseWithError($user->friends);
     }
 
     /**
@@ -66,12 +79,15 @@ class FriendController extends Controller
      *
      * @param FriendUserRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(FriendUserRequest $request)
     {
         $friendsCount = $this->dispatch(new RemoveFriendService($request));
 
-        return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed'], 200);
+        return $this->responseWithSuccess([
+            'count' => $friendsCount,
+            'message' => 'This friend has been removed'
+        ], IlluminateResponse::HTTP_OK);
     }
 }

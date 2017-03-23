@@ -1,5 +1,4 @@
-window.GOOGLE_AUTOCOMPLETE_KEY = 'AIzaSyASWIWXTQSF8spzI3X3Esk4pnoq-gPoLHQ'
-
+//window.GOOGLE_AUTOCOMPLETE_KEY = 'AIzaSyASWIWXTQSF8spzI3X3Esk4pnoq-gPoLHQ'
 /**
 window.GOOGLE_AUTOCOMPLETE = {
     'domain': 'https://maps.googleapis.com/maps/api/js',
@@ -17,3 +16,20 @@ window.GOOGLE_AUTOCOMPLETE = {
     }
 }
 **/
+
+/**
+ * We'll load jQuery and the Bootstrap jQuery plugin which provides support
+ * for JavaScript based Bootstrap features such as modals and tabs. This
+ * code may be modified to fit the specific needs of your application.
+ */
+require('jquery');
+require('bootstrap-sass');
+require('select2');
+
+/**
+ *
+ */
+require('./plugins/modernizr');
+
+//import dotenv from 'dotenv';
+//dotenv.load();

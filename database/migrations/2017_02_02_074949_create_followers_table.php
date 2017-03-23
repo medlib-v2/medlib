@@ -17,6 +17,7 @@ class CreateFollowersTable extends Migration
             $table->increments('id');
             $table->integer('followee_id');
             $table->integer('follower_id');
+            $table->string('status', 50);
             $table->timestamps();
         });
     }

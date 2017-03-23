@@ -25,11 +25,10 @@ class CreateMessageRequest extends Request
     public function rules()
     {
         return [
-            'receiver_id'           => 'required',
-            'body'                  => 'required',
-            'sender_id'             => 'required',
-            'sender_profile_image'  => 'required',
-            'sender_name'           => 'required'
+            'body' => 'required',
+            'sender_id' => 'required|numeric',
+            'receiver_id' => 'required|numeric',
+            'conversation_id' => 'required|numeric'
         ];
     }
 }

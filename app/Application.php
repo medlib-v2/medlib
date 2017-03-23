@@ -20,7 +20,7 @@ class Application extends IlluminateApplication
      *
      * @link https://github.com/medlib-v2/medlib/releases
      */
-    const VERSION = 'v0.2.11-dev';
+    const VERSION = APP_VERSION;
 
     /**
      * Loads a revision'ed asset file, making use of laravel-mix
@@ -38,17 +38,7 @@ class Application extends IlluminateApplication
         static $manifest;
 
         $manifestFile = $manifestFile ?: $this->publicPath().'/mix-manifest.json';
-        /**
-        if ($manifest === null) {
-            $manifest = json_decode(file_get_contents($manifestFile), true);
-        }
 
-        if (isset($manifest[$file])) {
-            return $this->staticUrl("/{$manifest[$file]}");
-        }
-
-        throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
-        **/
         if (!$manifest) {
             if (! file_exists($manifestPath = $manifestFile)) {
                 throw new InvalidArgumentException('The Mix manifest does not exist.');
@@ -69,7 +59,7 @@ class Application extends IlluminateApplication
 
         return file_exists(public_path('/hot'))
             ? new HtmlString("http://localhost:8080{$manifest[$file]}")
-            : new HtmlString("{$manifest[$file]}");
+            : new HtmlString($this->staticUrl("{$manifest[$file]}"));
     }
 
     /**
@@ -86,6 +76,7 @@ class Application extends IlluminateApplication
         $cdnUrl = trim(config('medlib.cdn.url'), '/ ');
         return $cdnUrl ? $cdnUrl.'/'.trim(ltrim($name, '/')) : trim(asset($name));
     }
+
     /**
      * Get the latest version number of Medlib from GitHub.
      *

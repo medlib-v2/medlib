@@ -15,6 +15,39 @@ class FeedTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        factory(Feed::class, 260)->create();
+
+        $posts = Feed::all();
+
+
+        foreach ($posts as $post) {
+            $follows = $faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'], $faker->numberBetween(1, 3));
+
+            $post->follows()->sync($follows);
+        }
+
+        //Seeding post likes
+        foreach ($posts as $post) {
+            $likes = $faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'], $faker->numberBetween(1, 3));
+
+            $post->likes()->sync($likes);
+        }
+
+        //Seeding post media
+        foreach ($posts as $post) {
+            $media = $faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'], $faker->numberBetween(1, 3));
+
+            $post->images()->sync($media);
+        }
+
+        //Seeding post shares
+        foreach ($posts as $post) {
+            $shares = $faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'], $faker->numberBetween(1, 3));
+
+            $post->shared()->sync($shares);
+        }
+
+        /**
         $users = User::pluck('id');
 
         $date = new DateTime();
@@ -39,5 +72,6 @@ class FeedTableSeeder extends Seeder
                 ]);
             }
         }
+        **/
     }
 }

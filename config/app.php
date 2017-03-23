@@ -173,6 +173,16 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         NotificationChannels\WebPush\WebPushServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        JsLocalization\JsLocalizationServiceProvider::class,
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
+        McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -187,19 +197,6 @@ return [
         Yaz\Services\QueryServiceProvider::class,
         Medlib\MarcXML\ParserServiceProvider::class,
         Medlib\BookCover\Services\CoverServiceProvider::class,
-
-
-        /*
-         * Package Service Providers...
-         */
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        JsLocalization\JsLocalizationServiceProvider::class,
-        BackupManager\Laravel\Laravel5ServiceProvider::class,
-        McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
 
         /*
          * Laravel Collective Service Providers...
@@ -268,6 +265,8 @@ return [
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

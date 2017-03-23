@@ -42,9 +42,9 @@ return [
     'switch_down'       => 'Switch to maintenance mode now? The app will switch back to live mode once cleanup is finished',
     'update_available'  => 'An update is available!',
     'outdated'          => 'You are running an out of date release :current, there is an updated release <a href=":link" rel="noreferrer">:latest</a> available!',
-    'explore_universe'  => '<h6>Explore <strong>our World</strong></h6>',
-    'universe'          => '<p class="paraf">The universe of <strong>Medlib</strong> gives access to a set of services specifically adapted and also offers an exchange platform.</p>',
-    'discover_suggestions' => '<h6>Discover <strong>our suggestions</strong></h6>',
-    'discover_suggestions_content' => '<p class="paraf">Search all kind of documents with <strong>Medlib</strong>, science book, romance etc ...</p>',
+    'explore_universe'  => 'Explore <strong>our World</strong>',
+    'universe'          => 'The universe of <strong>Medlib</strong> gives access to a set of services specifically adapted and also offers an exchange platform.',
+    'discover_suggestions' => 'Discover <strong>our suggestions</strong>',
+    'discover_suggestions_content' => 'Search all kind of documents with <strong>Medlib</strong>, science book, romance etc ...',
 
 ];

@@ -5,6 +5,7 @@ namespace Medlib\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class TestCommand extends Command
 {
@@ -50,6 +51,8 @@ class TestCommand extends Command
         });
 
         if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+
             /**
             try {
                 list($tests, $assertions, $status) = explode(",", $result);

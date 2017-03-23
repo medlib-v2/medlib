@@ -1,2 +1,1 @@
-export const Setting = window.Setting
-export const me = window.me
+export const { Setting, me } = window

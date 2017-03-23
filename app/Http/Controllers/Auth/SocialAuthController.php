@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Medlib\Services\SocialAccountService;
+use Illuminate\Http\Response as IlluminateResponse;
 
 /**
 * @Middleware("guest")
@@ -21,7 +22,7 @@ class SocialAuthController extends Controller
      * @Middleware("guest")
      *
      * @param string $provider
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function redirectToSocialProvider($provider)
     {
@@ -30,7 +31,9 @@ class SocialAuthController extends Controller
          * redirect the user back to where they came from
          */
         if (!array_key_exists($provider, config('services'))) {
-            return redirect()->route('auth.login');
+            return $this->responseWithError(
+                ['redirect' => '/login']
+            , IlluminateResponse::HTTP_NOT_ACCEPTABLE);
         }
 
         return Socialite::driver($provider)->fields([
@@ -47,7 +50,7 @@ class SocialAuthController extends Controller
      *
      * @param string $provider
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handleSocialProviderCallback($provider, Request $request)
     {
@@ -56,7 +59,9 @@ class SocialAuthController extends Controller
          * abort the signup
          */
         if (!array_key_exists($provider, config('services'))) {
-            redirect()->route('auth.login');
+            return $this->responseWithError(
+                ['redirect' => '/login'],
+                IlluminateResponse::HTTP_NOT_ACCEPTABLE);
         }
 
         $method = 'handle'.studly_case($provider . "Callback");
@@ -73,7 +78,7 @@ class SocialAuthController extends Controller
      * Handle Facebook callback
      *
      * @param Request $request
-     * @return Redirect
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handleFacebookCallback(Request $request)
     {
@@ -91,14 +96,18 @@ class SocialAuthController extends Controller
                 'email', 'user_birthday'
             ])->user();
         } catch (Exception $e) {
-            return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
+            return $this->responseWithError(
+                ['redirect' => '/login', 'message' => 'Something went wrong or You have rejected the app!'],
+                IlluminateResponse::HTTP_NOT_ACCEPTABLE
+            );
         }
 
         $authUser = SocialAccountService::findOrCreateUser($providerUser, 'facebook_id');
 
         auth()->login($authUser, true);
+        $token = \JWTAuth::fromUser($authUser);
 
-        return redirect()->route('home');
+        return $this->responseWithSuccess($token);
     }
 
     /**
@@ -106,7 +115,7 @@ class SocialAuthController extends Controller
      * Handle Twitter callback
      *
      * @param Request $request
-     * @return Redirect
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handleTwitterCallback(Request $request)
     {
@@ -124,14 +133,18 @@ class SocialAuthController extends Controller
                 'email', 'user_birthday'
             ])->user();
         } catch (Exception $e) {
-            return redirect()->route('auth.login')->with('error', 'Something went wrong or You have rejected the app!');
+            return $this->responseWithError(
+                ['redirect' => '/login', 'message' => 'Something went wrong or You have rejected the app!'],
+                IlluminateResponse::HTTP_NOT_ACCEPTABLE
+            );
         }
 
         $authUser = SocialAccountService::findOrCreateUser($providerUser, 'twitter_id');
 
         Auth::login($authUser, true);
+        $token = \JWTAuth::fromUser($authUser);
 
-        return redirect()->route('home');
+        return $this->responseWithSuccess($token);
     }
 
     /**

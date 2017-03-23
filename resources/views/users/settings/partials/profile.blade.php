@@ -79,7 +79,7 @@
                 </div>
             </div>
         {!! Form::close() !!}
-        @if($errors->any())
+        @if(isset($errors) and $errors->any())
             <script>
                 $(function() {
                     $('#mdl-scale').modal('show');

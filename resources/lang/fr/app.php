@@ -41,9 +41,9 @@ return [
     'switch_down'       => "Passer en mode de maintenance maintenant? L'application revient au mode normal une fois le nettoyage terminé",
     'update_available'  => 'Une mise à jour est disponible!',
     'outdated'          => 'Vous exécutez une version :current, une version <a href=":link" rel="noreferrer">:latest</a> est disponible!',
-    'explore_universe'  => '<h6>Explorez <strong>notre univers</strong></h6>',
-    'universe'          => '<p class="paraf">L\'univers de <strong>Medlib</strong> donne accès à un ensemble des services spécifiquement adaptées et propose également une plate-fome d’échange.</p>',
-    'discover_suggestions' => '<h6>Découvrez <strong>nos suggestions du jours</strong></h6>',
-    'discover_suggestions_content' => '<p class="paraf">Rechercher tout type des documents avec <strong>Medlib</strong>, livre de science, romance etc...</p>',
+    'explore_universe'  => 'Explorez <strong>notre univers</strong>',
+    'universe'          => 'L\'univers de <strong>Medlib</strong> donne accès à un ensemble des services spécifiquement adaptées et propose également une plate-fome d’échange.',
+    'discover_suggestions' => 'Découvrez <strong>nos suggestions du jours</strong>',
+    'discover_suggestions_content' => 'Rechercher tout type des documents avec <strong>Medlib</strong>, livre de science, romance etc...',
 
 ];

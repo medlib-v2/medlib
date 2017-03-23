@@ -22,9 +22,12 @@ class Kernel extends ConsoleKernel
         Commands\MakeModelCommand::class,
         Commands\CreateUserCommand::class,
         Commands\MigrationsCommand::class,
-        Commands\DatabaseSeederCommand::class,
+        Commands\MakeVueViewCommand::class,
+        Commands\MakeVueMixinCommand::class,
         Commands\MigrateSchemaCommand::class,
+        Commands\DatabaseSeederCommand::class,
         Commands\RegisterCommandsCommand::class,
+        Commands\MakeVueComponentCommand::class,
         Commands\GenerateJWTSecretCommand::class,
         Commands\ClearOrphanAvatarsCommand::class,
         Commands\DeleteExpiredConfirmationTokensCommand::class,
@@ -38,11 +41,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->command('inspire')->hourly();
         $schedule->command(Commands\DeleteExpiredConfirmationTokensCommand::class)
                 ->daily()
                 ->withoutOverlapping();
-                
+
         $schedule->command(Commands\ClearOrphanAvatarsCommand::class)
                 ->weekly()
                 ->sundays()

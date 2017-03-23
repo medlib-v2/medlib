@@ -8,7 +8,7 @@ export const user = {
   */
   me (user) {
     return new Promise((resolve, reject) => {
-      http.get(`/u/${user}/me`).then(({ body }) => {
+      http.get(`/api/u/${user}/me`).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
@@ -16,12 +16,11 @@ export const user = {
   /**
   * Log a user in.
   *
-  * @param  {String}   email
-  * @param  {String}   password
+  * @param  {Object}   data
   */
-  login (email, password) {
+  login (data) {
     return new Promise((resolve, reject) => {
-      http.post('/login', { email, password }).then(({ body }) => {
+      http.post('/api/login', data).then(({ body }) => {
         resolve(body)
       }).catch( error => reject(error))
     })
@@ -31,7 +30,7 @@ export const user = {
   */
   logout () {
     return new Promise((resolve, reject) => {
-      http.get('/logout').then(({ body }) => {
+      http.delete('/api/logout').then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
@@ -44,7 +43,7 @@ export const user = {
    */
    updateProfile (user, password) {
      return new Promise((resolve, reject) => {
-       http.put('me', {
+       http.put('/api/me', {
          password,
          username: user.username,
          email: user.email
@@ -62,7 +61,7 @@ export const user = {
    */
    store (username, email, password) {
      return new Promise((resolve, reject) => {
-       http.post('/user', { username, email, password }).then(({ body: user }) => {
+       http.post('/api/user', { username, email, password }).then(({ body: user }) => {
          resolve(user)
        }).catch(error => reject(error))
      })
@@ -78,7 +77,7 @@ export const user = {
    */
   update (user, name, email, password) {
     return new Promise((resolve, reject) => {
-      http.put(`/user/${user.id}`, { name, email, password }).then(({ body: user }) => {
+      http.put(`/api/user/${user.id}`, { name, email, password }).then(({ body: user }) => {
         resolve(user)
       }).catch(error => reject(error))
     })
@@ -90,7 +89,7 @@ export const user = {
   */
   destroy (user) {
     return new Promise((resolve, reject) => {
-      http.delete(`user/${user.username}`).then(({ body }) => {
+      http.delete(`/api/user/${user.username}`).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })

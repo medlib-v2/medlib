@@ -12,6 +12,7 @@ abstract class Request extends FormRequest
      */
     public function wantsJson()
     {
-        return parent::wantsJson();
+        //return parent::wantsJson();
+        return true;
     }
 }

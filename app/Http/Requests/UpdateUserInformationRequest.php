@@ -2,9 +2,9 @@
 
 namespace Medlib\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Medlib\Http\Requests\Request;
 
-class UpdateUserInformationRequest extends FormRequest
+class UpdateUserInformationRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

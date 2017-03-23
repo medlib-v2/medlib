@@ -25,6 +25,6 @@ class Create{{model_plural}}Table extends Migration
      */
     public function down()
     {
-        Schema::drop('{{model_plural_lowercase}}');
+        Schema::dropIfExists('{{model_plural_lowercase}}');
     }
 }

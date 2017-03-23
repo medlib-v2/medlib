@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Medlib\Models\Conversation;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class ConversationsController extends Controller
 {
@@ -67,7 +68,7 @@ class ConversationsController extends Controller
             ]);
         }
         return response()->json([
-            'conversation' =>  Conversation::with(['messages', 'sender', 'receiver'])->where('id', $conversation->id)->first()
+            'conversation' =>  Conversation::find($conversation->id)->first()
         ]);
     }
 }

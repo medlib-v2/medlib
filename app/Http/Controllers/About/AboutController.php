@@ -42,18 +42,21 @@ class AboutController extends Controller
      * @Post("/site/contact", as="contact.store")
      * @Middleware("guest")
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param ContactFormRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(ContactFormRequest $request)
     {
+        $email = $request->get('email');
+
         Mail::send('emails.contact', [
             'name' => $request->get('name'),
-            'email' => $request->get('email'),
+            'email' => $email,
             'user_message' => $request->get('message')
-        ], function ($message) {
-            $message->from(config('mail.from'));
-            $message->to(config('mail.from'), 'Admin')->subject('Medlib Feedback');
+        ], function ($message) use ($email) {
+            $message->from($email);
+            $message->to(config('mail.from.address'), 'Admin')->subject('Medlib Feedback');
         });
-        return redirect()->route('contact.show')->with('message', 'Thanks for contacting us!');
+        return $this->responseWithSuccess(['message' => 'Thanks for contacting us!']);
     }
 }

@@ -55,7 +55,7 @@ class HelloNotification extends Notification
      *
      * @param  mixed  $notifiable
      * @param  mixed  $notification
-     * @return \Illuminate\Notifications\Messages\DatabaseMessage
+     * @return WebPushMessage
      */
     public function toWebPush($notifiable, $notification)
     {

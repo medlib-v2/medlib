@@ -18,7 +18,7 @@ class Profile extends Model
     *
     * @var array
     */
-    protected $fillable = ['location', 'about','user_id'];
+    protected $fillable = ['user_id', 'about', 'location', 'country', 'timezone'];
 
     /**
     * The attributes excluded from the model's JSON form.

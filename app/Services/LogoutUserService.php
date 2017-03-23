@@ -2,7 +2,9 @@
 
 namespace Medlib\Services;
 
+use Log;
 use JWTAuth;
+use Exception;
 use Medlib\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Medlib\RealTime\Events as SocketClient;
@@ -37,8 +39,18 @@ class LogoutUserService extends Service
         $related_to_id = $this->user->id;
 
         $this->client->updateChatStatusBar($friendsUserIds, 22, $related_to_id, false);
-        $token = JWTAuth::fromUser($this->user);
-        JWTAuth::invalidate($token);
+
+        /**
+         * $token = JWTAuth::getToken()
+         */
+        if ($token = JWTAuth::fromUser($this->user)) {
+            try {
+                JWTAuth::invalidate($token);
+            } catch (Exception $e) {
+                Log::error($e);
+            }
+        }
+
         Auth::logout();
 
         return Auth::check();

@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Medlib\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Illuminate\Session\Middleware\StartSession::class,
     ];
 
     /**
@@ -29,7 +30,7 @@ class Kernel extends HttpKernel
         'web' => [
             \Medlib\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
+            //\Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Medlib\Http\Middleware\VerifyCsrfToken::class,
@@ -58,5 +59,11 @@ class Kernel extends HttpKernel
         'guest' =>      \Medlib\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' =>   \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'language' =>   \Medlib\Http\Middleware\Language::class,
+        'role' =>       \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' =>    \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'editown'     => \Medlib\Http\Middleware\EditOwn::class,
+        'editgroup'   => \Medlib\Http\Middleware\EditGroup::class,
+        'editpage'    => \Medlib\Http\Middleware\EditPage::class,
     ];
 }

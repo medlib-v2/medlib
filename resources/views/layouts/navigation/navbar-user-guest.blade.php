@@ -28,7 +28,7 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group @if(isset($errors) and $errors->has('email')) has-error @endif field">
                                         <label class="label-control" for="email"><span class="label-text">{{ trans('auth.txt.email') }}</span></label>
-                                        <input type="email" class="form-control" id="email" name="email" value="@if ( Request::has('email') ) {{ Request::old('email') }} @endif" required />
+                                        <input type="email" class="form-control" id="email" name="email" value="@if ( request()->hasSession() ) {{ old('email') }} @endif" required />
                                     </div>
                                     <div class="form-group @if(isset($errors) and $errors->has('password')) has-error @endif field">
                                         <label class="label-control" for="password"><span class="label-text">@lang('auth.txt.password')</span></label>

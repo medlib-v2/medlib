@@ -1,4 +1,4 @@
-import { $ } from './'
+import $ from 'jquery'
 import { merge } from 'loadash'
 /**
  * Big fat Notification object
@@ -50,7 +50,7 @@ class Notification {
      * @param {Object} params The object that contains all the options for drawing the notification
      * @return {Number} The specific numeric id to that notification
      */
-  add(params: any) {
+  add(params) {
         /**
          * Handle straight text
          */
@@ -388,35 +388,36 @@ class Notification {
 /**
  * Set it up as an object under the jQuery namespace
  */
-export default {
-  options: {},
-  notification: new Notification(this.options),
+const Notifications = {
+    options: {},
+    notification: new Notification(this.options),
     /**
      * Add a notification to the screen
      * @see Notification#add()
      */
-  add: function (params) {
-    try {
-      return this.notification.add(params || {})
-    } catch (e) {
-      let err = 'Notification Error: ' + e;
-      (typeof (console) !== 'undefined' && console.error) ? console.error(err, params) : alert(err)
-    }
-  },
+    add: function (params) {
+        try {
+            return this.notification.add(params || {})
+        } catch (e) {
+            let err = 'Notification Error: ' + e;
+            (typeof (console) !== 'undefined' && console.error) ? console.error(err, params) : alert(err)
+        }
+    },
 
     /**
      * Remove a gritter notification from the screen
      * @see Notification#removeSpecific()
      */
-  remove: function(id, params) {
-    this.notification.removeSpecific(id, params || {})
-  },
+    remove: function(id, params) {
+        this.notification.removeSpecific(id, params || {})
+    },
 
     /**
      * Remove all notifications
      * @see Notification#stop()
      */
-  removeAll: function(params) {
-    this.notification.stop(params || {})
-  }
+    removeAll: function(params) {
+        this.notification.stop(params || {})
+    }
 }
+export default Notifications

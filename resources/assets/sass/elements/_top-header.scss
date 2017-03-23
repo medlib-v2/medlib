@@ -206,6 +206,63 @@
                                         position: relative;
                                         height: 72px;
                                         padding: 16px 0 8px 0;
+
+                                        &.be-input-focused {
+                                            .label-control {
+                                                pointer-events: auto;
+                                                top: 0;
+                                                @include opacity(1);
+                                                @include transform(translateY(0));
+                                                font-size: 16px;
+                                                color: #03A9F4 !important;
+                                            }
+                                            &::after{ @include transform(scaleX(1)); }
+                                        }
+
+                                        &.be-has-value {
+                                            .label-control{ @include transform(translateY(0) scale(1)); }
+                                            input,
+                                            textarea {
+                                                color: rgba(#000, .87);
+                                            }
+                                        }
+
+                                        &.be-input-required {
+                                            label:after {
+                                                position: absolute;
+                                                top: 2px;
+                                                @include transform(translateX(calc(100% + 2px)));
+                                                content: "*";
+                                                font-size: 12px;
+                                                line-height: 1em;
+                                                vertical-align: top;
+                                            }
+                                        }
+
+                                        &.be-has-password {
+                                            &.be-input-focused .be-toggle-password {
+                                                color: rgba(#000, .54);
+                                            }
+
+                                            .be-toggle-password {
+                                                margin: 0;
+                                                position: absolute;
+                                                right: 0;
+                                                bottom: -2px;
+                                                color: rgba(#000, .38);
+
+                                                .be-ink-ripple {
+                                                    color: rgba(#000, .87);
+                                                }
+                                            }
+                                        }
+
+                                        &.be-input-invalid {
+                                            .be-error {
+                                            @include opacity(1);
+                                            @include transform(translate3d(0, 0, 0));
+                                            }
+                                        }
                                         .label-control {
                                             position: relative;
                                             margin: 0;
@@ -274,17 +331,14 @@
                                             @include transform(scaleX(0));
                                             @include transition(transform 0.3s);
                                         }
-                                        &.is-focused {
-                                            .label-control {
-                                                @include transform(translateY(0));
-                                                font-size: 16px;
-                                                color: #03A9F4 !important;
-                                            }
-                                            &::after{ @include transform(scaleX(1)); }
-                                        }
-                                        &.is-active {
-                                            .label-control{ @include transform(translateY(0) scale(1)); }
-                                        }
+                                    }
+                                    &.has-error {
+                                      .label-control {
+                                        color: red;
+                                      }
+                                      .form-control {
+                                        color: red;
+                                      }
                                     }
                                     .btn {
                                         width: 100%;

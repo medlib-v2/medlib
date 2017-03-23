@@ -33,6 +33,12 @@ class Conversation extends Model
         'favorite' => 'boolean'
     ];
 
+    public $with = [
+        'messages',
+        'sender',
+        'receiver'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -54,6 +60,16 @@ class Conversation extends Model
      */
     public function messages()
     {
-        return $this->hasMany(Message::class, 'conversation_id', 'id');
+        return $this->hasMany(Message::class, 'conversation_id', 'id')->latest();
+    }
+
+    public function latest_message()
+    {
+        return $this->hasMany(Message::class, 'conversation_id', 'id')->orderBy('created_at', 'desc');
+    }
+
+    public function users()
+    {
+        return  $this->belongsToMany(User::class, 'conversation_id', 'user_id');
     }
 }

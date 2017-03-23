@@ -123,7 +123,7 @@ class CachingUserRepository implements UserRepository
         return $this->repository->findByIdWithMessages($id);
     }
 
-        /**
+    /**
      * Fetch friend requests for a user
      *
      * @param int $id
@@ -145,5 +145,17 @@ class CachingUserRepository implements UserRepository
     public function findByIdWithFriends($id)
     {
         return $this->repository->findByIdWithFriends($id);
+    }
+
+    /**
+     * Fetch a user by id with timeline attached
+     *
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function findByTimelineId($id)
+    {
+        return $this->repository->findByTimelineId($id);
     }
 }

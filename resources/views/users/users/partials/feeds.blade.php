@@ -11,7 +11,7 @@
         'sender_profile_image' => Auth::user()->getAvatar()
         ])
         <br>
-        <form-input action="{{ route('user.feeds.store', ['username' =>$user->is(Auth::user()) ? Auth::user()->getUsername() : $user->getUsername()]) }}" placeholder="@lang('messages.what_your_mind')"></form-input>
+        <form-input action="{{ route('user.feeds.store', ['username' =>$user->is(Auth::user()) ? Auth::user()->getUsername() : $user->getUsername()]) }}" placeholder="@lang('messages.what_your_mind')" timeline="1"></form-input>
     </div>
     <div class="col-md-3 col-sm-2 hidden-xs no-padding"></div>
 </div>

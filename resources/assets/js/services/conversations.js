@@ -7,9 +7,9 @@ export const conversations = {
      */
     fetch (limit = 5) {
         return new Promise((resolve, reject) => {
-            http.get('/conversations', { params: { limit } }).then(({ body }) => {
-                resolve(body)
-            }).catch(error => reject(error))
+            http.get('/conversations', { params: { limit } })
+                .then(({ body }) => resolve(body))
+                .catch(error => reject(error))
         })
     },
 
@@ -20,9 +20,9 @@ export const conversations = {
      */
     unlike (username, id) {
         return new Promise((resolve, reject) => {
-            http.post(`/u/${username}/feeds/${id}/unlike`).then(({ body }) => {
-                resolve(body)
-            }).catch(error => reject(error))
+            http.post(`/u/${username}/feeds/${id}/unlike`)
+                .then(({ body }) => resolve(body))
+                .catch(error => reject(error))
         })
     }
 }

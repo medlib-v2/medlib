@@ -136,6 +136,7 @@ export default{
             })
             **/
             window.console.log('notification', this.user.id)
+            /**
             this.$socket.private(`Medlib.Models.User.${this.user.id}`)
             .notification(notification => {
               window.console.log(notification, 'notification');
@@ -153,6 +154,7 @@ export default{
               this.total = 0
               this.notifications = []
             })
+            **/
         },
         allowFriendRequest(username, id) {
             notifications.acceptRequest(username, id).then( (response) => {

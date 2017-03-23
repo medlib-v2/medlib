@@ -11,6 +11,7 @@ use Medlib\Notifications\HelloNotification;
 use Medlib\Notifications\SendFriendRequestAlertEmail;
 use Medlib\Notifications\SendConfirmationRequestAccepted;
 use NotificationChannels\WebPush\PushSubscription;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class NotificationsController extends Controller
 {

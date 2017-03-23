@@ -4,6 +4,7 @@ namespace Medlib\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Medlib\Models\User;
+use Medlib\Models\Timeline;
 use Illuminate\Http\Request;
 use Medlib\Services\ProcessImage;
 use Illuminate\Support\Facades\App;
@@ -14,10 +15,10 @@ use Medlib\Services\LoginUserService;
 use Medlib\Services\LogoutUserService;
 use Medlib\Http\Controllers\Controller;
 use Medlib\Services\RegisterUserService;
-use Illuminate\Support\Facades\Redirect;
 use Medlib\Http\Requests\RegisterUserRequest;
 use Medlib\Http\Requests\CreateSessionRequest;
 use Medlib\Events\UserRegistrationConfirmation;
+use Illuminate\Http\Response as IlluminateResponse;
 
 /**
  * @Middleware("guest", except={"logout"})
@@ -48,11 +49,16 @@ class AuthController extends Controller
     {
         $response = $this->dispatch(new LoginUserService($request));
 
-        if ($response) {
-            return redirect()->route('home');
+        if ($response === true) {
+            $user = \Auth::user();
+            $token = \JWTAuth::fromUser($user);
+            return $this->responseWithSuccess([
+                'token' => $token,
+                'user' => $user
+            ]);
         }
 
-        return redirect()->back()->with('error', trans('auth.login.failed'));
+        return $this->responseWithError($response, IlluminateResponse::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -81,15 +87,31 @@ class AuthController extends Controller
 
         $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 
+        if ($request->has('affiliate')) {
+            $timeline = Timeline::where('username', $request->get('affiliate'))->first();
+            $affiliate_id = $timeline->user->id;
+        } else {
+            $affiliate_id = null;
+        }
+
         $request->merge([
             'date_of_birth' => $date_of_birth,
             'user_avatar' => $user_avatar,
+            'affiliate_id' => $affiliate_id
         ]);
+
 
         $this->dispatch(new RegisterUserService($request));
 
+        /**
         return redirect()->route('home')->with('info', trans('auth.account_created_success'))
-            ->with('success', trans('auth.email_was_sent'));
+        ->with('success', trans('auth.email_was_sent'));
+         **/
+
+        return $this->responseWithSuccess([
+            'info' => trans('auth.account_created_success'),
+            'success' => trans('auth.email_was_sent')
+        ]);
     }
 
     /**
@@ -109,13 +131,13 @@ class AuthController extends Controller
      * @Get("/logout", as="auth.logout")
      * @Middleware("auth")
      *
-     * @return Redirect
+     * @return \Illuminate\Http\JsonResponse
      */
     public function doLogout()
     {
         $response = $this->dispatch(new LogoutUserService);
         if (!$response) {
-            return redirect()->route('home');
+            return response()->json();
         }
     }
 

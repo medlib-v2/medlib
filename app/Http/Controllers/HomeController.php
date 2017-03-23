@@ -25,6 +25,6 @@ class HomeController extends Controller
             ];
         }
 
-        return view("home", compact('datasource'));
+        return view('app', compact('datasource'));
     }
 }

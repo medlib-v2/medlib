@@ -2,12 +2,15 @@
 
 namespace Medlib\Http\Controllers\Messages;
 
+use DateTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Medlib\Services\CreateMessageService;
-use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\User\UserRepository;
+use Medlib\Http\Requests\CreateMessageRequest;
+use Illuminate\Http\Response as IlluminateResponse;
 
 /**
  * @Middleware("auth")
@@ -16,6 +19,7 @@ class MessageController extends Controller
 {
     public function __construct()
     {
+        Carbon::setToStringFormat(DateTime::ISO8601);
     }
 
     /**
@@ -24,15 +28,18 @@ class MessageController extends Controller
      * @Middleware("auth")
      *
      * @param \Medlib\Repositories\User\UserRepository $userRepository
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(UserRepository $userRepository)
     {
-        $user = Auth::user();
+        //$user = Auth::user();
 
-        $messages = $userRepository->findByIdWithMessages($user->id);
+        $messages = $userRepository->findByIdWithMessages(Auth::id());
 
-        return view('messages.index', compact('messages', 'user'));
+        /**
+         * return view('messages.index', compact('messages', 'user'));
+         */
+        return $this->response($messages);
     }
 
     /**
@@ -60,18 +67,14 @@ class MessageController extends Controller
      * @Post("message", as="message.store")
      * @Middleware("auth")
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Medlib\Http\Requests\CreateMessageRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateMessageRequest $request)
     {
-        $validator = Validator::make($request->all(), ['body' => 'required']);
-        if ($validator->fails()) {
-            return response()->json(['response' => 'failed', 'message' => $validator->messages()->first('body')]);
-        } else {
-            $this->dispatch(new CreateMessageService($request));
-            return response()->json(['response' => 'success', 'message' => 'Your message was sent.']);
-        }
+        $massage = $this->dispatch(new CreateMessageService($request));
+
+        return $this->responseWithSuccess($massage);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Medlib\Http\Controllers\Notifications;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class PushSubscriptionController extends Controller
 {

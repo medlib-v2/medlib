@@ -3,7 +3,11 @@
 namespace Medlib\Services;
 
 use Medlib\Models\User;
+use Medlib\Models\Profile;
+use Medlib\Models\Setting;
+use Medlib\Models\Timeline;
 use Medlib\Http\Requests\Request;
+use Illuminate\Support\Facades\DB;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Hash;
 use Medlib\Repositories\Activation\ConfirmationTokenRepository;
@@ -24,6 +28,7 @@ class RegisterUserService extends Service
     protected $user_avatar;
     protected $onlinestatus;
     protected $chatstatus;
+    protected $affiliate_id;
 
     /**
      * Create a new command instance.
@@ -47,6 +52,7 @@ class RegisterUserService extends Service
         $this->user_avatar = $request->get('user_avatar');
         $this->onlinestatus = false;
         $this->chatstatus = true;
+        $this->affiliate_id = $request->get('affiliate_id');
     }
 
     /**
@@ -56,27 +62,81 @@ class RegisterUserService extends Service
      */
     public function handle(ConfirmationTokenRepository $token)
     {
-        $user = User::create([
-            'email' => $this->email,
+        /**
+         * Create timeline record for the user
+         */
+        $timeline = Timeline::create([
             'username' => $this->username,
-            'password' => Hash::make($this->password),
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'profession' => $this->profession,
-            'location' => $this->location,
-            'date_of_birth' => $this->date_of_birth,
-            'gender' => $this->gender,
-            'activated' => $this->activated,
-            'account_type' => $this->account_type,
-            'user_avatar' => $this->user_avatar,
-            'onlinestatus' => $this->onlinestatus,
-            'chatstatus' => $this->chatstatus,
+            'name'     => $this->first_name. ' '. $this->last_name,
+            'type'     => 'user'
         ]);
+
+        /**
+         * Create user record
+         */
+        $user = User::create([
+            'email'             => $this->email,
+            'username'          => $this->username,
+            'timeline_id'       => $timeline->id,
+            'password'          => Hash::make($this->password),
+            'first_name'        => $this->first_name,
+            'last_name'         => $this->last_name,
+            'profession'        => $this->profession,
+            'date_of_birth'     => $this->date_of_birth,
+            'gender'            => $this->gender,
+            //'affiliate_id'      => $affiliate_id,
+            'activated'         => $this->activated,
+            'account_type'      => $this->account_type,
+            'user_avatar'       => $this->user_avatar,
+            'onlinestatus'      => $this->onlinestatus,
+            'chatstatus'        => $this->chatstatus,
+        ]);
+
+        /**
+        if (Setting::get('birthday') == 'on' && $this->date_of_birth != '') {
+            $user->date_of_birth = date('Y-m-d', strtotime($this->date_of_birth));
+            $user->save();
+        }
+        **/
+
+        Profile::create([
+            'user_id'   => $user->id,
+            'location'  => $this->location
+        ]);
+
+        /**
+        if (Setting::get('location') == 'on' && $this->location != '') {
+            $profile->location = $this->location;
+            $profile->save();
+        }
+        **/
 
         $token->createConfirmationToken($user);
 
         event(new UserWasRegistered($user));
 
         unset($user);
+    }
+
+    /**
+     * Saving default settings to user settings
+     *
+     * @param User $user
+     * @return void
+     */
+    public function makeUserSettings(User $user)
+    {
+        $user_settings = [
+            'user_id'               => $user->id,
+            'confirm_follow'        => Setting::get('confirm_follow'),
+            'follow_privacy'        => Setting::get('follow_privacy'),
+            'comment_privacy'       => Setting::get('comment_privacy'),
+            'timeline_post_privacy' => Setting::get('user_timeline_post_privacy'),
+            'post_privacy'          => Setting::get('post_privacy'), ];
+
+        /**
+         * Create a record in user settings table.
+         */
+        DB::table('user_settings')->insert($user_settings);
     }
 }

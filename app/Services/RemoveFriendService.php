@@ -10,12 +10,12 @@ class RemoveFriendService extends Service
 {
 
     /**
-     * @var int
+     * @var string
      */
     protected $username;
 
     /**
-     * @var User
+     * @var \Medlib\Models\User
      */
     protected $currentUser;
 
@@ -49,8 +49,10 @@ class RemoveFriendService extends Service
 
         $otherUser->finishFriendshipWith($this->currentUser->id);
 
-        $this->client->updateChatListFriendRemoved($otherUser->id, 24, $this->currentUser->id, $otherUser->friends()->count());
-
-        return $this->currentUser->friends()->count();
+        /**
+         * $this->client->updateChatListFriendRemoved($otherUser->id, 24, $this->currentUser->id, $otherUser->friends()->count());
+         * $this->currentUser->friends()->count();
+         */
+        return true;
     }
 }

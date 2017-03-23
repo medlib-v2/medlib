@@ -15,7 +15,7 @@ Thank you for considering contributing to the Laravel framework! The contributio
 
 ## Technologies utilisées
     
-- [x] Laravel 5.3
+- [x] Laravel 5.4
 - [x] Z39.50 (Yaz)
 - [x] Bootstrap
 - [x] Node.js
@@ -91,7 +91,7 @@ $ php artisan medlib:install
 VII. Mise en œuvre du WebSocket
 ###### Sur le terminal (Laisser le terminal ouvert avec la commande en marche)
 ```shell
-$ node server.js
+$ node server.js start
 ```
 
 ### License

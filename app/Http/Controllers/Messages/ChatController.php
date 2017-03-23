@@ -6,6 +6,7 @@ use Medlib\Http\Controllers\Controller;
 use Medlib\Services\SendChatMessageService;
 use Medlib\Repositories\User\UserRepository;
 use Medlib\Http\Requests\SendMessageChatRequest;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class ChatController extends Controller
 {

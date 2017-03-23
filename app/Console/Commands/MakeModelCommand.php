@@ -16,11 +16,11 @@ class MakeModelCommand extends Command
      */
     protected $signature = 'medlib:make-model
                             {model : (required) Model name}
-                            {--request : Make a new FormRequest from this Model name}
-                            {--controller : Make new Controller from this Model name}
-                            {--migration : Create new Migration file from this Model name}
-                            {--faker : Create new Model Faker file from this Model name}
-                            {--seed : Create new Seeder file from this Model name}';
+                            {--r|--request : Make a new FormRequest from this Model name}
+                            {--c|--controller : Make new Controller from this Model name}
+                            {--m|--migration : Create new Migration file from this Model name}
+                            {--f|--faker : Create new Model Faker file from this Model name}
+                            {--s|--seed : Create new Seeder file from this Model name}';
 
     /**
      * The console command description.

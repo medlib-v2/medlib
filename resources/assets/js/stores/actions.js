@@ -1,13 +1,13 @@
-import * as types from './mutation-types'
+import { SET_AUTH_USER, SET_FEEDS, SET_POST } from './types'
 
-export const user = ({ commit }, user) => {
-  commit(types.SET_AUTH_USER, user)
+export const user = ({commit}, user) => {
+    commit(SET_AUTH_USER, user)
 }
 
-export const feeds = ({ commit }, feeds) => {
-  commit(types.SET_FEEDS, feeds)
+export const feeds = ({commit}, feeds) => {
+    commit(SET_FEEDS, feeds)
 }
 
-export const post = ({ commit }, post) => {
-  commit(types.SET_POST, post)
+export const post = ({commit}, post) => {
+    commit(SET_POST, post)
 }

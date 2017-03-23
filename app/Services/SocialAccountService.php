@@ -31,13 +31,24 @@ class SocialAccountService
             'provider' => $provider
         ]);
 
-        $user = User::whereEmail($providerUser->getEmail())->first();
+        $email = $providerUser->getEmail();
+
+        if ($email == null) {
+            if ($provider == 'facebook') {
+                $email = $providerUser->getId().'@facebook.com';
+            }
+            else {
+                $email = $providerUser->user['email'];
+            }
+        }
+
+        $user = User::whereEmail($email)->first();
 
         if (is_null($user)) {
             $faker = Faker::create();
             $user = RegisterSocialUserService::create([
-                'email' => $providerUser->user['email'],
-                'username' => $providerUser->name ? $providerUser->name : self::generateUsername($providerUser),
+                'email' => $email,
+                'username' => self::generateUsername($providerUser),
                 'password' => str_random(8),
                 'first_name' => $providerUser->user['first_name'],
                 'last_name' => $providerUser->user['last_name'],
@@ -63,6 +74,9 @@ class SocialAccountService
     protected static function generateUsername(UserProvider $providerUser)
     {
         $username = null;
+        if ($providerUser->name) {
+            return $providerUser->name;
+        }
 
         $username = substr(strtolower($providerUser->user['first_name']), 0, 1);
         $username .= "_";

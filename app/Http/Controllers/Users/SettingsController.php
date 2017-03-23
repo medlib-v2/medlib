@@ -2,11 +2,13 @@
 
 namespace Medlib\Http\Controllers\Users;
 
+use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Medlib\Http\Requests\DeleteUserRequest;
+use Illuminate\Http\Response as IlluminateResponse;
 use Medlib\Http\Requests\UpdateUserInformationRequest;
 
 /**
@@ -53,7 +55,8 @@ class SettingsController extends Controller
 
         $user->password = bcrypt($request->get('password_new'));
         $user->save();
-        return view('users.settings.email')->with('success', 'Password updated');
+        $this->responseWithSuccess('Password updated');
+        //return view('users.settings.email')->with('success', 'Password updated');
     }
 
     /**
@@ -114,21 +117,29 @@ class SettingsController extends Controller
 
     /**
      * @Post("settings/username", as="profile.delete.username")
-     * @param $username
+     *
+     * @param User $user
      * @param DeleteUserRequest $request
+     *
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     *
      * @return mixed
      */
-    public function deleteUsername($username, DeleteUserRequest $request)
+    public function deleteUsername(User $user, DeleteUserRequest $request)
     {
-        dd($username);
+        dd($user);
+        $this->authorize('destroy', $user);
 
         if ($request) {
             // validation successful!
             // deleting user
             Auth::logout();
-            return Redirect::route('home');
+            //return Redirect::route('home');
+            return $this->response($user->delete());
         } else {
-            return Redirect::back()->withErrors('Could not delete your account in with those details.');
+            return $this->responseWithError('Could not delete your account in with those details.');
+            //return Redirect::back()->withErrors('Could not delete your account in with those details.');
         }
     }
 }

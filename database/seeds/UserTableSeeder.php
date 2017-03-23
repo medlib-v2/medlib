@@ -1,6 +1,7 @@
 <?php
 
 use Medlib\Models\User;
+use Medlib\Models\Profile;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -12,10 +13,10 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Medlib\Models\User::class, 30)->create()->each(
+        factory(User::class, 30)->create()->each(
             function($user) {
                 $user->profile()->save(
-                    factory(Medlib\Models\Profile::class)->make()
+                    factory(Profile::class)->make()
                 );
             }
         );

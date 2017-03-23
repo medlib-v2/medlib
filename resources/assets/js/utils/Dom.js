@@ -1,4 +1,4 @@
-import { $ } from './'
+import $ from 'jquery'
 
 const body = $('body')
 
@@ -42,4 +42,8 @@ export function delayer (fn, varTimer, ifNaN = 100) {
             fn.apply(this, args)
         }, toInt(varTimer) || toInt(this[varTimer]) || ifNaN)
     }
+}
+
+export function encodeHtml (str) {
+    return str.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }

@@ -19,18 +19,28 @@ class Message extends Model
     /**
      * These fields could be mass assigned
      */
-    protected $fillable = ['body', 'sender_id', 'receiver_id', 'conversation_id', 'subject'];
+    protected $fillable = [
+        'body',
+        'sender_id',
+        'receiver_id',
+        'conversation_id'
+    ];
 
     /**
      * @var array
      */
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     /**
      * A message belongs to Many Users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
@@ -46,11 +56,13 @@ class Message extends Model
 
 
     /**
+     * A Message be longs to message conversation.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function conversation()
     {
-        return $this->belongsTo(Conversation::class);
+        return $this->belongsTo(Conversation::class, 'conversation_id', 'id');
     }
 
     /**
@@ -59,36 +71,20 @@ class Message extends Model
      * @param string $body
      * @param int $sender_id
      * @param int $receiver_id
-     * @return static
+     * @param int $conversation_id
+     *
+     * @return Model
      */
-    public static function createMessage($body, $sender_id, $receiver_id)
+    public static function createMessage($body, $sender_id, $receiver_id, $conversation_id)
     {
-        $message = new static([
+        $message = static::create([
             'body' => $body,
             'sender_id' => $sender_id,
-            'receiver_id' => $receiver_id]);
+            'receiver_id' => $receiver_id,
+            'conversation_id' => $conversation_id
+        ]);
 
         return $message;
-    }
-
-    /**
-     * A Message has a many message responses.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function messageResponses()
-    {
-        return $this->hasMany(MessageResponse::class)->orderBy('created_at', 'desc');
-    }
-
-    /**
-     * Get the last receiver id from the first response attached to an message.
-     *
-     * @return mixed
-     */
-    public function getLastReceiverId()
-    {
-        return $this->messageResponses()->first()->receiverid;
     }
 
     /**

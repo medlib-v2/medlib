@@ -223,8 +223,13 @@ $font-family-monospace:     Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:          $font-family-sans-serif;
 $font-family-semiblod:      WorkSans-SemiBold, sans-serif;
 $font-family-bold:          WorkSans-Bold, Monaco, Menlo, Consolas, monospace, sans-serif;
-$font-size-base:            14px !default;
+$font-size-base:            13px !default;
 $line-height-base:          1.6 !default;
+
+$font-size-large:                   ceil(($font-size-base * 1.15)) !default; // ~15px
+$font-size-mini:                    ceil(($font-size-base - 2)) !default;
+$font-size-small:                   ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-extra-small:             ceil(($font-size-base * 0.8)) !default; // ~12px
 
 $font-size-h1:                      floor(($font-size-base * 2.6)); // ~36px
 $font-size-h2:                      floor(($font-size-base * 2.15)); // ~30px
@@ -232,6 +237,32 @@ $font-size-h3:                      ceil(($font-size-base * 1.7)); // ~24px
 $font-size-h4:                      ceil(($font-size-base * 1.25)); // ~18px
 $font-size-h5:                      $font-size-base;
 $font-size-h6:                      ceil(($font-size-base * 0.85)); // ~12px
+
+/**
+$font-size-h1:                      floor(($font-size-base * 3.444));
+$font-size-h2:                      ceil(($font-size-base * 2.889));
+$font-size-h3:                      ceil(($font-size-base * 2.222));
+$font-size-h4:                      ceil(($font-size-base * 1.611));
+$font-size-h5:                      floor(($font-size-base * 1.556));
+$font-size-h6:                      ceil(($font-size-base * 1.333));
+**/
+
+$font-weight-thin:                  100 !default;
+$font-weight-light:                 300 !default;
+$font-weight-normal:                400 !default;
+$font-weight-regular:               400 !default;
+$font-weight-medium:                500 !default;
+$font-weight-semi-bold:             600 !default;
+$font-weight-bold:                  700 !default;
+$font-weight-black:                 900 !default;
+
+//$font-weight-thin:                  300 !default;
+//$font-weight-base:                  $font-weight-thin !default;
+
+$font-size-smaller:         85%;
+
+$primary-content-color : #354052;
+$secondary-content-color : #7F8FA4;
 
 $paragraph-font-size:               inherit;
 $paragraph-line-height:             21px;
@@ -259,6 +290,7 @@ $btn-default-color:         $text-color !default;
 // Panels
 $panel-default-heading-bg:  #fff !default;
 $btn-search-height:         60px !default;
+$panel-border-color :       #E6EAEE;
 
 //== Media queries breakpoints
 //
@@ -299,34 +331,6 @@ $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 // 1152px container + 40
 $widescreen: 1192px !default;
-
-
-$font-size-base:                    13px;
-$font-size-large:                   ceil(($font-size-base * 1.15)) !default; // ~15px
-$font-size-mini:                    ceil(($font-size-base - 2)) !default;
-$font-size-small:                   ceil(($font-size-base * 0.85)) !default; // ~12px
-$font-size-extra-small:             ceil(($font-size-base * 0.8)) !default; // ~12px
-
-$font-weight-thin:                  100 !default;
-$font-weight-light:                 300 !default;
-$font-weight-normal:                400 !default;
-$font-weight-regular:               400 !default;
-$font-weight-medium:                500 !default;
-$font-weight-semi-bold:             600 !default;
-$font-weight-bold:                  700 !default;
-$font-weight-black:                 900 !default;
-
-//$font-weight-thin:                  300 !default;
-//$font-weight-base:                  $font-weight-thin !default;
-
-$font-size-smaller:         85%;
-
-$font-size-h1:              floor(($font-size-base * 3.444));
-$font-size-h2:              ceil(($font-size-base * 2.889));
-$font-size-h3:              ceil(($font-size-base * 2.222));
-$font-size-h4:              ceil(($font-size-base * 1.611));
-$font-size-h5:              floor(($font-size-base * 1.556));
-$font-size-h6:              ceil(($font-size-base * 1.333));
 
 $line-height-large:         1.33;
 $line-height-small:         1.5;

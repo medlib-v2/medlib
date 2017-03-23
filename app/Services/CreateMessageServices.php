@@ -3,9 +3,8 @@
 namespace Medlib\Services;
 
 use Medlib\Models\Message;
-use Illuminate\Http\Request;
-use Medlib\Models\MessageResponse;
 use Medlib\Repositories\User\UserRepository;
+use Medlib\Http\Requests\CreateMessageRequest;
 use Medlib\Repositories\Message\MessageRepository;
 
 class CreateMessageService extends Service
@@ -26,16 +25,22 @@ class CreateMessageService extends Service
     public $sender_id;
 
     /**
-     * Create a new command instance.
-     * @param Request $request
+     * @var int
      */
-    public function __construct(Request $request)
+    public $conversation_id;
+
+    /**
+     * Create a new command instance.
+     * @param \Medlib\Http\Requests\CreateMessageRequest $request
+     */
+    public function __construct(CreateMessageRequest $request)
     {
         parent::__construct();
 
         $this->body = $request->get('body');
         $this->sender_id = $request->get('sender_id');
         $this->receiver_id = $request->get('receiver_id');
+        $this->conversation_id = $request->get('conversation_id');
     }
 
     /**
@@ -44,20 +49,18 @@ class CreateMessageService extends Service
      * @param UserRepository $userRepository
      * @param MessageRepository $messageRepository
      *
-     * @return Boolean
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function handle(UserRepository $userRepository, MessageRepository $messageRepository)
     {
-        $message = Message::createMessage($this->body, $this->sender_id, $this->receiver_id);
+        $message = Message::createMessage($this->body, $this->sender_id, $this->receiver_id, $this->conversation_id);
 
-        $response = MessageResponse::createMessageResponse($this->body, $this->sender_id, $this->receiver_id);
+        $sender = $userRepository->findById($this->sender_id);
+        $receiver = $userRepository->findById($this->receiver_id);
 
-        $userRepository->findById($this->receiver_id)->messages()->save($message);
+        $sender->messages()->save($message);
+        $receiver->messages()->save($message);
 
-        $messageRepository->findById($message->id)->messageResponses()->save($response);
-        
-        $userRepository->findById($this->receiver_id)->messageResponses()->save($response);
-
-        return true;
+        return  $messageRepository->findById($message->id);
     }
 }

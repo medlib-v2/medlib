@@ -14,6 +14,7 @@ use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class SearchQueryController extends Controller
 {

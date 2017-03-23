@@ -5,11 +5,13 @@ namespace Medlib\Models;
 use Carbon\Carbon;
 use Medlib\Models\Like;
 use Medlib\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Feed extends Model
 {
-
+    use SoftDeletes;
     /**
      * The database table used by the model.
      * @var string
@@ -21,27 +23,38 @@ class Feed extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     * @var array
-     */
-    protected $hidden = ['poster_username', 'poster_profile_image'];
-
+    protected $fillable = [
+        'user_id',
+        'timeline_id',
+        'body',
+        'type',
+        'youtube_title',
+        'youtube_video_id',
+        'location',
+        'image_id',
+        'image_url',
+        'soundcloud_id',
+        'soundcloud_title'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
 
     /**
      * @var array
      */
-    public $with = ['user','likes', 'comments'];
+    public $with = [
+      'user',
+      'likes',
+      'comments',
+      'shared',
+      'follows'
+    ];
 
     /**
      * A feed belongs to a User.
@@ -53,31 +66,149 @@ class Feed extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'feed_likes', 'feed_id', 'user_id');
+    }
+
+    public function shares()
+    {
+        return $this->belongsToMany(User::class, 'feed_shares', 'feed_id', 'user_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'feed_follows', 'feed_id', 'user_id');
+    }
+
+
+    public function reports()
+    {
+        return $this->belongsToMany(User::class, 'feed_reports', 'feed_id', 'reporter_id')->withPivot('status');
+    }
+
     /**
-     * A feed belongs to a Comment.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    /**
     public function comments()
     {
         return $this->belongsTo(Comment::class);
     }
+    **/
 
     /**
-     * Publish a new feed.
-     *
-     * @param string $body
-     * @param string $poster_username
-     * @param string $poster_profile_image
-     * @param string $image_url
-     * @param string $video_url
-     * @param string $location
-     *
-     * @return static
+     * A feed belongs to a Comment.
+     * @return mixed
      */
-    public static function publish($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null)
+    public function comments()
     {
-        $feed = new static(compact('body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'));
-        return $feed;
+        return $this->hasMany(Comment::class)->latest()->where('parent_id', null);
+    }
+
+    public function shared()
+    {
+        return $this->belongsToMany(User::class, 'feed_shares', 'feed_id', 'user_id');
+    }
+
+    public function images()
+    {
+        return $this->belongsToMany(Media::class, 'feed_media', 'feed_id', 'media_id');
+    }
+
+    public function users_posts()
+    {
+        return $this->belongsToMany(User::class, 'feeds', 'id', 'user_id');
+    }
+
+    public function managePostReport($post_id, $user_id)
+    {
+        $post_report = DB::table('feed_reports')->insert(['feed_id' => $post_id, 'reporter_id' => $user_id, 'status' => 'pending', 'created_at' => Carbon::now()]);
+
+        $result = $post_report ? true : false;
+
+        return $result;
+    }
+
+    public function checkReports($post_id)
+    {
+        $post_report = DB::table('feed_reports')->where('feed_id', $post_id)->first();
+
+        $result = $post_report ? true : false;
+
+        return $result;
+    }
+
+    public function postsLiked()
+    {
+        $result = DB::table('feed_likes')->get();
+
+        return $result;
+    }
+
+    public function postsReported()
+    {
+        $result = DB::table('feed_reports')->get();
+
+        return $result;
+    }
+
+    public function postShared()
+    {
+        $result = DB::table('feed_shares')->get();
+
+        return $result;
+    }
+
+    public function chkUserFollower($login_id, $post_user_id)
+    {
+        $followers = DB::table('followers')->where('follower_id', $post_user_id)->where('followee_id', $login_id)->where('status', '=', 'approved')->first();
+
+        if ($followers) {
+            $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+            $result = $userSettings ? $userSettings->comment_privacy : false;
+
+            return $result;
+        }
+    }
+
+    public function chkUserSettings($login_id)
+    {
+        $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+        $result = $userSettings ? $userSettings->comment_privacy : false;
+
+        return $result;
+    }
+
+    public function usersTagged()
+    {
+        return $this->belongsToMany(User::class, 'feed_tags', 'feed_id', 'user_id');
+    }
+
+    public function getPageName($id)
+    {
+        $timeline = Timeline::where('id', $id)->first();
+        $result = $timeline ? $timeline->username : false;
+
+        return $result;
+    }
+
+    public function deletePageReport($id)
+    {
+        $timeline_report = DB::table('timeline_reports')->where('id', $id)->delete();
+        $result = $timeline_report ? true : false;
+
+        return $result;
+    }
+
+    public function deleteManageReport($id)
+    {
+        $post_report = DB::table('feed_reports')->where('id', $id)->delete();
+
+        $result = $post_report ? true : false;
+
+        return $result;
     }
 
     /**
@@ -97,10 +228,12 @@ class Feed extends Model
      * 2nd arg is parsing the name of  the polymorphic relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+     /**
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
+    **/
 
     /**
      * Return the id publisher

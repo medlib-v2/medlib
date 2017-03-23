@@ -14,6 +14,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('timeline_id')->unsigned();
+            $table->foreign('timeline_id')->references('id')->on('timelines')->onDelete('cascade');
             $table->string('email', 64)->unique();
             $table->string('username', 64)->unique();
             $table->string('password');
@@ -29,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->boolean('chatstatus')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

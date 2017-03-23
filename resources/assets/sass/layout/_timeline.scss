@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+.group-suggested-users,
+.page-suggested-users {
+  .holder {
+    padding: 10px 15px;
+    .follower {
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        margin-right: 4px;
+      }
+      span {
+        color: $primary-content-color;
+        font-family: $font-family-base;
+        margin-left: 4px;
+      }
+    }
+    .follow-links {
+      padding-top: 3px;
+      .left-col {
+        .btn {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.page-likes {
+  .connect-list {
+    .follow-links {
+      padding-top: 0 !important;
+      .padding-5 {
+        padding: 5px;
+        .btn {
+          width: 100%;
+        }
+        .remove-pagemember {
+          padding-left: 7px;
+        }
+      }
+      .remove-button {
+        display: inline-block;
+        width: 95px;
+      }
+    }
+  }
+}

@@ -30,7 +30,7 @@
                     <div class="form-group @if (isset($errors) and $errors->has('email')) has-error @endif">
                         {!! Form::email('email', request()->hasSession() ? old('email') : '', [
                             'placeholder' => trans('auth.txt.email'),
-                            'class' => 'form-control no-border',
+                            'class' => 'form-control',
                             'autocomplete' => 'off',
                             'required',
                             'tabindex' => 1,
@@ -42,7 +42,7 @@
                         {!! Form::password('password', [
                             'id' => 'password',
                             'placeholder' => trans('auth.txt.password'),
-                            'class' => 'form-control no-border',
+                            'class' => 'form-control',
                             'pattern'=> '.{6,}',
                             'required',
                             'autocomplete'=> 'off',

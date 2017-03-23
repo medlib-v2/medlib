@@ -6,21 +6,21 @@ export const notifications = {
  */
   unread () {
     return new Promise((resolve, reject) => {
-      http.get('/notifications/unread').then(({body: { total, notifications }}) => {
+      http.get('/api/notifications/unread').then(({body: { total, notifications }}) => {
         resolve({total, notifications})
       }).catch(error => reject(error))
     })
   },
   acceptRequest(username, id) {
     return new Promise((resolve, reject) => {
-      http.post('/friends', { username: username, not_id: id }).then(({ body }) => {
+      http.post('/api/friends', { username: username, not_id: id }).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
   },
   cancelRequest(username, id) {
     return new Promise((resolve, reject) => {
-      http.delete('/friends/requests', { username: username, not_id: id }).then(({ body }) => {
+      http.delete('/api/friends/requests', { username: username, not_id: id }).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
@@ -31,7 +31,7 @@ export const notifications = {
   */
   fetch (limit = 5) {
     return new Promise((resolve, reject) => {
-      http.get('/notifications/unread', { params: { limit } }).then(({ body: { total, notifications } }) => {
+      http.get('/api/notifications/unread', { params: { limit } }).then(({ body: { total, notifications } }) => {
         resolve({total, notifications})
       }).catch(error => reject(error))
     })

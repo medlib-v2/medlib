@@ -1,11 +1,11 @@
-import * as types from '../mutation-types'
+import { SET_IMAGE } from '../types'
 
 /**
  * initial state
  * @type {{shared_address: {}}}
  */
 const state = {
-  shared_image: {}
+    shared_image: {}
 }
 
 /**
@@ -14,7 +14,7 @@ const state = {
  * GET_IMAGE (state){ return state.shared_image }
  */
 const getters = {
-  shared_image: state => state.shared_image
+    shared_image: state => state.shared_image
 }
 
 /**
@@ -22,15 +22,19 @@ const getters = {
  * @type {{images: (({ commit }:{commit: *}, image?))}}
  */
 const actions = {
-  images ({ commit }, image) { commit(types.SET_IMAGE, image ) }
+    images ({commit}, image) {
+        commit(SET_IMAGE, image)
+    }
 }
 
 /**
  * mutations
- * @type {{[[types.SET_IMAGE]]: ((state, image))}}
+ * @type {{[[SET_IMAGE]]: ((state, image))}}
  */
 const mutations = {
-  [types.SET_IMAGE] (state, image) { state.shared_image = image }
+    [SET_IMAGE] (state, image) {
+        state.shared_image = image
+    }
 }
 
-export default { state, getters, actions, mutations }
+export default {state, getters, actions, mutations}
