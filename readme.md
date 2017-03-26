@@ -1,6 +1,6 @@
 ## Medlib
 
-[![Build Status](https://travis-ci.org/medlib-v2/medlib.svg)](https://travis-ci.org/laravel/framework)
+[![Build Status](https://travis-ci.org/medlib-v2/medlib.svg)](https://travis-ci.org/medlib-v2/medlib)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 Medlib est une application de recherche bibliographique open-source basée sur [Laravel](http://laravel.com).
