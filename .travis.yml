@@ -68,9 +68,9 @@ install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-dev --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-scripts --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-scripts --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-scripts --no-interaction --prefer-lowest --no-suggest; fi
   - php artisan key:generate
   - php artisan migrate --seed --env="testing"
   - make file-permission
