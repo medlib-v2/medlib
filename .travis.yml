@@ -58,8 +58,10 @@ before_install:
   - mysql -e 'create database if not exists medlib_test;'
   - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension=imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo apt-get install yaz libyaz4 libyaz4-dev
   - printf "\n" | pecl install yaz
+  - printg "\n" | pecl install imagick
   - npm install -g maildev
   - travis_retry composer self-update
   - maildev &2>/dev/null
