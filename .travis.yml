@@ -27,7 +27,6 @@ branches:
   - master
   - develop
 
-
 notifications:
   email:
     on_success: never
