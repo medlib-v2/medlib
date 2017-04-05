@@ -142,11 +142,12 @@ if (!function_exists('settings')) {
      * Get settings
      *
      * @param string $key
-     * @return \Illuminate\Database\Eloquent\Collection|string|static[]
+     * @param string $default
+     * @return \Illuminate\Database\Eloquent\Collection|string
      */
     function settings($key, $default = '')
     {
-       return Setting::get($key, $default = '');
+        return Setting::get($key, $default);
     }
 }
 

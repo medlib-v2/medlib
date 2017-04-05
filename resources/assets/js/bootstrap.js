@@ -22,14 +22,14 @@ window.GOOGLE_AUTOCOMPLETE = {
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
-require('jquery');
-require('bootstrap-sass');
-require('select2');
+import 'jquery';
+import 'bootstrap-sass';
+import 'select2';
 
 /**
  *
  */
-require('./plugins/modernizr');
+import './plugins/modernizr';
 
 //import dotenv from 'dotenv';
 //dotenv.load();

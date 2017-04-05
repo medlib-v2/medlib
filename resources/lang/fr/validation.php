@@ -137,7 +137,7 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
-        'g-recaptcha-response'  => 'Je ne suis pas un robot',
+        'recaptcha_response'  => 'Je ne suis pas un robot',
         'qdb'                   => 'bibliothèque',
         'query'                 => 'de recherche',
     ],

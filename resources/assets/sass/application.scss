@@ -9,7 +9,7 @@
 @import "base/all";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "elements/all";
 
@@ -19,3 +19,5 @@
 @import "components/all";
 
 @import "layout/all";
+
+@import '~nprogress/nprogress.css';

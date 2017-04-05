@@ -49,16 +49,35 @@ class AuthController extends Controller
     {
         $response = $this->dispatch(new LoginUserService($request));
 
-        if ($response === true) {
-            $user = \Auth::user();
-            $token = \JWTAuth::fromUser($user);
+        if (array_key_exists ( 'error' , $response )) {
+
+            switch ($response['error']) {
+                case 'invalid_credentials':
+                    $response['error'] = trans('auth.login.failed');
+                    return $this->responseWithError($response, IlluminateResponse::HTTP_UNAUTHORIZED);
+                    break;
+
+                case 'login_failed':
+                    $response['error'] = trans('auth.login.login_failed');
+                    return $this->responseWithError($response, IlluminateResponse::HTTP_UNAUTHORIZED);
+                    break;
+
+                case 'activate_account':
+                    $response['error'] = trans('auth.login.activate_account');
+                    return $this->responseWithError($response, IlluminateResponse::HTTP_UNAUTHORIZED);
+                    break;
+
+                case 'could_not_create_token':
+                    return $this->responseWithError($response, IlluminateResponse::HTTP_INTERNAL_SERVER_ERROR);
+                    break;
+            }
+
+        } else {
             return $this->responseWithSuccess([
-                'token' => $token,
-                'user' => $user
+                'token' => $response['token'],
+                'user' =>  $response['user'],
             ]);
         }
-
-        return $this->responseWithError($response, IlluminateResponse::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -83,7 +102,7 @@ class AuthController extends Controller
      */
     public function doRegister(RegisterUserRequest $request)
     {
-        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'avatars/', 200, 200);
+        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'uploads/users/avatars/', 200, 200);
 
         $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 

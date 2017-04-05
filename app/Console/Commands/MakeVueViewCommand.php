@@ -65,7 +65,13 @@ class MakeVueViewCommand extends VueCommand
         $this->info("Component {$name} succesfully created.");
     }
 
-    protected function makePath($name , $path, Filesystem $filesystem){
+    /**
+     * @param string $name
+     * @param string $path
+     * @param Filesystem $filesystem
+     */
+    protected function makePath($name, $path, Filesystem $filesystem)
+    {
         $component = "{$path}/{$name}/components";
         $route = "{$path}/{$name}/routes";
         $this->buildPathFromArray($component, $filesystem);
@@ -73,8 +79,8 @@ class MakeVueViewCommand extends VueCommand
     }
 
     /**
-     * @param $stub
-     * @param $name
+     * @param string $stub
+     * @param string $name
      * @return mixed
      */
     protected function replace($stub, $name)

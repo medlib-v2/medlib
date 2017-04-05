@@ -1,8 +1,8 @@
 let path = require('path');
+let glob = require('glob');
 let webpack = require('webpack');
 let Mix = require('laravel-mix').config;
-let plugins = require('laravel-mix').plugins;
-
+let webpackPlugins = require('laravel-mix').plugins;
 
 /*
  |--------------------------------------------------------------------------
@@ -70,76 +70,136 @@ module.exports.output = Mix.output();
  | as quickly as possible, though feel free to add to this list.
  |
  */
+let plugins = [];
 
-module.exports.module = {
-    rules: [
-        {
-            test: /\.vue$/,
-            loader: 'vue-loader',
-            options: {
-                loaders: Mix.options.extractVueStyles ? {
-                        js: 'babel-loader' + Mix.babelConfig(),
-                        scss: plugins.ExtractTextPlugin.extract({
-                            use: 'css-loader!sass-loader',
-                            fallback: 'vue-style-loader'
-                        }),
-                        sass: plugins.ExtractTextPlugin.extract({
-                            use: 'css-loader!sass-loader?indentedSyntax',
-                            fallback: 'vue-style-loader'
-                        }),
-                        css: plugins.ExtractTextPlugin.extract({
-                            use: 'css-loader',
-                            fallback: 'vue-style-loader'
-                        })
-                    }: {
-                        js: 'babel-loader' + Mix.babelConfig(),
-                        scss: 'vue-style-loader!css-loader!sass-loader',
-                        sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                    },
+if (Mix.options.extractVueStyles) {
+    let vueExtractTextPlugin = Mix.vueExtractTextPlugin();
 
-                postcss: [
-                    require('autoprefixer')
-                ]
-            }
-        },
+    plugins.push(vueExtractTextPlugin);
+}
 
-        {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel-loader' + Mix.babelConfig()
-        },
+let rules = [
+    {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+            loaders: Mix.options.extractVueStyles ? {
+                js: 'babel-loader' + Mix.babelConfig(),
+                scss: vueExtractTextPlugin.extract({
+                    use: 'css-loader!sass-loader',
+                    fallback: 'vue-style-loader'
+                }),
+                sass: vueExtractTextPlugin.extract({
+                    use: 'css-loader!sass-loader?indentedSyntax',
+                    fallback: 'vue-style-loader'
+                }),
+                stylus: vueExtractTextPlugin.extract({
+                    use: 'css-loader!stylus-loader?paths[]=node_modules',
+                    fallback: 'vue-style-loader'
+                }),
+                css: vueExtractTextPlugin.extract({
+                    use: 'css-loader',
+                    fallback: 'vue-style-loader'
+                })
+            }: {
+                js: 'babel-loader' + Mix.babelConfig(),
+                scss: 'vue-style-loader!css-loader!sass-loader',
+                sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                stylus: 'vue-style-loader!css-loader!stylus-loader?paths[]=node_modules'
+            },
 
-        {
-            test: /\.css$/,
-            loaders: ['style-loader', 'css-loader']
-        },
-
-        {
-            test: /\.html$/,
-            loaders: ['html-loader']
-        },
-
-        {
-            test: /\.(png|jpg|gif)$/,
-            loader: 'file-loader',
-            options: {
-                name: 'images/[name].[ext]?[hash]',
-                publicPath: '/public/'
-            }
-        },
-
-        {
-            test: /\.(woff2?|ttf|eot|svg|otf)$/,
-            loader: 'file-loader',
-            options: {
-                name: 'fonts/[name].[ext]?[hash]',
-                publicPath: '/public/'
-            }
+            postcss: Mix.options.postCss
         }
-    ]
-};
+    },
+
+    {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader' + Mix.babelConfig()
+    },
+
+    {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader']
+    },
+
+    {
+        test: /\.s[ac]ss$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+    },
+
+    {
+        test: /\.html$/,
+        loaders: ['html-loader']
+    },
+
+    {
+        test: /\.(png|jpe?g|gif)$/,
+        loaders: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name: path => {
+                        if (! /node_modules|bower_components/.test(path)) {
+                            return 'images/[name].[ext]?[hash]';
+                        }
+
+                        return 'images/vendor/' + path
+                                .replace(/\\/g, '/')
+                                .replace(
+                                    /((.*(node_modules|bower_components))|images|image|img|assets)\//g, ''
+                                ) + '?[hash]';
+                    },
+                    publicPath: Mix.options.resourceRoot
+                }
+            },
+            'img-loader'
+        ]
+    },
+
+    {
+        test: /\.(woff2?|ttf|eot|svg|otf)$/,
+        loader: 'file-loader',
+        options: {
+            name: path => {
+                if (! /node_modules|bower_components/.test(path)) {
+                    return 'fonts/[name].[ext]?[hash]';
+                }
+
+                return 'fonts/vendor/' + path
+                        .replace(/\\/g, '/')
+                        .replace(
+                            /((.*(node_modules|bower_components))|fonts|font|assets)\//g, ''
+                        ) + '?[hash]';
+            },
+            publicPath: Mix.options.resourceRoot
+        }
+    },
+    {
+        test: /\.(cur|ani)$/,
+        loader: 'file-loader',
+        options: {
+            name: '[name].[ext]?[hash]',
+            publicPath: Mix.options.resourceRoot
+        }
+    },
 
 
+];
+
+if (Mix.preprocessors) {
+    Mix.preprocessors.forEach(preprocessor => {
+        rules.push(preprocessor.rules());
+
+        plugins.push(preprocessor.extractPlugin);
+    });
+}
+
+module.exports.module = { rules };
+
+
+/**
 if (Mix.preprocessors) {
     Mix.preprocessors.forEach(toCompile => {
         let extractPlugin = new plugins.ExtractTextPlugin(
@@ -182,7 +242,7 @@ if (Mix.preprocessors) {
         new plugins.ExtractTextPlugin(path.join(Mix.js.base, 'vue-styles.css'))
     );
 }
-
+**/
 
 
 /*
@@ -223,6 +283,8 @@ module.exports.stats = {
     errors: false
 };
 
+process.noDeprecation = true;
+
 module.exports.performance = { hints: false };
 
 
@@ -239,7 +301,6 @@ module.exports.performance = { hints: false };
  */
 
 module.exports.devtool = Mix.sourcemaps;
-
 
 
 /*
@@ -260,7 +321,6 @@ module.exports.devServer = {
 };
 
 
-
 /*
  |--------------------------------------------------------------------------
  | Plugins
@@ -271,65 +331,58 @@ module.exports.devServer = {
  | extensions, for versioning, OS notifications, and much more.
  |
  */
-
-module.exports.plugins = (module.exports.plugins || []).concat([
+plugins.push(
     new webpack.ProvidePlugin(Mix.autoload || {
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery',
-            'window.jQuery': 'jquery'
-        }),
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery'
+    }),
 
-    new plugins.FriendlyErrorsWebpackPlugin(),
+    new webpackPlugins.FriendlyErrorsWebpackPlugin({ clearConsole: Mix.options.clearConsole }),
 
-    new plugins.StatsWriterPlugin({
+    new webpackPlugins.StatsWriterPlugin({
         filename: 'mix-manifest.json',
         transform: Mix.manifest.transform.bind(Mix.manifest),
     }),
 
-    new plugins.WebpackMd5HashPlugin(),
+    new webpackPlugins.WebpackMd5HashPlugin(),
 
     new webpack.LoaderOptionsPlugin({
         minimize: Mix.inProduction,
         options: {
-            postcss: [
-                require('autoprefixer')
-            ],
+            postcss: Mix.options.postCss,
             context: __dirname,
             output: { path: './' }
         }
     })
-]);
-
+);
 
 if (Mix.browserSync) {
-    module.exports.plugins.push(
-        new plugins.BrowserSyncPlugin(Object.assign({
-            host: 'localhost',
-            port: 3000,
-            proxy: 'http://medlib.app',
-            files: [
-                'app/**/*.php',
-                'resources/views/**/*.php',
-                'public/mix-manifest.json',
-                'public/css/**/*.css',
-                'public/js/**/*.js'
-            ]
-        }, Mix.browserSync))
+    plugins.push(
+        new webpackPlugins.BrowserSyncPlugin(
+            Object.assign({
+                host: 'localhost',
+                port: 3000,
+                proxy: 'http://medlib.app',
+                files: [
+                    'app/**/*.php',
+                    'resources/views/**/*.php',
+                    'public/mix-manifest.json',
+                    'public/js/**/*.js',
+                    'public/css/**/*.css'
+                ]
+            }, Mix.browserSync),
+            {
+                reload: false
+            }
+        )
     );
 }
 
-
-module.exports.plugins.push(
-    new plugins.WebpackOnBuildPlugin(
-        stats => Mix.events.fire('build', stats)
-    )
-);
-
-
-if (Mix.notifications) {
-    module.exports.plugins.push(
-        new plugins.WebpackNotifierPlugin({
+if (Mix.options.notifications) {
+    plugins.push(
+        new webpackPlugins.WebpackNotifierPlugin({
             title: 'Laravel Mix',
             alwaysNotify: true,
             contentImage: Mix.Paths.root('node_modules/laravel-mix/icons/laravel.png')
@@ -337,18 +390,16 @@ if (Mix.notifications) {
     );
 }
 
-
 if (Mix.copy) {
     Mix.copy.forEach(copy => {
-        module.exports.plugins.push(
-            new plugins.CopyWebpackPlugin([copy])
+        plugins.push(
+            new webpackPlugins.CopyWebpackPlugin([copy])
         );
     });
 }
 
-
 if (Mix.extract) {
-    module.exports.plugins.push(
+    plugins.push(
         new webpack.optimize.CommonsChunkPlugin({
             names: Mix.entryBuilder.extractions.concat([
                 path.join(Mix.js.base, 'manifest').replace(/\\/g, '/')
@@ -358,24 +409,51 @@ if (Mix.extract) {
     );
 }
 
+if (Mix.options.versioning) {
+    plugins.push(
+        new webpack[Mix.inProduction ? 'HashedModuleIdsPlugin': 'NamedModulesPlugin'](),
+        new webpackPlugins.WebpackChunkHashPlugin()
+    );
+}
+
+if (Mix.options.purifyCss) {
+    let PurifyCSSPlugin = require('purifycss-webpack');
+
+    // By default, we'll scan all Blade and Vue files in our project.
+    let paths = glob.sync(Mix.Paths.root('resources/views/**/*.blade.php')).concat(
+        Mix.js.reduce((carry, js) => {
+            return carry.concat(glob.sync(js.entry.map(entry => entry.base) + '/**/*.vue'));
+        }, [])
+    );
+
+    plugins.push(new PurifyCSSPlugin(
+        Object.assign({ paths }, Mix.options.purifyCss, { minimize: Mix.inProduction })
+    ));
+}
 
 if (Mix.inProduction) {
-    module.exports.plugins = module.exports.plugins.concat([
+    plugins.push(
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
             }
-        }),
-
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                warnings: false,
-                drop_console: true
-            }
         })
-    ]);
+    );
+
+    if (Mix.options.uglify) {
+        plugins.push(
+            new webpack.optimize.UglifyJsPlugin(Mix.options.uglify)
+        );
+    }
 }
+
+plugins.push(
+    new webpackPlugins.WebpackOnBuildPlugin(
+        stats => Mix.events.fire('build', stats)
+    )
+);
+
+module.exports.plugins = plugins;
 
 
 /*
@@ -388,4 +466,9 @@ if (Mix.inProduction) {
  | If mix.webpackConfig() is called, we'll merge it in, and build!
  |
  */
-Mix.finalize(module.exports);
+if (Mix.webpackConfig) {
+    module.exports = require('webpack-merge').smart(
+        module.exports, Mix.webpackConfig
+    );
+}
+//Mix.finalize(module.exports);

@@ -8,10 +8,10 @@ class EloquentPageRepository implements PageRepository
 {
 
     /**
-     * @param Page $user
+     * @param Page $page
      * @return mixed
      */
-    public function findByPage(Page $user)
+    public function findByPage(Page $page)
     {
         // TODO: Implement findByPage() method.
     }

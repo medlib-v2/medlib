@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['male','female']);
             $table->boolean('activated')->default(false);
             $table->tinyInteger('account_type', false);
-            $table->string('user_avatar');
             $table->boolean('onlinestatus')->default(0);
             $table->boolean('chatstatus')->default(1);
             $table->rememberToken();

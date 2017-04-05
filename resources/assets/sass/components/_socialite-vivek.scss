@@ -638,9 +638,11 @@ $default-to-color: #FFFFFF;
     margin-right: 12px;
   }
   .form-group:nth-child(1) {
+    /**
     border-bottom: 1px solid #E6EAEE;;
     padding-bottom: 37px;
     margin-bottom: 21px;
+    **/
   }
   .btn-success {
     padding: 6.5px 28px;

@@ -3,7 +3,7 @@
 	img {
 		width: 100%;
 		height: auto;
-		border-radius: 4px;	
+		border-radius: 4px;
 	}
 }
 .related-box {
@@ -32,11 +32,11 @@
 			margin-bottom: 13px;
 		}
 	}
-	
+
 	.btn-buy-class {
 		text-transform: none;
-		// width: 100%;	
-		margin-top: 2px;	
+		// width: 100%;
+		margin-top: 2px;
 		padding: 7px 18px;
 	}
 }
@@ -47,11 +47,11 @@
 		float: right;
 		li {
 			&:last-child {
-				padding-right: 10px;	
+				padding-right: 10px;
 			}
 			a {
 				color:  #CCD3DA;
-				font-size: 16px;	
+				font-size: 16px;
 			}
 			.dropdown-menu {
 				right: -20px;
@@ -67,7 +67,7 @@
 	}
 	.media-body {
 		.media-heading {
-			text-transform: capitalize;	
+			text-transform: capitalize;
 			margin-bottom: 1px;
 			font-size: 16px;
 			font-family: $font-primary;
@@ -81,7 +81,7 @@
 		}
 	}
 	.image-gallery {
-		margin-top: 20px;	
+		margin-top: 20px;
 		.image-row {
 			margin-left: -5px;
 			margin-right: -5px;
@@ -92,7 +92,7 @@
 			img {
 				width: 100%;
 				height: auto;
-				border-radius: 4px;		
+				border-radius: 4px;
 			}
 		}
 	}
@@ -122,7 +122,7 @@
 	padding-top: 5px;
 	&:first-child {
 		padding-top: 17px;
-	}	
+	}
 	&:last-child {
 		padding-bottom: 22px;
 	}
@@ -133,7 +133,7 @@
 		text-transform: capitalize;
 		font-weight: 600;
 		span {
-			display: block;	
+			display: block;
 			font-size: 18px;
 			color: $primary-content-color ;
 			margin-top: -5px;
@@ -168,7 +168,7 @@
 	   		}
 	   }
 	   .blue {
-	   		background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);	
+	   		background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
 	   }
 	   .purple {
 	   	     background-image: linear-gradient(-180deg, #9D90E4 2%, #8261E6 98%);
@@ -319,7 +319,7 @@
 				}
 			}
 			.rightside-action {
-				float: right; 
+				float: right;
 				margin-top: 4px;
 				margin-right: 5px;
 				i {
@@ -339,7 +339,7 @@
 	padding: 10px;
 	text-align: center;
 	.cover-image {
-		overflow: hidden; 
+		overflow: hidden;
 		height: 120px;
 		width: 100%;
 		position: relative;
@@ -358,7 +358,7 @@
 			width: 156px;
 		}
 	}
-	
+
 	.user-name {
 		padding-top: 91px;
 		a {
@@ -369,13 +369,13 @@
 			color: $primary-content-color;
 			text-decoration: none;
 		}
-		.user-details-list 
-		{	
+		.user-details-list
+		{
 			margin-top: 5px;
-			li 
-			{	
+			li
+			{
 				line-height: 15px;
-				a 
+				a
 				{
 					font-family: $font-size-base;
 					font-weight: 600;
@@ -494,19 +494,19 @@
 				border-top: 0;
 			}
 		}
-		td 
+		td
 		{
 			text-transform: capitalize;
 			font-family: $font-size-base;
 			font-size: $font-size-base;
 			padding-top: 13px !important;
 			padding-bottom: 17px !important;
-			a 
+			a
 			{
 				color: $primary-content-color;
 				text-decoration: none;
 			}
-			span 
+			span
 			{
 				display: block;
 				font-weight: 400;
@@ -560,7 +560,7 @@
 			span {
 				font-size: $font-size-base;
 				color: $secondary-content-color;
-				margin-left: 10px;				
+				margin-left: 10px;
 			}
 		}
 	}
@@ -581,7 +581,7 @@
 .messages-page {
 	.panel-heading.user-pages {
 		border-bottom-width: 0 !important;
-	}	
+	}
 	.panel-body {
 		.message-col-4 {
 			padding-right: 0;
@@ -620,7 +620,7 @@
 						color: $secondary-content-color;
 						font-size: 16px;
 					}
-				}	
+				}
 			}
 		}
 		.message-col-8 {
@@ -635,7 +635,7 @@
 					color: $primary-content-color;
 					padding-top: 21px;
 					padding-left: 20px;
-					.chat-status 
+					.chat-status
 					{
 						height: 8px;
 						width: 8px;
@@ -651,26 +651,26 @@
 					padding-top: 19px;
 					.primary-list
 					{
-						&>li 
+						&>li
 						{
 							padding-left: 20px;
 							padding-right: 18px;
 						}
 					}
-					ul 
+					ul
 					{
 						margin-bottom: 0px;
 						margin-top: 0px;
 					}
 					.pagination
 					{
-						li 
+						li
 						{
-							a 
+							a
 							{
 								background: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
 								border: 1px solid #CED0DA;
-								i 
+								i
 								{
 									color: $secondary-content-color;
 									font-size: 18px;
@@ -681,7 +681,7 @@
 					}
 					.pagination.latest
 					{
-						li a i 
+						li a i
 						{
 							color: #CED0DA;
 						}
@@ -696,7 +696,7 @@
 						margin-left: 4px;
 					}
 					.page-number
-					{	
+					{
 						vertical-align: top;
 						margin-top: 8px;
 						font-family: $font-size-base;
@@ -726,7 +726,7 @@
 				font-size: $font-size-base;
 				color: $primary-content-color;
 				line-height: 19px;
-				
+
 			}
 			&:first-child {
 				padding-top: 5px;
@@ -764,9 +764,9 @@
 						padding-right: 7px;
 						.img-holder {
 							background-color: #000;
-							border-radius: 4px; 
+							border-radius: 4px;
 							img {
-								width: 100%;	
+								width: 100%;
 								height: auto;
 							}
 						}
@@ -792,7 +792,7 @@
 						&:hover {
 							img {
 								opacity: 0.5;
-							}		
+							}
 							.img-search {
 								display: block;
 							}
@@ -823,7 +823,7 @@
 					text-transform: capitalize;
 				}
 				.media-heading {
-					
+
 					font-family: $font-size-base;
 					display: block;
 					height: 26px;
@@ -831,7 +831,7 @@
 				    white-space: nowrap;
 				    text-overflow: ellipsis;
 					color: #00AAFF;
-					.chat-circle 
+					.chat-circle
 					{
 						width: 8px;
 						height: 8px;
@@ -840,14 +840,14 @@
 						margin-right: 5px;
 						display: inline-block;
 					}
-					
+
 					.text-muted
 					{
 						display: block;
 						font-family: $font-size-base;
 						margin-top: -4px;
 					}
-					span 
+					span
 					{
 						margin-left: 0px;
 					}
@@ -899,7 +899,7 @@
 			position: relative;
 			.media-heading
 			{
-				a 
+				a
 				{
 					color: #00AAFF;
 				}
@@ -937,7 +937,7 @@
 				background-color: #fff;
 			}
 		}
-		.message-divider.blue 
+		.message-divider.blue
 		{
 			border-bottom: 1px solid #1A91EB;
 			.day
@@ -946,19 +946,19 @@
 			}
 		}
 		.new-message
-		{	
+		{
 			padding: 14px 30px 20px 30px;
 			width: 100%;
 		    position: absolute;
 		    bottom: 0px;
 		    background: white;
 			.input-group-btn
-			{	
+			{
 				.btn
 				{
 					height: 56px;
-					width: 56px;	
-					line-height: 18px;	
+					width: 56px;
+					line-height: 18px;
 					border: 1px solid #CED0DA;
 					border-radius: 0px 4px 4px 0px;
 					box-shadow: none;
@@ -967,14 +967,14 @@
 					padding: 0px;
 					padding-bottom: 4px;
 					color: #fff;
-					i 
+					i
 					{
 						font-size: 20px;
 					}
 				}
 			}
 			.form-control
-			{	
+			{
 				height: 56px;
 				padding-top: 10px;
 				&:focus
@@ -987,8 +987,8 @@
 		{
 			border-top: 1px solid $panel-border-color;
 			// display: table;
-			display: -webkit-flex;		
-			display: -ms-flexbox;		
+			display: -webkit-flex;
+			display: -ms-flexbox;
 			display: flex;
 			overflow: hidden;
 			margin: 0px !important;
@@ -998,12 +998,12 @@
 				.coversations-list
 				{
 					height: 597px;
-					overflow-y: scroll;	
+					overflow-y: scroll;
 					overflow-x: hidden;
 				}
 				// float: none;
 				// display: inline-block;
-				
+
 				padding-left: 0px;
 			}
 			.message-col-8
@@ -1028,7 +1028,7 @@
 
 		float: right;
 		margin-top: 27px;
-		i 
+		i
 		{
 			color: #AFB4BB;
 			font-size: 16px;
@@ -1190,7 +1190,7 @@
         position: relative;
 		img {
 			width: 100%;
-			height: 100%;	
+			height: 100%;
 			// opacity: 0.9;
 		}
 		.label {
@@ -1212,8 +1212,8 @@
 				font-family: $font-size-base;
 				font-weight: 600;
 				font-size: 26px;
-				color: #FFFFFF;					
-				text-transform: capitalize;	
+				color: #FFFFFF;
+				text-transform: capitalize;
 				margin-left: 15px;
 				margin-top: 26px;
 			}
@@ -1259,17 +1259,17 @@
 	}
 }
 .navbar-tabs
-{	
+{
 	background-color: #fff;
 	margin-bottom: 20px;
-	.btn-group 
+	.btn-group
 	{
 		float: left;
 		margin: 15px 20px 0px 15px;
-		.btn 
+		.btn
 		{
 			line-height: 18px;
-			i 
+			i
 			{
 				font-size: 16px;
 				color: #CED0DA;
@@ -1360,7 +1360,7 @@
 				color: $secondary-content-color;
 				font-size: 16px;
 			}
-		}	
+		}
 	}
 }
 .navbar-tabs.navbars {
@@ -1393,17 +1393,17 @@
 		// 	height: 501px;
 		// }
 	}
-	
+
 	.post-list {
 		margin-top: -6px;
 		margin-bottom: 0;
 		li {
-			
+
 			border-bottom: 3px solid transparent;
 			transition: 0.5s ease;
 			&:first-child {
 				margin-left: 27px;
-				padding-left: 7px; 
+				padding-left: 7px;
 				a {
 					padding-left: 0;
 				}
@@ -1490,10 +1490,10 @@
 	.time {
 		float: right;
 		margin-right: -5px;
-	}	
+	}
 	.views-count {
 		font-family: $font-size-base;
-		font-weight: 600;       
+		font-weight: 600;
 		font-size: $font-size-base;
 		color: $secondary-content-color;
 		i {
@@ -1518,7 +1518,7 @@
 				font-weight: 400;
 				.author {
 					a {
-						color: #1A91EB;	
+						color: #1A91EB;
 						font-size: $font-size-base;
 					}
 				}
@@ -1541,7 +1541,7 @@
 		margin-top: 12px;
 		.label {
 			font-size: 10px;
-			padding: 3px 8px 3px 9px;   
+			padding: 3px 8px 3px 9px;
 			font-family: $font-size-base;
 		}
 	}
@@ -1562,7 +1562,7 @@
 					font-weight: 600;
 					font-size: $font-size-base;
 					color: $secondary-content-color;
-					text-transform: capitalize;	
+					text-transform: capitalize;
 					border-radius: 0;
 				}
 			}
@@ -1602,9 +1602,9 @@
 			font-weight: 600;
 			font-size: 16px;
 			color: $secondary-content-color;
-			a 
+			a
 			{
-				color: #1A91EB;	
+				color: #1A91EB;
 			}
 		}
 	}
@@ -1620,14 +1620,14 @@
 					line-height: 6px;
 					font-size: 16px;
 					color: #CED0DA;
-				}		
+				}
 				&:first-child {
 					border-bottom-width: 0px;
 					border-bottom-left-radius: 0px;
 					border-bottom-right-radius: 0px;
 					background: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
 					padding-bottom: 0px;
-					padding-top: 4px; 
+					padding-top: 4px;
 					line-height: 10px;
 				}
 				&:last-child {
@@ -1655,7 +1655,7 @@
 //create-product-page
 
 .adding-product {
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
 	.left-side {
 		float: left;
 	}
@@ -1678,7 +1678,7 @@
 		font-size: $font-size-base;
 		color: $secondary-content-color;
 		text-transform: capitalize;
-		margin-bottom: 7px;	
+		margin-bottom: 7px;
 	}
 	input.form-control {
 		height: 36px;
@@ -1686,7 +1686,7 @@
 }
 .rightside-box {
 	padding-left: 15px;
-}	
+}
 .publish-section {
 	padding-top: 3px;
 	label {
@@ -1724,7 +1724,7 @@
 		padding-right: 5px;
 	}
 	.right-col {
-		padding-left: 5px;                    
+		padding-left: 5px;
 	}
 	.clear-fix {
 		@media (max-width: 991px) {
@@ -1786,7 +1786,7 @@
 				}
 			}
 			.right {
-				float: right;	
+				float: right;
 				i {
 					color: #AEB6C5;
 					font-size: 16px;
@@ -2202,7 +2202,7 @@
 						}
 					}
 				}
-			}	
+			}
 		}
 
 		.panel-body {
@@ -2658,7 +2658,7 @@
 							left: 50px;
 							margin-left: 0px;
 						}
-						.heading	
+						.heading
 						{
 							font-family: $font-primary;
 							font-weight: 400;
@@ -2684,7 +2684,7 @@
 				background-image: linear-gradient(-180deg, #2EA1F8 0%, #1990EA 99%);
 				padding: 0px;
 				.right-box
-				{	
+				{
 					position: relative;
 					top: 50%;
 					margin-top: -99px;
@@ -2726,11 +2726,11 @@
 						}
 					}
 					.signin-divison
-					{	
+					{
 						padding-left: 40px;
 						position: absolute;
 						bottom: -60px;
-						.btn-signin	
+						.btn-signin
 						{
 							text-transform: capitalize;
 							font-family: $font-primary;
@@ -2741,9 +2741,9 @@
 							border-radius: 4px;
 							padding:8px 35px;
 						}
-						span 
+						span
 						{
-							a 
+							a
 							{
 								font-family: $font-primary;
 								font-weight: 400;
@@ -2766,22 +2766,22 @@
 				color: #FFFFFF;
 				position: absolute;
 				bottom: 26px;
-				ul 
-				{	
+				ul
+				{
 					margin-bottom: 0px;
-					li 
-					{	
+					li
+					{
 						padding-left: 0px;
 						padding-right: 0px;
 						&:last-child
 						{
-							a 
+							a
 							{
 								border-right: 0px;
 							}
 						}
-						a 
-						{	
+						a
+						{
 							padding-right: 10px;
 							padding-left: 8px;
 							border-right: 1px solid $panel-border-color;
@@ -2799,7 +2799,7 @@
 			.footer-section.left
 			{
 				left: 46px;
-				a 
+				a
 				{
 					padding-right: 10px;
 					color: #fff;
@@ -2824,8 +2824,8 @@
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 }
-.no-paddingbottom {
-	padding-bottom: 0;
+.no-padding-bottom {
+	padding-bottom: 0 !important;
 }
 .no-texttransform {
 	text-transform: none !important;
@@ -2869,7 +2869,7 @@
 .panel-heading.user-pages.navbars {
 	.btn-downloadreport {
 		margin-right: 15px;
-		margin-top: 10px;	
+		margin-top: 10px;
 		margin-bottom: 24px;
 		padding: 7px 12px;
 	}
@@ -2886,7 +2886,7 @@
 			a {
 				font-family: $font-size-base;
 				font-weight: 600;
-				text-transform: capitalize;	
+				text-transform: capitalize;
 				font-size: 16px;
 				color: $secondary-content-color;
 				padding: 16px 0 21px;
@@ -2898,7 +2898,7 @@
 				border-bottom: 3px solid #2EA2F8;
 				border-radius: 0;
 			}
-		}	
+		}
 	}
 }
 .invoice-filters {
@@ -2924,7 +2924,7 @@
 }
 .page-heading {
 	float: left;
-	padding: 12px 12px 14px 12px; 
+	padding: 12px 12px 14px 12px;
 }
 //for user image,name in image-detail and message page
 .user-info-bk {
@@ -3007,7 +3007,7 @@
 	li {
 		margin-left: 5px;
 		&:first-child {
-			margin-left: 0px;	
+			margin-left: 0px;
 		}
 		a {
 			position: absolute;
@@ -3028,12 +3028,12 @@
 	}
 }
 
-//for blue-circle in login pages 
+//for blue-circle in login pages
 .header-circle {
     background-image: linear-gradient(-180deg, #2EA1F8 0%, #1A91EB 100%);
     height: 70px;
     width: 70px;
-    border-radius: 50%; 
+    border-radius: 50%;
     position: absolute;
     top: -35px;
     left: 50%;
@@ -3046,7 +3046,7 @@
     	direction: rtl;
     	font-size: 20px;
     }
-} 
+}
  //for dark-background(body)
 .dark-bg {
 	background-color: #212531;
@@ -3088,8 +3088,8 @@
 	&:hover {
 		.image-holder {
 			img {
-				opacity: 0.25;	
-			} 
+				opacity: 0.25;
+			}
 			.search {
 				display: block;
 			}
@@ -3106,7 +3106,7 @@
 	select.form-control {
 		height: 36px;
 	}
-	
+
 	.image-details {
 		padding-top: 8px;
 		i {
@@ -3241,7 +3241,7 @@
 				img {
 					width: 60px;
 					height: 40px;
-					border-radius: 4px;	
+					border-radius: 4px;
 				}
 				p {
 					color: $primary-content-color;
@@ -3249,7 +3249,7 @@
 				}
 				a {
 					color: $primary-content-color;
-					text-decoration: none;	
+					text-decoration: none;
 				}
 				ul {
 					margin-bottom: 0px;
@@ -3368,7 +3368,7 @@
 							a {
 								text-decoration: none;
 								font-family: $font-size-base;
-								font-weight: 600;	
+								font-weight: 600;
 								font-size: $font-size-base;
 							}
 							.text-muted {
@@ -3445,7 +3445,7 @@
 			padding-left: 30px;
 		}
 	}
-	
+
 	tbody {
 		// display: block;
 	 //    overflow: auto;
@@ -3473,7 +3473,7 @@
 			}
 			.text-secondary {
 				font-family: $font-primary;
-				font-weight: 400;	
+				font-weight: 400;
 				font-size: 12px;
 				color: $secondary-content-color;
 			}
@@ -3485,7 +3485,7 @@
 				font-size: 12px;
 				text-transform: uppercase;
 			}
-			
+
 			ul {
 				margin-bottom: 0;
 				li {
@@ -3500,7 +3500,7 @@
 							display: none;
 						}
 					}
-				} 
+				}
 				li.active {
 					a {
 						i {

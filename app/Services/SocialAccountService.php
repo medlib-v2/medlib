@@ -36,8 +36,7 @@ class SocialAccountService
         if ($email == null) {
             if ($provider == 'facebook') {
                 $email = $providerUser->getId().'@facebook.com';
-            }
-            else {
+            } else {
                 $email = $providerUser->user['email'];
             }
         }

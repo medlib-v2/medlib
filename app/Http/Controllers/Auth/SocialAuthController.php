@@ -31,9 +31,7 @@ class SocialAuthController extends Controller
          * redirect the user back to where they came from
          */
         if (!array_key_exists($provider, config('services'))) {
-            return $this->responseWithError(
-                ['redirect' => '/login']
-            , IlluminateResponse::HTTP_NOT_ACCEPTABLE);
+            return $this->responseWithError(['redirect' => '/login'], IlluminateResponse::HTTP_NOT_ACCEPTABLE);
         }
 
         return Socialite::driver($provider)->fields([
@@ -59,9 +57,7 @@ class SocialAuthController extends Controller
          * abort the signup
          */
         if (!array_key_exists($provider, config('services'))) {
-            return $this->responseWithError(
-                ['redirect' => '/login'],
-                IlluminateResponse::HTTP_NOT_ACCEPTABLE);
+            return $this->responseWithError(['redirect' => '/login'], IlluminateResponse::HTTP_NOT_ACCEPTABLE);
         }
 
         $method = 'handle'.studly_case($provider . "Callback");

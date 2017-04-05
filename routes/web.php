@@ -37,50 +37,6 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('/logout', ['uses' => 'Auth\AuthController@doLogout','as' => 'auth.logout', 'middleware' => 'auth' ]);
 
-    /**
-    |--------------------------------------------------------------------------
-    | Yaz Recherche routes
-    |--------------------------------------------------------------------------
-     *\/
-    Route::group(['prefix' => 'search', 'namespace' => 'Search'], function () {
-        Route::get('/simple', ['uses' => 'SearchQueryController@doSimple', 'as' => 'search.simple']);
-        Route::get('/advanced', ['uses' => 'SearchQueryController@doAdvanced', 'as' => 'search.advanced']);
-        Route::get('/detail', ['uses' => 'SearchQueryController@doDetail', 'as' => 'search.detail']);
-    });
-
-    /**
-    |--------------------------------------------------------------------------
-    | Notifications routes
-    |--------------------------------------------------------------------------
-     *\/
-    Route::group(['prefix' => 'notifications', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Notifications'], function () {
-        Route::get('/', ['uses' => 'NotificationsController@index', 'as' => 'notifications.show']);
-        Route::post('/', ['uses' => 'NotificationsController@store', 'as' => 'notifications.store']);
-        Route::get('/last', ['uses' => 'NotificationsController@last', 'as' => 'notifications.last']);
-        Route::get('/all', ['uses' => 'NotificationsController@notifications', 'as' => 'notifications.all']);
-        Route::get('/unread', ['uses' => 'NotificationsController@unread', 'as' => 'notifications.unread']);
-        Route::patch('/{id}/read', ['uses' => 'NotificationsController@markAsRead', 'as' => 'notifications.read']);
-        Route::post('/mark-all-read', ['uses' => 'NotificationsController@markAllRead', 'as' => 'notifications.read.all']);
-        Route::post('/{id}/dismiss', ['uses' => 'NotificationsController@dismiss', 'as' => 'notifications.dismiss']);
-    });
-
-    /**
-    |--------------------------------------------------------------------------
-    | User settings routes
-    |--------------------------------------------------------------------------
-     *\/
-    Route::group(['prefix' => 'settings', 'middleware' => ['auth','jwt.auth'], 'namespace' => 'Users'], function () {
-        Route::get('/profile', [ 'uses' => 'SettingsController@showProfile', 'as' => 'profile.show.settings' ]);
-        Route::post('/profile', [ 'uses' => 'SettingsController@editProfile', 'as' => 'profile.edit.settings' ]);
-        Route::get('/admin', [ 'uses' => 'SettingsController@showAdmin', 'as' => 'profile.show.admin' ]);
-        Route::post('/admin', [ 'uses' => 'SettingsController@editAdmin', 'as' => 'profile.edit.admin' ]);
-        Route::get('/email', [ 'uses' => 'SettingsController@showEmail', 'as' => 'profile.show.email' ]);
-        Route::post('/email', [ 'uses' => 'SettingsController@editEmail', 'as' => 'profile.edit.email' ]);
-        Route::post('/avatar', [ 'uses' => 'SettingsController@editAvatar', 'as' => 'profile.edit.avatar' ]);
-        Route::post('/password', [ 'uses' => 'SettingsController@editPassword', 'as' => 'profile.edit.password' ]);
-        Route::post('/username', [ 'uses' => 'SettingsController@editUsername', 'as' => 'profile.edit.username' ]);
-        Route::delete('/{username}/delete', [ 'uses' => 'SettingsController@deleteUsername', 'as' => 'profile.delete.username' ]);
-    });
 
     /**
     |--------------------------------------------------------------------------

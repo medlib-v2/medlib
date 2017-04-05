@@ -56,7 +56,7 @@ class CreateFeedService extends Service
                 $strippedName = str_replace(' ', '', $postImage->getClientOriginalName());
                 $photoName = date('Y-m-d-H-i-s').$strippedName;
 
-                $destinationPath = Config::get('image.upload_path').'users/gallery/'.$photoName;
+                $destinationPath = config('image.upload_path').'feeds/'.$photoName;
 
                 App::make(ProcessImage::class)->upload($postImage, $destinationPath, 60);
 
@@ -122,8 +122,7 @@ class CreateFeedService extends Service
             /**
              * Let us tag the post friends :)
              */
-            if (array_key_exists('user_tags', $this->input))
-            {
+            if (array_key_exists('user_tags', $this->input)) {
                 $user_tags = $this->input['user_tags'];
                 if (!is_null($user_tags)) {
                     $post->usersTagged()->sync(explode(',', $user_tags));

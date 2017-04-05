@@ -3,21 +3,23 @@
 namespace Medlib\Providers;
 
 use Medlib\Services\ProcessImage;
-use Medlib\Repositories\Comment\CommentRepository;
-use Medlib\Repositories\Comment\EloquentCommentRepository;
-use Medlib\Repositories\FriendRequest\FriendRequestRepository;
-use Medlib\Repositories\FriendRequest\EloquentFriendRequestRepository;
-use Medlib\Repositories\User\UserRepository;
-use Medlib\Repositories\User\EloquentUserRepository;
-use Medlib\Repositories\Message\MessageRepository;
-use Medlib\Repositories\Message\EloquentMessageRepository;
-use Medlib\Repositories\Feed\FeedRepository;
-use Medlib\Repositories\Feed\EloquentFeedRepository;
-
-use Medlib\Http\Requests\CreateMessageRequest;
-use Medlib\Http\Requests\CreateMessageResponseRequest;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Medlib\Repositories\User\UserRepository;
+use Medlib\Repositories\Feed\FeedRepository;
+use Medlib\Repositories\Page\PageRepository;
+use Medlib\Repositories\Group\GroupRepository;
+use Medlib\Http\Requests\CreateMessageRequest;
+use Medlib\Repositories\Message\MessageRepository;
+use Medlib\Repositories\Comment\CommentRepository;
+use Medlib\Repositories\User\EloquentUserRepository;
+use Medlib\Repositories\Feed\EloquentFeedRepository;
+use Medlib\Repositories\Page\EloquentPageRepository;
+use Medlib\Repositories\Group\EloquentGroupRepository;
+use Medlib\Repositories\Comment\EloquentCommentRepository;
+use Medlib\Repositories\Message\EloquentMessageRepository;
+use Medlib\Repositories\FriendRequest\FriendRequestRepository;
+use Medlib\Repositories\FriendRequest\EloquentFriendRequestRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,7 +58,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('MessageRequest', CreateMessageRequest::class);
 
-        $this->app->bind('MessageResponseRequest', CreateMessageResponseRequest::class);
+        $this->app->bind(PageRepository::class, EloquentPageRepository::class);
+
+        $this->app->bind(GroupRepository::class, EloquentGroupRepository::class);
 
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);

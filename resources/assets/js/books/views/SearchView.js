@@ -5,9 +5,9 @@ import BookCollection from '../collections/BookCollection';
 import BookModel from '../models/BookModel';
 import allBooksView from './AllBooksView';
 import myCollection from '../collections/BookLibrary';
+import $ from 'jquery'
 
-let $ = window.jQuery,
-    Modernizr = window.Modernizr,
+let Modernizr = window.Modernizr,
     bookTemplate = require('../templates/book.html'),
     welcomeTemplate = require('../templates/welcome.html'),
     apiTemplate = require('../templates/apimessage.html');

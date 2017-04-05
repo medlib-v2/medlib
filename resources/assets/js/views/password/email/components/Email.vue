@@ -63,12 +63,19 @@
                 })
             }
         },
+        head: {
+            title: {
+                inner: 'Password forgot'
+            },
+            meta: [
+                // ...
+            ]
+        },
         methods: {
             submit () {
-                this.form.post('api/password/reset')
-                        .then(({data}) => {
-                            console.log(data)
-                        })
+                this.form.post('api/password/reset').then(({data}) => {
+                    console.log(data)
+                })
             }
         }
     };

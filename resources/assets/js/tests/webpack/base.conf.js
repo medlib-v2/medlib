@@ -7,7 +7,7 @@ let webpack = require('webpack');
  * @returns {*}
  */
 function resolve (dirname) {
-    return path.join(__dirname, '..', dirname)
+    return path.join(__dirname, '../../../../../', dirname)
 }
 
 module.exports = {

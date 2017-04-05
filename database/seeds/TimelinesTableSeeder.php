@@ -34,7 +34,6 @@ class TimelinesTableSeeder extends Seeder
             'gender' => 'male',
             'activated' => true,
             'account_type' => false,
-            'user_avatar' => "https://www.gravatar.com/avatar/" . md5(strtolower('admin@medlib.app')),
             'remember_token' => str_random(32)
         ]);
 
@@ -77,7 +76,6 @@ class TimelinesTableSeeder extends Seeder
                         'gender' => $faker->randomElement(['male', 'female']),
                         'activated' => true,
                         'account_type' => false,
-                        'user_avatar' => "https://www.gravatar.com/avatar/" . md5(strtolower($email)) . "?d=identicon",
                         'remember_token' => str_random(32)
                     ]);
 

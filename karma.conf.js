@@ -11,7 +11,7 @@ module.exports = function(karma) {
         /**
          * include mocha first in used frameworks
          */
-        frameworks: ['mocha', 'sinon-chai'],
+        frameworks: ['jasmine'],
 
         colors: true,
 
@@ -22,7 +22,14 @@ module.exports = function(karma) {
          */
         logLevel: karma.LOG_DEBUG,
 
-        browsers: ['PhantomJS'],
+        browsers: ['Yandex'], // 'PhantomJS', 'Yandex', 'Yandex_without_security'
+
+        customLaunchers: {
+            Yandex_without_security: {
+                base: 'Yandex',
+                flags: ['--disable-web-security']
+            }
+        },
 
         /**
          * list of files / patterns to load in the browser
@@ -31,25 +38,22 @@ module.exports = function(karma) {
          **/
         files: [
             '../../../node_modules/babel-polyfill/dist/polyfill.js',
-            //{ pattern: 'tests/**/*.spec.js', watched: false },
             { pattern: 'tests/unit/index.js', watched: false },
         ],
 
         /**
          * list of files to exclude
          */
-        exclude: [
-            'node_modules'
-        ],
+        exclude: ['node_modules'],
 
         plugins: [
-            'karma-mocha',
+            'karma-jasmine',
             'karma-webpack',
             'karma-coverage',
-            'karma-sinon-chai',
             'karma-spec-reporter',
             'karma-sourcemap-loader',
             'karma-phantomjs-launcher',
+            'karma-yandex-launcher',
             'karma-babel-preprocessor',
         ],
 
@@ -67,9 +71,8 @@ module.exports = function(karma) {
          * processed via webpack
          */
         preprocessors: {
-            'app.js': ['webpack'],
-            //'tests/**/*.spec.js': ['webpack', 'sourcemap'],
-            'tests/unit/index.js': ['webpack', 'sourcemap']
+            'app.js': ['babel', 'webpack'],
+            'tests/unit/index.js': ['babel', 'webpack', 'sourcemap']
         },
         webpack: webpackConfig,
         webpackMiddleware: {
@@ -77,7 +80,7 @@ module.exports = function(karma) {
             stats: 'errors-only'
         },
         coverageReporter: {
-            dir: './coverage',
+            dir: 'tests/unit/coverage',
             reporters: [
                 { type: 'html', subdir: 'html' },
                 { type: 'lcov', subdir: '.' },

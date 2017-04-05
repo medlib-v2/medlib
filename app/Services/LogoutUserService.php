@@ -41,8 +41,16 @@ class LogoutUserService extends Service
         $this->client->updateChatStatusBar($friendsUserIds, 22, $related_to_id, false);
 
         /**
-         * $token = JWTAuth::getToken()
-         */
+        if ($token = JWTAuth::getToken()) {
+            try {
+                JWTAuth::invalidate($token);
+            } catch (Exception $e) {
+                Log::error($e);
+            }
+        }
+        return response()->json();
+        **/
+
         if ($token = JWTAuth::fromUser($this->user)) {
             try {
                 JWTAuth::invalidate($token);

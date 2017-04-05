@@ -12,7 +12,7 @@ export default {
             this.form.login().then(({ data }) => {
                 let { token, user } = data;
 
-                this.userAction(user);
+                this.setUserAuth(user);
                 jwtToken.setUserData(user);
                 jwtToken.setToken(token);
 
@@ -25,8 +25,6 @@ export default {
                 }
             }).catch(error => console.log(error, 'error submit'))
         },
-        ...mapActions({
-            userAction: 'user'
-        })
+        ...mapActions(['setUserAuth'])
     }
 }

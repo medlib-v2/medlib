@@ -20,7 +20,7 @@ class HomeController extends Controller
             $datasource +=  [
                 $name['instance'] => [
                     'fullname' => $name['fullname'],
-                    'syntax' => $name['database']['format']
+                    'syntax' => $name['format']
                 ]
             ];
         }

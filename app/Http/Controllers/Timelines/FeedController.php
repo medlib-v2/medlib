@@ -44,7 +44,7 @@ class FeedController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $username
+     * @param string $username
      * @param FeedRepository $feedRepository
      * @param UserRepository $userRepository
      * @param PageRepository $pageRepository
@@ -52,7 +52,7 @@ class FeedController extends Controller
      * @return mixed
      * @internal param GroupRepository $groupRepositor
      */
-    public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, PageRepository $pageRepository, GroupRepository $groupRepository )
+    public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, PageRepository $pageRepository, GroupRepository $groupRepository)
     {
         $posts = [];
         $user_post = '';
@@ -106,7 +106,7 @@ class FeedController extends Controller
                 $follow_user_status = $follow_user_status->status;
             }
 
-            $confirm_follow_setting = $user->getUserSettings(Auth::user()->id);
+            $confirm_follow_setting = $user->settings()->first();
             $follow_confirm = $confirm_follow_setting->confirm_follow;
 
             /**
@@ -134,7 +134,8 @@ class FeedController extends Controller
             'posts',
             'liked_pages',
             'timeline_type',
-            'page', 'group',
+            'page',
+            'group',
             'next_page_url',
             'joined_groups',
             'follow_user_status',

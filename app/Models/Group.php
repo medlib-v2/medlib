@@ -84,6 +84,9 @@ class Group extends Model
         return $this->timeline->about ? $this->timeline->about : null;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $array = parent::toArray();
@@ -99,21 +102,34 @@ class Group extends Model
         return $array;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function timeline()
     {
         return $this->belongsTo(Timeline::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'group_user', 'group_id', 'user_id')->withPivot('status', 'user_id', 'role_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function feeds()
     {
         return $this->hasMany(Feed::class);
     }
 
+    /**
+     * @param int $role_id
+     * @return bool
+     */
     public function roleName($role_id)
     {
         $role = Role::find($role_id);
@@ -122,6 +138,10 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @param int $user_id
+     * @return bool
+     */
     public function isAdmin($user_id)
     {
         $admin_role_id = Role::where('name', 'admin')->first();
@@ -132,7 +152,10 @@ class Group extends Model
         return $result;
     }
 
-    public function pending_members()
+    /**
+     * @return bool
+     */
+    public function pendingMembers()
     {
         $user_role_id = Role::where('name', 'user')->first();
         $pending_members = $this->users()->where('role_id', $user_role_id->id)->where('status', 'pending')->get();
@@ -142,6 +165,9 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function members()
     {
         $admin_role_id = Role::where('name', '=', 'admin')->first();
@@ -152,6 +178,9 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function admins()
     {
         $admin_role_id = Role::where('name', '=', 'admin')->first();
@@ -170,6 +199,11 @@ class Group extends Model
     //     return $result;
     // }
 
+    /**
+     * @param int $group_id
+     * @param int $user_id
+     * @return array|bool|null|\stdClass
+     */
     public function chkGroupUser($group_id, $user_id)
     {
         $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->first();
@@ -178,6 +212,10 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @param int $group_user_id
+     * @return bool
+     */
     public function updateStatus($group_user_id)
     {
         $group_user = DB::table('group_user')->where('id', $group_user_id)->update(['status' => 'approved']);
@@ -186,6 +224,10 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @param int $group_user_id
+     * @return bool
+     */
     public function decilneRequest($group_user_id)
     {
         $group_user = DB::table('group_user')->where('id', $group_user_id)->delete();
@@ -194,6 +236,11 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @param int $group_id
+     * @param int $user_id
+     * @return bool
+     */
     public function removeMember($group_id, $user_id)
     {
         $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->delete();
@@ -203,6 +250,12 @@ class Group extends Model
         return $result;
     }
 
+    /**
+     * @param string $member_role
+     * @param string $group_id
+     * @param int $user_id
+     * @return bool
+     */
     public function updateMemberRole($member_role, $group_id, $user_id)
     {
         $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->update(['role_id' => $member_role]);

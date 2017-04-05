@@ -8,7 +8,7 @@ export const friends = {
    */
   fetch (username) {
     return new Promise((resolve, reject) => {
-      http.get(`/u/${username}/friends/all`).then(({ body }) => {
+      http.get(`/api/u/${username}/friends/all`).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })

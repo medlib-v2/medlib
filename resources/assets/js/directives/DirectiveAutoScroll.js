@@ -15,4 +15,4 @@ Vue.directive('auto-scroll', {
             el.dataset.needsScroll = ''
         }
     }
-})
+});

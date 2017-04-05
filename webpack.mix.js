@@ -19,7 +19,12 @@ mix.webpackConfig({
     //    })
     //]
 });
+
 mix.config.detectHotReloading();
+
+mix.autoload({
+    jquery: ['$', 'jQuery']
+});
 
 if (mix.config.hmr) {
     /**

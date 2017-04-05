@@ -5,8 +5,7 @@
     </head>
     <body>
         <!-- main -->
-        <div id="app">
-        </div>
+        <div id="app"></div>
         <!-- / end main -->
         <!-- The Loader. Is shown when pjax happens -->
         <div class="loader-wrap hiding hide">
@@ -16,13 +15,11 @@
         <!-- common libraries. required for every page -->
         <script type="text/javascript">
             window.Setting = {!! json_encode([
-                            'language' => app()->getLocale(),
-                            'csrfToken' => csrf_token(),
-                            'socket_url' => config('medlib.socket_url'),
-                            'datasource' => $datasource
-                            ])
-                        !!}
-                window.me = {!! Auth::check() ? json_encode(Auth::user()->getUsername()) : json_encode('') !!}
+                'language' => app()->getLocale(),
+                'csrfToken' => csrf_token(),
+                'socket_url' => config('medlib.socket_url'),
+                'datasource' => $datasource
+            ]) !!}
         </script>
         <script type="text/javascript" src="{{ asset('/js-localization/localization.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js-localization/messages') }}"></script>

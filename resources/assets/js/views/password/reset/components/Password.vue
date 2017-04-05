@@ -112,6 +112,14 @@
                 })
             }
         },
+        head: {
+            title: {
+                inner: 'Reset Password'
+            },
+            meta: [
+                // ...
+            ]
+        },
         watch: {
             '$route' (to, from) {
                 console.log('route', to, from)

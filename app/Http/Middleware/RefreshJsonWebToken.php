@@ -20,7 +20,7 @@ class RefreshJsonWebToken extends BaseMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $autheticated_user = Auth::guard($guard)->user();
+        $autheticated_user = Auth::user();
         $has_valid_token = false;
 
         /**
@@ -52,10 +52,10 @@ class RefreshJsonWebToken extends BaseMiddleware
          * If there is no valid token, generate one
          */
         if (!$has_valid_token) {
-            event(new JsonWebTokenExpired($autheticated_user));
-            /**
-             * return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
-             */
+            if ($autheticated_user) {
+                event(new JsonWebTokenExpired($autheticated_user));
+            }
+            //return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
         }
 
         return $next($request);

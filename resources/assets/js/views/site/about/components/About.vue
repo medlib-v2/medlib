@@ -16,8 +16,13 @@
             }
         },
 
-        props: {
-            //
+        head: {
+            title: {
+                inner: 'About'
+            },
+            meta: [
+                // ...
+            ]
         },
 
         computed: {

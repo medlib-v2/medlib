@@ -12,7 +12,12 @@ require('./bootstrap');
  */
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import NProgress from './components/Nprogress';
+import MetaHead from './plugins/MetaHead'
+
 Vue.use(VueResource);
+Vue.use(NProgress);
+Vue.use(MetaHead);
 
 Vue.config.debug = process.env.NODE_ENV !== 'production';
 Vue.config.silent = process.env.NODE_ENV === 'production';
@@ -31,9 +36,11 @@ import { user } from './services';
 import './directives/DirectivePreview';
 import './directives/DirectiveEmojiIcon';
 import './directives/DirectiveAutoScroll';
+import './directives/DirectiveModal'
 import './filters/FiltersTimeago';
 import './filters/FiltersEmojiIcon';
 import './directives/DirectiveSelect2';
+import FastClick from 'fastclick'
 
 /**
  * Register the global components
@@ -45,10 +52,20 @@ import {
     AlertSuccess
 } from './components/Form';
 import './components/InputContainer'
+import './components/Button'
+import './components/Modal'
+//import './components/UploadImage'
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 Vue.component(AlertErrors.name, AlertErrors);
 Vue.component(AlertSuccess.name, AlertSuccess);
+/**
+ * // Register components
+ * import * as components from './components';
+ for (var component in components) {
+            Vue.component(component, components[component]);
+        }
+ */
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -63,11 +80,6 @@ Vue.http.interceptors.push((request, next) => {
          */
 
         let token = jwtToken.getToken();
-
-        /**
-         * let decoded = jwtToken.decode(token, 'z6PB8eWaBd3LU8fu7EJFmhhdtjqjS6eG');
-         * token && decoded.exp <= Date.now() / 1000
-         */
 
         if (token && jwtToken.isExpired(token)) {
             /**
@@ -109,6 +121,12 @@ Vue.http.interceptors.push((request, next) => {
     })
 });
 
+const nprogress = new NProgress({ parent: '.nprogress-container' });
+
+window.addEventListener('load', () => {
+    FastClick.attach(document.body)
+});
+
 /**
  * @type {Vue}
  */
@@ -118,6 +136,7 @@ const app = new Vue({
     el: '#app',
     router,
     store,
+    nprogress,
     template: '<App/>',
     render: h => h(App),
     watch: {
@@ -125,7 +144,7 @@ const app = new Vue({
     },
     methods: {
         checkAuth () {
-            if (!jwtToken.getToken()) {
+            if (!jwtToken.hasToken()) {
                 //this.user.authenticated = false
                 console.log('token d\'ont exist')
             }

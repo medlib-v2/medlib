@@ -1,10 +1,8 @@
 export default {
     components: {},
 
-    data () {
-        return {
-            //
-        }
+        data() {
+            return { }
     },
 
     props: {
@@ -15,11 +13,11 @@ export default {
         //
     },
 
-    created () {
+    created() {
         //
     },
 
-    mounted () {
+    mounted() {
         //
     },
 

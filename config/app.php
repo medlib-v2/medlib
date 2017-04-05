@@ -193,9 +193,8 @@ return [
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
         Medlib\Providers\DebugbarServiceProvider::class,
-        Yaz\Services\YazServiceProvider::class,
-        Yaz\Services\QueryServiceProvider::class,
-        Medlib\MarcXML\ParserServiceProvider::class,
+        Medlib\Yaz\Providers\YazServiceProvider::class,
+        Medlib\MarcXML\Providers\ParserServiceProvider::class,
         Medlib\BookCover\Services\CoverServiceProvider::class,
 
         /*
@@ -265,7 +264,7 @@ return [
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Youtube'   => Alaouy\Youtube\Facades\Youtube::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 

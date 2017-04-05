@@ -1,4 +1,4 @@
-let $ = window.jQuery;
+import $ from 'jquery';
 
 /**
  * Check for long synopsis and make it shorter

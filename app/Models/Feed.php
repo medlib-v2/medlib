@@ -49,11 +49,12 @@ class Feed extends Model
      * @var array
      */
     public $with = [
-      'user',
-      'likes',
-      'comments',
-      'shared',
-      'follows'
+        'user',
+        'likes',
+        'comments',
+        'shared',
+        'follows',
+        'images'
     ];
 
     /**
@@ -92,11 +93,11 @@ class Feed extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     /**
-    public function comments()
-    {
-        return $this->belongsTo(Comment::class);
-    }
-    **/
+     * public function comments()
+     * {
+     * return $this->belongsTo(Comment::class);
+     * }
+     **/
 
     /**
      * A feed belongs to a Comment.
@@ -107,21 +108,35 @@ class Feed extends Model
         return $this->hasMany(Comment::class)->latest()->where('parent_id', null);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function shared()
     {
         return $this->belongsToMany(User::class, 'feed_shares', 'feed_id', 'user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function images()
     {
         return $this->belongsToMany(Media::class, 'feed_media', 'feed_id', 'media_id');
     }
 
-    public function users_posts()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function usersPosts()
     {
         return $this->belongsToMany(User::class, 'feeds', 'id', 'user_id');
     }
 
+    /**
+     * @param int $post_id
+     * @param int $user_id
+     * @return bool
+     */
     public function managePostReport($post_id, $user_id)
     {
         $post_report = DB::table('feed_reports')->insert(['feed_id' => $post_id, 'reporter_id' => $user_id, 'status' => 'pending', 'created_at' => Carbon::now()]);
@@ -131,6 +146,10 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @param int $post_id
+     * @return bool
+     */
     public function checkReports($post_id)
     {
         $post_report = DB::table('feed_reports')->where('feed_id', $post_id)->first();
@@ -140,6 +159,9 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function postsLiked()
     {
         $result = DB::table('feed_likes')->get();
@@ -147,6 +169,9 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function postsReported()
     {
         $result = DB::table('feed_reports')->get();
@@ -154,6 +179,9 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function postShared()
     {
         $result = DB::table('feed_shares')->get();
@@ -161,6 +189,11 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @param int $login_id
+     * @param int $post_user_id
+     * @return bool
+     */
     public function chkUserFollower($login_id, $post_user_id)
     {
         $followers = DB::table('followers')->where('follower_id', $post_user_id)->where('followee_id', $login_id)->where('status', '=', 'approved')->first();
@@ -173,6 +206,10 @@ class Feed extends Model
         }
     }
 
+    /**
+     * @param int $login_id
+     * @return bool
+     */
     public function chkUserSettings($login_id)
     {
         $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
@@ -181,11 +218,18 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function usersTagged()
     {
         return $this->belongsToMany(User::class, 'feed_tags', 'feed_id', 'user_id');
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function getPageName($id)
     {
         $timeline = Timeline::where('id', $id)->first();
@@ -194,6 +238,10 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function deletePageReport($id)
     {
         $timeline_report = DB::table('timeline_reports')->where('id', $id)->delete();
@@ -202,6 +250,10 @@ class Feed extends Model
         return $result;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function deleteManageReport($id)
     {
         $post_report = DB::table('feed_reports')->where('id', $id)->delete();
@@ -228,12 +280,12 @@ class Feed extends Model
      * 2nd arg is parsing the name of  the polymorphic relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-     /**
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
-    **/
+    /**
+     * public function likes()
+     * {
+     * return $this->hasMany(Like::class);
+     * }
+     **/
 
     /**
      * Return the id publisher

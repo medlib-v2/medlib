@@ -9,10 +9,10 @@ class Form {
      * @param {Object} data
      */
     constructor (data = {}) {
-        this.busy = false
-        this.successful = false
-        this.errors = new Errors()
-        this.originalData = deepCopy(data)
+        this.busy = false;
+        this.successful = false;
+        this.errors = new Errors();
+        this.originalData = deepCopy(data);
 
         Object.assign(this, data)
     }
@@ -23,13 +23,13 @@ class Form {
      * @return {Object}
      */
     data () {
-        const data = {}
+        const data = {};
 
         Object.keys(this)
             .filter(key => !Form.ignore.includes(key))
             .forEach(key => {
                 data[key] = this[key]
-            })
+            });
 
         return data
     }
@@ -38,25 +38,25 @@ class Form {
      * Start processing the form.
      */
     startProcessing () {
-        this.errors.clear()
-        this.busy = true
-        this.successful = false
+        this.errors.clear();
+        this.busy = true;
+        this.successful = false;
     }
 
     /**
      * Finish processing the form.
      */
     finishProcessing () {
-        this.busy = false
-        this.successful = true
+        this.busy = false;
+        this.successful = true;
     }
 
     /**
      * Clear the form errors.
      */
     clear () {
-        this.errors.clear()
-        this.successful = false
+        this.errors.clear();
+        this.successful = false;
     }
 
     /**
@@ -66,7 +66,7 @@ class Form {
         Object.keys(this)
             .filter(key => !Form.ignore.includes(key))
             .forEach(key => {
-                this[key] = deepCopy(this.originalData[key])
+                this[key] = deepCopy(this.originalData[key]);
             })
     }
 
@@ -77,7 +77,7 @@ class Form {
      * @return {Promise}
      */
     get (url) {
-        return this.submit('get', url)
+        return this.submit('get', url);
     }
 
     /**
@@ -87,7 +87,7 @@ class Form {
      * @return {Promise}
      */
     post (url) {
-        return this.submit('post', url)
+        return this.submit('post', url);
     }
 
     /**
@@ -97,7 +97,7 @@ class Form {
      * @return {Promise}
      */
     patch (url) {
-        return this.submit('patch', url)
+        return this.submit('patch', url);
     }
 
     /**
@@ -107,7 +107,7 @@ class Form {
      * @return {Promise}
      */
     put (url) {
-        return this.submit('put', url)
+        return this.submit('put', url);
     }
 
     /**
@@ -115,14 +115,13 @@ class Form {
      *
      * @param  {String} method (get, post, patch, put)
      * @param  {String} url
-     * @param  {Object} config (Vue.http config)
      * @return {Promise}
      */
     submit (method, url) {
-        this.startProcessing()
+        this.startProcessing();
 
-        url = this.route(url)
-        let data = this.data()
+        url = this.route(url);
+        let data = this.data();
 
         if (hasFile(data)) {
             data = toFormData(data)
@@ -135,13 +134,13 @@ class Form {
         return new Promise((resolve, reject) => {
             http.request(url, method, data)
                 .then(response => {
-                    this.finishProcessing()
-                    resolve(response)
+                    this.finishProcessing();
+                    resolve(response);
                 })
                 .catch(error => {
-                    this.busy = false
-                    this.errors.set(this.extractErrors(error))
-                    reject(error)
+                    this.busy = false;
+                    this.errors.set(this.extractErrors(error));
+                    reject(error);
                 })
         })
     }
@@ -150,22 +149,45 @@ class Form {
      * Log a user in.
      */
      login () {
-         this.startProcessing()
-         let data = this.data()
+         this.startProcessing();
+         let data = this.data();
 
          return new Promise((resolve, reject) => {
              user.login(data)
                 .then(response => {
-                    this.finishProcessing()
-                    resolve(response)
+                    this.finishProcessing();
+                    resolve(response);
                 })
                 .catch(error => {
-                    this.busy = false
-                    this.errors.set(this.extractErrors(error))
-                    reject(error)
+                    this.busy = false;
+                    this.errors.set(this.extractErrors(error));
+                    reject(error);
                 })
             })
      }
+
+    register () {
+
+        this.startProcessing();
+        let data = this.data();
+
+        if (hasFile(data)) {
+            data = toFormData(data)
+        }
+
+        return new Promise((resolve, reject) => {
+            user.register(data)
+                .then(response => {
+                    this.finishProcessing();
+                    resolve(response);
+                })
+                .catch(error => {
+                    this.busy = false;
+                    this.errors.set(this.extractErrors(error));
+                    reject(error);
+                })
+        })
+    }
 
     /**
      * Extract the errors from the response object.
@@ -179,18 +201,18 @@ class Form {
             return {};
         }
         if (!response.body) {
-            return { error: Form.errorMessage }
+            return { error: Form.errorMessage };
         }
 
         if (response.body.errors) {
-            return { ...response.body.errors }
+            return { ...response.body.errors };
         }
 
         if (response.body.message) {
-            return { error: response.body.message }
+            return { error: response.body.message };
         }
 
-        return { ...response.body }
+        return { ...response.body };
     }
 
     /**
@@ -201,26 +223,26 @@ class Form {
      * @return {String}
      */
     route (name, parameters = {}) {
-        let url = name
+        let url = name;
 
         if (Form.routes.hasOwnProperty(name)) {
             url = decodeURI(Form.routes[name])
         }
 
         if (typeof parameters !== 'object') {
-            parameters = { id: parameters }
+            parameters = { id: parameters };
         }
 
         Object.keys(parameters).forEach(key => {
-            url = url.replace(`{${key}}`, parameters[key])
-        })
+            url = url.replace(`{${key}}`, parameters[key]);
+        });
 
-        return url
+        return url;
     }
 }
 
-Form.routes = {}
-Form.errorMessage = 'Something went wrong. Please try again.'
-Form.ignore = ['busy', 'successful', 'errors', 'originalData']
+Form.routes = {};
+Form.errorMessage = 'Something went wrong. Please try again.';
+Form.ignore = ['busy', 'successful', 'errors', 'originalData'];
 
 export default Form

@@ -4,6 +4,40 @@
 * - Modals
 */
 
+.hidden {
+	opacity: 0 !important;
+}
+
+.modal {
+	display: block;
+	transition: all 0.3s ease;
+
+	&.zoom {
+		.modal-dialog {
+			top: 300px;
+			opacity: 0;
+			@include transform(scale(0.1));
+			@include transition(all 0.3s);
+		}
+
+		&.in .modal-dialog {
+			opacity: 1;
+			@include transform(scale(1));
+			transform: translate3d(0, -300px, 0);
+			-webkit-transform: translate3d(0, -300px, 0);
+		}
+	}
+
+	&.fade {
+		opacity: 0;
+		@include transition(opacity 0.15s linear);
+
+		&.in {
+			opacity: 1;
+		}
+	}
+}
+
 .modal-content{
 	@include box-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 	overflow: hidden;
@@ -17,8 +51,11 @@
 	border: 0;
 	padding: 19px;
 
+	display: block;
+	align-items: center; // vertically center it
+
 	h1, h2, h3, h4, h5, h6{
-		display: block;
+		display: inline-flex;
 		margin: 0;
 	}
 
@@ -31,6 +68,11 @@
 			opacity: 0.8;
 		}
 	}
+}
+
+.modal-title {
+	margin-bottom: 0;
+	line-height: 1.5;
 }
 
 //Modal Body

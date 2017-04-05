@@ -23,7 +23,6 @@
     "mccool/laravel-auto-presenter": "^5.0",
     "medlib/cover": "^1.0",
     "medlib/helpers": "~1.0",
-    "medlib/marcxml": "1.2",
     "medlib/yaz": "^2.1",
     "nesbot/Carbon": "^1.22",
     "nothingworks/blade-svg": "^0.1.0",
@@ -87,7 +86,8 @@
       "php artisan clear-compiled"
     ],
     "post-root-package-install": [
-      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "([ -f .env ] && php artisan medlib:install) || exit 0"
     ],
     "post-create-project-cmd": [
       "php artisan key:generate"
@@ -109,11 +109,12 @@
       "php artisan optimize"
     ],
     "post-autoload-dump": [
-      "php artisan optimize"
+      "([ -f .env ] && php artisan ide-helper:meta) || exit 0",
+      "([ -f .env ] && php artisan optimize) || exit 0"
     ],
     "phpunit": "phpunit",
     "phpmd": "phpmd app/ text ./phpmd-rules.xml",
-    "phpcs": "phpcs --standard=./phpcs-rules.xml --encoding=utf-8 app/",
+    "phpcs": "phpcs --standard=./phpcs-rules.xml --encoding=utf-8 app/ --colors -p -n",
     "phpcbf": "phpcbf --standard=./phpcs-rules.xml --encoding=utf-8 app/"
   },
   "config": {

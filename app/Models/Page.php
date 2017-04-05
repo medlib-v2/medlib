@@ -17,23 +17,23 @@ class Page extends Model
      */
     protected $dates = ['deleted_at'];
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
-  protected $fillable = [
-    'timeline_id',
-    'category_id',
-    'message_privacy',
-    'timeline_post_privacy',
-    'member_privacy',
-    'address',
-    'active',
-    'phone',
-    'website',
-    'verified'
-  ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'timeline_id',
+        'category_id',
+        'message_privacy',
+        'timeline_post_privacy',
+        'member_privacy',
+        'address',
+        'active',
+        'phone',
+        'website',
+        'verified'
+    ];
 
     /**
      * Validation rules.
@@ -119,27 +119,43 @@ class Page extends Model
         return $array;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function timeline()
     {
         return $this->belongsTo(Timeline::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo('App\Category');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'page_user', 'page_id', 'user_id')->withPivot('role_id', 'active');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function likes()
     {
         return $this->belongsToMany(User::class, 'page_likes', 'page_id', 'user_id');
     }
 
-    public function is_admin($user_id)
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    public function isAdmin($user_id)
     {
         $admin_role_id = Role::where('name', 'admin')->first();
         $pageUser = $this->users()->where('user_id', '=', $user_id)->where('role_id', '=', $admin_role_id->id)->where('page_user.active', 1)->first();
@@ -150,6 +166,9 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function members()
     {
         $admin_role_id = Role::where('name', '=', 'admin')->first();
@@ -160,6 +179,9 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function admins()
     {
         $admin_role_id = Role::where('name', '=', 'admin')->first();
@@ -170,6 +192,11 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @param $page_id
+     * @param $user_id
+     * @return array|bool|null|\stdClass
+     */
     public function chkPageUser($page_id, $user_id)
     {
         $page_user = DB::table('page_user')->where('page_id', '=', $page_id)->where('user_id', '=', $user_id)->first();
@@ -178,6 +205,10 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @param $page_user_id
+     * @return bool
+     */
     public function updateStatus($page_user_id)
     {
         $page_user = DB::table('page_user')->where('id', $page_user_id)->update(['active' => 1]);
@@ -186,6 +217,12 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @param $member_role
+     * @param $page_id
+     * @param $user_id
+     * @return bool
+     */
     public function updatePageMemberRole($member_role, $page_id, $user_id)
     {
         $page_user = DB::table('page_user')->where('page_id', $page_id)->where('user_id', $user_id)->update(['role_id' => $member_role]);
@@ -194,6 +231,11 @@ class Page extends Model
         return $result;
     }
 
+    /**
+     * @param $page_id
+     * @param $user_id
+     * @return bool
+     */
     public function removePageMember($page_id, $user_id)
     {
         $page_user = DB::table('page_user')->where('page_id', '=', $page_id)->where('user_id', '=', $user_id)->delete();

@@ -5,7 +5,6 @@ namespace Medlib\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class Comment extends Model
 {
     use SoftDeletes;
@@ -58,10 +57,11 @@ class Comment extends Model
     }
     **/
 
+
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function comments_liked()
+    public function commentsLiked()
     {
         return $this->belongsToMany(User::class, 'comment_likes', 'comment_id', 'user_id');
     }

@@ -16,8 +16,13 @@
             }
         },
 
-        props: {
-            //
+        head: {
+            title: {
+                inner: 'MEDLIB - Advanced Search'
+            },
+            meta: [
+                // ...
+            ]
         },
 
         computed: {

@@ -135,153 +135,165 @@
 </template>
 
 <script type="text/babel">
-import GoogleAutocomplete from './GoogleAutocomplete.vue'
-import UploadImage from './UploadImage.vue'
-import { mapGetters } from 'vuex'
-import each from 'lodash/each'
+    import GoogleAutocomplete from './GoogleAutocomplete.vue'
+    import UploadImage from './UploadImage.vue'
+    import {mapGetters} from 'vuex'
+    import each from 'lodash/each'
+    import Lang from '@/mixins/lang'
 
-export default {
-    name: 'form-input',
-    components: { GoogleAutocomplete, UploadImage },
-    props: {
-        method: {
-            type: String,
-            default: 'POST'
-        },
-        action: {
-            type: String,
-            required: true
-        },
-        placeholder: {
-            type: String,
-            required: true,
-            default: ''
-        },
-        timeline: {
-            type: [String, Number],
-            required: true,
-        }
-    },
-    data() {
-        return {
-            feed_title: trans('messages.whats-going-on'),
-            with_user: trans('common.with'),
-            where_are_you: trans('messages.where_are_you'),
-            who_are_you_with: trans('messages.who_are_you_with'),
-            what_are_you_watching: trans('messages.what_are_you_watching'),
-            what_are_you_listening_to: trans('messages.what_are_you_listening_to'),
-            photo_s_selected: trans('common.photo_s_selected'),
-            feed_btn: trans('common.post'),
-            content: '',
-            address: {},
-            image: {},
-            files: [],
-            not_working: true,
-            image_class: true,
-            video_class: true,
-            place_class: true
-        }
-    },
-    computed: {
-        image_hide(){
-            return {
-                'hide': this.image_class == true
-            }
-        },
-        video_hide() {
-            return {
-                'hide': this.video_class == true
-            }
-        },
-        place_hide() {
-            return {
-                'hide': this.place_class == true
-            }
-        },
-        ...mapGetters([
-            'shared_address',
-            'shared_image'
-        ])
-    },
-    methods: {
-        status() {
-            this.image_class = true
-            this.video_class = true
-            this.place_class = true
-        },
-        photos() {
-            this.image_class = false
-            this.video_class = true
-            this.place_class = true
-        },
-        video() {
-            this.image_class = true
-            this.video_class = false
-            this.place_class = true
-        },
-        place() {
-            this.image_class = true
-            this.video_class = true
-            this.place_class = false
-        },
-        submit() {
-            let data = new FormData();
-            data.append('body', this.content)
+    export default {
+        name: 'form-input',
 
-            if (this.image) {
-                let fileList = this.files
-                each(fileList, (file, index) => {
-                    data.append('image['+index+']', file)
+        components: {
+            GoogleAutocomplete,
+            UploadImage
+        },
+
+        mixins: [Lang],
+
+        props: {
+            method: {
+                type: String,
+                default: 'POST'
+            },
+            action: {
+                type: String,
+                required: true
+            },
+            placeholder: {
+                type: String,
+                required: true,
+                default: ''
+            },
+            timeline: {
+                type: [String, Number],
+                required: true,
+            }
+        },
+
+        data() {
+            return {
+                feed_title: trans('messages.whats-going-on'),
+                with_user: trans('common.with'),
+                where_are_you: trans('messages.where_are_you'),
+                who_are_you_with: trans('messages.who_are_you_with'),
+                what_are_you_watching: trans('messages.what_are_you_watching'),
+                what_are_you_listening_to: trans('messages.what_are_you_listening_to'),
+                photo_s_selected: trans('common.photo_s_selected'),
+                feed_btn: trans('common.post'),
+                content: '',
+                address: {},
+                image: {},
+                files: [],
+                not_working: true,
+                image_class: true,
+                video_class: true,
+                place_class: true
+            }
+        },
+
+        computed: {
+            image_hide(){
+                return {
+                    'hide': this.image_class == true
+                }
+            },
+            video_hide() {
+                return {
+                    'hide': this.video_class == true
+                }
+            },
+            place_hide() {
+                return {
+                    'hide': this.place_class == true
+                }
+            },
+            ...mapGetters([
+                'shared_address',
+                'shared_image'
+            ])
+        },
+
+        methods: {
+            status() {
+                this.image_class = true;
+                this.video_class = true;
+                this.place_class = true;
+            },
+            photos() {
+                this.image_class = false;
+                this.video_class = true;
+                this.place_class = true;
+            },
+            video() {
+                this.image_class = true;
+                this.video_class = false;
+                this.place_class = true
+            },
+            place() {
+                this.image_class = true;
+                this.video_class = true;
+                this.place_class = false;
+            },
+            submit() {
+                let data = new FormData();
+                data.append('body', this.content);
+
+                if (this.image) {
+                    let fileList = this.files;
+                    each(fileList, (file, index) => {
+                        data.append('image[' + index + ']', file)
+                    })
+                }
+
+                if (this.address) {
+                    data.append('location', JSON.stringify(this.address))
+                }
+
+                this.$http.post(this.action, data)
+                        .then((response) => {
+                            this.content = '';
+                            this.address = {};
+                            this.image = {};
+                            this.image_class = true;
+                            this.video_class = true;
+                            this.place_class = true;
+                            window.console.log(response, 'response::submit')
+                        }).catch((error) => {
+                    window.console.log(error, 'response::error');
                 })
+            },
+            onChange (files) {
+                this.files = files
+            },
+            onRemove(file) {
+                let fileList = this.files;
+                fileList.splice(fileList.indexOf(file), 1)
+            },
+            onError(error) {
+                console.error(error, 'form-input');
+            },
+            isValid() {
+                return Object.keys(this.address).length > 0
+            },
+            isNotValid() {
+                return !this.isValid()
             }
+        },
 
-            if (this.address) {
-                data.append('location', JSON.stringify(this.address))
+        watch: {
+            content() {
+                if (this.content.length > 0)
+                    this.not_working = false;
+                else
+                    this.not_working = true
+            },
+            shared_address() {
+                this.address = this.shared_address
+            },
+            shared_image() {
+                this.image = this.shared_address
             }
-
-            this.$http.post(this.action, data)
-                .then((response) => {
-                    this.content = ''
-                    this.address = {}
-                    this.image = {}
-                    this.image_class = true
-                    this.video_class = true
-                    this.place_class = true
-                    window.console.log(response, 'response::submit')
-                }).catch((error) => {
-                  window.console.log(error, 'response::error');
-                })
-        },
-        onChange (files) {
-          this.files = files
-        },
-        onRemove(file) {
-          let fileList = this.files
-          fileList.splice(fileList.indexOf(file), 1)
-        },
-        onError(error) {
-          console.error(error, 'form-input');
-        },
-        isValid() {
-          return Object.keys(this.address).length > 0
-        },
-        isNotValid() {
-          return ! this.isValid()
-        }
-    },
-    watch: {
-        content() {
-            if(this.content.length > 0)
-                this.not_working = false
-            else
-                this.not_working = true
-        },
-        shared_address() {
-          this.address = this.shared_address
-        },
-        shared_image() {
-          this.image = this.shared_address
         }
     }
-}
 </script>

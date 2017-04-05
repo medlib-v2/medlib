@@ -63,11 +63,17 @@ class Conversation extends Model
         return $this->hasMany(Message::class, 'conversation_id', 'id')->latest();
     }
 
-    public function latest_message()
+    /**
+     * @return mixed
+     */
+    public function latestMessage()
     {
         return $this->hasMany(Message::class, 'conversation_id', 'id')->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
         return  $this->belongsToMany(User::class, 'conversation_id', 'user_id');

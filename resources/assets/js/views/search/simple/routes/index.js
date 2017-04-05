@@ -7,7 +7,9 @@ const guardRoute = (to, from, next) => {
 export default {
     path: '/search/simple',
     name: 'search.simple',
-    meta: {},
+    meta: {
+        showProgressBar: true
+    },
     beforeEnter: guardRoute,
     component: SearchSimple
 }

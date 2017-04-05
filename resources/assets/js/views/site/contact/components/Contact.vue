@@ -83,6 +83,16 @@
                 })
             }
         },
+
+        head: {
+            title: {
+                inner: 'Contact'
+            },
+            meta: [
+                // ...
+            ]
+        },
+
         methods: {
             submit () {
                 this.form.post('api/site/contact').then(({data}) => {

@@ -13,7 +13,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 
 class LoginUserService extends Service
 {
-    /*
+    /**
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -23,7 +23,6 @@ class LoginUserService extends Service
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers, HttpResponseService;
 
     /**
@@ -71,18 +70,6 @@ class LoginUserService extends Service
         $nameoremail = null;
         $canLogin = false;
 
-        /**
-        try {
-            if (!$token = JWTAuth::attempt(['email' => $this->email, 'password' => $this->password, 'remember' => $remember])) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            Log::error($e);
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-        return compact('token');
-        **/
-
         if ($this->hasTooManyLoginAttempts($this->request)) {
             $this->fireLockoutEvent($this->request);
             $seconds = $this->limiter()->availableIn(
@@ -107,38 +94,43 @@ class LoginUserService extends Service
          */
         if (!is_null($user)) {
             if (! $user->userAccountIsActive() === true) {
-                return trans('auth.login.activate_account');
+                return ['error' => 'activate_account'];
             }
             $canLogin = true;
         } else {
-            return trans('auth.login.login_failed');
+            return ['error' => 'login_failed'];
         }
 
-        /**
-         * Attempt to do the login
-         */
-        if ($canLogin && Auth::attempt(['email' => $nameoremail, 'password' => $this->password], $remember)) {
+        try {
             /**
-             * validation successful!
-             * redirect them to the secure section or whatever
+             * Attempt to do the login
              */
-            $this->clearLoginAttempts($this->request);
-            $this->request->session()->regenerate();
-            $friends_user_ids = $user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
-            $related_to_id = $user->id;
-            $client_code = 22;
-            $message = true;
-            $this->client->updateChatStatusBar($friends_user_ids, $client_code, $related_to_id, $message);
-            $user->updateOnlineStatus(1);
-            return true;
-        } else {
-            /**
-             * Validation not successful, send back to form
-             */
-            Auth::logout();
-            $this->incrementLoginAttempts($this->request);
-            return trans('auth.login.failed');
+            if ($canLogin && $token = JWTAuth::attempt(['email' => $nameoremail, 'password' => $this->password])) {
+                /**
+                 * validation successful!
+                 * redirect them to the secure section or whatever
+                 */
+                $this->clearLoginAttempts($this->request);
+                $this->request->session()->regenerate();
+                $friends_user_ids = $user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
+                $related_to_id = $user->id;
+                $client_code = 22;
+                $message = true;
+                $this->client->updateChatStatusBar($friends_user_ids, $client_code, $related_to_id, $message);
+                $user->updateOnlineStatus(1);
+                return compact('token', 'user');
+            } else {
+                /**
+                 * Validation not successful, send back to form
+                 */
+                //Auth::logout();
+                $this->incrementLoginAttempts($this->request);
+                return ['error' => 'invalid_credentials'];
+            }
 
+        } catch (JWTException $e) {
+            Log::error($e);
+            return ['error' => 'could_not_create_token', 'message' => $e->getMessage()];
         }
     }
 }

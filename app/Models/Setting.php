@@ -2,7 +2,6 @@
 
 namespace Medlib\Models;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,7 +44,7 @@ class Setting extends Model
 
     ];
 
-    public static function set($key, $value = '')
+    public static function set($key, $value = null)
     {
         if (is_array($key)) {
             foreach ($key as $array_key => $array_value) {
@@ -71,7 +70,7 @@ class Setting extends Model
     {
         $result = '';
         if (Schema::hasTable('settings')) {
-            $value = DB::table('settings')->where('key', $key)->pluck('value');
+            $value = self::where('key', $key)->pluck('value');
             foreach ($value as $val) {
                 $result = $val;
             }
@@ -89,5 +88,21 @@ class Setting extends Model
     {
         $setting = self::where('key', $key);
         $setting->delete();
+    }
+
+    /**
+     * Serialize the setting value before saving into the database.
+     * This makes settings more flexible.
+     *
+     * @param mixed $value
+     */
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = serialize($value);
+    }
+
+    public function getValueAttribute($value)
+    {
+        return unserialize($value);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Medlib\Services;
 
+use Medlib\Models\Media;
 use Medlib\Models\User;
 use Medlib\Models\Profile;
 use Medlib\Models\Setting;
@@ -62,13 +63,22 @@ class RegisterUserService extends Service
      */
     public function handle(ConfirmationTokenRepository $token)
     {
+        $name = $this->first_name. ' '. $this->last_name;
+
+        $avatar = Media::create([
+            'name'  => $name,
+            'type'   => 'image',
+            'source' => $this->user_avatar
+        ]);
+
         /**
          * Create timeline record for the user
          */
         $timeline = Timeline::create([
             'username' => $this->username,
-            'name'     => $this->first_name. ' '. $this->last_name,
-            'type'     => 'user'
+            'name'     => $name,
+            'type'     => 'user',
+            'avatar_id' => $avatar->id
         ]);
 
         /**
@@ -87,7 +97,6 @@ class RegisterUserService extends Service
             //'affiliate_id'      => $affiliate_id,
             'activated'         => $this->activated,
             'account_type'      => $this->account_type,
-            'user_avatar'       => $this->user_avatar,
             'onlinestatus'      => $this->onlinestatus,
             'chatstatus'        => $this->chatstatus,
         ]);
@@ -110,6 +119,7 @@ class RegisterUserService extends Service
             $profile->save();
         }
         **/
+        $this->makeUserSettings($user);
 
         $token->createConfirmationToken($user);
 

@@ -1,6 +1,4 @@
 import Vue from 'vue'
-
-
 import beInputContainer from './components/beInputContainer.vue';
 import beInput from './components/beInput.vue';
 import beTextarea from './components/beTextarea.vue';

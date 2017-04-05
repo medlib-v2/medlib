@@ -24,7 +24,7 @@ class Profile extends Model
     * The attributes excluded from the model's JSON form.
     * @var array
     */
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['id', 'user_id','created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

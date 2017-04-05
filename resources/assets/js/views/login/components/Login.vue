@@ -30,6 +30,16 @@
         components: {
             LoginForm
         },
-        mixins: [Lang]
+
+        mixins: [Lang],
+
+        head: {
+            title: {
+                inner: 'Login'
+            },
+            meta: [
+                // ...
+            ]
+        }
     }
 </script>

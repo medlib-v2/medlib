@@ -6,6 +6,6 @@ describe('CookiesBar.vue', () => {
         const Constructor = Vue.extend(CookiesBar)
         const vm = new Constructor().$mount()
         expect(vm.$el.querySelector('p').textContent)
-            .toBe('Ce site utilise des cookies pour améliorer l\'expérience de navigation et fournir des fonctionnalités supplémentaires..')
-    })
-})
+            .toBe('Ce site utilise des cookies pour améliorer l\'expérience de navigation et fournir des fonctionnalités supplémentaires.. En savoir plus')
+    });
+});

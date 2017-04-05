@@ -4,9 +4,9 @@ import BookModel from '../models/BookModel';
 import v from '../utils/variables';
 import myCollection from '../collections/BookLibrary';
 import helpers from '../utils/helpers';
+import $ from 'jquery'
 
-let $ = window.jQuery,
-    detailsTemplate = require('../templates/details.html'),
+let detailsTemplate = require('../templates/details.html'),
     Modernizr = window.Modernizr;
 
 const DetailView = Backbone.View.extend({

@@ -2,7 +2,6 @@
 
 namespace Medlib\Http\Controllers\Dashboard;
 
-
 use Medlib\Models\Feed;
 use Medlib\Models\Setting;
 use Medlib\Models\Timeline;
@@ -32,8 +31,7 @@ class DashboardController extends Controller
         if ($request->hashtag) {
             $hashtag = '#'.$request->hashtag;
             $posts = Feed::where('body', 'like', "%{$hashtag}%")->latest()->paginate(Setting::get('items_page'));
-        }
-        else {
+        } else {
             // else show the normal feed
             $posts = Feed::whereIn('user_id', function ($query) use ($id) {
                 $query->select('followee_id')

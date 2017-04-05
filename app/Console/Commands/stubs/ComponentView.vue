@@ -16,8 +16,13 @@
             }
         },
 
-        props: {
-            //
+        head: {
+            title: {
+                inner: '{{view_name}}'
+            },
+            meta: [
+                // ...
+            ]
         },
 
         computed: {

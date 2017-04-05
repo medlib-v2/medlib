@@ -4,6 +4,9 @@ $bootstrap-sass-asset-helper: false !default;
 
 $img-url:                   "../images";
 
+
+$white:  		          #ffffff;
+$black:                   #000000;
 $gray-base:               #000;
 $gray-darker:             lighten($gray-base, 13.5%); // #222
 $gray-dark:               lighten($gray-base, 20%);   // #333
@@ -367,24 +370,26 @@ $sidebars-push-effect:      all .35s ease;
 */
 $component-font-size-base:  ceil(($font-size-base * 0.833)); // ~15px
 
-$padding-base-vertical:     10px;
-$padding-base-horizontal:   12px;
+$padding-base-vertical:     10px !default;
+$padding-base-horizontal:   12px !default;
 
-$padding-large-vertical:    12px;
-$padding-large-horizontal:  16px;
+$padding-large-vertical:    12px !default;
+$padding-large-horizontal:  16px !default;
 
-$padding-small-vertical:    5px;
-$padding-small-horizontal:  9px;
+$padding-small-vertical:    5px !default;
+$padding-small-horizontal:  9px !default;
 
-$padding-xs-vertical:       1px;
-$padding-xs-horizontal:     5px;
+$padding-xs-vertical:       1px !default;
+$padding-xs-horizontal:     5px !default;
 
-$line-height-large:         1.7; // extra decimals for Win 8.1 Chrome
-$line-height-small:         1.6;
+$line-height-large:         1.7 !default; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.6 !default;
 
-$border-radius-base:        2px;
-$border-radius-large:       4px;
-$border-radius-small:       2px;
+$border-radius-base:        2px !default;
+$border-radius-large:       4px !default;
+$border-radius-small:       2px !default;
+
+$border-width:              1px !default;
 
 // Inputs
 $input-bg:                          #fff !default;
@@ -507,10 +512,12 @@ $sign-up-padding: 					20px !default;
 
 @import "variables/alert";
 @import "variables/brandcolors";
+@import "variables/breakpoints";
 @import "variables/buttons";
 @import "variables/chart";
 @import "variables/email";
 @import "variables/invoice";
+@import "variables/modal";
 @import "variables/plugins";
 @import "variables/popovers";
 @import "variables/timeline";

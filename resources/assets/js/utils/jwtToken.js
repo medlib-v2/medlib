@@ -1,11 +1,19 @@
 import { ls } from '../services'
-import jwt from 'jsonwebtoken';
+import decode from 'jsonwebtoken/decode';
 
 export const jwtToken =  {
     /**
+     * Get the decoded payload ignoring signature, no secretOrPrivateKey needed
+     * @set decode(token)
+     * Get the decoded payload and header
+     * @options options: json: Boolean, complete: Boolean
+     * @set decode(token, {complete: true})
      *
+     * @param string token
+     * @param Object options
+     * @returns {*}
      */
-    decode: jwt.decode,
+    decode: decode,
 
     /**
      *

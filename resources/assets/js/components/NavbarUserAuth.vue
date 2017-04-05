@@ -60,12 +60,12 @@
 </template>
 
 <script type="text/babel">
-    import lang from '../mixins/lang'
+    import lang from '@/mixins/lang'
     import { Form } from './Form'
     import { mapActions, mapGetters } from 'vuex'
-    import { user } from '@/services';
+    import { user as http } from '@/services';
     import ElSearch from './ElSearch.vue'
-    import Notifications from './Notifications.vue'
+    import { Notifications } from './Notifications'
     import { jwtToken } from '@/utils'
     import router from '@/router'
 
@@ -88,11 +88,11 @@
         },
         methods: {
             logout() {
-                user.logout().then((response) => {
-                    jwtToken.removeToken()
-                    jwtToken.removeUserData()
-                    this.setLogout()
-                    console.log('user::logout', response)
+                http.logout().then((response) => {
+                    jwtToken.removeToken();
+                    jwtToken.removeUserData();
+                    this.setLogout();
+                    console.log('user::logout', response);
                     router.push({name: 'home'})
                 })
             },
@@ -128,19 +128,19 @@
                 this.suggestions = [];
                 this.$http.get('https://api.themoviedb.org/3/search/movie?api_key=342d3061b70d2747a1e159ae9a7e9a36&query=' + this.value)
                         .then((response) => {
-                            response.data.results.forEach(function(a) {
+                            response.data.results.forEach(function (a) {
                                 that.suggestions.push(a)
                             })
                         }).catch((error) => {
                     window.console.log(error)
                 })
             },
-                ...mapActions({
-                    setLogout: 'logout',
-                })
+            ...mapActions(['setLogout'])
         },
         computed: {
-            ...mapGetters(['user'])
+            ...mapGetters({
+                user: 'getUserAuth'
+            })
         }
     }
 </script>

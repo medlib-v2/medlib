@@ -60,9 +60,13 @@ class FriendController extends Controller
         ], IlluminateResponse::HTTP_OK);
     }
 
+    /**
+     * @param string $username
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function friends($username)
     {
-        $user = Timeline::where('username', '=' ,$username)->first();
+        $user = Timeline::where('username', '=', $username)->first();
 
         if ($user == null) {
             $user = User::where('username', '=', $username)->first();

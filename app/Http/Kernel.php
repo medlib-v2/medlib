@@ -15,10 +15,12 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Medlib\Http\Middleware\UseDifferentConfigIfE2E::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Medlib\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Illuminate\Session\Middleware\StartSession::class,
+        //\Medlib\Http\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -28,13 +30,15 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            /**
             \Medlib\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            //\Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Medlib\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            **/
         ],
 
         'api' => [
@@ -53,7 +57,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' =>       \Medlib\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'jwt.auth' =>   \Medlib\Http\Middleware\RefreshJsonWebToken::class,
+        'jwt.auth' =>   \Medlib\Http\Middleware\GetUserFromToken::class,
         'bindings' =>   \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' =>        \Illuminate\Auth\Middleware\Authorize::class,
         'guest' =>      \Medlib\Http\Middleware\RedirectIfAuthenticated::class,
@@ -65,5 +69,6 @@ class Kernel extends HttpKernel
         'editown'     => \Medlib\Http\Middleware\EditOwn::class,
         'editgroup'   => \Medlib\Http\Middleware\EditGroup::class,
         'editpage'    => \Medlib\Http\Middleware\EditPage::class,
+        'os.auth' => \Medlib\Http\Middleware\ObjectStorageAuthenticate::class,
     ];
 }

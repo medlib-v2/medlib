@@ -40,7 +40,7 @@ class RegisterUserRequest extends Request
             'year'    =>    'required|numeric|before:'.date('Y', $timestamp),
             'gender' =>    'required|in:male,female',
             'profileimage' =>    'required|image|mimes:jpeg,jpg,bmp,png,gif',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'recaptcha_response' => 'required|recaptcha',
         ];
     }
 }

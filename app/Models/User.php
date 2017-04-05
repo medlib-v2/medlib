@@ -42,8 +42,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'date_of_birth',
         'gender',
         'activated',
-        'account_type',
-        'user_avatar',
+        'account_type'
     ];
 
     /**
@@ -51,7 +50,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $appends = ['full_name'];
+    protected $appends = [
+        'full_name',
+        'user_avatar',
+        'user_cover'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -275,6 +278,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
 
+    public function settings()
+    {
+        return $this->hasOne(UserSetting::class);
+    }
+
     /**
      * @param $id
      * @return mixed
@@ -292,16 +300,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Get the administrator flag for the user.
-     *
-     * @return bool
-     */
-    public function getFullNameAttribute()
-    {
-        return $this->getName();
-    }
-
-    /**
      * Register a new Medlib User.
      *
      * @param string $username
@@ -315,14 +313,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param string $gender
      * @param string $activated
      * @param string $account_type
-     * @param string $user_avatar
      *
      * @return User $user
      */
-    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type, $user_avatar)
+    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type)
     {
         $user = new static(
-            compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'activated', 'account_type', 'user_avatar')
+            compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'activated', 'account_type')
         );
 
         return $user;
@@ -469,11 +466,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * Return avatar url if the user_avatar is define.
      * return default.jpg if not define
      *
-     * @return url
+     * @return string url
      */
     public function getAvatar()
     {
-        return $this->user_avatar ?: url('/avatars/default.jpg');
+        return $this->timeline->avatar ? $this->timeline->avatar->source : url('uploads/users/avatars/default-'.$this->gender.'-avatar.png');
+    }
+
+    /**
+     * Get the user's  avatar.user().
+     *
+     * @return string
+     */
+    public function getUserAvatarAttribute()
+    {
+        return $this->timeline->avatar ? $this->timeline->avatar->source : url('uploads/users/avatars/default-'.$this->gender.'-avatar.png');
+    }
+
+    /**
+     * Get the user's  cover.
+     *
+     * @return string
+     */
+    public function getUserCoverAttribute()
+    {
+        return $this->timeline->cover ? $this->timeline->cover->source : url('uploads/users/covers/default-cover-user.png');
+    }
+
+    /**
+     * Get the administrator flag for the user.
+     *
+     * @return bool
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->getName();
     }
 
     /**
@@ -603,29 +630,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->followings()->detach($user->id);
     }
 
-
-    public function getUserSettings($user_id)
-    {
-        $result = DB::table('user_settings')->where('user_id', $user_id)->first();
-        return $result;
-    }
-
-    public function deleteUserSettings($user_id)
-    {
-        $result = DB::table('user_settings')->where('user_id', $user_id)->delete();
-
-        return $result;
-    }
-
-    public function getOthersSettings($username)
-    {
-        $timeline = Timeline::where('username', $username)->first();
-        $user = self::where('timeline_id', $timeline->id)->first();
-        $result = DB::table('user_settings')->where('user_id', $user->id)->first();
-
-        return $result;
-    }
-
     public function getReportsCount()
     {
         $post_reports = DB::table('post_reports')->get();
@@ -676,11 +680,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getUserPrivacySettings($loginId, $others_id)
     {
         $timeline_post_privacy = '';
+        $user_post_privacy = '';
         $timeline_post = '';
         $user_post = '';
         $result = '';
 
-        $live_user_settings = $this->getUserSettings($others_id);
+        $live_user_settings = UserSetting::where('user_id', $others_id)->first();
 
         if ($live_user_settings) {
             $timeline_post_privacy = $live_user_settings->timeline_post_privacy;

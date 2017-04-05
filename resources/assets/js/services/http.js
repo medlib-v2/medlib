@@ -76,7 +76,7 @@ export const http = {
    makeUrl (url, data) {
      //let link = this.data.serviceHost + url;
      let link = url;
-        if (typeof data != "undefined" && data != "") {
+        if (typeof data !== "undefined" && data !== "") {
             let paramArr = [];
             for (let attr in  data) {
                 paramArr.push(attr + '=' +  data[attr]);

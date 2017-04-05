@@ -8,7 +8,7 @@ export const favorite = {
   */
   like (username, id) {
     return new Promise((resolve, reject) => {
-      http.post(`/u/${username}/feeds/${id}/like`).then(({ body }) => {
+      http.post(`/api/u/${username}/feeds/${id}/like`).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })
@@ -21,7 +21,7 @@ export const favorite = {
    */
   unlike (username, id) {
     return new Promise((resolve, reject) => {
-      http.post(`/u/${username}/feeds/${id}/unlike`).then(({ body }) => {
+      http.post(`/api/u/${username}/feeds/${id}/unlike`).then(({ body }) => {
         resolve(body)
       }).catch(error => reject(error))
     })

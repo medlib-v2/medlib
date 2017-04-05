@@ -16,8 +16,13 @@
             }
         },
 
-        props: {
-            //
+        head: {
+            title: {
+                inner: 'Simple Search'
+            },
+            meta: [
+                // ...
+            ]
         },
 
         computed: {

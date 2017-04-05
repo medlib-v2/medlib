@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 import DetailView from './DetailView';
+import $ from 'jquery'
 
-let $ = window.jQuery,
-    bookTemplate = require('../templates/book.html');
+let bookTemplate = require('../templates/book.html');
 
 const BookView = Backbone.View.extend({
     /**

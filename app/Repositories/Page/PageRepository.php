@@ -7,10 +7,10 @@ use Medlib\Models\Page;
 interface PageRepository
 {
     /**
-     * @param Page $user
+     * @param Page $page
      * @return mixed
      */
-    public function findByPage(Page $user);
+    public function findByPage(Page $page);
 
     /**
      * @param $id

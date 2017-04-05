@@ -16,7 +16,6 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 class TimelineController extends Controller
 {
-
     /**
      * @var TimelineRepository
      */
@@ -94,7 +93,6 @@ class TimelineController extends Controller
         $timeline = $this->timelineRepository->findWithoutFail($id);
 
         if (empty($timeline)) {
-
             return redirect(route('timelines.index'))->withErrors('Timeline not found');
         }
 
@@ -114,7 +112,6 @@ class TimelineController extends Controller
         $timeline = $this->timelineRepository->findWithoutFail($id);
 
         if (empty($timeline)) {
-
             return redirect(route('timelines.index'))->withErrors('Timeline not found');
         }
 
@@ -144,80 +141,84 @@ class TimelineController extends Controller
         return redirect(route('timelines.index'))->with('success', 'Timeline deleted successfully.');
     }
 
-     /**
-      * Display the specified Timeline.
-      *
-      * @param  int $id
-      *
-      * @return Response
-      */
-     public function showTimeline($username)
-     {
-         //$admin_role_id = Role::where('name', '=', 'admin')->first();
+    /**
+     * Display the specified Timeline.
+     *
+     * @param  string $username
+     *
+     * @return Response
+     */
+    public function showTimeline($username)
+    {
+        //$admin_role_id = Role::where('name', '=', 'admin')->first();
 
-         $posts = [];
-         $timeline = Timeline::where('username', $username)->first();
-         $user_post = '';
+        $posts = [];
+        $timeline = Timeline::where('username', $username)->first();
+        $user_post = '';
 
-         if ($timeline == null) {
-             return redirect('/');
-         }
+        if ($timeline == null) {
+            return redirect('/');
+        }
 
-         $timeline_posts = $timeline->posts()->orderBy('created_at', 'desc')->with('comments')->paginate(10);
+        $timeline_posts = $timeline->posts()->orderBy('created_at', 'desc')->with('comments')->paginate(10);
 
-         foreach ($timeline_posts as $timeline_post) {
-             //This is for filtering reported(flag) posts, displaying non flag posts
-             if ($timeline_post->check_reports($timeline_post->id) == false) {
-                 array_push($posts, $timeline_post);
-             }
-         }
+        foreach ($timeline_posts as $timeline_post) {
+            //This is for filtering reported(flag) posts, displaying non flag posts
+            if ($timeline_post->check_reports($timeline_post->id) == false) {
+                array_push($posts, $timeline_post);
+            }
+        }
 
-         if ($timeline->type == 'user') {
-             $follow_user_status = '';
-             $timeline_post_privacy = '';
-             $timeline_post = '';
+        if ($timeline->type == 'user') {
+            $follow_user_status = '';
+            $timeline_post_privacy = '';
+            $timeline_post = '';
 
-             $user = User::where('timeline_id', $timeline['id'])->first();
-             $own_pages = $user->own_pages();
-             $own_groups = $user->own_groups();
-             $liked_pages = $user->pageLikes()->get();
-             $joined_groups = $user->groups()->get();
-             //$joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)->where('status', '=', 'approved')->get()->count();
-             $joined_groups_count = 1;
-             $following_count = $user->following()->where('status', '=', 'approved')->get()->count();
-             $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
-             $followRequests = $user->followers()->where('status', '=', 'pending')->get();
+            $user = User::where('timeline_id', $timeline['id'])->first();
+            $own_pages = $user->own_pages();
+            $own_groups = $user->own_groups();
+            $liked_pages = $user->pageLikes()->get();
+            $joined_groups = $user->groups()->get();
+            //$joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)->where('status', '=', 'approved')->get()->count();
+            $joined_groups_count = 1;
+            $following_count = $user->following()->where('status', '=', 'approved')->get()->count();
+            $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
+            $followRequests = $user->followers()->where('status', '=', 'pending')->get();
 
-             $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
-                 ->where('leader_id', '=', $user->id)->first();
+            $follow_user_status = DB::table('followers')->where('follower_id', '=', Auth::user()->id)
+                ->where('leader_id', '=', $user->id)->first();
 
-             if ($follow_user_status) {
-                 $follow_user_status = $follow_user_status->status;
-             }
+            if ($follow_user_status) {
+                $follow_user_status = $follow_user_status->status;
+            }
 
-             $confirm_follow_setting = $user->getUserSettings(Auth::user()->id);
-             $follow_confirm = $confirm_follow_setting->confirm_follow;
+            $confirm_follow_setting = $user->getUserSettings(Auth::user()->id);
+            $follow_confirm = $confirm_follow_setting->confirm_follow;
 
-             //get user settings
-             $live_user_settings = $user->getUserPrivacySettings(Auth::user()->id, $user->id);
-             $privacy_settings = explode('-', $live_user_settings);
-             $timeline_post = $privacy_settings[0];
-             $user_post = $privacy_settings[1];
-         } elseif ($timeline->type == 'page') {
-             //$page = Page::where('timeline_id', '=', $timeline->id)->first();
-             //$page_members = $page->members();
-             $user_post = 'page';
-         } elseif ($timeline->type == 'group') {
-             //$group = Group::where('timeline_id', '=', $timeline->id)->first();
-             //$group_members = $group->members();
-             $user_post = 'group';
-         }
+            //get user settings
+            $live_user_settings = $user->getUserPrivacySettings(Auth::user()->id, $user->id);
+            $privacy_settings = explode('-', $live_user_settings);
+            $timeline_post = $privacy_settings[0];
+            $user_post = $privacy_settings[1];
+        } elseif ($timeline->type == 'page') {
+            //$page = Page::where('timeline_id', '=', $timeline->id)->first();
+            //$page_members = $page->members();
+            $user_post = 'page';
+        } elseif ($timeline->type == 'group') {
+            //$group = Group::where('timeline_id', '=', $timeline->id)->first();
+            //$group_members = $group->members();
+            $user_post = 'group';
+        }
 
-         $next_page_url = url('ajax/get-more-posts?page=2&username='.$username);
+        $next_page_url = url('ajax/get-more-posts?page=2&username='.$username);
 
-         return view('users.timeline', compact('user', 'timeline', 'posts', 'liked_pages', 'timeline_type', 'page', 'group', 'next_page_url', 'joined_groups', 'follow_user_status', 'followRequests', 'following_count', 'followers_count', 'timeline_post', 'user_post', 'follow_confirm', 'joined_groups_count', 'own_pages', 'own_groups', 'group_members', 'page_members'))->render();
-     }
+        return view('users.timeline', compact('user', 'timeline', 'posts', 'liked_pages', 'timeline_type', 'page', 'group', 'next_page_url', 'joined_groups', 'follow_user_status', 'followRequests', 'following_count', 'followers_count', 'timeline_post', 'user_post', 'follow_confirm', 'joined_groups_count', 'own_pages', 'own_groups', 'group_members', 'page_members'))->render();
+    }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function getMorePosts(Request $request)
     {
         $timeline = Timeline::where('username', $request->username)->first();
@@ -235,29 +236,33 @@ class TimelineController extends Controller
 
     public function showFeed(Request $request)
     {
-
+        //
     }
 
     public function showGlobalFeed(Request $request)
     {
-
+        //
     }
 
     public function changeAvatar(Request $request)
     {
-
+        //
     }
 
     public function changeCover(Request $request)
     {
-
+        //
     }
 
     public function createPost(Request $request)
     {
-
+        //
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function follow(Request $request)
     {
         $follow = User::where('timeline_id', '=', $request->timeline_id)->first();
@@ -271,10 +276,10 @@ class TimelineController extends Controller
             if ($user_settings && $user_settings->email_follow == 'yes') {
                 /**
                 Mail::send('emails.followmail', ['user' => $user, 'follow' => $follow], function ($m) use ($user, $follow) {
-                    $m->from(Setting::get('noreply_email'), Setting::get('site_name'));
-                    $m->to($follow->email, $follow->name)->subject($user->name.' '.'follows you');
+                $m->from(Setting::get('noreply_email'), Setting::get('site_name'));
+                $m->to($follow->email, $follow->name)->subject($user->name.' '.'follows you');
                 });
-                **/
+                 **/
             }
 
             //Notify the user for follow here

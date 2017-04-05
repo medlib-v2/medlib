@@ -6,11 +6,10 @@ Function.prototype.bind = require('function-bind');
 const testsContext = require.context('./specs', true, /\.spec$/);
 testsContext.keys().forEach(testsContext);
 
-/**
- * require all src files except main.js for coverage.
- * you can also change this to match only the subset of files that
- * you want coverage for.
-**\/
-const srcContext = require.context('../../', true, /^\.\/(?!app(\.js)?$)/);
-srcContext.keys().forEach(srcContext);
-**/
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+import VueResourceMock from './Mock';
+import MockData from './Mock/mock';
+
+Vue.use(VueResource);
+Vue.use(VueResourceMock, MockData);

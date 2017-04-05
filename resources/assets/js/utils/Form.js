@@ -37,10 +37,10 @@ export function hasFile (obj) {
  * @return {FormData}
  */
 export function toFormData (obj) {
-    const data = new FormData()
+    const data = new FormData();
 
     Object.keys(obj).forEach(key => {
-        const value = obj[key]
+        const value = obj[key];
 
         if (value instanceof FileList) {
             for (let i = 0; i < value.length; i++) {
@@ -49,7 +49,7 @@ export function toFormData (obj) {
         } else {
             data.append(key, value)
         }
-    })
+    });
 
     return data
 }

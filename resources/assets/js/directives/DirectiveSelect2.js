@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 Vue.directive('select2', {
     bind (el, binding, vnode) {
-        //let s = $(el.select);
+        //let s = $(el);
 
         //s.select2({
         //    width: '100%'

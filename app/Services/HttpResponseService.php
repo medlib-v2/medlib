@@ -76,12 +76,14 @@ trait HttpResponseService
 
     /**
      * @param string|array $message
-     * @param $status
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
     public function responseWithError($message, $status = null)
     {
-        if ($status) $this->setStatusCode($status);
+        if ($status) {
+            $this->setStatusCode($status);
+        }
 
         return $this->response([
             'success' => false,
@@ -92,12 +94,14 @@ trait HttpResponseService
 
     /**
      * @param string $message
-     * @param $status
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */
     public function responseWithSuccess($message, $status = null)
     {
-        if ($status) $this->setStatusCode($status);
+        if ($status) {
+            $this->setStatusCode($status);
+        }
 
         return $this->response([
             'success' => true,
@@ -117,8 +121,8 @@ trait HttpResponseService
             'paginator' => [
                 'total_count'    => $pagination->total(),
                 'total_pages'    => ceil($pagination->total() / $pagination->perPage()),
-                'current_page'    => $pagination->currentPage(),
-                'limit'            => $pagination->perPage()
+                'current_page'   => $pagination->currentPage(),
+                'limit'          => $pagination->perPage()
             ]
         ]);
         return $this->response($data);

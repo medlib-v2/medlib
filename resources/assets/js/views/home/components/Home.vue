@@ -13,6 +13,7 @@
                                 type="text"
                                 name="query"
                                 class="form-search"
+                                required
                                 :placeholder="trans('search.txt.criteria')" />
                         <span class="input-group-btn">
                         <button id="submitButton" type="submit" class="btn btn-search"><i class="fa fa-search text-gray"></i></button>
@@ -25,21 +26,15 @@
                                     v-model="form.qdb"
                                     name="qdb" :data-placeholder="trans('search.txt.library')"
                                     class="select2 form-control select2-offscreen"
+                                    required
                                     v-select2>
                                 <option value disabled>{{ trans('search.txt.library') }}</option>
-                                <option v-for="(instance, name) in datasource" :value="name">
-                                    {{ instance.fullname }}
-                                </option>
+                                <option v-for="(instance, name) in datasource" :value="name">{{ instance.fullname }}</option>
                             </select>
                             <has-error :form="form" field="qdb"></has-error>
                         </div>
                         <div class="col-xs-5 col-md-4 col-sm-4 no-padding">
-                            <ul class="icons">
-                                <li class="all active" title="Web Search" data-search-type="all">{{ trans('search.icons.all') }}</li>
-                                <li class="images" title="Image Search" data-search-type="images">{{ trans('search.icons.images') }}</li>
-                                <li class="books" title="Book Search" data-search-type="books">{{ trans('search.icons.books') }}</li>
-                                <li class="videos" title="Video Search" data-search-type="videos">{{ trans('search.icons.videos') }}</li>
-                            </ul>
+                            <type-search v-model="form.type"/>
                         </div>
                     </div>
                     <ul class="search-menu">
@@ -76,7 +71,9 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#/search/advanced">{{ trans('search.txt.advanced_search') }}</a></li>
+                        <li>
+                            <router-link :to="{ name: 'search.advanced', exact: true }">{{ trans('search.txt.advanced_search') }}</router-link>
+                        </li>
                     </ul>
                 </form>
             </header>
@@ -114,13 +111,16 @@
 </template>
 
 <script type="text/babel">
-    import lang from '@/mixins/lang'
+    import Lang from '@/mixins/lang'
     import { Form } from '@/components/Form'
+    import  TypeSearch from '@/components/TypeSearch.vue'
     import { Setting } from  '@/utils'
 
     export default {
-        mixins: [lang],
-
+        mixins: [Lang],
+        components: {
+            TypeSearch
+        },
         data () {
             return {
                 /**
@@ -129,10 +129,19 @@
                 form: new Form({
                     qdb: '',
                     query: '',
-                    title: 'ti'
+                    title: 'ti',
+                    type: 'all'
                 }),
                 datasource: Setting.datasource
             }
+        },
+        head: {
+            title: {
+                inner: 'Home'
+            },
+            script: [
+                { type: 'text/javascript', src: '/js/books/app.min.js', async: true, body: true},
+            ],
         },
         methods : {
             search () {

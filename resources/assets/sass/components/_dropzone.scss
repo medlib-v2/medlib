@@ -1,40 +1,8 @@
 @charset "utf-8";
 
-form.dropzone {
-  border: 2px dashed darken($body-background, 16.8%);
-  padding: 70px 60px 80px;
-  background: transparent;
-
-  .icon {
-    background-color: darken($light-color, 10%);
-    border-radius: 50%;
-    display: inline-block;
-    height: 100px;
-    width: 100px;
-    margin-bottom: 15px;
-    padding: 20px;
-    text-align: center;
-
-    span {
-      font-size: 60px;
-      color: lighten($dark-color, 17%);
-    }
-  }
-
-  h2 {
-    margin-bottom: 30px;
-    font-size: 40px;
-    font-weight: $font-weight-light;
-  }
-
-  .note {
-    font-size: 16px;
-  }
-}
-
 .dropzone-area {
   width: 100%;
-  height: 50px;
+  height: 100px;
   position: relative;
   border: 2px dashed $color-border;
   @include transition (all 0.12s linear);
@@ -42,6 +10,9 @@ form.dropzone {
     border: 2px dashed $color-ok-solid;
     .dropzone-title {
       color: darken($color-ok-text, 10);
+      .dropzone-icon {
+        fill: darken($color-ok-text, 5);
+      }
     }
   }
 
@@ -71,10 +42,18 @@ form.dropzone {
 
 .dropzone-title {
   @include text-dropdown;
+  .dropzone-icon {
+    transition: 0.12s;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 0.12s;
+    -webkit-transition-timing-function: ease-in-out;
+  }
 }
+
 .dropzone-info {
   @include text-descrete;
 }
+
 .dropzone-image {
   width: 95px;
   height: 95px;
@@ -84,15 +63,20 @@ form.dropzone {
   position: relative;
 }
 
-.dropzone-close.modal-close {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  visibility: hidden;
-  transform: inherit;
-  @include transition (all 0.06s linear);
-  &:hover span {
-    background-color: $color-warning-solid;
+.dropzone-close {
+  &.modal-close {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    visibility: hidden;
+    transform: inherit;
+    @include transition (all 0.06s linear);
+    &:hover span {
+      background-color: $color-warning-solid;
+    }
   }
 }
 

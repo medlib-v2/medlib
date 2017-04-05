@@ -5,6 +5,7 @@ namespace Medlib\Http\Controllers\Users;
 use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Medlib\Http\Requests\DeleteUserRequest;
@@ -16,7 +17,6 @@ use Medlib\Http\Requests\UpdateUserInformationRequest;
  */
 class SettingsController extends Controller
 {
-
     /**
      * @Get("settings/profile", as="profile.show.settings")
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -86,10 +86,10 @@ class SettingsController extends Controller
         /**
          * Handle the user upload of avatar
          */
-        if($request->hasFile('avatar')){
+        if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/'.$filename));
             $user = Auth::user();
             $user->user_avatar = $filename;
             $user->save();
