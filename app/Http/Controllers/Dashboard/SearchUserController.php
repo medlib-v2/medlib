@@ -2,15 +2,16 @@
 
 namespace Medlib\Http\Controllers\Dashboard;
 
+use Medlib\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Medlib\Http\Controllers\Controller;
-use Medlib\Models\User;
 
-class SearchUserController extends Controller {
+class SearchUserController extends Controller
+{
 
     /**
     public function appendValue($data, $type, $element)
@@ -32,19 +33,21 @@ class SearchUserController extends Controller {
     }
     */
 
-    public function getResults() {
-
-        $term = e(Input::get('q',''));
+    public function getResults()
+    {
+        $term = e(Input::get('q', ''));
 
         //if(!$term && $term == '') return Response::json(array(), 400);
 
-        if(!$term && $term == '') return Redirect::back();
+        if (!$term && $term == '') {
+            return Redirect::back();
+        }
 
         $results = [];
 
         $users = User::where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'LIKE', "%{$term}%")
             ->orWhere('username', 'LIKE', "%{$term}%")
-            ->orderBy('username','asc')
+            ->orderBy('username', 'asc')
             ->get(['first_name','last_name','user_avatar']);
 
         /**
@@ -68,6 +71,5 @@ class SearchUserController extends Controller {
          */
 
         return view('dashboard.search-users')->with('users', $users);
-
     }
 }

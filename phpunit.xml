@@ -9,10 +9,11 @@
          processIsolation="false"
          stopOnFailure="true">
     <testsuites>
-        <testsuite name="Medlib Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
-            <directory suffix="Test.php">./tests/fuctionality/</directory>
-            <directory suffix="Test.php">./tests/mailers/</directory>
+        <testsuite name="Feature Tests">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Unit Tests">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -25,7 +26,7 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
-        <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_PATH" value="storage/database.sqlite"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
     </php>
 </phpunit>

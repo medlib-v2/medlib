@@ -1,0 +1,25 @@
+/**
+* import files
+*/
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
+
+/**
+* Preloader control
+*/
+@mixin be-list-preloader-mixin {
+	.be-list-hide-preloader {
+		display: none;
+	}
+
+	.be-list-preloader {
+		height: 30px;
+		line-height: 30px;
+		margin: 10px 10px 0 0;
+		float: right;
+	}
+}
+
+@include be-list-preloader-mixin;
+

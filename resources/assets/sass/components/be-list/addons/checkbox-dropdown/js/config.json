@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.checkbox-dropdown.min.js",
+	"src": [
+		"addons/checkbox-dropdown/js/app.js",
+		"addons/checkbox-dropdown/js/dto/checkbox-dropdown-dto.js"
+	]
+}

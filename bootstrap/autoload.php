@@ -37,3 +37,5 @@ $compiledPath = __DIR__.'/cache/compiled.php';
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
+
+define('APP_VERSION', app_version());

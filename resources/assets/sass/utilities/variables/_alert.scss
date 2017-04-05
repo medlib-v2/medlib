@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+//== Alerts
+$alert-icon-width: 			60px !default;
+
+//
+//## Define alert colors, border radius, and padding.
+
+$alert-padding:               18px !default;
+$alert-border-radius:         $border-radius-base !default;
+$alert-link-font-weight:      bold !default;
+
+$alert-success-bg:            $success-color !default;
+$alert-success-border:        $success-color !default;
+$alert-warning-bg:            $warning-color !default;
+$alert-warning-border:        $warning-color !default;
+$alert-danger-bg:             $danger-color !default;
+$alert-danger-border:         $danger-color !default;
+
+
+$alert-primary-bg:            $primary-color !default;
+$alert-primary-text:          $light-color !default;
+$alert-primary-border:        $primary-color !default;
+
+$alert-success-text:          $light-color !default;
+$alert-info-text:             $light-color !default;
+$alert-warning-text:          $light-color !default;
+$alert-danger-text:           $light-color !default;

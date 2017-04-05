@@ -3,45 +3,45 @@
     <div class="form-group mb-0">
         {!! Form::textarea('body', null, ['class' => 'form-control', 'rows' => 3, 'placeholder' => $placeholder]) !!}
     </div>
-    @if(isset($sendingMessage))
+    @if(isset($sending_message))
 
         <div class="form-group">
-            {!! Form::hidden('receiverId', $userId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('receiver_id', $user_id, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('senderId', $currentUserId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_id', $current_user_id, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('senderProfileImage', $currentUserProfileimage, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_profile_image', $current_user_profile_image, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('senderName', $currentUsername, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_name', $current_username, ['class' => 'form-control']) !!}
         </div>
 
-    @elseif(isset($sendingResponseMessage))
+    @elseif(isset($sending_response_message))
         <div class="form-group">
-            {!! Form::hidden('responseId', $messageResponseId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('response_id', $message_response_id, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('messageId', $messageId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('message_id', $message_id, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('receiverId', $receiverId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('receiver_id', $receiver_id, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('senderId', $senderId, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_id', $sender_id, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::hidden('senderProfileImage', $senderProfileImage, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_profile_image', $sender_profile_image, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::hidden('senderName', $senderName, ['class' => 'form-control']) !!}
+            {!! Form::hidden('sender_name', $sender_name, ['class' => 'form-control']) !!}
         </div>
-    @elseif(isset($postingFeed))
-        {!! Form::hidden('senderName', $senderName, ['class' => 'form-control']) !!}
-        {!! Form::hidden('senderProfileImage', $senderProfileImage, ['class' => 'form-control']) !!}
-        {!! Form::hidden('shareType', 'status', ['class' => 'form-control']) !!}
+    @elseif(isset($posting_feed))
+        {!! Form::hidden('sender_name', $sender_name, ['class' => 'form-control']) !!}
+        {!! Form::hidden('sender_profile_image', $sender_profile_image, ['class' => 'form-control']) !!}
+        {!! Form::hidden('share_type', 'status', ['class' => 'form-control']) !!}
     @endif
     <div class="share">
         <div class="image hide">

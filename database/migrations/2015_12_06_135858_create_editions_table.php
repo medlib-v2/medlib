@@ -12,8 +12,7 @@ class CreateEditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('editions', function(Blueprint $table){
-
+        Schema::create('editions', function (Blueprint $table) {
             $table->increments('edition_id');
             $table->string('name');
         });
@@ -26,6 +25,6 @@ class CreateEditionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('editions');
+        Schema::dropIfExists('editions');
     }
 }

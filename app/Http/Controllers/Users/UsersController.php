@@ -2,42 +2,40 @@
 
 namespace Medlib\Http\Controllers\Users;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
-use Medlib\Http\Controllers\Controller;
 use Medlib\Models\User;
-use Medlib\Repositories\Feed\FeedRepository;
+use Illuminate\Support\Facades\Auth;
+use Medlib\Http\Controllers\Controller;
 use Medlib\Repositories\User\UserRepository;
+use Illuminate\Http\Response as IlluminateResponse;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
-     * @var \Illuminate\Support\Facades\Auth
+     * @var \Medlib\Models\User
      */
     private $currentUser;
 
     /**
-     * Create a new instance of UsersController
-     */
-    public function __construct() {
-
-        $this->middleware('auth');
-    }
-
-    /**
      * Display the specified user.
      *
-     * @param FeedRepository $feedRepository
-     * @return View
+     * @param $username
+     * @param UserRepository $userRepository
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(FeedRepository $feedRepository) {
-
+    public function index($username, UserRepository $userRepository)
+    {
         $this->currentUser = Auth::user();
 
-        $user = User::find($this->currentUser->id);
-
-        return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+        if ($this->currentUser->getUsername() == $username) {
+            return $this->showFriendsAndFeeds($this->currentUser);
+        } else {
+            $user = $userRepository->findByUsername($username);
+            if (!$user == null) {
+                return $this->showFriendsAndFeeds($user);
+            }
+            return $this->responseWithError(['message' => "User does not exist $username"], IlluminateResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -45,49 +43,79 @@ class UsersController extends Controller {
      *
      * @param $username
      * @param UserRepository $userRepository
-     * @param FeedRepository $feedRepository
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($username, UserRepository $userRepository, FeedRepository $feedRepository) {
-
+    public function show($username, UserRepository $userRepository)
+    {
         $this->currentUser = Auth::user();
 
-        if($this->currentUser->getUsername() == $username) {
+        if ($this->currentUser->getUsername() == $username) {
+            $user = $this->currentUser;
 
-            $user = User::find($this->currentUser->id);
-
-            return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
-
+            return $this->showFriendsAndFeeds($user);
         } else {
             $user = $userRepository->findByUsername($username);
 
             if (!$user == null) {
-
-                return $this->showFriendsAndFeeds($user, $feedRepository, $this->currentUser);
+                return $this->showFriendsAndFeeds($user);
             }
 
-            return Redirect::back()->withErrors("User does not exist $username");
+            return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->responseWithError(['message' => "User does not exist $username"]);
         }
+    }
 
-
+    /**
+     * @param $username
+     * @return mixed
+     */
+    public function me($username)
+    {
+        if (Auth::user()->getUsername() == $username) {
+            return $this->response(Auth::user());
+        }
+        return $this->setStatusCode(IlluminateResponse::HTTP_UNAUTHORIZED)->responseWithError(['response' => 'Unauthorized.']);
     }
 
     /**
      * Display the specified user.
      *
      * @param User $user
-     * @param FeedRepository $feedRepository
-     * @param $currentUser
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
-    private function showFriendsAndFeeds(User $user, FeedRepository $feedRepository, $currentUser) {
-
+    private function showFriendsAndFeeds(User $user)
+    {
         $friends = $user->friends()->take(8)->get();
-
-        $feeds = $feedRepository->getPublishedByUser($user);
-
-        return view('users.users.show', compact('currentUser', 'user', 'friends', 'feeds'));
-
+        return $this->response([
+            compact('user', 'friends')
+        ]);
+        //return view('users.users.show', compact('user', 'friends'));
     }
 
+    /**
+     * @param $username
+     * @return mixed
+     */
+    public function followUser($username)
+    {
+        $user = User::whereUsername($username)->first();
+
+        Auth::user()->followUser($user);
+
+        Session::flash('success', 'You have followed this user!');
+        return redirect()->back();
+    }
+
+    /**
+     * @param $username
+     * @return mixed
+     */
+    public function unfollowUser($username)
+    {
+        $user = User::whereUsername($username)->first();
+
+        Auth::user()->unfollowUser($user);
+
+        Session::flash('success', 'You have unfollowed this user!');
+        return redirect()->back();
+    }
 }

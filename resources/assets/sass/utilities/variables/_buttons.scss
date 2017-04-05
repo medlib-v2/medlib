@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+//Buttons
+$btn-padding-vertical:              0;
+$btn-padding-horizontal:            10px;
+$btn-font-size-base:                13px;
+$btn-line-height-base:              28px;
+$btn-border-radius-base:            2px;
+$btn-box-shadow-base:               0 1px 0 rgba(0, 0, 0, .05);
+
+//Sizes
+$btn-xs-font-size:                  $btn-font-size-base - 2px;
+$btn-xs-padding-horizontal:         6px;
+$btn-xs-line-height:                18px;
+$btn-xs-border-radius:              1px;
+
+$btn-sm-font-size:                  $btn-font-size-base;
+$btn-sm-padding-horizontal:         8px;
+$btn-sm-line-height:                22px;
+$btn-sm-border-radius:              2px;
+
+$btn-lg-font-size:                  $btn-font-size-base + 2px;
+$btn-lg-padding-horizontal:         12px;
+$btn-lg-line-height:                38px;
+$btn-lg-border-radius:              3px;
+
+$btn-xl-font-size:                  $btn-font-size-base + 2px;
+$btn-xl-padding-horizontal:         12px;
+$btn-xl-line-height:                43px;
+$btn-xl-border-radius:              3px;
+
+$btn-font-weight:                   $font-weight-bold;
+$btn-icon-margin:                   1px;
+
+$btn-default-color:                 $text-color;
+$btn-default-bg:                    #fff;
+$btn-default-border:                #dedede;
+
+$btn-primary-color:             	#fff;
+$btn-primary-bg:                 	#4285f4;
+$btn-primary-border:             	darken($btn-primary-bg, 5%);
+
+$btn-success-color:              	#fff;
+$btn-success-bg:                	#34a853;
+$btn-success-border:             	darken($btn-success-bg, 5%);
+
+$btn-info-color:                 	#fff;
+$btn-info-bg:                    	$info-color-text;
+$btn-info-border:                	darken($btn-info-bg, 5%);
+
+$btn-warning-color:              	#fff;
+$btn-warning-bg:                 	#fbbc05;
+$btn-warning-border:             	darken($btn-warning-bg, 5%);
+
+$btn-danger-color:               	#fff;
+$btn-danger-bg:                  	#ea4335;
+$btn-danger-border:              	darken($btn-danger-bg, 5%);
+
+$btn-link-disabled-color:        	$gray-light;
+
+
+//Social colors
+$facebook:                      #5d82d1;
+$twitter:                       #50bff5;
+$google-plus:                   #eb5e4c;
+$dribbble: 			            #f7659c;
+$youtube: 			            #ef4e41;
+$flickr: 			            #0063dc;
+$linkedin: 			            #238cc8;
+$pinterest:                     #e13138;
+$github: 			            #333;
+$tumblr: 			            #426d9b;
+$evernote: 			            #2DBE60;
+$dropbox: 			            #007EE5;

@@ -1,0 +1,20 @@
+{
+	"dist": "public/js/be-list.filter-toggle-bundle.min.js",
+	"src": [
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-filter/button-filter-group-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-filter/button-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-text-filter/button-text-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-text-filter/button-text-filter-group-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-text-filter/button-text-filter-group-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/button-text-filter/button-text-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/checkbox-filters/checkbox-group-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/checkbox-filters/checkbox-group-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/checkbox-filters/checkbox-text-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/checkbox-filters/checkbox-text-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/radio-button-filters/radio-button-path-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/radio-button-filters/radio-button-path-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/radio-button-filters/radio-button-text-filter-dto.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/radio-button-filters/radio-button-text-filter-view.js",
+		"resources/assets/sass/components/be-list/addons/filter-toggle-bundle/js/range-slider-toggle-filter/range-slider-toggle-filter-view.js"
+	]
+}

@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder {
-
+class DatabaseSeeder extends Seeder
+{
     protected $tables = [
         'authors',
         'books',
@@ -21,28 +21,48 @@ class DatabaseSeeder extends Seeder {
         'languages',
         'likes',
         'messages',
-        'message_responses',
-        'message_response_user',
-        'message_user',
+        'conversations',
         'password_resets',
         'publishers',
+        'settings',
+        'roles',
         'users',
+        'profiles',
+        'role_user',
+        'permissions',
+        'permission_role',
+        'timelines',
+        'comment_likes',
+        'media',
+        'followers',
     ];
 
-    protected $seeders = [
-        UserTableSeeder::class,
+    protected $localSeeders = [
         AuthorsTableSeeder::class,
         BookTableSeeder::class,
         CategoryTableSeeder::class,
         EditionTableSeeder::class,
-        FeedTableSeeder::class,
-        FriendRequestTableSeeder::class,
-        MessageResponsesTableSeeder::class,
-        MessageResponseUserTableSeeder::class,
-        MessageUserTableSeeder::class,
-        MessagesTableSeeder::class,
+        LanguageTableSeeder::class,
         PublisherTableSeeder::class,
-        LanguageSeeder::class
+        //UserTableSeeder::class,
+        MediumTableSeeder::class,
+        RolesTableSeeder::class,
+        TimelinesTableSeeder::class,
+        FriendRequestTableSeeder::class,
+        SettingsTableSeeder::class,
+        HashtagsTableSeeder::class,
+        AnnouncementsTableSeeder::class,
+        FeedTableSeeder::class,
+        CommentsTableSeeder::class,
+        StaticpageTableSeeder::class,
+        MessagesTableSeeder::class,
+	];
+
+    protected $productionSeeders = [
+        //CategoriesTableSeeder::class,
+        RolesTableSeeder::class,
+        StaticpageTableSeeder::class,
+        ProductionSeeder::class,
     ];
 
     /**
@@ -50,33 +70,32 @@ class DatabaseSeeder extends Seeder {
      *
      * @return void
      */
-    public function run() {
-
+    public function run()
+    {
         Model::unguard();
 
         $this->cleanDatabase();
 
-        foreach ($this->seeders as $seedClass) {
+        $seeders = (Config::get('app.env') == 'local') ? $this->localSeeders : $this->productionSeeders;
+
+        foreach ($seeders as $seedClass) {
             $this->call($seedClass);
         }
         
         Model::reguard();
-
     }
 
     /**
      * Clean out the database for new seed generation
      */
-    public function cleanDatabase() {
-
+    public function cleanDatabase()
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         foreach ($this->tables as $table) {
-
             DB::table($table)->truncate();
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
     }
 }

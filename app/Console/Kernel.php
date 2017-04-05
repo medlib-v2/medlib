@@ -13,9 +13,24 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Init::class,
         Commands\Inspire::class,
-        Commands\Test::class,
+        Commands\TestCommand::class,
+        Commands\ResetCommand::class,
+        Commands\UpdateCommand::class,
+        Commands\InstallCommand::class,
+        Commands\MakeModelCommand::class,
+        Commands\MakeModelCommand::class,
+        Commands\CreateUserCommand::class,
+        Commands\MigrationsCommand::class,
+        Commands\MakeVueViewCommand::class,
+        Commands\MakeVueMixinCommand::class,
+        Commands\MigrateSchemaCommand::class,
+        Commands\DatabaseSeederCommand::class,
+        Commands\RegisterCommandsCommand::class,
+        Commands\MakeVueComponentCommand::class,
+        Commands\GenerateJWTSecretCommand::class,
+        Commands\ClearOrphanAvatarsCommand::class,
+        Commands\DeleteExpiredConfirmationTokensCommand::class,
     ];
 
     /**
@@ -26,7 +41,24 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command(Commands\DeleteExpiredConfirmationTokensCommand::class)
+                ->daily()
+                ->withoutOverlapping();
+
+        $schedule->command(Commands\ClearOrphanAvatarsCommand::class)
+                ->weekly()
+                ->sundays()
+                ->between('00:30', '7:00')
+                ->withoutOverlapping();
+    }
+
+    /**
+     * Register the Closure based commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        require base_path('routes/console.php');
     }
 }

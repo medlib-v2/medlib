@@ -1,3 +1,9 @@
+<IfModule mod_headers.c>
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, PATCH, DELETE"
+  Header always set Access-Control-Allow-Headers "Authorization,X-Accept-Charset,X-Accept,Content-Type"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
@@ -15,7 +21,13 @@
     RewriteRule ^ index.php [L]
 
     # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
+    RewriteCond %{HTTP:Authorization} ^(.*)
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 
+<IfModule mod_expires.c>
+  # Cache the audio files for 1 year.
+  # It's up to the browser to respect this.
+  ExpiresActive On
+  ExpiresByType audio/(mpe?g3?|ogg|aac) "access plus 1 year"
+</IfModule>

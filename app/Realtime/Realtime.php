@@ -1,68 +1,72 @@
 <?php
 
-namespace Medlib\Realtime;
+namespace Medlib\RealTime;
 
 use ElephantIO\Client;
 use ElephantIO\Engine\SocketIO\Version1X;
 
-abstract class Realtime {
+abstract class RealTime
+{
 
-	/**
-	 * @var Object
-	 */
-	protected $socketClient;
+    /**
+     * @var Object
+     */
+    protected $client;
 
-	/**
-	 * Create a new Realtime instance.
-	 */
-	public function __construct() {
-		$this->socketClient = new Client(new Version1X('http://localhost:3000'));
-	}
+    /**
+     * Create a new RealTime instance.
+     */
+    public function __construct()
+    {
+        $this->client = new Client(new Version1X(config('medlib.socket_url')));
+    }
 
-	/**
-	 * Send a websocket broadcast to all connected users.
-	 * @param array $userIds
-	 * @param int $clientCode
-	 * @param int $relatedToId
-	 * @param string $message
-	 *
-	 */
-	public function broadcastToAll($userIds = [], $clientCode = null, $relatedToId = null, $message = null) {
+    /**
+     * Send a websocket broadcast to all connected users.
+     *
+     * @param array $user_ids
+     * @param $client_code
+     * @param $related_to_id
+     * @param string $message
+     */
+    public function broadcastToAll($user_ids = [], $client_code = "", $related_to_id = "", $message = "")
+    {
+        if (!empty($user_ids)) {
+            $this->client->initialize();
+            foreach ($user_ids as $user_id) {
+                $this->client->emit('broadcast', [
+                    'user_id' => $user_id,
+                    'receiver_id' => $user_id,
+                    'related_to_id' => $related_to_id,
+                    'client_code' => $client_code,
+                    'message' => $message
+                ]);
+            }
+        }
 
-		$this->socketClient->initialize();
+        $this->client->close();
+    }
 
-		foreach ($userIds as $userId) {
-			$this->socketClient->emit('broadcast', [
-				'userId' => $userId, 
-				'receiverId' => $userId, 
-				'relatedToId' => $relatedToId, 
-				'clientcode' => $clientCode,
-				'message' => $message
-			]);
-		
-		}
-		$this->socketClient->close();
-	}
+    /**
+     * Send a websocket broadcast to one connected user.
+     *
+     * @param $user_id
+     * @param $client_code
+     * @param $related_to_id
+     * @param $message
+     */
+    public function broadcastTo($user_id = "", $client_code = "", $related_to_id = "", $message = "")
+    {
+        $this->client->initialize();
 
-	/**
-	 * Send a websocket broadcast to one connected user.
-	 *
-	 * @param int $userId
-	 * @param int $clientCode
-	 * @param int $relatedToId
-	 * @param string $message
-	 */
-	public function broadcastTo($userId = null, $clientCode = null, $relatedToId = null, $message = null) {
+        $this->client->emit('broadcast', [
+            'user_id' => $user_id,
+            'receiver_id' => $user_id,
+            'related_to_id' => $related_to_id,
+            'client_code' => $client_code,
+            'message' => $message
+        ]);
 
-		$this->socketClient->initialize();
-		
-		$this->socketClient->emit('broadcast', [
-			'userId' => $userId, 
-			'receiverId' => $userId, 
-			'relatedToId' => $relatedToId,
-			'clientcode' => $clientCode,
-			'message' => $message
-		]);
-		$this->socketClient->close();
-	}
+        $this->client->close();
+    }
 }

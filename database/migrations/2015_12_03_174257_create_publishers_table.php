@@ -12,8 +12,7 @@ class CreatePublishersTable extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function(Blueprint $table)
-        {
+        Schema::create('publishers', function (Blueprint $table) {
             $table->increments('publisher_id');
             $table->string('name', 50);
             $table->string('place');
@@ -27,6 +26,6 @@ class CreatePublishersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('publishers');
+        Schema::dropIfExists('publishers');
     }
 }

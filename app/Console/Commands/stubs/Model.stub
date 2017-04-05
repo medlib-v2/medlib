@@ -1,0 +1,28 @@
+<?php
+
+namespace Medlib\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class {{model_singular}} extends Model
+{
+    /**
+    * The database table used by the model.
+    *
+    * @var string
+         */
+    protected $table = '{{table_model_plural_lowercase}}';
+
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
+    protected $fillable = [];
+
+    /**
+    * The attributes excluded from the model's JSON form.
+    * @var array
+    */
+    protected $hidden = ['created_at', 'updated_at'];
+}

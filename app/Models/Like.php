@@ -4,9 +4,9 @@ namespace Medlib\Models;
 
 use Medlib\Models\Feed;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Builder\Use_;
 
-class Like extends Model {
+class Like extends Model
+{
 
 
     /**
@@ -20,12 +20,18 @@ class Like extends Model {
      *
      * @var array
      */
-    protected $fillable = ['feed_id','type','object_id','object_type'];
+    protected $fillable = ['user_id','feed_id'];
+
+    /**
+     * @var array
+     */
+    public $with = ['user'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function feed() {
+    public function feed()
+    {
         return $this->belongsTo(Feed::class);
     }
 
@@ -33,7 +39,8 @@ class Like extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
    
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
@@ -42,8 +49,8 @@ class Like extends Model {
      * @param $type
      * @return $this
      */
-    public function withType($type) {
-
+    public function withType($type)
+    {
         $this->type = $type;
         return $this;
     }
@@ -51,9 +58,8 @@ class Like extends Model {
     /**
      * @return array
      */
-    public function getDates() {
+    public function getDates()
+    {
         return ['created_at', 'updated_at'];
     }
-    
-    
 }

@@ -1,8 +1,13 @@
 @extends('layouts.master')
+
 @section('title', trans('search.txt.search_results'). " ". trim(trim(\Illuminate\Support\Facades\Input::get('query'), ',') , '.'))
+
+@section('class') container-fluid @endsection
+
 @section('content')
-<section class="content-search" role="search">
+<section class="content-search-results" role="search">
     <header class="result">
+        @include('flash.message')
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
@@ -14,7 +19,7 @@
 </section>
 <main id="content" class="content" role="main">
     @if (!array_key_exists('error', $results))
-    <div>
+    <div class="content-results">
         <div class="row">
             <!-- Starting filter -->
             <div class="col-md-2">
@@ -29,7 +34,7 @@
         </div>
     </div>
     @else
-    <div>
+    <div class="content-results">
         <div class="row">
             <!-- Starting filter -->
             <div class="col-md-2">
@@ -46,26 +51,28 @@
     @endif
 </main>
 @endsection
-@section('sytle')
-<link href="{{ App::rev('css/jplist-commons.css') }}" rel="stylesheet" type="text/css" />
-@endsection
+
 @section('script')
-<script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-<script type="text/javascript" src="{{ App::rev('js/search-commons.min.js') }}"></script>
-<script type="text/javascript" src="{{ App::rev('js/jplist-common.min.js') }}"></script>
-<script>
-    (function($) {
-      $('.list-item a').books();
-      $(".more").shorten({
-          "showChars": 300,
-          "moreText": "{{ trans('search.txt.show') }}",
-          "lessText": "{{ trans('search.txt.hide') }}"
-      });
-      $('#pagination').jplist({
-          itemsBox: '.list',
-          itemPath: '.list-item',
-          panelPath: '.jplist-panel'
-      });
-    })(jQuery);
-</script>
+    <!-- SCRIPT -->
+    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <script type="text/javascript" src="{{ App::rev('js/be-list.min.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ asset('js/preview/app.min.js') }}"></script>-->
+    <script>
+        (function($) {
+            /**
+             * $('.list-item a').books();
+             **/
+            Medlib.BeShorten(".more", {
+                showChars: 300,
+                moreText: "{{ trans('search.txt.show') }}",
+                lessText: "{{ trans('search.txt.hide') }}"
+            });
+
+            $('#pagination').beList({
+                itemsBox: '.list',
+                itemPath: '.list-item',
+                panelPath: '.be-list-panel'
+            });
+        })(jQuery);
+    </script>
 @endsection

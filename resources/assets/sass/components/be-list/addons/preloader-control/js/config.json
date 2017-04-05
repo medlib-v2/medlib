@@ -1,0 +1,4 @@
+{
+	"dist": "public/js/be-list.preloader-control.min.js",
+	"src": ["addons/preloader-control/js/preloader-view.js"]
+}

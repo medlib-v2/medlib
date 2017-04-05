@@ -1,4 +1,23 @@
 {
-  "presets": ["es2015", "stage-2"],
-  "plugins": ["lodash", "transform-runtime"]
+  "presets": [
+    ["es2015", { "modules": false }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime"],
+  "comments": false,
+  "env": {
+    "testing": {
+      "presets": [ "es2015", "stage-2" ],
+      "plugins": ["istanbul", {
+        "exclude": [
+          "**/*.spec.js",
+          "resources/assets/js/*.js",
+          "resources/assets/js/components/**/*.(js|vue)",
+          "resources/assets/js/views/**/*.(js|vue)",
+          "resources/assets/tests/unit/*.js"
+        ]
+      }],
+      "comments": false
+    }
+  }
 }

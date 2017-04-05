@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+// Color Swatch
+
+@mixin color-swatch-variant($background, $text-color) {
+	.color {
+		background-color: $background;
+	}
+	.color-name {
+		background-color: darken($background, 5%);
+		color: $text-color;
+	}
+}

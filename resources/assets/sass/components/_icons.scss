@@ -1,0 +1,99 @@
+/**
+* - Icons
+*/
+.icon-container{
+	background-color: $light-color;
+	padding: 20px;
+	cursor: default;
+
+	.icon{
+		@include transition(background-color 300ms ease-in-out);
+		background-color: darken($light-color, 4%);
+		border-radius: 50%;
+		display: inline-block;
+		height: 50px;
+		width: 50px;
+		margin-right:8px;
+		padding: 13px;
+		text-align: center;
+		vertical-align: middle;
+
+		span {
+			@include transition(color 300ms ease-in-out);
+			font-size: 25px;
+			color: lighten($dark-color, 17%);
+		}
+
+		&:hover {
+			background-color: $primary-color;
+
+			span {
+				color: $light-color;
+			}
+		}
+	}
+
+	.icon-class {
+		@include transition( color 300ms ease-in-out);
+		font-size: 18px;
+		font-weight: 300;
+		vertical-align: middle;
+		color: lighten($dark-color, 17%);
+	}
+
+	&:hover {
+
+		.icon {
+			background-color: $primary-color;
+
+			span{
+				color: $light-color;
+			}
+		}
+
+		.icon-class{
+			color: $primary-color;
+		}
+	}
+}
+
+//Filter icons
+.be-icons-list{
+
+	&.hide-icons{
+	
+		.icon-category{
+
+			.row{
+
+				> div{
+					display: none;
+
+					&.icon-visible{
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+
+.fa {
+	&.fa-comments {
+		cursor: pointer;
+	}
+	&.fa-messages {
+		background: url("#{$img-url}/messages.svg") no-repeat;
+		width: 24px;
+		height: 24px;
+		display: inline-block;
+		cursor: pointer;
+	}
+}
+
+.user-avatar {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	margin-right: 1em;
+}

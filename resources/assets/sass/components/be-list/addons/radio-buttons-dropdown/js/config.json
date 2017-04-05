@@ -1,0 +1,4 @@
+{
+	"dist": "public/js/be-list.radio-buttons-dropdown.min.js",
+	"src": ["addons/radio-buttons-dropdown/js/app.js"]
+}

@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+//Colored alerts Mixin
+@mixin icon-alert-variation($color) {
+    > .icon {
+        background-color: $color;
+        &:after{ border-left-color: $color; }
+    }
+}
+
+//Dismissible alerts color variations
+@mixin dismissible-variation($color) {
+    .close { color: darken($color, 30%); }
+}
+
+//Alert Color Icon Bg
+@mixin alert-icon-colored($color) {
+    > .icon { color: $color; }
+}
+
+@mixin alert-variant($background, $border, $text-color) {
+    background-color: $background;
+    border-color: $border;
+    color: $text-color;
+
+    hr {
+        border-top-color: darken($border, 5%);
+    }
+    .alert-link {
+        color: darken($text-color, 10%);
+    }
+}

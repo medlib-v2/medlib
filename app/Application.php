@@ -5,10 +5,10 @@ namespace Medlib;
 use Exception;
 use GuzzleHttp\Client;
 use InvalidArgumentException;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Application as IlluminateApplication;
-
 
 /**
  * Extends \Illuminate\Foundation\Application to override some defaults.
@@ -20,10 +20,10 @@ class Application extends IlluminateApplication
      *
      * @link https://github.com/medlib-v2/medlib/releases
      */
-    const VERSION = 'v0.1.0';
+    const VERSION = APP_VERSION;
 
     /**
-     * Loads a revision'ed asset file, making use of gulp-rev
+     * Loads a revision'ed asset file, making use of laravel-mix
      * This is a copycat of L5's Elixir, but catered to our directory structure.
      *
      * @param string $file
@@ -35,15 +35,31 @@ class Application extends IlluminateApplication
      */
     public function rev($file, $manifestFile = null)
     {
-        static $manifest = null;
-        $manifestFile = $manifestFile ?: $this->publicPath().'/build/rev-manifest.json';
-        if ($manifest === null) {
-            $manifest = json_decode(file_get_contents($manifestFile), true);
+        static $manifest;
+
+        $manifestFile = $manifestFile ?: $this->publicPath().'/mix-manifest.json';
+
+        if (!$manifest) {
+            if (! file_exists($manifestPath = $manifestFile)) {
+                throw new InvalidArgumentException('The Mix manifest does not exist.');
+            }
+            $manifest = json_decode(file_get_contents($manifestPath), true);
         }
-        if (isset($manifest[$file])) {
-            return $this->staticUrl("build/{$manifest[$file]}");
+
+        if (!starts_with($file, '/')) {
+            $file = "/{$file}";
         }
-        throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
+
+        if (!array_key_exists($file, $manifest)) {
+            throw new InvalidArgumentException(
+                "Unable to locate Mix file: {$file}. Please check your ".
+                'webpack.mix.js output paths and try again.'
+            );
+        }
+
+        return file_exists(public_path('/hot'))
+            ? new HtmlString("http://localhost:8080{$manifest[$file]}")
+            : new HtmlString($this->staticUrl("{$manifest[$file]}"));
     }
 
     /**
@@ -60,6 +76,7 @@ class Application extends IlluminateApplication
         $cdnUrl = trim(config('medlib.cdn.url'), '/ ');
         return $cdnUrl ? $cdnUrl.'/'.trim(ltrim($name, '/')) : trim(asset($name));
     }
+
     /**
      * Get the latest version number of Medlib from GitHub.
      *
@@ -72,16 +89,20 @@ class Application extends IlluminateApplication
         if ($v = Cache::get('latestMedlibVersion')) {
             return $v;
         }
+
         $client = $client ?: new Client();
+
         try {
             $v = json_decode($client->get('https://api.github.com/repos/medlib-v2/medlib/tags')->getBody())[0]->name;
             /**
              * Cache for one day
              */
             Cache::put('latestMedlibVersion', $v, 1 * 24 * 60);
+
             return $v;
         } catch (Exception $e) {
             Log::error($e);
+
             return self::VERSION;
         }
     }

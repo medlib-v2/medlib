@@ -1,0 +1,439 @@
+@charset "utf-8";
+
+// Responsiveness
+
+// Classes to be applied for high ppi displays
+// (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+// -------------------------
+@mixin retina(){
+  @media (min--moz-device-pixel-ratio: 1.3),
+  (-o-min-device-pixel-ratio: 2.6/2),
+  (-webkit-min-device-pixel-ratio: 1.3),
+  (min-device-pixel-ratio: 1.3),
+  (min-resolution: 1.3dppx) {
+    @content;
+  }
+}
+@mixin high-dpi() {
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+  only screen and (-o-min-device-pixel-ratio: 13/10),
+  only screen and (min-resolution: 120dpi) {
+    @content;
+  }
+}
+// Common thumbnail properties
+// -------------------------
+@mixin thumb($parent, $size){
+  #{$parent} {
+    width: $size;
+
+    > .glyphicon,
+    > .fa{
+      line-height: $size;
+    }
+  }
+}
+
+// Generates single property classes
+// -------------------------
+@mixin property-variants($base, $property, $variants: ()){
+  @each $size, $value in $variants {
+    @if $size == 'md'{
+      #{$base} {
+        #{$property}: $value;
+      }
+      #{$base}-n {
+        #{$property}: $value;
+      }
+    }
+    #{$base}-#{$size} {
+      #{$property}: $value;
+    }
+    #{$base}-n-#{$size} {
+      #{$property}: -$value;
+    }
+  }
+}
+
+@mixin keyframes($name){
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+/**
+@keyframes spinAround
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(359deg)
+
+@mixin loader {
+  animation: spinAround 500ms infinite linear
+  border: 2px solid $border
+  border-radius: 290486px
+  border-right-color: transparent
+  border-top-color: transparent
+  content: ""
+  display: block
+  height: 1rem
+  position: relative
+  width: 1rem
+}
+*/
+@mixin center($size) {
+  left: 50%;
+  margin-left: -($size / 2);
+  margin-top: -($size / 2);
+  position: absolute;
+  top: 50%;
+}
+@mixin from($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
+@mixin until($device) {
+  @media screen and (max-width: $device - 1px) {
+    @content;
+  }
+}
+
+@mixin font-size($size) {
+
+  @if is-percentage($size) {
+    $number: unit($size);
+    $value: $font-size-base * ($number / 100);
+    font-size: unit(ceil( $font-size-base + $value ), px);
+
+  } @else if is-absolute-length($size) {
+    font-size: ceil( $font-size-base + $size );
+  }
+}
+@mixin font-size-small($size) {
+
+  @if is-percentage($size) {
+    $number: unit($size);
+    $value: $font-size-small * ($number / 100);
+    font-size: unit(ceil( $font-size-small + $value ), px);
+
+  } @else if is-absolute-length($size) {
+    font-size: ceil( $font-size-small + $size );
+  }
+}
+@mixin font-size-large($size) {
+
+  @if is-percentage($size) {
+    $number: unit($size);
+    $value: $font-size-large * ($number / 100);
+    font-size: unit(ceil( $font-size-large + $value ), px);
+
+  } @else if is-absolute-length($size) {
+    font-size: ceil( $font-size-large + $size );
+  }
+}
+
+@mixin phone {
+  @media screen and (max-width: $screen-xs-max) {
+    @content;
+  }
+}
+@mixin small-phone {
+  @media screen and (max-width: $screen-xs) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+    @content;
+  }
+}
+@mixin tablet-only {
+  @media screen and (min-width: $screen-sm) and (max-width: $screen-lg - 1px) {
+    @content;
+  }
+}
+@mixin touch {
+  @media screen and (max-width: $screen-lg - 1px) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: $screen-lg) {
+    @content;
+  }
+}
+@mixin desktop-only {
+  @media screen and (min-width: $screen-lg) and (max-width: $widescreen - 1px) {
+    @content;
+  }
+}
+@mixin laptop {
+  @media screen and (min-width: $screen-md) and (max-width: $screen-md-max) {
+    @content;
+  }
+}
+@mixin widescreen {
+  @media screen and (min-width: $widescreen) {
+    @content;
+  }
+}
+//IE 10+ Media Query
+@mixin ie10 {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}
+//IE9 & IE10 Media Query
+@mixin ie910 {
+  @media screen and (min-width:0\0) {
+    @content;
+  }
+}
+//IE8 Media Query
+@mixin ie8 {
+  @media \0screen {
+    @content;
+  }
+}
+//Google Chrome Query
+@mixin webkit {
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    @content;
+  }
+}
+//Non responsive devices
+@mixin non-responsive {
+  @media (min-width: $screen-sm) {
+    @content;
+  }
+}
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin transition ($transition...) {
+  transition			: $transition;
+  -moz-transition		: $transition;
+  -webkit-transition	: $transition;
+  -o-transition		    : $transition;
+}
+@mixin transform ($transform...) {
+  transform			: $transform;
+  -moz-transform	: $transform;
+  -ms-transform		: $transform;
+  -o-transform		: $transform;
+  -webkit-transform	: $transform;
+}
+@mixin animation ($animation...) {
+  animation             : $animation;
+  -webkit-animation     : $animation;
+  -o-animation          : $animation;
+  -moz-animation		: $animation;
+  -ms-animation		    : $animation;
+
+
+}
+
+@mixin scale ($multiplier) {
+  @include transform(scale($multiplier));
+}
+@mixin rotate ($deg) {
+  @include transform(rotate($deg));
+}
+@mixin skew ($deg, $deg2) {
+  @include transform(skew($deg, $deg2));
+}
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow  : $shadow; // iOS <4.3 & Android <4.1
+  -moz-box-shadow     : $shadow;
+  box-shadow          : $shadow;
+}
+@mixin box-shadow-inset ($shadow...) {
+  box-shadow			: inset $shadow;
+  -moz-box-shadow		: inset $shadow;
+  -webkit-box-shadow	: inset $shadow;
+}
+
+@mixin gradient-vertical ($firstColor: #FFF, $secondColor: #DDD) {
+  background	: $firstColor; /* Fallback solid color for old browsers */
+  background	: linear-gradient(to bottom, $firstColor 0%, $secondColor 100%); /* W3C */
+  background	: -moz-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* FF 3.6+ */
+  background	: -ms-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* IE 10+ */
+  background	: -o-linear-gradient(top, $firstColor 0%, $secondColor 100%); /* Opera 11.10+ */
+  background	: -webkit-linear-gradient(top, $firstColor 0%,$secondColor 100%); /* Chrome 10+, Safari 5.1+ */
+  background	: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$firstColor), color-stop(100%,$secondColor)); /* Chrome, Safari 4+ */
+  filter		: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#{$firstColor}', endColorstr= '#{$secondColor}', GradientType=0); /* IE 6-9 */
+}
+@mixin gradient-horizontal ($firstColor: #FFF, $secondColor: #DDD) {
+  background	: $firstColor; /* Fallback solid color for old browsers */
+  background	: linear-gradient(to right, $firstColor 0%, $secondColor 100%); /* W3C */
+  background	: -moz-linear-gradient(left,  $firstColor 0%, $secondColor 100%); /* FF 3.6+ */
+  background	: -ms-linear-gradient(left, $firstColor 0%, $secondColor 100%); /* IE 10+ */
+  background	: -o-linear-gradient(left, $firstColor 0%, $secondColor 100%); /* Opera 11.10+ */
+  background	: -webkit-linear-gradient(left,  $firstColor 0%,$secondColor 100%); /* Chrome 10+, Safari 5.1+ */
+  background	: -webkit-gradient(linear, left top, right top, color-stop(0%,$firstColor), color-stop(100%,$secondColor)); /* Chrome, Safari 4+ */
+  filter		: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#{$firstColor}', endColorstr= '#{$secondColor}', GradientType=1); /* IE 6-9 */
+}
+@mixin border-radius ($radius: 4px) {
+  border-radius			: $radius;
+  -moz-border-radius	: $radius;
+  -webkit-border-radius	: $radius;
+}
+
+/**
+* Right sidebar animation
+* Without Hardware Acceleration
+**/
+@mixin right-sidebar-animation($has_animation: false) {
+  @if ($has_animation == false) {
+    .be-right-sidebar{ right: 0; }
+
+  } @else if($has_animation == true) {
+    @include phone {
+    .be-wrapper{ overflow: hidden; }
+    .be-right-sidebar{ @include transform(translate3d(0, 0, 0)); }
+  }
+  }
+}
+/**
+* Left sidebar animation
+* Without Hardware Acceleration
+**/
+@mixin left-sidebar-animation($has_animation: false){
+  @if($has_animation == false) {
+    .be-left-sidebar{ left: 0; }
+  } @else if($has_animation == true) {
+    @include phone{
+    .be-wrapper{ overflow: hidden; }
+    .be-left-sidebar{ @include transform(translate3d(0, 0, 0)); }
+  }
+  }
+}
+
+@mixin opacity($opacity: 0.5) {
+  // IE8 filter
+  $opacity-ie           : ($opacity * 100);
+  opacity               : $opacity;
+  -moz-opacity		    : $opacity;
+  -webkit-opacity		: $opacity;
+  -ms-filter			: progid:DXImageTransform.Microsoft.Alpha(opacity=#{$opacity-ie}); /* IE 8 */
+  filter: alpha(opacity=$opacity-ie); /* IE 5-7 */
+}
+
+/**
+* Forms
+*/
+@mixin switch-button-size($size-base){
+  height: $size-base;
+  width: $size-base + 33px;
+  line-height: $size-base - 4px;
+  label{
+    height: $size-base - 8px;
+    width: $size-base - 8px;
+    &:before{
+      line-height: $size-base + 1px;
+    }
+  }
+}
+@mixin switch-button-color($active-color, $off-color: darken($light-color, 30%)){
+  background-color: $off-color;
+  label{
+    border-color: darken($off-color, 3%);
+  }
+
+  input[type="checkbox"]:checked + span{
+    background-color: $active-color;
+    label{
+      border-color: darken($active-color, 5%);
+    }
+  }
+}
+
+@mixin triangle-base() {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  -moz-transform: scale(.9999);
+}
+@mixin triangle-size($direction, $size, $color) {
+  @include triangle($direction, $size * 2, $size, $color);
+}
+
+@mixin triangle($direction, $width, $height, $color) {
+  @if ($direction = up) {
+    @include triangle-base();
+    border-left: ($width / 2) solid transparent;
+    border-right: ($width / 2) solid transparent;
+    border-bottom: $height solid $color;
+  }
+  @else if ($direction = down) {
+    @include triangle-base();
+    border-left: ($width / 2) solid transparent;
+    border-right: ($width / 2) solid transparent;
+    border-top: $height solid $color;
+  }
+  @else if ($direction = left) {
+    @include triangle-base();
+    border-top: ($width / 2) solid transparent;
+    border-bottom: ($width / 2) solid transparent;
+    border-right: $height solid $color;
+  }
+  @else if ($direction = right) {
+    @include triangle-base();
+    border-top: ($width / 2) solid transparent;
+    border-bottom: ($width / 2) solid transparent;
+    border-left: $height solid $color;
+  }
+}
+
+/**
+* Social Color Mixin
+**/
+@mixin social-notification($background){
+  background: $background;
+
+  .notification-item {
+    .notification-img-container {
+      background-color: darken($background, 3%);
+    }
+  }
+}
+
+/**
+* Social Color Mixin
+**/
+@mixin social-gritter($background){
+  background: $background;
+  .gritter-item {
+    .gritter-img-container {
+      background-color: darken($background, 3%);
+    }
+  }
+}
+
+
+@mixin text-dropdown {
+  @include font-size(13);
+  color: $color-dropdown;
+  letter-spacing: 0.4px;
+}
+
+@mixin text-descrete {
+  @include font-size(13);
+  color: $color-descrete;
+  letter-spacing: 0.4px;
+}

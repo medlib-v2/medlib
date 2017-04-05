@@ -5,10 +5,13 @@ namespace Medlib\Models;
 use Carbon\Carbon;
 use Medlib\Models\Like;
 use Medlib\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Feed extends Model {
-
+class Feed extends Model
+{
+    use SoftDeletes;
     /**
      * The database table used by the model.
      * @var string
@@ -20,73 +23,276 @@ class Feed extends Model {
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url'];
+    protected $fillable = [
+        'user_id',
+        'timeline_id',
+        'body',
+        'type',
+        'youtube_title',
+        'youtube_video_id',
+        'location',
+        'image_id',
+        'image_url',
+        'soundcloud_id',
+        'soundcloud_title'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+
+    /**
+     * @var array
+     */
+    public $with = [
+        'user',
+        'likes',
+        'comments',
+        'shared',
+        'follows',
+        'images'
+    ];
 
     /**
      * A feed belongs to a User.
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'feed_likes', 'feed_id', 'user_id');
+    }
+
+    public function shares()
+    {
+        return $this->belongsToMany(User::class, 'feed_shares', 'feed_id', 'user_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'feed_follows', 'feed_id', 'user_id');
+    }
+
+
+    public function reports()
+    {
+        return $this->belongsToMany(User::class, 'feed_reports', 'feed_id', 'reporter_id')->withPivot('status');
+    }
+
     /**
-     * A feed belongs to a Comment.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comment() {
-        return $this->belongsTo(Comment::class);
+    /**
+     * public function comments()
+     * {
+     * return $this->belongsTo(Comment::class);
+     * }
+     **/
+
+    /**
+     * A feed belongs to a Comment.
+     * @return mixed
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest()->where('parent_id', null);
     }
 
     /**
-     *  Publish a new feed.
-     *
-     *	@param string $body
-     *	@param string $poster_username
-     *	@param string $poster_profile_image
-     *  @param string $image_url
-     *  @param string $video_url
-     *  @param string $location
-     *
-     *	@return static
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public static function publish($body, $poster_username, $poster_profile_image, $image_url = null, $video_url = null, $location = null) {
-        $feed = new static(compact('body', 'poster_username', 'poster_profile_image', 'image_url', 'video_url', 'location'));
-        return $feed;
+    public function shared()
+    {
+        return $this->belongsToMany(User::class, 'feed_shares', 'feed_id', 'user_id');
     }
 
     /**
-     *  Get the amount of feeds related to current User.
-     *
-     *	@param array $userIds
-     *
-     *	@return int
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public static function getTotalCountFeedsForUser($userIds) {
+    public function images()
+    {
+        return $this->belongsToMany(Media::class, 'feed_media', 'feed_id', 'media_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function usersPosts()
+    {
+        return $this->belongsToMany(User::class, 'feeds', 'id', 'user_id');
+    }
+
+    /**
+     * @param int $post_id
+     * @param int $user_id
+     * @return bool
+     */
+    public function managePostReport($post_id, $user_id)
+    {
+        $post_report = DB::table('feed_reports')->insert(['feed_id' => $post_id, 'reporter_id' => $user_id, 'status' => 'pending', 'created_at' => Carbon::now()]);
+
+        $result = $post_report ? true : false;
+
+        return $result;
+    }
+
+    /**
+     * @param int $post_id
+     * @return bool
+     */
+    public function checkReports($post_id)
+    {
+        $post_report = DB::table('feed_reports')->where('feed_id', $post_id)->first();
+
+        $result = $post_report ? true : false;
+
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function postsLiked()
+    {
+        $result = DB::table('feed_likes')->get();
+
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function postsReported()
+    {
+        $result = DB::table('feed_reports')->get();
+
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function postShared()
+    {
+        $result = DB::table('feed_shares')->get();
+
+        return $result;
+    }
+
+    /**
+     * @param int $login_id
+     * @param int $post_user_id
+     * @return bool
+     */
+    public function chkUserFollower($login_id, $post_user_id)
+    {
+        $followers = DB::table('followers')->where('follower_id', $post_user_id)->where('followee_id', $login_id)->where('status', '=', 'approved')->first();
+
+        if ($followers) {
+            $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+            $result = $userSettings ? $userSettings->comment_privacy : false;
+
+            return $result;
+        }
+    }
+
+    /**
+     * @param int $login_id
+     * @return bool
+     */
+    public function chkUserSettings($login_id)
+    {
+        $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+        $result = $userSettings ? $userSettings->comment_privacy : false;
+
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function usersTagged()
+    {
+        return $this->belongsToMany(User::class, 'feed_tags', 'feed_id', 'user_id');
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function getPageName($id)
+    {
+        $timeline = Timeline::where('id', $id)->first();
+        $result = $timeline ? $timeline->username : false;
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function deletePageReport($id)
+    {
+        $timeline_report = DB::table('timeline_reports')->where('id', $id)->delete();
+        $result = $timeline_report ? true : false;
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function deleteManageReport($id)
+    {
+        $post_report = DB::table('feed_reports')->where('id', $id)->delete();
+
+        $result = $post_report ? true : false;
+
+        return $result;
+    }
+
+    /**
+     * Get the amount of feeds related to current User.
+     *
+     * @param array $userIds
+     *
+     * @return int
+     */
+    public static function getTotalCountFeedsForUser($userIds)
+    {
         return self::whereIn('user_id', $userIds)->count();
     }
 
+
     /**
      * 2nd arg is parsing the name of  the polymorphic relation
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes() {
-        return $this->morphMany(Like::class, 'likes');
-    }
+    /**
+     * public function likes()
+     * {
+     * return $this->hasMany(Like::class);
+     * }
+     **/
 
     /**
      * Return the id publisher
      * @return mixed
      */
-    public function getFeedId() {
+    public function getFeedId()
+    {
         return $this->id;
     }
 
@@ -94,7 +300,8 @@ class Feed extends Model {
      * Return the timestamps
      * @return array
      */
-    public function getDates() {
+    public function getDates()
+    {
         return ['created_at', 'updated_at'];
     }
 
@@ -102,7 +309,8 @@ class Feed extends Model {
      * Return the First name publisher
      * @return mixed
      */
-    public function getUsernamePublisher() {
+    public function getUsernamePublisher()
+    {
         return $this->poster_username;
     }
 
@@ -110,32 +318,48 @@ class Feed extends Model {
      * Return the Avatar of publisher
      * @return mixed
      */
-    public function getAvatarPublisher() {
+    public function getAvatarPublisher()
+    {
         return $this->poster_profile_image;
     }
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
-    public function getImagePath() {
+    public function getImagePath()
+    {
         return $this->image_url;
     }
 
     /**
      * Return the Image link  of publisher
+     *
      * @return mixed
      */
-    public function getVideoPath() {
+    public function getVideoPath()
+    {
         return $this->video_url;
     }
 
     /**
      * Return the current content body
+     *
      * @return mixed
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->body;
+    }
+
+    /**
+     * Return the current location
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     /**
@@ -143,8 +367,8 @@ class Feed extends Model {
      *
      * @return string
      */
-    public function getPublishAt() {
-
+    public function getPublishAt()
+    {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
 
@@ -153,24 +377,24 @@ class Feed extends Model {
      *
      * @return string
      */
-    public function publishAt() {
-
+    public function publishAt()
+    {
         return $this->created_at->format('d/m/Y');
     }
 
     /**
      * Used to fetch youtube video id
+     *
      * @param $url
      */
-    public static function getYoutubeId($url){
-
+    public static function getYoutubeId($url)
+    {
         $parse = parse_url($url);
 
-        if(!empty($parse['query'])) {
-	          preg_match("/v=([^&]+)/i", $url, $matches);
-	          return $matches[1];
-        }
-        else {
+        if (!empty($parse['query'])) {
+            preg_match("/v=([^&]+)/i", $url, $matches);
+            return $matches[1];
+        } else {
             /**
              * to get basename
              */
@@ -178,5 +402,4 @@ class Feed extends Model {
             return $info['basename'];
         }
     }
-
 }

@@ -137,7 +137,9 @@ return [
         'time'                  => 'time',
         'available'             => 'available',
         'size'                  => 'size',
-        'g-recaptcha-response'  => 'I am not a robot',
+        'recaptcha_response'  => 'I am not a robot',
+        'qdb'                   => 'library',
+        'query'                 => 'of research',
     ],
     'recaptcha' => 'The :attribute field is not correct.',
 

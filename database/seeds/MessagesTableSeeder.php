@@ -1,9 +1,8 @@
 <?php
 
 use Medlib\Models\Message;
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use \Medlib\Models\Conversation;
 
 class MessagesTableSeeder extends Seeder
 {
@@ -14,18 +13,12 @@ class MessagesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-
-        $userIds = DB::table('users')->where('id', '!=', 1)->pluck('id')->toArray();
-
-        foreach (range(1, 25) as $index) {
-
-            Message::create([
-                'body'		=> $faker->sentence(),
-                'senderprofileimage' => $faker->imageUrl($width = 180, $height = 180),
-                'senderid' => $faker->randomElement($userIds),
-                'sendername' => $faker->firstName
-            ]);
-        }
+        factory(Conversation::class, 25)->create()->each(
+            function($conversation) {
+                $conversation->messages()->save(
+                    factory(Message::class)->create()
+                );
+            }
+        );
     }
 }

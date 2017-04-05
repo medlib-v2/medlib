@@ -6,5 +6,5 @@ use Medlib\Models\User;
 
 interface FriendRequestRepository
 {
-	public function getIdsThatSentRequestToCurrentUser($id);
+    public function getIdsThatSentRequestToCurrentUser($id);
 }

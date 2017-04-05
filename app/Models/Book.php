@@ -7,7 +7,8 @@ use Medlib\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model {
+class Book extends Model
+{
 
     /**
      * The database table used by the model.
@@ -16,7 +17,11 @@ class Book extends Model {
      */
     protected $table = 'books';
 
-    protected $guarded = ['id'];
+    //protected $primaryKey = 'book_id';
+
+    protected $guarded = ['book_id'];
+
+    public $incrementing = true;
 
     /**
      * The attributes that are mass assignable.
@@ -62,7 +67,8 @@ class Book extends Model {
      * @param int $book_isbn
      * @return mixed
      */
-    public function getInformationBooksByISBN(int $book_isbn) {
+    public function getInformationBooksByISBN(int $book_isbn)
+    {
         return DB::table('friends')->where('book_isbn', $book_isbn)->first();
     }
 
@@ -71,7 +77,8 @@ class Book extends Model {
      *
      * @return mixed
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -80,8 +87,8 @@ class Book extends Model {
      *
      * @return mixed
      */
-    public function getIsbn() {
-
+    public function getIsbn()
+    {
         return $this->isbn;
     }
 
@@ -90,8 +97,8 @@ class Book extends Model {
      *
      * @return mixed
      */
-    public function getIssn() {
-
+    public function getIssn()
+    {
         return $this->issn;
     }
 }

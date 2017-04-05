@@ -1,0 +1,4 @@
+{
+	"dist": "pubic/js/be-list.counter-control.min.js",
+	"src": ["addons/counter-control/js/counter-view.js"]
+}

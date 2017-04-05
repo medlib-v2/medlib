@@ -5,7 +5,8 @@ namespace Medlib\Http\Controllers\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class ResetPasswordController extends Controller {
+class ResetPasswordController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -16,13 +17,17 @@ class ResetPasswordController extends Controller {
     | explore this trait and override any methods you wish to tweak.
     |
     */
-
     use ResetsPasswords;
 
     /**
-     * Create a new password controller instance.
+     * Where to redirect users after login / registration.
      *
-     * @return void
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * Create a new password controller instance.
      */
     public function __construct()
     {

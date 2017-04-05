@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -13,6 +13,10 @@ return [
     */
 
     'name' => 'Medlib',
+
+    'description' => 'Medlib : Application de recherche bibliothécaire utilisant le protocole de communication Zebra (Z3959)',
+    'author' => 'Patrick Luzolo, Walid Fadlhaoui',
+    'keywords' => 'Medlib : Search, Recherche, Yaz, Z3950, Book, Books',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://medlib.dev'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => env('APP_LOCALE', 'fr'),
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +107,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', '30x6jhsZPmCpAa5LpqFA2QZJMNQkEJ8A'),
+    'key' => env('APP_KEY', 'SomeRandomString'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -121,7 +125,7 @@ return [
     */
 
     'log' => env('APP_LOG', 'single'),
-    
+
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
@@ -165,28 +169,37 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Package Service Providers...
+         */
+        Laravel\Tinker\TinkerServiceProvider::class,
+        NotificationChannels\WebPush\WebPushServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        JsLocalization\JsLocalizationServiceProvider::class,
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
+        McCool\LaravelAutoPresenter\AutoPresenterServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         Medlib\Providers\AppServiceProvider::class,
         Medlib\Providers\AuthServiceProvider::class,
-        //Medlib\Providers\BusServiceProvider::class,
         Medlib\Providers\BroadcastServiceProvider::class,
         Medlib\Providers\EventServiceProvider::class,
         Medlib\Providers\RouteServiceProvider::class,
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
-        Yaz\Services\YazServiceProvider::class,
-        Yaz\Services\QueryServiceProvider::class,
-        Medlib\MarcXML\ParserServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
+        Medlib\Providers\DebugbarServiceProvider::class,
+        Medlib\Yaz\Providers\YazServiceProvider::class,
+        Medlib\MarcXML\Providers\ParserServiceProvider::class,
+        Medlib\BookCover\Services\CoverServiceProvider::class,
 
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        
         /*
          * Laravel Collective Service Providers...
          */
-        //Collective\Bus\BusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
     ],
@@ -207,6 +220,7 @@ return [
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         'Auth'      => Illuminate\Support\Facades\Auth::class,
         'Blade'     => Illuminate\Support\Facades\Blade::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus'       => Illuminate\Support\Facades\Bus::class,
         'Cache'     => Illuminate\Support\Facades\Cache::class,
         'Config'    => Illuminate\Support\Facades\Config::class,
@@ -243,11 +257,15 @@ return [
         'Yaz'       => Yaz\Facades\Yaz::class,
         'Query'     => Yaz\Facades\Query::class,
         'MarcXML'   => Medlib\MarcXML\MarcXML::class,
+        'Cover'     => Medlib\BookCover\Facades\Cover::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Youtube'   => Alaouy\Youtube\Facades\Youtube::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

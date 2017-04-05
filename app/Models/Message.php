@@ -2,11 +2,12 @@
 
 namespace Medlib\Models;
 
-use Medlib\Models\User;
-use Medlib\Models\MessageResponse;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model {
+class Message extends Model
+{
 
     /**
      * The database table used by the model.
@@ -18,78 +19,109 @@ class Message extends Model {
     /**
      * These fields could be mass assigned
      */
-    protected $fillable = ['user_id', 'body', 'senderid', 'senderprofileimage', 'sendername'];
+    protected $fillable = [
+        'body',
+        'sender_id',
+        'receiver_id',
+        'conversation_id'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     /**
      * A message belongs to Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users() {
 
+    public function users()
+    {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     /**
-     *  Create a new message object.
-     *
-     *	@param string $body
-     *	@param int $senderId
-     *	@param string $senderProfileImage
-     *	@param string $senderName
-     *
-     *	@return static
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public static function createMessage($body, $senderId, $senderProfileImage, $senderName)
+    public function user()
     {
-        $message = new static([
+        return $this->belongsTo(User::class);
+    }
+
+
+    /**
+     * A Message be longs to message conversation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class, 'conversation_id', 'id');
+    }
+
+    /**
+     * Create a new message object.
+     *
+     * @param string $body
+     * @param int $sender_id
+     * @param int $receiver_id
+     * @param int $conversation_id
+     *
+     * @return Model
+     */
+    public static function createMessage($body, $sender_id, $receiver_id, $conversation_id)
+    {
+        $message = static::create([
             'body' => $body,
-            'senderid' => $senderId,
-            'senderprofileimage' => $senderProfileImage,
-            'sendername' => $senderName]);
+            'sender_id' => $sender_id,
+            'receiver_id' => $receiver_id,
+            'conversation_id' => $conversation_id
+        ]);
 
         return $message;
     }
 
     /**
-     * A Message has a many message responses.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function messageResponses()
-    {
-        return $this->hasMany(MessageResponse::class)->orderBy('created_at', 'desc');
-    }
-
-    /**
-     * Get the last receiver id from the first response attached to an message.
-     *
-     * @return mixed
-     */
-    public function getLastReceiverId()
-    {
-        return $this->messageResponses()->first()->receiverid;
-    }
-
-    /**
      * Determine if a message belongs to a user.
      *
-     * @param int $userId
+     * @param int $user_id
      *
      * @return mixed
      */
-    public function belongsToUser($userId)
+    public function belongsToUser($user_id)
     {
         $users = $this->users()->get();
 
-        $userIds = [];
+        $user_ids = [];
 
         foreach ($users as $user) {
-
-            $userIds[] = $user->id;
+            $user_ids[] = $user->id;
         }
 
-        return in_array($userId, $userIds);
+        return in_array($user_id, $user_ids);
     }
 
+    /**
+     * @param $date
+     * @return mixed
+     */
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->copy()->tz(Auth::user()->timezone)->format('Y-m-d\TH:i:s\Z');
+    }
+
+    /**
+     * @param $date
+     * @return mixed
+     */
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d\TH:i:s\Z');
+    }
 }

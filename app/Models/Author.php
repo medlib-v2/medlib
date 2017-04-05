@@ -6,7 +6,8 @@ use Medlib\Models\Book;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model {
+class Author extends Model
+{
 
     /**
      * The database table used by the model.
@@ -27,7 +28,8 @@ class Author extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function books() {
+    public function books()
+    {
         return $this->belongsToMany(Book::class, 'book_author');
         //return $this->hasMany(Medlib\Models\Book::class);
     }
@@ -40,8 +42,8 @@ class Author extends Model {
      * @param $biography
      * @return static
      */
-    public static function register($first_name, $last_name, $biography) {
-
+    public static function register($first_name, $last_name, $biography)
+    {
         $author = new static(compact('first_name', 'last_name', 'biography'));
 
         return $author;
@@ -51,14 +53,13 @@ class Author extends Model {
      * Return the name of this current user
      * @return null|string
      */
-    public function getName() {
-
-        if($this->first_name && $this->last_name) {
-
+    public function getName()
+    {
+        if ($this->first_name && $this->last_name) {
             return Str::ucfirst($this->first_name)." ".Str::upper($this->last_name);
         }
 
-        if($this->first_name) {
+        if ($this->first_name) {
             return Str::ucfirst($this->first_name);
         }
 
@@ -70,8 +71,8 @@ class Author extends Model {
      *
      * @return string
      */
-    public function getBiography() {
-
+    public function getBiography()
+    {
         return $this->biography;
     }
 }

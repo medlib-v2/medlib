@@ -12,13 +12,15 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function(Blueprint $table)
-        {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->text('body');
-            $table->integer('senderid');
-            $table->string('sendername');
-            $table->string('senderprofileimage');
+            $table->integer('sender_id')->unsigned()->index();
+            $table->foreign('sender_id')->references('id')->on('users');
+            $table->integer('receiver_id')->unsigned()->index();
+            $table->foreign('receiver_id')->references('id')->on('users');
+            $table->integer('conversation_id')->unsigned()->index();
+            $table->foreign('conversation_id')->references('id')->on('conversations');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('messages');
+        Schema::dropIfExists('messages');
     }
 }

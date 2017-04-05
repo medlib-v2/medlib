@@ -8,11 +8,15 @@
 
 Homestead.yaml
 Homestead.json
-composer.lock
 common.js
 .env
+.env.save
+.env.prev
 .env.testing
+.netbeans.xml
 .DS_Store
 ._.DS_Store
 ._*
-readme.md
+dump.rdb
+2package.json
+server-io.json

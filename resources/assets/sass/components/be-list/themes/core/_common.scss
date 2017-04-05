@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/**
+* be-list-control
+*/
+@mixin be-list-control-mixin {
+	float: left;
+	height: 30px;
+
+	@include border-box-mixin;
+	border: none;
+	color: $black1;
+}
+
+
+@mixin be-list-drop-down-mixin {
+	float: left;
+	height: 30px;
+	box-shadow: 0 0 1px #fff;
+	background: #fff;
+
+	@include border-box-mixin;
+	border: 1px solid $light-grey5;
+	border-radius: 3px;
+
+	text-shadow: 1px 1px 1px #fff;
+	color: $black1;
+}
+
+
+/**
+* be-list inner control - like label or checkbox inside group
+*/
+@mixin be-list-inner-control-mixin {
+	float: left;
+	display: inline-block;
+	height: 30px;
+	background: #fff;	
+	@include border-box-mixin;
+	color: $black1;
+}
+
+
+/**
+* be-list control gradient
+*/
+@mixin be-list-control-gradient-mixin{
+	@include linear-gradient(#fff, #fff, $light-grey4); //bgcolor, from, to
+}

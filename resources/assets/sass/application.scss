@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+// Global fonts
+@import "fonts/fonts";
+
+// Variables
+@import "utilities/all";
+
+@import "base/all";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "elements/all";
+
+// Bootstrap override
+@import "bootstrap/all";
+
+@import "components/all";
+
+@import "layout/all";
+
+@import '~nprogress/nprogress.css';

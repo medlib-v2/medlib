@@ -2,7 +2,7 @@
 <div class="boxed-group col-xs-12 col-sm-7 col-md-9">
     <!-- echo out the system feedback (error and success messages) -->
     <div class="panel panel-default">
-        <div class="list-group-item active"> E-mail</div>
+        <div class="list-group-item active"><span class="menu-heading"> E-mail</span></div>
         <div class="list-group-item">
             <div id="settings-emails" class="boxed-group-list standalone">
                 <p class="clearfix settings-email primary ">

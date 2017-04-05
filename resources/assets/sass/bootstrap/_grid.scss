@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+/**
+* - Bootstrap grid
+*/
+
+.row {
+
+	@include small-phone {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+}

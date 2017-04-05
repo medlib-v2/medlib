@@ -1,0 +1,8 @@
+{
+	"dist": "public/js/be-list.plugin.animation.min.js",
+	"src": [
+		"plugins/animation/js/animation.js",
+		"plugins/animation/js/timeline.js",
+		"plugins/animation/js/effects/fade.js"
+	]
+}

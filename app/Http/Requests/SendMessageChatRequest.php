@@ -4,14 +4,16 @@ namespace Medlib\Http\Requests;
 
 use Medlib\Http\Requests\Request;
 
-class SendMessageChatRequest extends Request {
+class SendMessageChatRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -20,12 +22,11 @@ class SendMessageChatRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
-
+    public function rules()
+    {
         return [
-            'receiverId' => 'required',
+            'receiver_id' => 'required',
             'message' => 'required'
         ];
     }
-
 }

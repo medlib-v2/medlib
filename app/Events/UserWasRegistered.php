@@ -2,14 +2,12 @@
 
 namespace Medlib\Events;
 
-
 use Medlib\Models\User;
 use Medlib\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserWasRegistered extends Event {
-
+class UserWasRegistered extends Event
+{
     use SerializesModels;
 
     /**
@@ -22,8 +20,10 @@ class UserWasRegistered extends Event {
      *
      * @param \Medlib\Models\User $user
      *
+     * @internal param $token
      */
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->user = $user;
     }
 
@@ -32,7 +32,8 @@ class UserWasRegistered extends Event {
      *
      * @return array
      */
-    public function broadcastOn() {
+    public function broadcastOn()
+    {
         return [];
     }
 }

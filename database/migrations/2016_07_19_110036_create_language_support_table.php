@@ -12,8 +12,7 @@ class CreateLanguageSupportTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function($table)
-        {
+        Schema::create('languages', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->string('locale');
@@ -27,6 +26,6 @@ class CreateLanguageSupportTable extends Migration
      */
     public function down()
     {
-        Schema::drop('languages');
+        Schema::dropIfExists('languages');
     }
 }

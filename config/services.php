@@ -48,9 +48,9 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('FACEBOOK_OAUTH_REDIRECT'),
+        'client_id' => env('FACEBOOK_CLIENT_ID', '134082923278322'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET', 'd79acee3dfdc64722a33d8be62d4f18c'),
+        'redirect' => env('FACEBOOK_OAUTH_REDIRECT', 'https://medlib.fr/auth/facebook/callback'),
     ],
 
     'linkedin' => [
@@ -58,5 +58,8 @@ return [
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
         'redirect' => env('LINKEDIN_OAUTH_REDIRECT'),
     ],
-
+    'gcm' => [
+        'key' => env('GCM_KEY'),
+        'sender_id' => env('GCM_SENDER_ID'),
+    ],
 ];

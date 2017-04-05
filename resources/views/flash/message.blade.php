@@ -47,3 +47,7 @@
             <p>{{Session::get('message')}}</p>
     </div>
 @endif
+
+@if (Auth::check())
+    <div id="socket_offline"></div>
+@endif

@@ -2,25 +2,16 @@
 
 @section('title', 'Page not found')
 
+@section('class') container-fluid be-error-404 @endsection
+
 @section('content')
-    <div class="container">
-        <main id="content" class="error-container" role="main">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 col-xs-10 col-lg-offset-4 col-sm-offset-3 col-xs-offset-1">
-                    <div class="error-container">
-                        <h1 class="error-code">404</h1>
-                        <p class="error-info">
-                            Opps, it seems that this page does not exist.
-                        </p>
-                        <p class="error-help mb">
-                            If you are sure it should, search for it.
-                        </p>
-                        <div class="form-group">
-                            <!--<input class="form-control input-no-border" type="text" placeholder="Search Pages">-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+    <main id="content" class="error-container" role="main">
+        <section class="error-container">
+            <div class="error-number">404</div>
+            <div class="error-description">Opps, il semble que cette page n'existe pas.</div>
+            <div class="error-goback-text">Would you like to go home?</div>
+            <div class="error-goback-button"><a href="{{ route('home') }}" class="btn btn-xl btn-primary">Let's go home</a></div>
+        </section>
+    </main>
 @endsection
+

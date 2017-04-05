@@ -12,8 +12,7 @@ class CreateBooksMediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('books_media', function(Blueprint $table){
-
+        Schema::create('books_media', function (Blueprint $table) {
             $table->increments('media_id');
             $table->string('media_url');
             $table->dateTime('created_at');
@@ -30,6 +29,6 @@ class CreateBooksMediaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('books_media');
+        Schema::dropIfExists('books_media');
     }
 }

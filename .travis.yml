@@ -1,25 +1,23 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
-  - hhvm
-
+  
 env:
   global:
     - setup=basic
 
 matrix:
   include:
-    - php: 5.6
+    - php: 7.1
       env: setup=lowest
-    - php: 5.6
+    - php: 7.1
       env: setup=stable
 
 ## Cache composer directories
 cache:
   directories:
+    - $HOME/.composer/cache
     - node_modules # NPM packages
     - vendor
 
@@ -27,46 +25,60 @@ branches:
   - master
   - develop
 
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
 #Start MySQL
 sudo: required
 services:
   - mysql
+  - redis-server
 
 # Setting up pre-requirements
 before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - git clone git://github.com/medlib-v2/test-unit.git tests
   - cp .env.travis .env
   - rm -rf .env.testing
+  - touch database/database.sqlite
   - mysql -e 'create database if not exists medlib_test;'
   - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension=imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo apt-get install yaz libyaz4 libyaz4-dev
   - printf "\n" | pecl install yaz
-  - npm i maildev
+  - printg "\n" | pecl install imagick
+  - npm install -g maildev
+  - npm install -g yarn
   - travis_retry composer self-update
-  - travis_retry node_modules/maildev/bin/maildev 1&2>/dev/null
+  - maildev &2>/dev/null
 
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  #- npm install
-  #- composer.phar install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader # Production mode installation
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-scripts --prefer-dist --no-interaction --prefer-dist --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-scripts --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
-  #- php artisan migrate
-  #- php artisan db:seed
-  - php artisan medlib:init
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-ansi --no-scripts --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --no-ansi --no-scripts --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --no-ansi --no-scripts --no-interaction --prefer-lowest --no-suggest; fi
+  - php artisan key:generate
+  - php artisan migrate --seed --env="testing"
+  - make file-permission
+  - sleep 5
+  - npm install
+  - node server.js strat &2>/dev/null
 
 script:
-  #- phpunit
-  - php artisan test:run
-  #- npm test
-
+  - make cs
+  - make test
 
 matrix:
   allow_failures:
     - php: 7.1
-    - php: hhvm
   fast_finish: true
+
+after_success:
+  - npm run report-coverage

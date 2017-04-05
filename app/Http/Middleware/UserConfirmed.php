@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Mail;
 
-class UserConfirmed {
+class UserConfirmed
+{
 
     /**
      * The Guard implementation.
@@ -38,18 +39,20 @@ class UserConfirmed {
         $user = $this->auth->getUser();
         $confirmed = $user->user_active;
 
-        if (isset($confirmed) && $confirmed == "0")
-        {
-            // If the user has not had an activation token set
+        if (isset($confirmed) && $confirmed == "0") {
+            /**
+             * If the user has not had an activation token set
+             */
             $confirmation_code = $user->confirmation_code;
 
-            if (empty($confirmation_code))
-            {
-                // generate a confirmation code
+            if (empty($confirmation_code)) {
+                /**
+                 * Generate a confirmation code
+                 */
                 $confirmation_code = hash_hmac('sha256', str_random(40), $user->email);
                 $user->confirmation_code = $confirmation_code;
                 $user->save();
-                Mail::send('auth.email.verify', ['token' => $confirmation_code, 'username' => $user->username], function($message) use ($user){
+                Mail::send('auth.email.verify', ['token' => $confirmation_code, 'username' => $user->username], function ($message) use ($user) {
                     $message->to($user->getEmailForPasswordReset(), $user->username)
                         ->subject('Activate your Notify account');
                 });

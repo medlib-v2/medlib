@@ -1,6 +1,6 @@
 @if(isset($filter['format']))
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="panel panel-default panel-border-color panel-border-color-primary">
+    <div class="panel-heading panel-heading-divider">
         <h3 class="panel-title">{{ trans('search.txt.format') }}</h3>
     </div>
     <div class="panel-body">
@@ -116,8 +116,8 @@
     </div>
 </div>
 @endif
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="panel panel-default panel-border-color panel-border-color-primary">
+    <div class="panel-heading panel-heading-divider">
         <h3 class="panel-title">{{ trans('search.txt.refine') }}</h3>
     </div>
     <div class="panel-body">

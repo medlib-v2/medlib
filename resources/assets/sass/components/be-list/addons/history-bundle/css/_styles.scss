@@ -1,0 +1,18 @@
+/**
+* import files
+*/
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
+
+/**
+* reset box and button
+*/
+@mixin reset-btn-mixin {
+
+    .be-ist-reset-btn {
+		width: 75px;
+    }
+}
+
+@include reset-btn-mixin;

@@ -1,0 +1,23 @@
+<template lang="html">
+    <div class="alert alert-success" v-if="form.successful">
+        <button v-if="dismissible" type="button" class="close" aria-label="Close" @click="dismiss">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <div v-html="message"></div>
+    </div>
+</template>
+
+<script type="text/babel">
+    import Alert from './Alert'
+    export default {
+        extends: Alert,
+        name: 'alert-success',
+        props: {
+            message: {
+                type: String,
+                required: true
+            }
+        }
+    }
+</script>

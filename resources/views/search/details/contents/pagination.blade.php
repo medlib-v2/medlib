@@ -5,7 +5,7 @@
                 <td class="col-md-6">
                     <div class="dataTables_info" id="datatable-table_info" role="status" aria-live="polite">
                         <!-- pagination results -->
-                        <div class="jplist-label no-style"><a href="javascript:void(0);" onclick="goBack();"><span><< Retourner aux résultats</span></a> </div>
+                        <div class="be-list-label no-style"><a href="javascript:void(0);" onclick="goBack();"><span><< Retourner aux résultats</span></a> </div>
                     </div>
                 </td>
                 <!-- Begin Paginate -->

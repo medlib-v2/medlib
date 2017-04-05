@@ -1,0 +1,77 @@
+/**
+* import files
+*/
+@import "../../../themes/core/helpers";
+@import "../../../themes/core/vars";
+@import "../../../themes/core/common";
+
+/**
+* list/grid view control
+*/
+.list-grid-view-mixin(){
+	
+	.be-list-panel{
+	
+		.be-list-views{
+			float: left;
+
+			.be-list-view{
+				.be-list-control-mixin();
+				cursor: pointer;
+				width: 32px;
+			}
+			
+			.be-list-list-view{
+				background: url("#{$list-btn}") no-repeat 50% 50%;
+			}
+
+			.be-list-grid-view{
+				background: url("#{$grid-btn-disabled}") no-repeat 50% 50%;
+			}
+			
+			.be-list-thumbs-view{
+				background: url("#{$thumbs-btn-disabled}") no-repeat 50% 50%;
+			}
+		}		
+	}
+	
+	.be-list-grid-view{
+		.be-list-panel{
+			.be-list-views{
+			   
+			    .be-list-list-view{
+					background: url("#{$list-btn-disabled}") no-repeat 50% 50%;
+			    }
+
+			    .be-list-grid-view{
+					background: url("#{$grid-btn}") no-repeat 50% 50%;
+			    }
+				
+				.be-list-thumbs-view{
+					background: url("#{$thumbs-btn-disabled}") no-repeat 50% 50%;
+				}
+		   }
+	   }
+	}
+	
+	.be-list-thumbs-view{
+		.be-list-panel{
+			.be-list-views{
+			   
+			    .be-list-list-view{
+					background: url("#{$list-btn-disabled}") no-repeat 50% 50%;
+			    }
+
+			    .be-list-grid-view{
+					background: url("#{$grid-btn-disabled}") no-repeat 50% 50%;
+			    }
+				
+				.be-list-thumbs-view{
+					background: url("#{$thumbs-btn}") no-repeat 50% 50%;
+				}
+		   }
+	   }
+	}
+}
+
+@include list-grid-view-mixin;

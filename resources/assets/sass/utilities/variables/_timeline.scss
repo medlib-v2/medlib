@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+//Timeline
+$timeline-max-width:                    840px;
+$timeline-left-padding:                 210px;
+$timeline-vbar-position: 			    $timeline-left-padding - 40px;// From timeline-item element to left
+$timeline-margin-helper:			    10px; //Helper to thumbnails whitout damage timeline content size
+$timeline-avatar-size: 				    35px;
+$timeline-content-min-height:           85px;
+$timeline-header-line-height:           21px;
+$timeline-header-padding-top:           ($timeline-avatar-size - $timeline-header-line-height) / 2;
+$timeline-content-vpadding: 	        25px;
+$timeline-date-width: 				    $timeline-vbar-position - 25px;
+$timeline-date-position: 			    ceil($timeline-content-vpadding + $timeline-header-padding-top) + 2px;
+$timeline-tail-size: 					10px;
+$timeline-tail-position:			    ceil($timeline-content-min-height - $timeline-tail-size) / 2;
+$timeline-bubble-size:				    16px;
+$timeline-bubble-position:		        ceil($timeline-content-min-height - $timeline-bubble-size) / 2;
+$timeline-icon-size:					44px;
+$timeline-icon-border-width:	        2px;
+$timeline-icon-position:			    floor(($timeline-content-min-height - $timeline-icon-size) / 2);

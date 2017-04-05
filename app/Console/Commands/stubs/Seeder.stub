@@ -1,0 +1,21 @@
+<?php
+
+use {{use_path}}{{model_singular}};
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class {{model_plural}}TableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('{{table_model_plural_lowercase}}')->delete();
+
+        $collection = [
+
+        ];
+
+        foreach ($collection as $record) {
+            {{model_singular}}::create($record);
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+	"dist": "public/js/be-list.history-bundle.min.js",
+	"src": [
+		"resources/assets/sass/components/be-list/addons/history-bundle/js/back-button/back-button-view.js",
+		"resources/assets/sass/components/be-list/addons/history-bundle/js/reset/reset-view.js"
+	]
+}

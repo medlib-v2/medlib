@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+//Invoice
+$invoice-page-padding:					100px 100px 70px;
+$invoice-tablet-padding:				50px 50px 35px;
+$invoice-small-phone-padding:			35px 25px 15px;
+$invoice-logo-height:					$logo-height * 2;
+$invoice-logo-width:					$logo-width * 2;
+$invoice-logo-small-height:				$logo-height;
+$invoice-logo-small-width:				$logo-width;
+$invoice-header-margin:					100px;
+$invoice-id-font-size:					30px;
+$invoice-id-lineheight:					$invoice-id-font-size;
+$invoice-data-margin:					110px;
+$invoice-person-font-size:				18px;
+$invoice-person-lineheight:				26px;
+$invoice-direction-height:				130px;
+$invoice-direction-bubble-size:			80px;
+$invoice-details-font-size:				16px;
+$invoice-payment-font-size:				18px;
+$invoice-payment-lineheight:			26px;
+$invoice-payment-margin:				75px;
+$invoice-message-font-size:				16px;
+$invoice-message-lineheight:			26px;
+$invoice-message-margin:				62px;
+$invoice-company-info-margin:			0px;
+$invoice-footer-button-font-size:		14px;

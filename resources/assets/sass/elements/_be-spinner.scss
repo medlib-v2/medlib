@@ -1,0 +1,38 @@
+.be-spinner {
+  margin: 25px auto;
+  text-align: center;
+  .be-beat {
+    -webkit-animation: be-beat-stretch-delay 0.7s infinite linear;
+    animation: be-beat-stretch-delay 0.7s infinite linear;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+  }
+  .be-beat-odd {
+    animation-delay: 0s;
+  }
+  .be-beat-even {
+    animation-delay: 0.35s;
+  }
+}
+
+@-webkit-keyframes be-beat-stretch-delay {
+  50% {
+    @include transform(scale(0.75));
+    @include opacity(0.2);
+  }
+  100% {
+    @include transform(scale(1));
+    @include opacity(1);
+  }
+}
+@keyframes be-beatStretchDelay {
+  50% {
+    @include transform(scale(0.75));
+    @include opacity(0.2);
+  }
+  100% {
+    @include transform(scale(1));
+    @include opacity(1);
+  }
+}

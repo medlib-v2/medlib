@@ -1,7 +1,7 @@
 <td class="spacer"></td>
 <td class="content">
-    <div id="pagination" class="jplist">
-        <div class="jplist-panel panel-top">
+    <div id="pagination" class="be-list">
+        <div class="be-list-panel panel-top">
             <!-- Begin results info -->
             @include('search.contents.pagination')
             <!-- End results info -->

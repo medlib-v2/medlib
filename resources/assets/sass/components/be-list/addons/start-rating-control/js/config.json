@@ -1,0 +1,4 @@
+{
+	"dist": "public/js/be-list.start-rating-control.min.js",
+	"src": ["addons/start-rating-control/js/star-rating-view.js"]
+}

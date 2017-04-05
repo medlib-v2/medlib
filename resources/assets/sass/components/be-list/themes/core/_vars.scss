@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+/**
+* colors
+*/
+$white:  		#ffffff;
+$white1: 		#f4f4f4;
+$white2: 		#f9f9f9;
+$white3: 		#fcfcfc;
+$black:         #000000;
+$black1: 		#27252a;
+$black2: 		#111111;
+$blue: 			#0381bb;
+$blue1: 		#243D99;
+$blue2: 		#17161B;
+$blue3: 		#2B6789;
+$dark-blue: 	#464a56;
+$blue-grey:     #5f7c8a;
+$light-blue2: 	#9FC2CE;
+$light-blue: 	#85baf7;
+$light-blue3: 	#F8F8FF;
+$light-blue1: 	#E8EFF9;
+$cyan:  		#00bbd3;
+$teal:          #009587;
+$red: 			#8E3D3D;
+$red1: 			#CA3F1A;
+$pink: 			#e81d62;
+$purple: 		#9b26af;
+$deep-purple: 	#6639b6;
+$indigo: 		#445870;
+$green: 		#0C5F1F;
+$light-green:   #8ac249;
+$lime:          #ccdb38;
+$yellow:        #feea3a;
+$yellow3: 		#FFD800;
+$yellow2: 		#CCBDA1;
+$yellow1: 		#E0D7C5;
+$amber:         #fec006;
+$orange: 		#f03800;
+$deep-orange:   #fe5621;
+$light-orange: 	#fca185;
+$brown: 		#440e00;
+$brown2: 		#8A2800;
+$brown1:        #785447;
+$grey: 			#c4c4c4;
+$grey1: 		#cccccc;
+$grey2: 		#bbbbbb;
+$grey3: 		#999999;
+$dark-grey: 	#505050;
+$dark-grey1: 	#6c6c6c;
+$light-grey: 	#f1f1f1;
+$light-grey1: 	#DAE3EC;
+$light-grey2: 	#e3e3e3;
+$light-grey3: 	#ececec;
+$light-grey4: 	#efefef;
+$light-grey5: 	#dbdbdb;
+$light-grey6: 	#fcfcfc;
+$light-grey7: 	#e1e1e1;
+$light-grey8: 	#999999;
+
+/**
+* fonts
+*/
+$arial: Arial,Helvetica,sans-serif;
+$verdana: verdana;
+$courier: "Courier New", Courier, monospace;
+$lato: 'Lato', sans-serif;
+
+.lato{
+	font-family: $lato;
+}
+
+/**
+* special characters
+*/
+$arrow-down: '\25BC';
+
+/**
+* background images
+*/
+$black-bg: "../images/common/black-bg.png";
+
+/**
+* icons
+*/
+$github-icon: "../images/common/github.png";
+$download-icon: "../images/common/download.png";
+$paypal-icon: "../images/common/paypal.png";
+$codecanyon-icon: "../images/common/codecanyon.png";
+$next-blue-icon: "../images/common/next-blue.png";
+$next-orange-icon: "../images/common/next-orange.png";
+$next-icon: "../images/common/next.png";
+$list-btn: "../images/icons/list-btn.png";
+$grid-btn-disabled: "../images/icons/grid-btn-disabled.png";
+$thumbs-btn-disabled: "../images/icons/thumbs-btn-disabled.png";
+$list-btn-disabled: "../images/icons/list-btn-disabled.png";
+$grid-btn: "../images/icons/grid-btn.png";
+$thumbs-btn: "../images/icons/thumbs-btn.png";
