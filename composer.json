@@ -19,7 +19,7 @@
         "medlib/marcxml": "~1.2",
         "medlib/cover": "~1.0",
         "mccool/laravel-auto-presenter": "^4.3",
-        "danmichaelo/quitesimplexmlelement": "~0.2.4",
+        "danmichaelo/quitesimplexmlelement": "^0.4.2",
         "greggilbert/recaptcha": "^2.1",
         "nesbot/Carbon": "^1.21",
         "intervention/image": "dev-master",
