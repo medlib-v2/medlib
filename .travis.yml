@@ -1,8 +1,6 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
 
 env:
@@ -11,9 +9,9 @@ env:
 
 matrix:
   include:
-    - php: 5.6
+    - php: 7.1
       env: setup=lowest
-    - php: 5.6
+    - php: 7.1
       env: setup=stable
 
 ## Cache composer directories
@@ -55,6 +53,7 @@ before_install:
   - printf "\n" | pecl install yaz
   - printg "\n" | pecl install imagick
   - npm install -g maildev
+  - npm install -g yarn
   - travis_retry composer self-update
   - maildev &2>/dev/null
 
