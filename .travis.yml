@@ -55,7 +55,7 @@ before_install:
   - printf "\n" | pecl install yaz
   - npm install -g maildev
   - travis_retry composer self-update
-  - travis_retry maildev > /dev/null 2>&1
+  - maildev > /dev/null 2>&1
 
 install:
   - . $HOME/.nvm/nvm.sh
