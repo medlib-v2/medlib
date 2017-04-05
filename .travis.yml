@@ -53,7 +53,7 @@ before_install:
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo apt-get install yaz libyaz4 libyaz4-dev
   - printf "\n" | pecl install yaz
-  - sudo npm install -g maildev
+  - npm install -g maildev
   - travis_retry composer self-update
   - travis_retry maildev > /dev/null 2>&1
 
