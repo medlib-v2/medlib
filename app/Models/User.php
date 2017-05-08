@@ -17,6 +17,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SqlMigrations
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
+ * @SuppressWarnings("PHPMD.ExcessivePublicCount")
+ */
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable, HasPushSubscriptions, SoftDeletes;
@@ -231,10 +240,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function ownPages()
     {
-        $admin_role_id = Role::where('name', '=', 'admin')->first();
-        $own_pages = $this->pages()->where('role_id', $admin_role_id->id)->where('page_user.active', 1)->get();
+        $adminRoleId = Role::where('name', '=', 'admin')->first();
+        $ownPages = $this->pages()->where('role_id', $adminRoleId->id)->where('page_user.active', 1)->get();
 
-        $result = $own_pages ? $own_pages : false;
+        $result = $ownPages ? $ownPages : false;
 
         return $result;
     }
@@ -244,10 +253,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function ownGroups()
     {
-        $admin_role_id = Role::where('name', '=', 'admin')->first();
-        $own_groups = $this->groups()->where('role_id', $admin_role_id->id)->where('status', 'approved')->get();
+        $adminRoleId = Role::where('name', '=', 'admin')->first();
+        $ownGroups = $this->groups()->where('role_id', $adminRoleId->id)->where('status', 'approved')->get();
 
-        $result = $own_groups ? $own_groups : false;
+        $result = $ownGroups ? $ownGroups : false;
 
         return $result;
     }
@@ -305,22 +314,32 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @param string $username
      * @param string $email
      * @param string $password
-     * @param string $first_name
-     * @param string $last_name
+     * @param string $firstName
+     * @param string $lastName
      * @param string $profession
      * @param string $location
-     * @param string $date_of_birth
+     * @param string $dateOfBirth
      * @param string $gender
      * @param string $activated
-     * @param string $account_type
+     * @param string $accountType
      *
      * @return User $user
      */
-    public static function register($username, $email, $password, $first_name, $last_name, $profession, $location, $date_of_birth, $gender, $activated, $account_type)
+    public static function register($username, $email, $password, $firstName, $lastName, $profession, $location, $dateOfBirth, $gender, $activated, $accountType)
     {
-        $user = new static(
-            compact('username', 'email', 'password', 'first_name', 'last_name', 'profession', 'location', 'date_of_birth', 'gender', 'activated', 'account_type')
-        );
+        $user = new static([
+            'username' => $username,
+            'email' => $email,
+            'password' => $password,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'profession' => $profession,
+            'location' => $location,
+            'date_of_birth' => $dateOfBirth,
+            'gender' => $gender,
+            'activated' => $activated,
+            'account_type' => $accountType
+        ]);
 
         return $user;
     }
@@ -328,23 +347,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * Add a friend to a user.
      *
-     * @param int $requester_user_id
+     * @param int $requesterUserId
      * @return mixed
      */
-    public function createFriendShipWith($requester_user_id)
+    public function createFriendShipWith(int $requesterUserId)
     {
-        return $this->friends()->attach($requester_user_id, ['requested_id' => $this->id, 'requester_id' => $requester_user_id]);
+        return $this->friends()->attach($requesterUserId, ['requested_id' => $this->id, 'requester_id' => $requesterUserId]);
     }
 
     /**
      * Remove a friend from a user.
      *
-     * @param int $requester_user_id
+     * @param int $requesterUserId
      * @return mixed
      */
-    public function finishFriendshipWith($requester_user_id)
+    public function finishFriendshipWith(int $requesterUserId)
     {
-        return $this->friends()->detach($requester_user_id, ['requested_id' => $this->id, 'requester_id' => $requester_user_id]);
+        return $this->friends()->detach($requesterUserId, ['requested_id' => $this->id, 'requester_id' => $requesterUserId]);
     }
 
     /**
@@ -362,37 +381,37 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * Determine if current user is friends with another user.
      *
-     * @param int $otherUser_id
+     * @param int $otherUserId
      * @return boolean
      */
-    public function isFriendsWith($otherUser_id)
+    public function isFriendsWith(int $otherUserId)
     {
         $currentUserFriends = DB::table('friends')->where('requester_id', $this->id)->pluck('requested_id')->toArray();
-        return in_array($otherUser_id, $currentUserFriends);
+        return in_array($otherUserId, $currentUserFriends);
     }
 
     /**
      * Determine if current user has sent a friend request to another user.
      *
-     * @param int $otherUser_id
+     * @param int $otherUserId
      * @return boolean
      */
-    public function sentFriendRequestTo($otherUser_id)
+    public function sentFriendRequestTo(int $otherUserId)
     {
         $friendRequestedByCurrentUser = DB::table('friend_requests')->where('requester_id', $this->id)->pluck('user_id')->toArray();
-        return in_array($otherUser_id, $friendRequestedByCurrentUser);
+        return in_array($otherUserId, $friendRequestedByCurrentUser);
     }
 
     /**
      * Determine if current user has received a friend request from another user.
      *
-     * @param int $otherUser_id
+     * @param int $otherUserId
      * @return boolean
      */
-    public function receivedFriendRequestFrom($otherUser_id)
+    public function receivedFriendRequestFrom($otherUserId)
     {
         $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->pluck('requester_id')->toArray();
-        return in_array($otherUser_id, $friendRequestsReceivedByCurrentUser);
+        return in_array($otherUserId, $friendRequestsReceivedByCurrentUser);
     }
 
     /**
@@ -496,7 +515,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * Get the administrator flag for the user.
      *
-     * @return bool
+     * @return string
      */
     public function getFullNameAttribute()
     {
@@ -632,19 +651,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getReportsCount()
     {
-        $post_reports = DB::table('post_reports')->get();
-        $timeline_reports = DB::table('timeline_reports')->get();
-        $result1 = count($post_reports);
-        $result2 = count($timeline_reports);
+        $postReports = DB::table('post_reports')->get();
+        $timelineReports = DB::table('timeline_reports')->get();
+        $result1 = count($postReports);
+        $result2 = count($timelineReports);
 
         return $result1 + $result2;
     }
 
-    public function updateFollowStatus($user_id)
+    /**
+     * @param int $userId
+     * @return bool|int
+     */
+    public function updateFollowStatus(int $userId)
     {
-        $chk_user = DB::table('followers')->where('follower_id', $user_id)->where('followee_id', Auth::user()->id)->first();
-        if ($chk_user->status == 'pending') {
-            $result = DB::table('followers')->where('follower_id', $user_id)->where('followee_id', Auth::user()->id)->update(['status' => 'approved']);
+        $chkUser = DB::table('followers')->where('follower_id', $userId)->where('followee_id', Auth::user()->id)->first();
+        if ($chkUser->status == 'pending') {
+            $result = DB::table('followers')->where('follower_id', $userId)->where('followee_id', Auth::user()->id)->update(['status' => 'approved']);
         }
 
         $result = $result ? true : false;
@@ -652,11 +675,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $result;
     }
 
-    public function decilneRequest($user_id)
+    /**
+     * @param int $userId
+     * @return bool|int
+     */
+    public function decilneRequest(int $userId)
     {
-        $chk_user = DB::table('followers')->where('follower_id', $user_id)->where('followee_id', Auth::user()->id)->first();
-        if ($chk_user->status == 'pending') {
-            $result = DB::table('followers')->where('follower_id', $user_id)->where('followee_id', Auth::user()->id)->delete();
+        $chkUser = DB::table('followers')->where('follower_id', $userId)->where('followee_id', Auth::user()->id)->first();
+        if ($chkUser->status == 'pending') {
+            $result = DB::table('followers')->where('follower_id', $userId)->where('followee_id', Auth::user()->id)->delete();
         }
 
         $result = $result ? true : false;
@@ -669,57 +696,67 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany(Announcement::class, 'announcement_user', 'user_id', 'announcement_id');
     }
 
-    public function chkMyFollower($diff_timeline_id, $login_id)
+    /**
+     * @param int $diffTimelineId
+     * @param int $loginId
+     * @return bool
+     */
+    public function chkMyFollower(int $diffTimelineId, int $loginId)
     {
-        $followers = DB::table('followers')->where('follower_id', $diff_timeline_id)->where('followee_id', $login_id)->where('status', '=', 'approved')->first();
+        $followers = DB::table('followers')->where('follower_id', $diffTimelineId)->where('followee_id', $loginId)->where('status', '=', 'approved')->first();
         $result = $followers ? true : false;
 
         return $result;
     }
 
-    public function getUserPrivacySettings($loginId, $others_id)
+    /**
+     * @param int $loginId
+     * @param int $othersId
+     * @return string
+     */
+    public function getUserPrivacySettings(int $loginId, int $othersId)
     {
-        $timeline_post_privacy = '';
-        $user_post_privacy = '';
-        $timeline_post = '';
-        $user_post = '';
+        $timelinePostPrivacy = '';
+        $userPostPrivacy = '';
+        $timelinePost = '';
+        $userPost = '';
         $result = '';
 
-        $live_user_settings = UserSetting::where('user_id', $others_id)->first();
+        $liveUserSettings = UserSetting::where('user_id', $othersId)->first();
 
-        if ($live_user_settings) {
-            $timeline_post_privacy = $live_user_settings->timeline_post_privacy;
-            $user_post_privacy = $live_user_settings->post_privacy;
+        if ($liveUserSettings) {
+            $timelinePostPrivacy = $liveUserSettings->timeline_post_privacy;
+            $userPostPrivacy = $liveUserSettings->post_privacy;
         }
 
         //start $this if block is for timeline post privacy settings
-        if ($loginId != $others_id) {
-            if ($timeline_post_privacy != null && $timeline_post_privacy == 'only_follow') {
-                $isFollower = $this->chkMyFollower($others_id, $loginId);
+        if ($loginId != $othersId) {
+            if ($timelinePostPrivacy != null && $timelinePostPrivacy == 'only_follow') {
+                $isFollower = $this->chkMyFollower($othersId, $loginId);
                 if ($isFollower) {
-                    $timeline_post = true;
+                    $timelinePost = true;
                 }
-            } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'everyone') {
-                $timeline_post = true;
-            } elseif ($timeline_post_privacy != null && $timeline_post_privacy == 'nobody') {
-                $timeline_post = false;
+            } elseif ($timelinePostPrivacy != null && $timelinePostPrivacy == 'everyone') {
+                $timelinePost = true;
+            } elseif ($timelinePostPrivacy != null && $timelinePostPrivacy == 'nobody') {
+                $timelinePost = false;
             }
 
             //start $this if block is for user post privacy settings
-            if ($user_post_privacy != null && $user_post_privacy == 'only_follow') {
-                $isFollower = $this->chkMyFollower($others_id, $loginId);
+            if ($userPostPrivacy != null && $userPostPrivacy == 'only_follow') {
+                $isFollower = $this->chkMyFollower($othersId, $loginId);
                 if ($isFollower) {
-                    $user_post = true;
+                    $userPost = true;
                 }
-            } elseif ($user_post_privacy != null && $user_post_privacy == 'everyone') {
-                $user_post = true;
+            } elseif ($userPostPrivacy != null && $userPostPrivacy == 'everyone') {
+                $userPost = true;
             }
         } else {
-            $timeline_post = true;
-            $user_post = true;
+            $timelinePost = true;
+            $userPost = true;
         }
         //End
-        $result = $timeline_post.'-'.$user_post;
+        $result = $timelinePost.'-'.$userPost;
 
         return $result;
     }

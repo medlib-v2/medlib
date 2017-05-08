@@ -11,8 +11,12 @@ use Medlib\Services\SocialAccountService;
 use Illuminate\Http\Response as IlluminateResponse;
 
 /**
-* @Middleware("guest")
-*/
+ * Suppress all rules containing "unused" in this
+ * class SocialAuthController
+ *
+ * @SuppressWarnings("unused")
+ * @Middleware("guest")
+ */
 class SocialAuthController extends Controller
 {
     /**

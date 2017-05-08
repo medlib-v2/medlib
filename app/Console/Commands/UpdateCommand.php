@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\App;
 
 /**
  * A console command for updating the installation.
+ * Suppress all rules containing "unused" in this
+ * class UpdateCommand
+ *
+ * @SuppressWarnings("unused")
  */
 class UpdateCommand extends InstallCommand
 {

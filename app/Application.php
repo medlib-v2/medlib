@@ -86,20 +86,20 @@ class Application extends IlluminateApplication
      */
     public function getLatestVersion(Client $client = null)
     {
-        if ($v = Cache::get('latestMedlibVersion')) {
-            return $v;
+        if ($value = Cache::get('latestMedlibVersion')) {
+            return $value;
         }
 
         $client = $client ?: new Client();
 
         try {
-            $v = json_decode($client->get('https://api.github.com/repos/medlib-v2/medlib/tags')->getBody())[0]->name;
+            $value = json_decode($client->get('https://api.github.com/repos/medlib-v2/medlib/tags')->getBody())[0]->name;
             /**
              * Cache for one day
              */
-            Cache::put('latestMedlibVersion', $v, 1 * 24 * 60);
+            Cache::put('latestMedlibVersion', $value, 1 * 24 * 60);
 
-            return $v;
+            return $value;
         } catch (Exception $e) {
             Log::error($e);
 

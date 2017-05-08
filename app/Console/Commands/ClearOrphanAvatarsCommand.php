@@ -5,6 +5,12 @@ namespace Medlib\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class ClearOrphanAvatarsCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class ClearOrphanAvatarsCommand extends Command
 {
     /**
@@ -58,26 +64,26 @@ class ClearOrphanAvatarsCommand extends Command
             $avatar = str_replace(public_path(), '', $avatar);
         });
 
-        $all_avatars = collect($avatars);
+        $allAvatars = collect($avatars);
 
         /**
          * Get all avatars currently assigned
          */
-        $current_avatars = DB::table('users')
+        $currentAvatars = DB::table('users')
             ->whereNotNull('user_avatar')
             ->pluck('user_avatar');
 
         /**
          * Compare the 2 collections get a list of avatars which are no longer assigned
          */
-        $orphan_avatars = $all_avatars->diff($current_avatars);
+        $orphanAvatars = $allAvatars->diff($currentAvatars);
 
-        $this->info('Found ' . $orphan_avatars->count() . ' orphaned avatars');
+        $this->info('Found ' . $orphanAvatars->count() . ' orphaned avatars');
 
         /**
          * Now loop through the avatars and delete them from storage
          */
-        foreach ($orphan_avatars as $avatar) {
+        foreach ($orphanAvatars as $avatar) {
             $avatarPath = public_path() . $avatar;
 
             /**

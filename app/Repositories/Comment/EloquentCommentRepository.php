@@ -21,11 +21,11 @@ class EloquentCommentRepository implements CommentRepository
     /**
      * Get Comments posted by id comment.
      *
-     * @param $IdComment
+     * @param $idComment
      * @return mixed
      */
-    public function getCommentById($IdComment)
+    public function getCommentById($idComment)
     {
-        return Comment::where('id', $IdComment)->get();
+        return Comment::where('id', $idComment)->get();
     }
 }

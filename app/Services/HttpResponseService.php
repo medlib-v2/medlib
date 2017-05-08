@@ -24,7 +24,7 @@ trait HttpResponseService
     /**
      * @param int $statusCode
      *
-     * @return \Medlib\Http\Controllers\Controller
+     * @return \Medlib\Http\Controllers\Controller|$this
      */
     public function setStatusCode($statusCode)
     {
@@ -57,10 +57,9 @@ trait HttpResponseService
     public function responseCreated($message)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_CREATED)->response([
-            /**
-             * some people like to use status => 'failed'
-             */
-            'data' => $message
+            'success' => true,
+            'data' => $message,
+            'status_code' => $this->getStatusCode()
         ]);
     }
 
@@ -83,6 +82,8 @@ trait HttpResponseService
     {
         if ($status) {
             $this->setStatusCode($status);
+        } else {
+            $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
         }
 
         return $this->response([

@@ -21,11 +21,11 @@ class ConfirmationTokenRepository
         /**
          * Limit number of ConfirmationToken attempts to 3 in 24 hours window
          */
-        $ConfirmationTokens = ConfirmationToken::where('user_id', $user->id)
+        $confirmationTokens = ConfirmationToken::where('user_id', $user->id)
             ->where('created_at', '>=', Carbon::now()->subHours(24))
             ->count();
 
-        if ($ConfirmationTokens >= 3) {
+        if ($confirmationTokens >= 3) {
             return true;
         }
 
@@ -39,12 +39,12 @@ class ConfirmationTokenRepository
         /**
          * Create new ConfirmationToken record for this user/email
          */
-        $ConfirmationToken = ConfirmationToken::create(['user_id' => $user->id]);
+        $confirmationToken = ConfirmationToken::create(['user_id' => $user->id]);
 
         /**
          * Return token generated
          */
-        return $ConfirmationToken->getToken();
+        return $confirmationToken->getToken();
     }
 
     public function deleteExpiredConfirmationTokens()

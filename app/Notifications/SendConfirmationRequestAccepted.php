@@ -10,6 +10,12 @@ use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SendConfirmationRequestAccepted
+ *
+ * @SuppressWarnings("unused")
+ */
 class SendConfirmationRequestAccepted extends Notification implements ShouldQueue
 {
     use Queueable;

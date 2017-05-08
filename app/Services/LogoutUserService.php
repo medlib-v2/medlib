@@ -36,9 +36,9 @@ class LogoutUserService extends Service
     {
         $this->user->updateOnlineStatus(0);
         $friendsUserIds = $this->user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
-        $related_to_id = $this->user->id;
+        $relatedToId = $this->user->id;
 
-        $this->client->updateChatStatusBar($friendsUserIds, 22, $related_to_id, false);
+        $this->client->updateChatStatusBar($friendsUserIds, 22, $relatedToId, false);
 
         /**
         if ($token = JWTAuth::getToken()) {

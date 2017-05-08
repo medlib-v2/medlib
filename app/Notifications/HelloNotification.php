@@ -9,6 +9,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class HelloNotification
+ *
+ * @SuppressWarnings("unused")
+ */
 class HelloNotification extends Notification
 {
     use Queueable;

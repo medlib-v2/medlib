@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SqlMigrations
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
+ * @SuppressWarnings("PHPMD.ExcessivePublicCount")
+ */
 class Feed extends Model
 {
     use SoftDeletes;
@@ -133,28 +142,28 @@ class Feed extends Model
     }
 
     /**
-     * @param int $post_id
-     * @param int $user_id
+     * @param int $feedId
+     * @param int $userId
      * @return bool
      */
-    public function managePostReport($post_id, $user_id)
+    public function managePostReport(int $feedId, int $userId)
     {
-        $post_report = DB::table('feed_reports')->insert(['feed_id' => $post_id, 'reporter_id' => $user_id, 'status' => 'pending', 'created_at' => Carbon::now()]);
+        $feedReport = DB::table('feed_reports')->insert(['feed_id' => $feedId, 'reporter_id' => $userId, 'status' => 'pending', 'created_at' => Carbon::now()]);
 
-        $result = $post_report ? true : false;
+        $result = $feedReport ? true : false;
 
         return $result;
     }
 
     /**
-     * @param int $post_id
+     * @param int $feedId
      * @return bool
      */
-    public function checkReports($post_id)
+    public function checkReports(int $feedId)
     {
-        $post_report = DB::table('feed_reports')->where('feed_id', $post_id)->first();
+        $feedReport = DB::table('feed_reports')->where('feed_id', $feedId)->first();
 
-        $result = $post_report ? true : false;
+        $result = $feedReport ? true : false;
 
         return $result;
     }
@@ -190,16 +199,16 @@ class Feed extends Model
     }
 
     /**
-     * @param int $login_id
-     * @param int $post_user_id
+     * @param int $loginId
+     * @param int $followerUserId
      * @return bool
      */
-    public function chkUserFollower($login_id, $post_user_id)
+    public function chkUserFollower(int $loginId, int $followerUserId)
     {
-        $followers = DB::table('followers')->where('follower_id', $post_user_id)->where('followee_id', $login_id)->where('status', '=', 'approved')->first();
+        $followers = DB::table('followers')->where('follower_id', $followerUserId)->where('followee_id', $loginId)->where('status', '=', 'approved')->first();
 
         if ($followers) {
-            $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+            $userSettings = DB::table('user_settings')->where('user_id', $loginId)->first();
             $result = $userSettings ? $userSettings->comment_privacy : false;
 
             return $result;
@@ -207,12 +216,12 @@ class Feed extends Model
     }
 
     /**
-     * @param int $login_id
+     * @param int $loginId
      * @return bool
      */
-    public function chkUserSettings($login_id)
+    public function chkUserSettings(int $loginId)
     {
-        $userSettings = DB::table('user_settings')->where('user_id', $login_id)->first();
+        $userSettings = DB::table('user_settings')->where('user_id', $loginId)->first();
         $result = $userSettings ? $userSettings->comment_privacy : false;
 
         return $result;
@@ -228,7 +237,7 @@ class Feed extends Model
 
     /**
      * @param int $id
-     * @return bool
+     * @return mixed
      */
     public function getPageName($id)
     {
@@ -244,8 +253,8 @@ class Feed extends Model
      */
     public function deletePageReport($id)
     {
-        $timeline_report = DB::table('timeline_reports')->where('id', $id)->delete();
-        $result = $timeline_report ? true : false;
+        $timelineReport = DB::table('timeline_reports')->where('id', $id)->delete();
+        $result = $timelineReport ? true : false;
 
         return $result;
     }
@@ -256,9 +265,9 @@ class Feed extends Model
      */
     public function deleteManageReport($id)
     {
-        $post_report = DB::table('feed_reports')->where('id', $id)->delete();
+        $feedReport = DB::table('feed_reports')->where('id', $id)->delete();
 
-        $result = $post_report ? true : false;
+        $result = $feedReport ? true : false;
 
         return $result;
     }

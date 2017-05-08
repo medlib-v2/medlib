@@ -7,6 +7,12 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SendConfirmationTokenEmail
+ *
+ * @SuppressWarnings("unused")
+ */
 class SendConfirmationTokenEmail extends Notification implements ShouldQueue
 {
     use Queueable;

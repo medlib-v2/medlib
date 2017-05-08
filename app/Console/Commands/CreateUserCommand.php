@@ -2,13 +2,21 @@
 
 namespace Medlib\Console\Commands;
 
+use Carbon\Carbon;
 use RuntimeException;
 use Medlib\Models\User;
+use Medlib\Models\Timeline;
 use Illuminate\Console\Command;
 use Medlib\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Validator;
 use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class CreateUserCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class CreateUserCommand extends Command
 {
     /**
@@ -43,17 +51,17 @@ class CreateUserCommand extends Command
      * Execute the console command.
      *
      * @param \Medlib\Repositories\Activation\ConfirmationTokenRepository $token
-     * @return mixed
+     * @return void
      */
     public function handle(ConfirmationTokenRepository $token)
     {
         $arguments  = $this->argument();
-        $send_email = (!$this->option('no-email'));
+        $sendEmail = (!$this->option('no-email'));
 
-        $password_generated = false;
+        $passwordGenerated = false;
         if (!$arguments['password']) {
             $arguments['password'] = bcrypt(str_random(15));
-            $password_generated    = true;
+            $passwordGenerated    = true;
         }
 
         $validator = Validator::make($arguments, [
@@ -65,22 +73,40 @@ class CreateUserCommand extends Command
         if (!$validator->passes()) {
             throw new RuntimeException($validator->errors()->first());
         }
-        list($first_name, $last_name) = explode(" ", $arguments['name']);
 
-        $arguments['first_name'] = $first_name;
-        $arguments['last_name'] = $last_name;
+        $timeline = Timeline::create([
+            'username' => $arguments['username'],
+            'name'     => $arguments['name'],
+            'type'     => 'user'
+        ]);
+        $arguments['timeline_id'] = $timeline->id;
 
+        list($firstName, $lastName) = explode(" ", $arguments['name']);
+
+        $arguments['first_name'] = $firstName;
+        $arguments['last_name'] = $lastName;
         $arguments['password'] = bcrypt($arguments['password']);
+        $arguments['profession'] = 'teacher';
+        $arguments['date_of_birth'] = Carbon::create();
+        $arguments['gender'] = 'male';
+        $arguments['account_type'] = false;
+
+        /**
+         * Unset arguments no used
+         */
+        unset($arguments['name']);
+        unset($arguments['command']);
+        unset($arguments['0']);
 
         $user = User::create($arguments);
 
         $message = 'The user has been created';
 
-        if ($send_email) {
+        if ($sendEmail) {
             $message = 'The user has been created and their account details have been emailed to ' . $user->email;
             $token->createConfirmationToken($user);
             event(new UserWasRegistered($user));
-        } elseif ($password_generated) {
+        } elseif ($passwordGenerated) {
             $message .= ', however you elected to not email the account details to them. ';
             $message .= 'Their password is ' . $arguments['password'];
         }

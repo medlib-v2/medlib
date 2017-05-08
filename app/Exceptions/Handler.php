@@ -13,6 +13,12 @@ use ElephantIO\Exception\ServerConnectionFailureException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class Handler
+ *
+ * @SuppressWarnings("unused")
+ */
 class Handler extends ExceptionHandler
 {
 

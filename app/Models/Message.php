@@ -69,19 +69,19 @@ class Message extends Model
      * Create a new message object.
      *
      * @param string $body
-     * @param int $sender_id
-     * @param int $receiver_id
-     * @param int $conversation_id
+     * @param int $senderId
+     * @param int $receiverId
+     * @param int $conversationId
      *
      * @return Model
      */
-    public static function createMessage($body, $sender_id, $receiver_id, $conversation_id)
+    public static function createMessage(string $body, int $senderId, int $receiverId, int $conversationId)
     {
         $message = static::create([
             'body' => $body,
-            'sender_id' => $sender_id,
-            'receiver_id' => $receiver_id,
-            'conversation_id' => $conversation_id
+            'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
+            'conversation_id' => $conversationId
         ]);
 
         return $message;
@@ -90,21 +90,21 @@ class Message extends Model
     /**
      * Determine if a message belongs to a user.
      *
-     * @param int $user_id
+     * @param int $userId
      *
      * @return mixed
      */
-    public function belongsToUser($user_id)
+    public function belongsToUser(int $userId)
     {
         $users = $this->users()->get();
 
-        $user_ids = [];
+        $userIds = [];
 
         foreach ($users as $user) {
-            $user_ids[] = $user->id;
+            $userIds[] = $user->id;
         }
 
-        return in_array($user_id, $user_ids);
+        return in_array($userId, $userIds);
     }
 
     /**

@@ -9,6 +9,12 @@ use Medlib\Services\SqlMigrations;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class MigrateSchemaCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class MigrateSchemaCommand extends Command
 {
     /**

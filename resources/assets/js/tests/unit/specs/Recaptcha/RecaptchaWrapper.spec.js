@@ -12,31 +12,6 @@ let instance;
 
 describe('Recaptcha', () => {
 
-    const JasmineHelpers = () => {
-
-        let promise = {};
-
-        promise.promise = new Promise((resolve, reject) => {
-            promise.resolve = resolve;
-            promise.reject = reject;
-        });
-
-        const deferredSuccess = (args) => {
-            promise.resolve(args);
-            return promise.promise;
-        };
-
-        const deferredFailure = (args) => {
-            promise.reject(args);
-            return promise.promise;
-        };
-
-        return {
-            deferredSuccess: deferredSuccess,
-            deferredFailure: deferredFailure
-        };
-    };
-
     describe('::recaptcha', () => {
 
         beforeEach(() => {
@@ -94,40 +69,21 @@ describe('Recaptcha', () => {
         describe('::getRecaptcha', () => {
             describe('Recaptcha not loaded', () => {
                 it('Return defered object', () => {
-                    /**
-                    const spy = (Instance, method = null) => {
-                        if (method) {
-                            Instance.call(method);
-                        }
-                        return Instance
-                    };
-                    spy(instance);
+
+                    const spy = jasmine.createSpy('then');
                     // Since it return thenable, not Promise. Here must wrap it as Promise
                     const promise = Promise.resolve(instance.getRecaptcha()).then(spy);
                     expect(spy).not.toHaveBeenCalled();
-
-                    spy(instance, 'setRecaptcha');
-
-                    instance.setRecaptcha(instance);
+                    instance.setRecaptcha(recaptchaMock);
                     return promise.then(() => {
-                        expect(spy).toHaveBeenCalled();
-                    });
-                    **/
-
-                    let jasmineHelpers = new JasmineHelpers();
-
-                    spyOn(instance, "getRecaptcha").and.callFake(() => {
-                        return jasmineHelpers.deferredSuccess();
-                    });
-                    instance.getRecaptcha().then((recaptcha)=> {
-                        expect(recaptcha).toBe('object');
-                    });
-                    //expect(spy).not.toHaveBeenCalled();
+                        expect(spy).toHaveBeenCalled()
+                    })
                 });
             });
         });
 
         describe('::setRecaptcha', () => {
+
             it('Set recaptcha', () => {
                 instance.setRecaptcha(recaptchaMock);
                 return Promise.resolve(instance.getRecaptcha()).then((recap) => {

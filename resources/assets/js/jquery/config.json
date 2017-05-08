@@ -1,4 +1,0 @@
-{
-	"dist": "public/js/jquery.min.js",
-	"src": ["resources/assets/js/jquery/jquery.js"]
-}

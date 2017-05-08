@@ -9,7 +9,7 @@ use Medlib\Notifications\SendWelcomeMessageEmail;
 class EmailRegistrationConfirmation
 {
     /**
-     * @var \Medlib\Services\UserMailer
+     * @var \Medlib\Models\User
      */
     public $user;
 
@@ -27,10 +27,11 @@ class EmailRegistrationConfirmation
      * Handle the event.
      *
      * @param  UserRegistrationConfirmation  $event
-     * @return \Illuminate\Mail\Mailer
+     * @return boolean
      */
     public function handle(UserRegistrationConfirmation $event)
     {
-        return $this->user->notify(new SendWelcomeMessageEmail($event->user));
+        $this->user->notify(new SendWelcomeMessageEmail($event->user));
+        return true;
     }
 }

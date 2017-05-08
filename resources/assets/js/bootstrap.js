@@ -30,6 +30,7 @@ import 'select2';
  *
  */
 import './plugins/modernizr';
-
-//import dotenv from 'dotenv';
-//dotenv.load();
+/**
+ * import dotenv from 'dotenv';
+ * dotenv.load();
+ **/

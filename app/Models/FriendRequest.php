@@ -22,7 +22,6 @@ class FriendRequest extends Model
      */
     protected $fillable = ['user_id', 'requester_id'];
 
-
     /**
      * A feed belongs to a User.
      *
@@ -33,16 +32,18 @@ class FriendRequest extends Model
         return $this->belongsTo(User::class);
     }
 
-
     /**
      * Send a friend request to a user
      *
-     * @attr int $requester_id
+     * @param  int $requesterId
+     * @return FriendRequest
      */
-    public static function prepareFriendRequest($requester_id)
+    public static function prepareFriendRequest(int $requesterId)
     {
-        $FriendRequest = new static(compact('requester_id'));
+        $friendRequest = new static([
+            'requester_id' => $requesterId
+        ]);
 
-        return $FriendRequest;
+        return $friendRequest;
     }
 }

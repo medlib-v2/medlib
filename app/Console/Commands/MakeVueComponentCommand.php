@@ -4,6 +4,12 @@ namespace Medlib\Console\Commands;
 
 use Illuminate\Filesystem\Filesystem;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class MakeVueComponentCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class MakeVueComponentCommand extends VueCommand
 {
     /**

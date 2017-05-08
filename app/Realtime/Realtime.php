@@ -7,7 +7,6 @@ use ElephantIO\Engine\SocketIO\Version1X;
 
 abstract class RealTime
 {
-
     /**
      * @var Object
      */
@@ -24,21 +23,21 @@ abstract class RealTime
     /**
      * Send a websocket broadcast to all connected users.
      *
-     * @param array $user_ids
-     * @param $client_code
-     * @param $related_to_id
+     * @param array $userIds
+     * @param int $clientCode
+     * @param int $relatedToId
      * @param string $message
      */
-    public function broadcastToAll($user_ids = [], $client_code = "", $related_to_id = "", $message = "")
+    public function broadcastToAll(array $userIds, int $clientCode, int $relatedToId, string $message)
     {
-        if (!empty($user_ids)) {
+        if (!empty($userIds)) {
             $this->client->initialize();
-            foreach ($user_ids as $user_id) {
+            foreach ($userIds as $userId) {
                 $this->client->emit('broadcast', [
-                    'user_id' => $user_id,
-                    'receiver_id' => $user_id,
-                    'related_to_id' => $related_to_id,
-                    'client_code' => $client_code,
+                    'user_id' => $userId,
+                    'receiver_id' => $userId,
+                    'related_to_id' => $relatedToId,
+                    'client_code' => $clientCode,
                     'message' => $message
                 ]);
             }
@@ -50,20 +49,20 @@ abstract class RealTime
     /**
      * Send a websocket broadcast to one connected user.
      *
-     * @param $user_id
-     * @param $client_code
-     * @param $related_to_id
-     * @param $message
+     * @param int $userId
+     * @param int $clientCode
+     * @param int $relatedToId
+     * @param string $message
      */
-    public function broadcastTo($user_id = "", $client_code = "", $related_to_id = "", $message = "")
+    public function broadcastTo($userId, int $clientCode, int $relatedToId, string $message)
     {
         $this->client->initialize();
 
         $this->client->emit('broadcast', [
-            'user_id' => $user_id,
-            'receiver_id' => $user_id,
-            'related_to_id' => $related_to_id,
-            'client_code' => $client_code,
+            'user_id' => $userId,
+            'receiver_id' => $userId,
+            'related_to_id' => $relatedToId,
+            'client_code' => $clientCode,
             'message' => $message
         ]);
 

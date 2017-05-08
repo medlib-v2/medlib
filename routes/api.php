@@ -35,7 +35,6 @@ Route::group(['middleware' => 'language'], function () {
          * Password reset routes...
          */
         Route::post('/password/reset', ['uses' => 'ResetPasswordController@reset', 'as' => 'password.submit']);
-        //Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
     });
 
     /**

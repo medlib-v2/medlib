@@ -13,7 +13,7 @@ class NotificationRead implements ShouldBroadcast
     /**
      * @var int
      */
-    public $user_id;
+    public $userId;
     /**
      * @var int
      */
@@ -21,12 +21,12 @@ class NotificationRead implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  int $user_id
+     * @param  int $userId
      * @param  int $notificationId
      */
-    public function __construct($user_id, $notificationId)
+    public function __construct(int $userId, int $notificationId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
         $this->notificationId = $notificationId;
         $this->dontBroadcastToCurrentUser();
     }
@@ -37,6 +37,6 @@ class NotificationRead implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return [new PrivateChannel("Medlib.Models.User.{$this->user_id}")];
+        return [new PrivateChannel("Medlib.Models.User.{$this->userId}")];
     }
 }

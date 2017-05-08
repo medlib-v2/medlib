@@ -7,6 +7,13 @@ use Illuminate\Filesystem\Filesystem;
 use Medlib\Console\Commands\Traits\Paths;
 use Medlib\Exceptions\ResourceAlreadyExists;
 
+/**
+ * A console command for updating the installation.
+ * Suppress all rules containing "unused" in this
+ * class VueCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class VueCommand extends Command
 {
     use Paths;

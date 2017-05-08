@@ -7,6 +7,12 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class TestCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class TestCommand extends Command
 {
     /**

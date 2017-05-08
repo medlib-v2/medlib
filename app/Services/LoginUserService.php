@@ -11,6 +11,13 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Response as IlluminateResponse;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class LoginUserService
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ */
 class LoginUserService extends Service
 {
     /**
@@ -67,7 +74,7 @@ class LoginUserService extends Service
     {
         $remember = ($this->remember ? true : false);
         $user = null;
-        $nameoremail = null;
+        $nameOrEmail = null;
         $canLogin = false;
 
         if ($this->hasTooManyLoginAttempts($this->request)) {
@@ -80,12 +87,12 @@ class LoginUserService extends Service
 
 
         if (filter_var(($this->email), FILTER_VALIDATE_EMAIL)  == true) {
-            $nameoremail = $this->email;
+            $nameOrEmail = $this->email;
             $user = User::where('email', $this->email)->first();
         } else {
             $user = User::where('username', $this->email)->first();
             if ($user) {
-                $nameoremail = $user->email;
+                $nameOrEmail = $user->email;
             }
         }
 
@@ -105,29 +112,28 @@ class LoginUserService extends Service
             /**
              * Attempt to do the login
              */
-            if ($canLogin && $token = JWTAuth::attempt(['email' => $nameoremail, 'password' => $this->password])) {
+            if ($canLogin && $token = JWTAuth::attempt(['email' => $nameOrEmail, 'password' => $this->password])) {
                 /**
                  * validation successful!
                  * redirect them to the secure section or whatever
                  */
                 $this->clearLoginAttempts($this->request);
                 $this->request->session()->regenerate();
-                $friends_user_ids = $user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
-                $related_to_id = $user->id;
-                $client_code = 22;
+                $friendsUserIds = $user->friends()->where('onlinestatus', 1)->pluck('requester_id')->toArray();
+                $relatedToId = $user->id;
+                $clientCode = 22;
                 $message = true;
-                $this->client->updateChatStatusBar($friends_user_ids, $client_code, $related_to_id, $message);
+                $this->client->updateChatStatusBar($friendsUserIds, $clientCode, $relatedToId, $message);
                 $user->updateOnlineStatus(1);
                 return compact('token', 'user');
             } else {
                 /**
                  * Validation not successful, send back to form
                  */
-                //Auth::logout();
+                Auth::logout();
                 $this->incrementLoginAttempts($this->request);
                 return ['error' => 'invalid_credentials'];
             }
-
         } catch (JWTException $e) {
             Log::error($e);
             return ['error' => 'could_not_create_token', 'message' => $e->getMessage()];

@@ -27,4 +27,3 @@ class ObjectStorageAuthenticate
         return $next($request);
     }
 }
-

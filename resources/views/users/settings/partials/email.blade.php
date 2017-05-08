@@ -15,7 +15,7 @@
                 <label for="email">Entrer un email</label>
                 <div style="margin-bottom: 25px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input id="login-username" class="form-control" id="email" name="email" required="required" size="30" type="email" placeholder="email" />
+                    <input class="form-control" id="email" name="email" required="required" size="30" type="email" placeholder="email" />
                 </div>
                 <div style="margin-top:10px" class="btn-group">
                     <!-- Button -->

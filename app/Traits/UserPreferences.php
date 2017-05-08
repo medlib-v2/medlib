@@ -2,7 +2,6 @@
 
 namespace Medlib\Traits;
 
-
 trait UserPreferences
 {
     /**
@@ -16,6 +15,7 @@ trait UserPreferences
     {
         return array_get((array) unserialize($this->attributes['preferences']), $key);
     }
+
     /**
      * Save a user preference.
      *
@@ -29,6 +29,7 @@ trait UserPreferences
         $this->preferences = $preferences;
         $this->save();
     }
+
     /**
      * An alias to savePreference().
      *
@@ -41,6 +42,7 @@ trait UserPreferences
     {
         return $this->savePreference($key, $val);
     }
+
     /**
      * Delete a preference.
      *
@@ -62,6 +64,7 @@ trait UserPreferences
     {
         $this->attributes['preferences'] = serialize($value);
     }
+
     /**
      * Unserialize the user preferences back to an array before returning.
      *

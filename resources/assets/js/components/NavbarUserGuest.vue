@@ -97,7 +97,7 @@
             * Toggle the visibilty of the password.
             */
             togglePassword() {
-                this.type = this.type === 'password' ? 'text' : 'password'
+                this.type = this.type === 'password' ? 'text' : 'password';
                 this.$refs.input.setAttribute('type', this.type)
             }
         },

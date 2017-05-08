@@ -4,15 +4,24 @@ namespace Medlib\Services;
 
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SqlMigrations
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
+ * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
+ */
 class SqlMigrations
 {
 
-    private static $ignore = array('migrations');
-    private static $only = array();
+    private static $ignore = ['migrations'];
+    private static $only = [];
     private static $database = "";
     private static $migrations = false;
-    private static $schema = array();
-    private static $selects = array('column_name as Field', 'column_type as Type', 'is_nullable as Null', 'column_key as Key', 'column_default as Default', 'extra as Extra', 'data_type as Data_Type');
+    private static $schema = [];
+    private static $selects = ['column_name as Field', 'column_type as Type', 'is_nullable as Null', 'column_key as Key', 'column_default as Default', 'extra as Extra', 'data_type as Data_Type'];
     private static $instance;
     private static $up = "";
     private static $down = "";
@@ -148,11 +157,15 @@ class Create" . str_replace('_', '', Str::title($name)) . "Table extends Migrati
         echo "Schema migration COMPLETE.\n\n";
     }
 
+    /**
+     * @param $database
+     * @return SqlMigrations
+     */
     public function convert($database)
     {
         self::$instance = new self();
         self::$database = $database;
-        $table_headers = array('Field', 'Type', 'Null', 'Key', 'Default', 'Extra');
+        $tableHeaders = ['Field', 'Type', 'Null', 'Key', 'Default', 'Extra'];
         $tables = self::getTables();
         foreach ($tables as $key => $value) {
             if (in_array($value->table_name, self::$ignore)) {
@@ -173,7 +186,6 @@ class Create" . str_replace('_', '', Str::title($name)) . "Table extends Migrati
                 $unique = $values->Key == 'UNI' ? "->unique()" : "";
                 switch ($type) {
                     // bigIncrements
-
                     case 'bigint':
                         $method = 'bigInteger';
                         break;
@@ -247,10 +259,10 @@ class Create" . str_replace('_', '', Str::title($name)) . "Table extends Migrati
             }
 
             $up .= "\t\t});\n";
-            self::$schema[$value->table_name] = array(
+            self::$schema[$value->table_name] = [
                 'up' => $up,
                 'down' => $down
-            );
+            ];
         }
 
         /**
@@ -265,10 +277,10 @@ class Create" . str_replace('_', '', Str::title($name)) . "Table extends Migrati
                     $up .= "\t\t\t$" . "table->foreign('{$v->COLUMN_NAME}')->references('{$v->REFERENCED_COLUMN_NAME}')->on('{$v->REFERENCED_TABLE_NAME}');\n";
                 }
                 $up .= "\t\t});\n";
-                self::$schema[$value->TABLE_NAME . '_foreign'] = array(
+                self::$schema[$value->TABLE_NAME . '_foreign'] = [
                     'up' => $up,
                     'down' => $down
-                );
+                ];
             }
         }
         return self::$instance;

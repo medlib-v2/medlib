@@ -6,6 +6,12 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class MigrationsCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class MigrationsCommand extends Command
 {
     /**
@@ -109,16 +115,16 @@ class MigrationsCommand extends Command
          */
         sort($files);
 
-        $s = '';
+        $src = '';
         foreach ($files as $file) {
             $contents = file_get_contents($path . $file);
             /**
              * Fetch the schema from file contents
              */
             if (preg_match('/(Schema::.*?\}\)\;)/is', $contents, $match)) {
-                $s .= $match[1];
+                $src .= $match[1];
             }
-            $s .=  chr(10) . chr(10);
+            $src .=  chr(10) . chr(10);
         }
 
         /**
@@ -126,14 +132,14 @@ class MigrationsCommand extends Command
          */
         if ($this->option('write')) {
             $output = $path . strtolower(config('app.name')).'.migrations.txt';
-            file_put_contents($output, $s);
+            file_put_contents($output, $src);
             $this->info('Output');
             $this->line($output);
         } else {
             /**
              * Show each line of schema (this is not a diagnostic line out)
              */
-            $this->line($s);
+            $this->line($src);
         }
     }
 }

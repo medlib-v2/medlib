@@ -64,12 +64,12 @@ class Book extends Model
 
     /**
      * Return all information this book
-     * @param int $book_isbn
+     * @param int $bookIsbn
      * @return mixed
      */
-    public function getInformationBooksByISBN(int $book_isbn)
+    public function getInformationBooksByISBN(int $bookIsbn)
     {
-        return DB::table('friends')->where('book_isbn', $book_isbn)->first();
+        return DB::table('friends')->where('book_isbn', $bookIsbn)->first();
     }
 
     /**

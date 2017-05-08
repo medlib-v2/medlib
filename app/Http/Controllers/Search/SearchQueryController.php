@@ -18,7 +18,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 
 class SearchQueryController extends Controller
 {
-    private $_results = [];
+    private $searchResults = [];
 
     /**
      * @param SearchQuerySimpleRequest $request
@@ -27,45 +27,49 @@ class SearchQueryController extends Controller
     public function doSimple(SearchQuerySimpleRequest $request)
     {
         if (Cache::has($request->get('query') . $request->get('qdb'))) {
-            $this->_results = Cache::get($request->get('query') . $request->get('qdb'));
-            $filter = FilterRecord::traverseStructure($this->_results);
+            $this->searchResults = Cache::get($request->get('query') . $request->get('qdb'));
+            $filter = FilterRecord::traverseStructure($this->searchResults);
         } else {
             /**
              * La requête utilisateur à parser
              */
             $query = Query::simple($request)->get();
 
+            $start = $request->get('start');
+            $limit = $request->get('limit');
+
             $record = Yaz::from($request->query('qdb'))
                 ->where($query)
+                ->limit($start, $limit)
                 ->orderBy('au ASC')
                 ->all(YazRecords::TYPE_XML);
 
             if (!$record->fails() or $record->hasError() == 1005 or $record->hasError() == 213) {
                 foreach ($record->getRecords() as $result) {
-                    $this->_results[] = $result->toArray();
+                    $this->searchResults[] = $result->toArray();
                 }
 
-                $filter = FilterRecord::traverseStructure($this->_results);
+                $filter = FilterRecord::traverseStructure($this->searchResults);
 
-                Cache::put($request->get('query') . $request->get('qdb'), $this->_results, 10);
+                Cache::put($request->get('query') . $request->get('qdb'), $this->searchResults, 10);
             } else {
-                $this->_results = [
+                $this->searchResults = [
                     'error' => $record->hasError(),
                     'message' => $record->errorMessage()
                 ];
                 $filter = [];
-                return $this->responseWithError([ 'results' => $this->_results,  'filter' => $filter], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
+                return $this->responseWithError([ 'results' => $this->searchResults,  'filter' => $filter], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
             }
 
             $record->close();
         }
 
-        return $this->responseWithSuccess([ 'results' => $this->_results,  'filter' => $filter], IlluminateResponse::HTTP_OK);
+        return $this->responseWithSuccess([ 'results' => $this->searchResults,  'filter' => $filter], IlluminateResponse::HTTP_OK);
         /**
         if ($request->ajax()) {
-            return response()->json([ 'results' => $this->_results,  'filter' => $filter], 200);
+            return response()->json([ 'results' => $this->searchResults,  'filter' => $filter], 200);
         } else {
-            return View::make("search.results", [ 'results' => $this->_results,  'filter' => $filter]);
+            return View::make("search.results", [ 'results' => $this->searchResults,  'filter' => $filter]);
         }
         **/
     }
@@ -119,8 +123,8 @@ class SearchQueryController extends Controller
         **/
 
         if (Cache::has(json_encode($parameters) . $parameters['qdb'])) {
-            $this->_results = Cache::get(json_encode($parameters) . $parameters['qdb']);
-            $filter = FilterRecord::traverseStructure($this->_results);
+            $this->searchResults = Cache::get(json_encode($parameters) . $parameters['qdb']);
+            $filter = FilterRecord::traverseStructure($this->searchResults);
         } else {
             /**
              * La Requête utilisateur à parser
@@ -135,30 +139,30 @@ class SearchQueryController extends Controller
 
             if (!$record->fails() or $record->hasError() == 1005 or $record->hasError() == 213) {
                 foreach ($record->getRecords() as $result) {
-                    $this->_results[] = $result->toArray();
+                    $this->searchResults[] = $result->toArray();
                 }
 
-                $filter = FilterRecord::traverseStructure($this->_results);
+                $filter = FilterRecord::traverseStructure($this->searchResults);
 
-                Cache::put(json_encode($parameters) . $parameters['qdb'], $this->_results, 10);
+                Cache::put(json_encode($parameters) . $parameters['qdb'], $this->searchResults, 10);
             } else {
-                $this->_results = [
+                $this->searchResults = [
                     'error' => $record->hasError(),
                     'message' => $record->errorMessage()
                 ];
                 $filter = [];
-                return $this->responseWithError([ 'results' => $this->_results,  'filter' => $filter], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
+                return $this->responseWithError([ 'results' => $this->searchResults,  'filter' => $filter], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
             }
 
             $record->close();
         }
 
-        $this->responseWithSuccess([ 'results' => $this->_results,  'filter' => $filter], IlluminateResponse::HTTP_OK);
+        $this->responseWithSuccess([ 'results' => $this->searchResults,  'filter' => $filter], IlluminateResponse::HTTP_OK);
         /**
         if ($request->ajax()) {
-            return response()->json([ 'results' => $this->_results,  'filter' => $filter], 200);
+            return response()->json([ 'results' => $this->searchResults,  'filter' => $filter], 200);
         } else {
-            return View::make("search.results", [ 'results' => $this->_results,  'filter' => $filter]);
+            return View::make("search.results", [ 'results' => $this->searchResults,  'filter' => $filter]);
         }
         **/
     }
@@ -180,22 +184,22 @@ class SearchQueryController extends Controller
 
         if (!$record->fails() or $record->hasError() == 1005 or $record->hasError() == 213) {
             foreach ($record->getRecords() as $result) {
-                $this->_results[] = $result->toArray();
+                $this->searchResults[] = $result->toArray();
             }
         } else {
-            $this->_results = [
+            $this->searchResults = [
                 'error' => $record->hasError(),
                 'message' => $record->errorMessage()
             ];
-            return $this->responseWithError(['results' => $this->_results], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
+            return $this->responseWithError(['results' => $this->searchResults], IlluminateResponse::HTTP_REQUEST_TIMEOUT);
         }
 
-        $this->responseWithSuccess(['results' => $this->_results], IlluminateResponse::HTTP_OK);
+        $this->responseWithSuccess(['results' => $this->searchResults], IlluminateResponse::HTTP_OK);
         /**
         if ($request->ajax()) {
-            return View::make("search.ajax.details", [ 'results' => $this->_results]);
+            return View::make("search.ajax.details", [ 'results' => $this->searchResults]);
         } else {
-            return View::make("search.details", [ 'results' => $this->_results]);
+            return View::make("search.details", [ 'results' => $this->searchResults]);
         }
         **/
     }

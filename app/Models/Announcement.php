@@ -41,10 +41,10 @@ class Announcement extends Model
 
     public function chkAnnouncementExpire($id)
     {
-        $current_date = date('Y-m-d', strtotime(Carbon::now()));
+        $currentDate = date('Y-m-d', strtotime(Carbon::now()));
         $announcement = self::find($id);
 
-        if ($announcement->start_date < $announcement->end_date && $current_date <= $announcement->end_date) {
+        if ($announcement->start_date < $announcement->end_date && $currentDate <= $announcement->end_date) {
             return 'notexpired';
         } else {
             return 'expired';

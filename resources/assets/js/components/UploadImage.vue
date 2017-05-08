@@ -14,7 +14,7 @@
                 </span>
                 <span class="dropzone-info" v-if="info">{{ info }}</span>
             </div>
-            <input type="file" class="form-control" name="image" id="image" accept="image/*" @change="onFileChange">
+            <input type="file" class="form-control" name="image" id="image" :accept="accept" @change="onFileChange">
         </div>
     </div>
     <div class="dropzone-preview" v-else>
@@ -71,6 +71,10 @@
                 default() {
                     return []
                 }
+            },
+            accept: {
+                type: String,
+                default: 'image/*'
             }
         },
         data() {

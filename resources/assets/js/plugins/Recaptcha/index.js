@@ -23,8 +23,10 @@ export default {
             type: String
         }
     },
-    created () {
-        this.$widgetId = null
+    data () {
+        return {
+            widgetId: null
+        }
     },
     mounted () {
         Recaptcha.checkRecaptchaLoad();
@@ -35,30 +37,26 @@ export default {
         };
         const container = this.$slots.default ? this.$refs.container.children[0] : this.$refs.container;
         Recaptcha.render(container, opts, (id) => {
-            this.$widgetId = id;
+            this.widgetId = id;
             this.$emit('render', id)
         })
     },
     methods: {
         reset () {
-            Recaptcha.reset(this.$widgetId)
+            Recaptcha.reset(this.widgetId);
         },
         execute () {
-            Recaptcha.execute(this.$widgetId)
+            Recaptcha.execute(this.widgetId);
         },
         emitVerify (response) {
-            this.$emit('input', response)
-            this.$emit('verify', response)
+            this.$emit('input', response);
+            this.$emit('verify', response);
         },
         emitExpired () {
-            this.$emit('expired')
+            this.$emit('expired');
         }
     },
     render (h) {
-        return h(
-            'div',
-            {ref: 'container'},
-            this.$slots.default
-        )
+        return h('div', {ref: 'container'}, this.$slots.default)
     }
 }

@@ -32,9 +32,8 @@ class SendConfirmationEmail
      */
     public function handle(UserWasRegistered $event)
     {
-        $ConfirmationToken = ConfirmationToken::where('user_id', $event->user->id)->firstOrFail();
-
-        $event->user->notify(new SendConfirmationTokenEmail($ConfirmationToken->getToken()));
+        $confirmationToken = ConfirmationToken::where('user_id', $event->user->id)->firstOrFail();
+        $event->user->notify(new SendConfirmationTokenEmail($confirmationToken->getToken()));
         return true;
     }
 }

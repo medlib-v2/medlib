@@ -39,7 +39,8 @@ if (!function_exists('set_active')) {
 if (!function_exists('cdn')) {
     /**
     * Creates CDN assets url
-    *
+    * @SuppressWarnings("unused")
+     *
     * @param string $path
     * @param null $secure
     * @return string
@@ -63,17 +64,17 @@ if (!function_exists('trending_tags')) {
      */
     function trending_tags()
     {
-        $trending_tags = Hashtag::orderBy('count', 'desc')->get();
+        $trendingTags = Hashtag::orderBy('count', 'desc')->get();
 
-        if (count($trending_tags) > 0) {
-            if (count($trending_tags) > (int) Setting::get('min_items_page', 3)) {
-                $trending_tags = $trending_tags->random((int) Setting::get('min_items_page', 3));
+        if (count($trendingTags) > 0) {
+            if (count($trendingTags) > (int) Setting::get('min_items_page', 3)) {
+                $trendingTags = $trendingTags->random((int) Setting::get('min_items_page', 3));
             }
         } else {
-            $trending_tags = '';
+            $trendingTags = '';
         }
 
-        return $trending_tags;
+        return $trendingTags;
     }
 }
 
@@ -83,17 +84,17 @@ if (!function_exists('suggested_users')) {
      */
     function suggested_users()
     {
-        $suggested_users = User::whereNotIn('id', Auth::user()->following()->get()->pluck('id'))->where('id', '!=', Auth::user()->id)->get();
+        $suggestedUsers = User::whereNotIn('id', Auth::user()->following()->get()->pluck('id'))->where('id', '!=', Auth::user()->id)->get();
 
-        if (count($suggested_users) > 0) {
-            if (count($suggested_users) > (int) Setting::get('min_items_page', 3)) {
-                $suggested_users = $suggested_users->random((int) Setting::get('min_items_page', 3));
+        if (count($suggestedUsers) > 0) {
+            if (count($suggestedUsers) > (int) Setting::get('min_items_page', 3)) {
+                $suggestedUsers = $suggestedUsers->random((int) Setting::get('min_items_page', 3));
             }
         } else {
-            $suggested_users = '';
+            $suggestedUsers = '';
         }
 
-        return $suggested_users;
+        return $suggestedUsers;
     }
 }
 
@@ -103,17 +104,17 @@ if (!function_exists('suggested_groups')) {
      */
     function suggested_groups()
     {
-        $suggested_groups = Group::whereNotIn('id', Auth::user()->groups()->pluck('group_id'))->where('type', 'open')->get();
+        $suggestedGroups = Group::whereNotIn('id', Auth::user()->groups()->pluck('group_id'))->where('type', 'open')->get();
 
-        if (count($suggested_groups) > 0) {
-            if (count($suggested_groups) > (int) Setting::get('min_items_page', 3)) {
-                $suggested_groups = $suggested_groups->random((int) Setting::get('min_items_page', 3));
+        if (count($suggestedGroups) > 0) {
+            if (count($suggestedGroups) > (int) Setting::get('min_items_page', 3)) {
+                $suggestedGroups = $suggestedGroups->random((int) Setting::get('min_items_page', 3));
             }
         } else {
-            $suggested_groups = '';
+            $suggestedGroups = '';
         }
 
-        return $suggested_groups;
+        return $suggestedGroups;
     }
 }
 
@@ -123,17 +124,17 @@ if (!function_exists('suggested_pages')) {
      */
     function suggested_pages()
     {
-        $suggested_pages = Page::whereNotIn('id', Auth::user()->pageLikes()->pluck('page_id'))->whereNotIn('id', Auth::user()->pages()->pluck('page_id'))->get();
+        $suggestedPages = Page::whereNotIn('id', Auth::user()->pageLikes()->pluck('page_id'))->whereNotIn('id', Auth::user()->pages()->pluck('page_id'))->get();
 
-        if (count($suggested_pages) > 0) {
-            if (count($suggested_pages) > (int) Setting::get('min_items_page', 3)) {
-                $suggested_pages = $suggested_pages->random((int) Setting::get('min_items_page', 3));
+        if (count($suggestedPages) > 0) {
+            if (count($suggestedPages) > (int) Setting::get('min_items_page', 3)) {
+                $suggestedPages = $suggestedPages->random((int) Setting::get('min_items_page', 3));
             }
         } else {
-            $suggested_pages = '';
+            $suggestedPages = '';
         }
 
-        return $suggested_pages;
+        return $suggestedPages;
     }
 }
 

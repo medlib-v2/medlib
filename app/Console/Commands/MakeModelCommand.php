@@ -7,6 +7,12 @@ use Illuminate\Foundation\ComposerScripts;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class MakeModelCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class MakeModelCommand extends Command
 {
     /**
@@ -78,15 +84,15 @@ class MakeModelCommand extends Command
     }
 
     /**
-     * @param $x
-     * @param $min
-     * @param $max
+     * @param int $src
+     * @param int $min
+     * @param int $max
      * @return bool
      */
-    protected function between($x, $min, $max)
+    protected function between(int $src, int $min, int $max)
     {
-        if ($x >= $min) {
-            if ($x <= $max) {
+        if ($src >= $min) {
+            if ($src <= $max) {
                 return true;
             }
         }
@@ -94,34 +100,34 @@ class MakeModelCommand extends Command
     }
 
     /**
-     * @param $s
-     * @param $model
+     * @param string $src
+     * @param string $model
      * @return mixed
      */
-    protected function replace($s, $model)
+    protected function replace(string $src, string $model)
     {
         /**
          * Split string into words with uppercase characters as delimiters, i.e., AlphaBeta => [Alpha, Beta]
          */
-        $k = -1;
+        $key = -1;
         $tableModel = '';
         $words = [];
         $model = ucfirst($model);
         $tableModel = snake_case($model);
         $usePath = preg_replace('~/~', '\\', ucwords('Medlib\\Models'));
-        $s = preg_replace('/{{use_path}}/', $usePath, $s);
-        $s = preg_replace('/{{model_singular}}/', str_singular($model), $s);
-        $s = preg_replace('/{{table_model_plural_lowercase}}/', strtolower(str_plural($tableModel)), $s);
-        $s = preg_replace('/{{model_plural_lowercase}}/', strtolower(str_plural($model)), $s);
-        $s = preg_replace('/{{model_plural}}/', str_plural($model), $s);
+        $src = preg_replace('/{{use_path}}/', $usePath, $src);
+        $src = preg_replace('/{{model_singular}}/', str_singular($model), $src);
+        $src = preg_replace('/{{table_model_plural_lowercase}}/', strtolower(str_plural($tableModel)), $src);
+        $src = preg_replace('/{{model_plural_lowercase}}/', strtolower(str_plural($model)), $src);
+        $src = preg_replace('/{{model_plural}}/', str_plural($model), $src);
 
-        return $s;
+        return $src;
     }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -171,11 +177,11 @@ class MakeModelCommand extends Command
     {
         $modelPath = 'app/Models/';
 
-        $s = file_get_contents('app/Console/Commands/stubs/Model.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/Model.stub');
+        $src = $this->replace($src, $model);
         $output = $modelPath . ucfirst(str_singular($model)) . '.php';
 
-        file_put_contents($output, $s);
+        file_put_contents($output, $src);
     }
 
     /**
@@ -183,20 +189,20 @@ class MakeModelCommand extends Command
      */
     protected function makeRequest($model)
     {
-        $s = file_get_contents('app/Console/Commands/stubs/RequestForm.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/RequestForm.stub');
+        $src = $this->replace($src, $model);
         $output = "app/Http/Requests/" . ucfirst(str_plural($model)) . 'Request.php';
-        file_put_contents($output, $s);
+        file_put_contents($output, $src);
     }
     /**
      * @param $model
      */
     protected function makeController($model)
     {
-        $s = file_get_contents('app/Console/Commands/stubs/Controller.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/Controller.stub');
+        $src = $this->replace($src, $model);
         $output = "app/Http/Controllers/" . ucfirst(str_plural($model)) . 'Controller.php';
-        file_put_contents($output, $s);
+        file_put_contents($output, $src);
     }
 
     /**
@@ -204,10 +210,10 @@ class MakeModelCommand extends Command
      */
     protected function makeMigration($model)
     {
-        $s = file_get_contents('app/Console/Commands/stubs/Migration.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/Migration.stub');
+        $src = $this->replace($src, $model);
         $output = "database/migrations/" . date('Y_m_d_his') . "_create_" . strtolower(str_plural($model)) . '_table.php';
-        file_put_contents($output, $s);
+        file_put_contents($output, $src);
     }
 
     /**
@@ -215,10 +221,10 @@ class MakeModelCommand extends Command
      */
     protected function makeFaker($model)
     {
-        $s = file_get_contents('app/Console/Commands/stubs/ModelFactory.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/ModelFactory.stub');
+        $src = $this->replace($src, $model);
         $output = 'database/factories/ModelFactory.php';
-        file_put_contents($output, $s, FILE_APPEND);
+        file_put_contents($output, $src, FILE_APPEND);
     }
 
     /**
@@ -226,10 +232,10 @@ class MakeModelCommand extends Command
      */
     protected function makeSeeder($model)
     {
-        $s = file_get_contents('app/Console/Commands/stubs/Seeder.stub');
-        $s = $this->replace($s, $model);
+        $src = file_get_contents('app/Console/Commands/stubs/Seeder.stub');
+        $src = $this->replace($src, $model);
         $output = "database/seeds/" . ucfirst(str_plural($model)) . 'TableSeeder.php';
-        file_put_contents($output, $s);
+        file_put_contents($output, $src);
 
         /**
          * Add seeder to DatabaseSeeder

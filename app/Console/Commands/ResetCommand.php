@@ -15,6 +15,10 @@ use Illuminate\Foundation\Testing\Concerns\MocksApplicationServices;
 
 /**
  * A console command for clearing all data and setting up again.
+ * Suppress all rules containing "unused" in this
+ * class ResetCommand
+ *
+ * @SuppressWarnings("unused")
  */
 class ResetCommand extends UpdateCommand
 {

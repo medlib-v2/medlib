@@ -43,16 +43,16 @@ class UserConfirmed
             /**
              * If the user has not had an activation token set
              */
-            $confirmation_code = $user->confirmation_code;
+            $confirmationCode = $user->confirmation_code;
 
-            if (empty($confirmation_code)) {
+            if (empty($confirmationCode)) {
                 /**
                  * Generate a confirmation code
                  */
-                $confirmation_code = hash_hmac('sha256', str_random(40), $user->email);
-                $user->confirmation_code = $confirmation_code;
+                $confirmationCode = hash_hmac('sha256', str_random(40), $user->email);
+                $user->confirmation_code = $confirmationCode;
                 $user->save();
-                Mail::send('auth.email.verify', ['token' => $confirmation_code, 'username' => $user->username], function ($message) use ($user) {
+                Mail::send('auth.email.verify', ['token' => $confirmationCode, 'username' => $user->username], function ($message) use ($user) {
                     $message->to($user->getEmailForPasswordReset(), $user->username)
                         ->subject('Activate your Notify account');
                 });

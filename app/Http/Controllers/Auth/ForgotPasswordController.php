@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
      * @Post("password/email", as="password.post")
      * @Middleware("guest")
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function sendResetLinkEmail(Request $request)
     {
@@ -57,7 +57,7 @@ class ForgotPasswordController extends Controller
         );
 
         if ($response === Password::RESET_LINK_SENT) {
-            return back()->with('status', trans($response));
+            return $this->responseWithSuccess(trans($response));
         }
 
         /**
@@ -65,8 +65,6 @@ class ForgotPasswordController extends Controller
          * translated so we can notify a user of the problem. We'll redirect back
          * to where the users came from so they can attempt this process again.
          */
-        return back()->withErrors(
-            ['email' => trans($response)]
-        );
+        return $this->responseNotFound(['email' => trans($response)]);
     }
 }

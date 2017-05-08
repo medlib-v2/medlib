@@ -5,6 +5,6 @@ import CookiesBar from './CookiesBar.vue'
 const app = new Vue({
   el: '#cookiebar',
   render: h => h(CookiesBar)
-})
+});
 
 export default app

@@ -13,17 +13,17 @@ class RegisterSocialUserService extends Service
     protected $email;
     protected $username;
     protected $password;
-    protected $first_name;
-    protected $last_name;
+    protected $firstName;
+    protected $lastName;
     protected $profession;
     protected $location;
-    protected $date_of_birth;
+    protected $dateOfBirth;
     protected $gender;
-    protected $user_active;
-    protected $account_type;
-    protected $user_avatar;
-    protected $onlinestatus;
-    protected $chatstatus;
+    protected $userActive;
+    protected $accountType;
+    protected $userAvatar;
+    protected $onlineStatus;
+    protected $chatStatus;
     protected $token;
 
     /**
@@ -35,17 +35,17 @@ class RegisterSocialUserService extends Service
         $this->email = $request['email'];
         $this->username = $request['username'];
         $this->password = $request['password'];
-        $this->first_name = $request['first_name'];
-        $this->last_name = $request['last_name'];
+        $this->firstName = $request['first_name'];
+        $this->lastName = $request['last_name'];
         $this->profession = $request['profession'];
         $this->location = (!empty($request['location']) || !$request['location'] = "") ? $request['location'] : "Paris, Ile-de-France";
-        $this->date_of_birth = $request['date_of_birth'];
+        $this->dateOfBirth = $request['date_of_birth'];
         $this->gender = $request['gender'];
-        $this->user_active = false;
-        $this->account_type = false;
-        $this->user_avatar = $request['user_avatar'];
-        $this->onlinestatus = false;
-        $this->chatstatus = true;
+        $this->userActive = false;
+        $this->accountType = false;
+        $this->userAvatar = $request['user_avatar'];
+        $this->onlineStatus = false;
+        $this->chatStatus = true;
 
         parent::__construct();
     }
@@ -71,17 +71,17 @@ class RegisterSocialUserService extends Service
             'email' => $this->email,
             'username' => $this->username,
             'password' => Hash::make($this->password),
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
             'profession' => $this->profession,
             'location' => $this->location,
-            'date_of_birth' => $this->date_of_birth,
+            'date_of_birth' => $this->dateOfBirth,
             'gender' => $this->gender,
-            'user_active' => $this->user_active,
-            'account_type' => $this->account_type,
-            'user_avatar' => $this->user_avatar,
-            'onlinestatus' => $this->onlinestatus,
-            'chatstatus' => $this->chatstatus,
+            'user_active' => $this->userActive,
+            'account_type' => $this->accountType,
+            'user_avatar' => $this->userAvatar,
+            'onlinestatus' => $this->onlineStatus,
+            'chatstatus' => $this->chatStatus,
         ]);
 
         $this->token = $token->createConfirmationToken($user);

@@ -17,6 +17,7 @@
         <exclude name="ShortVariable"/>
         <exclude name="LongVariable"/>
         <exclude name="ShortMethodName"/>
+        <exclude name="CamelCaseVariableName"/>
     </rule>
 
     <rule ref="rulesets/cleancode.xml">
@@ -46,18 +47,29 @@
           message="Avoid excessively long variable names like {0}. Keep variable name length under {1}."
           class="PHPMD\Rule\Naming\LongVariable"
           externalInfoUrl="http://phpmd.org/rules/naming.html#longvariable">
+        <priority>3</priority>
         <description>
             Detects when a field, formal or local variable is declared with a
             long name.
         </description>
-        <priority>3</priority>
         <properties>
             <property name="maximum"
                       description="The variable length reporting threshold"
-                      value="30"/>
+                      value="45"/>
         </properties>
     </rule>
 
+    <rule name="CamelCaseVariableName"
+          since="0.2"
+          message = "The variable {0} is not named in camelCase."
+          class="PHPMD\Rule\Controversial\CamelCaseVariableName"
+          externalInfoUrl="#">
+        <priority>1</priority>
+        <description>
+            It is considered best practice to use the camelCase notation to name variables.
+        </description>
+        <properties />
+    </rule>
 
     <rule name="ShortMethodName"
           since="0.2"
@@ -74,6 +86,31 @@
                       value="2"/>
             <property name="exceptions"
                       description="Comma-separated list of exceptions" value=""/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/ExcessivePublicCount">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum"
+                      description="The public item reporting threshold"
+                      value="100" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum"
+                      value="150" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/ExcessiveClassComplexity">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum"
+                      value="150" />
         </properties>
     </rule>
 

@@ -1,4 +1,3 @@
-/* @flow */
 import UrlPattern from 'url-pattern';
 import qs from 'qs';
 

@@ -49,8 +49,7 @@ class AuthController extends Controller
     {
         $response = $this->dispatch(new LoginUserService($request));
 
-        if (array_key_exists ( 'error' , $response )) {
-
+        if (array_key_exists('error', $response)) {
             switch ($response['error']) {
                 case 'invalid_credentials':
                     $response['error'] = trans('auth.login.failed');
@@ -71,7 +70,6 @@ class AuthController extends Controller
                     return $this->responseWithError($response, IlluminateResponse::HTTP_INTERNAL_SERVER_ERROR);
                     break;
             }
-
         } else {
             return $this->responseWithSuccess([
                 'token' => $response['token'],
@@ -102,23 +100,22 @@ class AuthController extends Controller
      */
     public function doRegister(RegisterUserRequest $request)
     {
-        $user_avatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'uploads/users/avatars/', 200, 200);
+        $userAvatar = App::make(ProcessImage::class)->execute($request->file('profileimage'), 'uploads/users/avatars/', 200, 200);
 
-        $date_of_birth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
+        $dateOfBirth = Carbon::createFromDate($request->get('year'), $request->get('month'), $request->get('day'))->toDateString();
 
         if ($request->has('affiliate')) {
             $timeline = Timeline::where('username', $request->get('affiliate'))->first();
-            $affiliate_id = $timeline->user->id;
+            $affiliateId = $timeline->user->id;
         } else {
-            $affiliate_id = null;
+            $affiliateId = null;
         }
 
         $request->merge([
-            'date_of_birth' => $date_of_birth,
-            'user_avatar' => $user_avatar,
-            'affiliate_id' => $affiliate_id
+            'date_of_birth' => $dateOfBirth,
+            'user_avatar' => $userAvatar,
+            'affiliate_id' => $affiliateId
         ]);
-
 
         $this->dispatch(new RegisterUserService($request));
 
@@ -188,10 +185,10 @@ class AuthController extends Controller
             return redirect()->route('auth.login')->with('error', trans('auth.validation.validation_code_does_not_exist'));
         }
 
-        $timestamp_one_hour_ago = Carbon::now();
+        $timestampOneHourAgo = Carbon::now();
         $created = new Carbon($activation->updated_at);
 
-        if ($created->diff($timestamp_one_hour_ago)->days >= 1 or $created->diffInHours($timestamp_one_hour_ago) >= 1) {
+        if ($created->diff($timestampOneHourAgo)->days >= 1 or $created->diffInHours($timestampOneHourAgo) >= 1) {
             $activation->token = ConfirmationToken::generateToken();
             $activation->save();
 

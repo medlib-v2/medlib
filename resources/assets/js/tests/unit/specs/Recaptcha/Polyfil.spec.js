@@ -4,7 +4,9 @@ describe('Promise', () => {
     it('Return Promise object', () => {
         const deferred = Promise();
         expect(deferred).toBeLessThanOrEqual({
-            promise: Object,
+            promise: {
+                then: Function
+            },
             resolve: Function,
             resolved: Function
         })
@@ -14,17 +16,20 @@ describe('Promise', () => {
         it('Resolve with given value', () => {
             const deferred = Promise();
             const value = 42;
-            spyOn(deferred, "resolve");
+            spyOn(deferred, 'resolve');
             deferred.resolve(value);
             expect(deferred.resolve).toHaveBeenCalledWith(value);
         });
 
         it('Wont resolve twice', () => {
             const deferred = Promise();
+            const fn = jasmine.createSpy('spy');
             const value = 42;
             const value2 = 24;
 
-            spyOn(deferred, "resolve");
+            spyOn(deferred, 'resolve');
+
+            deferred.promise.then(fn);
 
             deferred.resolve(value);
             deferred.resolve(value2);

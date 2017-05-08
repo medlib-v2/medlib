@@ -12,7 +12,7 @@ class CreateMessageService extends Service
     /**
      * @var int
      */
-    public $receiver_id;
+    public $receiverId;
 
     /**
      * @var string
@@ -22,12 +22,12 @@ class CreateMessageService extends Service
     /**
      * @var int
      */
-    public $sender_id;
+    public $senderId;
 
     /**
      * @var int
      */
-    public $conversation_id;
+    public $conversationId;
 
     /**
      * Create a new command instance.
@@ -38,9 +38,9 @@ class CreateMessageService extends Service
         parent::__construct();
 
         $this->body = $request->get('body');
-        $this->sender_id = $request->get('sender_id');
-        $this->receiver_id = $request->get('receiver_id');
-        $this->conversation_id = $request->get('conversation_id');
+        $this->senderId = $request->get('sender_id');
+        $this->receiverId = $request->get('receiver_id');
+        $this->conversationId = $request->get('conversation_id');
     }
 
     /**
@@ -53,10 +53,10 @@ class CreateMessageService extends Service
      */
     public function handle(UserRepository $userRepository, MessageRepository $messageRepository)
     {
-        $message = Message::createMessage($this->body, $this->sender_id, $this->receiver_id, $this->conversation_id);
+        $message = Message::createMessage($this->body, $this->senderId, $this->receiverId, $this->conversationId);
 
-        $sender = $userRepository->findById($this->sender_id);
-        $receiver = $userRepository->findById($this->receiver_id);
+        $sender = $userRepository->findById($this->senderId);
+        $receiver = $userRepository->findById($this->receiverId);
 
         $sender->messages()->save($message);
         $receiver->messages()->save($message);

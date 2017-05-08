@@ -16,7 +16,7 @@ const defer = () => {
 
     const then = (cb) => {
         if (!state) {
-            callbacks.push(cb)
+            callbacks.push(cb);
             return
         }
         cb(value)
@@ -27,9 +27,7 @@ const defer = () => {
             return state
         },
         resolve,
-        promise: {
-            then
-        }
+        promise: { then }
     };
     return deferred;
 };

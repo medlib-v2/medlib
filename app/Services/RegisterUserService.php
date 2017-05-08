@@ -18,18 +18,18 @@ class RegisterUserService extends Service
     protected $email;
     protected $username;
     protected $password;
-    protected $first_name;
-    protected $last_name;
+    protected $firstName;
+    protected $lastName;
     protected $profession;
     protected $location;
-    protected $date_of_birth;
+    protected $dateOfBirth;
     protected $gender;
     protected $activated;
-    protected $account_type;
-    protected $user_avatar;
-    protected $onlinestatus;
-    protected $chatstatus;
-    protected $affiliate_id;
+    protected $accountType;
+    protected $userAvatar;
+    protected $onlineStatus;
+    protected $chatStatus;
+    protected $affiliateId;
 
     /**
      * Create a new command instance.
@@ -42,18 +42,18 @@ class RegisterUserService extends Service
         $this->email = $request->get('email');
         $this->username = $request->get('username');
         $this->password = $request->get('password');
-        $this->first_name = $request->get('first_name');
-        $this->last_name = $request->get('last_name');
+        $this->firstName = $request->get('first_name');
+        $this->lastName = $request->get('last_name');
         $this->profession = $request->get('profession');
         $this->location = $request->get('location') ? $request->get('location') : "Paris, Ile-de-France";
-        $this->date_of_birth = $request->get('date_of_birth');
+        $this->dateOfBirth = $request->get('date_of_birth');
         $this->gender = $request->get('gender');
         $this->activated = false;
-        $this->account_type = false;
-        $this->user_avatar = $request->get('user_avatar');
-        $this->onlinestatus = false;
-        $this->chatstatus = true;
-        $this->affiliate_id = $request->get('affiliate_id');
+        $this->accountType = false;
+        $this->userAvatar = $request->get('user_avatar');
+        $this->onlineStatus = false;
+        $this->chatStatus = true;
+        $this->affiliateId = $request->get('affiliate_id');
     }
 
     /**
@@ -63,12 +63,12 @@ class RegisterUserService extends Service
      */
     public function handle(ConfirmationTokenRepository $token)
     {
-        $name = $this->first_name. ' '. $this->last_name;
+        $name = $this->firstName. ' '. $this->lastName;
 
         $avatar = Media::create([
             'name'  => $name,
             'type'   => 'image',
-            'source' => $this->user_avatar
+            'source' => $this->userAvatar
         ]);
 
         /**
@@ -89,21 +89,21 @@ class RegisterUserService extends Service
             'username'          => $this->username,
             'timeline_id'       => $timeline->id,
             'password'          => Hash::make($this->password),
-            'first_name'        => $this->first_name,
-            'last_name'         => $this->last_name,
+            'first_name'        => $this->firstName,
+            'last_name'         => $this->lastName,
             'profession'        => $this->profession,
-            'date_of_birth'     => $this->date_of_birth,
+            'date_of_birth'     => $this->dateOfBirth,
             'gender'            => $this->gender,
-            //'affiliate_id'      => $affiliate_id,
+            //'affiliate_id'      => $affiliateId,
             'activated'         => $this->activated,
-            'account_type'      => $this->account_type,
-            'onlinestatus'      => $this->onlinestatus,
-            'chatstatus'        => $this->chatstatus,
+            'account_type'      => $this->accountType,
+            'onlinestatus'      => $this->onlineStatus,
+            'chatstatus'        => $this->chatStatus,
         ]);
 
         /**
         if (Setting::get('birthday') == 'on' && $this->date_of_birth != '') {
-            $user->date_of_birth = date('Y-m-d', strtotime($this->date_of_birth));
+            $user->date_of_birth = date('Y-m-d', strtotime($this->dateOfBirth));
             $user->save();
         }
         **/
@@ -136,7 +136,7 @@ class RegisterUserService extends Service
      */
     public function makeUserSettings(User $user)
     {
-        $user_settings = [
+        $userSettings = [
             'user_id'               => $user->id,
             'confirm_follow'        => Setting::get('confirm_follow'),
             'follow_privacy'        => Setting::get('follow_privacy'),
@@ -147,6 +147,6 @@ class RegisterUserService extends Service
         /**
          * Create a record in user settings table.
          */
-        DB::table('user_settings')->insert($user_settings);
+        DB::table('user_settings')->insert($userSettings);
     }
 }

@@ -47,9 +47,9 @@ class Setting extends Model
     public static function set($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $array_key => $array_value) {
-                $setting = self::firstOrNew(['key' => $array_key]);
-                $setting->value = $array_value;
+            foreach ($key as $arrayKey => $arrayValue) {
+                $setting = self::firstOrNew(['key' => $arrayKey]);
+                $setting->value = $arrayValue;
                 $setting->save();
             }
         } else {

@@ -4,6 +4,12 @@ namespace Medlib\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class RegisterCommandsCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class RegisterCommandsCommand extends Command
 {
     /**
@@ -50,7 +56,7 @@ class RegisterCommandsCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -86,20 +92,20 @@ class RegisterCommandsCommand extends Command
          * Get contents of the file
          */
         $contents = file_get_contents($fileName);
-        $s = '';
+        $src = '';
 
         /**
          * Create string of console commands
          */
         foreach ($files as $file) {
-            $s .= "\t\tCommands\\" . $file . "::class,\n";
+            $src .= "\t\tCommands\\" . $file . "::class,\n";
         }
 
         /**
          * Replace current list of console commands with string
          */
 
-        $contents = preg_replace("/protected [$]commands = \[.*?\];/is", "protected \$commands = [\n$s\t];", $contents);
+        $contents = preg_replace("/protected [$]commands = \[.*?\];/is", "protected \$commands = [\n$src\t];", $contents);
         file_put_contents($fileName, $contents);
     }
 }

@@ -27,11 +27,9 @@ class Group extends Model
     /**
      * Get the user's  name.
      *
-     * @param string $value
-     *
      * @return string
      */
-    public function getNameAttribute($value)
+    public function getNameAttribute()
     {
         return $this->timeline->name;
     }
@@ -39,11 +37,9 @@ class Group extends Model
     /**
      * Get the user's  username.
      *
-     * @param string $value
-     *
      * @return string
      */
-    public function getUsernameAttribute($value)
+    public function getUsernameAttribute()
     {
         return $this->timeline->username;
     }
@@ -51,11 +47,9 @@ class Group extends Model
     /**
      * Get the user's  avatar.
      *
-     * @param string $value
-     *
      * @return string
      */
-    public function getAvatarAttribute($value)
+    public function getAvatarAttribute()
     {
         return $this->timeline->avatar ? $this->timeline->avatar->source : null;
     }
@@ -63,11 +57,9 @@ class Group extends Model
     /**
      * Get the user's  cover.
      *
-     * @param string $value
-     *
      * @return string
      */
-    public function getCoverAttribute($value)
+    public function getCoverAttribute()
     {
         return $this->timeline->cover ? $this->timeline->cover->source : null;
     }
@@ -75,11 +67,9 @@ class Group extends Model
     /**
      * Get the user's  about.
      *
-     * @param string $value
-     *
      * @return string
      */
-    public function getAboutAttribute($value)
+    public function getAboutAttribute()
     {
         return $this->timeline->about ? $this->timeline->about : null;
     }
@@ -127,25 +117,25 @@ class Group extends Model
     }
 
     /**
-     * @param int $role_id
+     * @param int $roleId
      * @return bool
      */
-    public function roleName($role_id)
+    public function roleName(int $roleId)
     {
-        $role = Role::find($role_id);
+        $role = Role::find($roleId);
         $result = $role ? $role->name : false;
 
         return $result;
     }
 
     /**
-     * @param int $user_id
+     * @param int $userId
      * @return bool
      */
-    public function isAdmin($user_id)
+    public function isAdmin(int $userId)
     {
-        $admin_role_id = Role::where('name', 'admin')->first();
-        $groupUser = $this->users()->where('user_id', $user_id)->where('role_id', $admin_role_id->id)->where('status', 'approved')->first();
+        $adminRoleId = Role::where('name', 'admin')->first();
+        $groupUser = $this->users()->where('user_id', $userId)->where('role_id', $adminRoleId->id)->where('status', 'approved')->first();
 
         $result = $groupUser ? true : false;
 
@@ -157,10 +147,10 @@ class Group extends Model
      */
     public function pendingMembers()
     {
-        $user_role_id = Role::where('name', 'user')->first();
-        $pending_members = $this->users()->where('role_id', $user_role_id->id)->where('status', 'pending')->get();
+        $userRoleId = Role::where('name', 'user')->first();
+        $pendingMembers = $this->users()->where('role_id', $userRoleId->id)->where('status', 'pending')->get();
 
-        $result = $pending_members ? $pending_members : false;
+        $result = $pendingMembers ? $pendingMembers : false;
 
         return $result;
     }
@@ -170,8 +160,8 @@ class Group extends Model
      */
     public function members()
     {
-        $admin_role_id = Role::where('name', '=', 'admin')->first();
-        $members = $this->users()->where('role_id', '!=', $admin_role_id->id)->where('status', 'approved')->get();
+        $adminRoleId = Role::where('name', '=', 'admin')->first();
+        $members = $this->users()->where('role_id', '!=', $adminRoleId->id)->where('status', 'approved')->get();
 
         $result = $members ? $members : false;
 
@@ -183,15 +173,15 @@ class Group extends Model
      */
     public function admins()
     {
-        $admin_role_id = Role::where('name', '=', 'admin')->first();
-        $admins = $this->users()->where('role_id', $admin_role_id->id)->where('status', 'approved')->get();
+        $adminRoleId = Role::where('name', '=', 'admin')->first();
+        $admins = $this->users()->where('role_id', $adminRoleId->id)->where('status', 'approved')->get();
 
         $result = $admins ? $admins : false;
 
         return $result;
     }
 
-    // public function pending_users()
+    // public function pendingUsers()
     // {
     //     $admin_role_id = Role::where('name', '=', 'admin')->first();
     //     $pending_users = $this->users()->where('role_id','!=',$admin_role_id->id)->where('status','pending')->get();
@@ -200,66 +190,66 @@ class Group extends Model
     // }
 
     /**
-     * @param int $group_id
-     * @param int $user_id
+     * @param int $groupId
+     * @param int $userId
      * @return array|bool|null|\stdClass
      */
-    public function chkGroupUser($group_id, $user_id)
+    public function chkGroupUser(int $groupId, int $userId)
     {
-        $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->first();
-        $result = $group_user ? $group_user : false;
+        $groupUser = DB::table('group_user')->where('group_id', $groupId)->where('user_id', $userId)->first();
+        $result = $groupUser ? $groupUser : false;
 
         return $result;
     }
 
     /**
-     * @param int $group_user_id
+     * @param int $groupUserId
      * @return bool
      */
-    public function updateStatus($group_user_id)
+    public function updateStatus(int $groupUserId)
     {
-        $group_user = DB::table('group_user')->where('id', $group_user_id)->update(['status' => 'approved']);
-        $result = $group_user ? true : false;
+        $groupUser = DB::table('group_user')->where('id', $groupUserId)->update(['status' => 'approved']);
+        $result = $groupUser ? true : false;
 
         return $result;
     }
 
     /**
-     * @param int $group_user_id
+     * @param int $groupUserId
      * @return bool
      */
-    public function decilneRequest($group_user_id)
+    public function decilneRequest(int $groupUserId)
     {
-        $group_user = DB::table('group_user')->where('id', $group_user_id)->delete();
-        $result = $group_user ? true : false;
+        $groupUser = DB::table('group_user')->where('id', $groupUserId)->delete();
+        $result = $groupUser ? true : false;
 
         return $result;
     }
 
     /**
-     * @param int $group_id
-     * @param int $user_id
+     * @param int $groupId
+     * @param int $userId
      * @return bool
      */
-    public function removeMember($group_id, $user_id)
+    public function removeMember(int $groupId, int $userId)
     {
-        $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->delete();
+        $groupUser = DB::table('group_user')->where('group_id', $groupId)->where('user_id', $userId)->delete();
 
-        $result = $group_user ? true : false;
+        $result = $groupUser ? true : false;
 
         return $result;
     }
 
     /**
-     * @param string $member_role
-     * @param string $group_id
-     * @param int $user_id
+     * @param int $memberRole
+     * @param int $groupId
+     * @param int $userId
      * @return bool
      */
-    public function updateMemberRole($member_role, $group_id, $user_id)
+    public function updateMemberRole(int $memberRole, int $groupId, int $userId)
     {
-        $group_user = DB::table('group_user')->where('group_id', $group_id)->where('user_id', $user_id)->update(['role_id' => $member_role]);
-        $result = $group_user ? true : false;
+        $groupUser = DB::table('group_user')->where('group_id', $groupId)->where('user_id', $userId)->update(['role_id' => $memberRole]);
+        $result = $groupUser ? true : false;
 
         return $result;
     }

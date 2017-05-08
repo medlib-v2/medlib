@@ -1,1 +1,1 @@
-export const { Setting, me } = window
+export const { Setting, me } = window;

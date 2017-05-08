@@ -10,7 +10,7 @@ class SendChatMessageService extends Service
     /**
      * @var int
      */
-    protected $receiver_id;
+    protected $receiverId;
 
     /**
      * @var string
@@ -28,7 +28,7 @@ class SendChatMessageService extends Service
     {
         parent::__construct();
 
-        $this->receiver_id = $request->get('receiver_id');
+        $this->receiverId = $request->get('receiver_id');
         $this->message = $request->get('message');
     }
 
@@ -39,8 +39,8 @@ class SendChatMessageService extends Service
      */
     public function handle()
     {
-        $sender_id = Auth::id();
-        $this->client->sendMessageTo($this->receiver_id, 23, $sender_id, $this->message);
+        $senderId = Auth::id();
+        $this->client->sendMessageTo($this->receiverId, 23, $senderId, $this->message);
         return true;
     }
 }

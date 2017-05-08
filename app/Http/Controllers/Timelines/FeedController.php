@@ -20,9 +20,16 @@ use Medlib\Repositories\Page\PageRepository;
 use Medlib\Repositories\Group\GroupRepository;
 use Illuminate\Http\Response as IlluminateResponse;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class FeedController
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
+ */
 class FeedController extends Controller
 {
-
     /**
      * var FeedRepository
      */
@@ -54,8 +61,8 @@ class FeedController extends Controller
      */
     public function index($username, FeedRepository $feedRepository, UserRepository $userRepository, PageRepository $pageRepository, GroupRepository $groupRepository)
     {
-        $posts = [];
-        $user_post = '';
+        $feeds = [];
+        $userFeed = '';
         $this->currentUser = Auth::user();
 
         if ($username == $this->currentUser->getUsername()) {
@@ -67,89 +74,89 @@ class FeedController extends Controller
             }
         }
 
-        $admin_role_id = Role::where('name', '=', 'admin')->first();
+        $adminRoleId = Role::where('name', '=', 'admin')->first();
         $timeline = Timeline::where('id', '=', $user->timeline_id)->first();
 
         if ($timeline == null) {
             return $this->responseWithError(['message' => "Timeline does not exist for this $username"], IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $timeline_posts = $feedRepository->getPublishedByTimelineOrByUser($timeline, $user);
+        $timelineFeeds = $feedRepository->getPublishedByTimelineOrByUser($timeline, $user);
 
-        foreach ($timeline_posts as $timeline_post) {
+        foreach ($timelineFeeds as $timelineFeed) {
             /**
-             * This is for filtering reported(flag) posts, displaying non flag posts
+             * This is for filtering reported(flag) feeds, displaying non flag feeds
              */
-            if ($timeline_post->checkReports($timeline_post->id) == false) {
-                array_push($posts, $timeline_post);
+            if ($timelineFeed->checkReports($timelineFeed->id) == false) {
+                array_push($feeds, $timelineFeed);
             }
         }
 
         if ($timeline->type == 'user') {
-            $follow_user_status = '';
-            $timeline_post_privacy = '';
-            $timeline_post = '';
+            $followUserStatus = '';
+            $timelineFeedPrivacy = '';
+            $timelineFeed = '';
 
-            $own_pages = $user->ownPages();
-            $own_groups = $user->ownGroups();
-            $liked_pages = $user->pageLikes()->get();
-            $joined_groups = $user->groups()->get();
-            $joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)->where('status', '=', 'approved')->get()->count();
-            $following_count = $user->following()->where('status', '=', 'approved')->get()->count();
-            $followers_count = $user->followers()->where('status', '=', 'approved')->get()->count();
+            $ownPages = $user->ownPages();
+            $ownGroups = $user->ownGroups();
+            $likedPages = $user->pageLikes()->get();
+            $joinedGroups = $user->groups()->get();
+            $joinedGroupsCount = $user->groups()->where('role_id', '!=', $adminRoleId->id)->where('status', '=', 'approved')->get()->count();
+            $followingCount = $user->following()->where('status', '=', 'approved')->get()->count();
+            $followersCount = $user->followers()->where('status', '=', 'approved')->get()->count();
             $followRequests = $user->followers()->where('status', '=', 'pending')->get();
 
-            $follow_user_status = Follower::where('follower_id', '=', Auth::user()->id)
+            $followUserStatus = Follower::where('follower_id', '=', Auth::user()->id)
                 ->where('followee_id', '=', $user->id)->first();
 
-            if ($follow_user_status) {
-                $follow_user_status = $follow_user_status->status;
+            if ($followUserStatus) {
+                $followUserStatus = $followUserStatus->status;
             }
 
-            $confirm_follow_setting = $user->settings()->first();
-            $follow_confirm = $confirm_follow_setting->confirm_follow;
+            $confirmFollowSetting = $user->settings()->first();
+            $followConfirm = $confirmFollowSetting->confirm_follow;
 
             /**
              * get user settings
              */
-            $live_user_settings = $user->getUserPrivacySettings(Auth::user()->id, $user->id);
-            $privacy_settings = explode('-', $live_user_settings);
-            $timeline_post = $privacy_settings[0];
-            $user_post = $privacy_settings[1];
+            $liveUserSettings = $user->getUserPrivacySettings(Auth::user()->id, $user->id);
+            $privacySettings = explode('-', $liveUserSettings);
+            $timelineFeed = $privacySettings[0];
+            $userFeed = $privacySettings[1];
         } elseif ($timeline->type == 'page') {
             $page = $pageRepository->findByIdWithTimeline($timeline->id);
-            $page_members = $page->members();
-            $user_post = 'page';
+            $pageMembers = $page->members();
+            $userFeed = 'page';
         } elseif ($timeline->type == 'group') {
             $group = $groupRepository->findByIdWithTimeline($timeline->id);
-            $group_members = $group->members();
-            $user_post = 'group';
+            $groupMembers = $group->members();
+            $userFeed = 'group';
         }
 
-        $next_page_url = route('user.feeds.more', ['page'=> 2, 'username' => $username]);
+        $nextPageUrl = route('user.feeds.more', ['page'=> 2, 'username' => $username]);
 
         return $this->responseWithSuccess(compact(
             'user',
             'timeline',
-            'posts',
-            'liked_pages',
+            'feeds',
+            'likedPages',
             'timeline_type',
             'page',
             'group',
-            'next_page_url',
-            'joined_groups',
-            'follow_user_status',
+            'nextPageUrl',
+            'joinedGroups',
+            'followUserStatus',
             'followRequests',
-            'following_count',
-            'followers_count',
-            'timeline_post',
-            'user_post',
-            'follow_confirm',
-            'joined_groups_count',
-            'own_pages',
-            'own_groups',
-            'group_members',
-            'page_members'
+            'followingCount',
+            'followersCount',
+            'timelineFeed',
+            'userFeed',
+            'followConfirm',
+            'joinedGroupsCount',
+            'ownPages',
+            'ownGroups',
+            'groupMembers',
+            'pageMembers'
         ));
     }
 
@@ -191,13 +198,13 @@ class FeedController extends Controller
     }
 
     /**
-     * @param $username
-     * @param $status_id
+     * @param string $username
+     * @param int $statusId
      * @return mixed
      */
-    public function like($username, $status_id)
+    public function like(string $username, int $statusId)
     {
-        $post = Feed::find($status_id);
+        $post = Feed::find($statusId);
 
         $like =  Like::create([
             'user_id' => Auth::id(),
@@ -207,9 +214,14 @@ class FeedController extends Controller
         return Like::find($like->id);
     }
 
-    public function unlike($username, $status_id)
+    /**
+     * @param string $username
+     * @param int $statusId
+     * @return mixed
+     */
+    public function unlike(string $username, int $statusId)
     {
-        $post = Feed::find($status_id);
+        $post = Feed::find($statusId);
 
         $like = Like::where('user_id', Auth::id())
             ->where('feed_id', $post->id)

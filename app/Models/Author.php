@@ -37,14 +37,18 @@ class Author extends Model
     /**
      * Register a new Author.
      *
-     * @param $first_name
-     * @param $last_name
-     * @param $biography
-     * @return static
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $biography
+     * @return Author
      */
-    public static function register($first_name, $last_name, $biography)
+    public static function register(string $firstName, string $lastName, string $biography)
     {
-        $author = new static(compact('first_name', 'last_name', 'biography'));
+        $author = new static([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'biography' => $biography
+        ]);
 
         return $author;
     }

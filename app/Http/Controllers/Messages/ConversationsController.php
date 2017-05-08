@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Http\Controllers\Controller;
 use Illuminate\Http\Response as IlluminateResponse;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class ConversationsController
+ *
+ * @SuppressWarnings("unused")
+ * @Middleware("auth")
+ */
 class ConversationsController extends Controller
 {
     public function __construct()

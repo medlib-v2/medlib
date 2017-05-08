@@ -22,10 +22,10 @@ class DashboardController extends Controller
 
         $timeline = Timeline::where('id', $id)->first();
 
-        $trending_tags = trending_tags();
-        $suggested_users = suggested_users();
-        $suggested_groups = suggested_groups();
-        $suggested_pages = suggested_pages();
+        $trendingTags = trending_tags();
+        $suggestedUsers = suggested_users();
+        $suggestedGroups = suggested_groups();
+        $suggestedPages = suggested_pages();
 
         // Check for hashtag
         if ($request->hashtag) {
@@ -43,7 +43,7 @@ class DashboardController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $responseHtml = '';
             foreach ($posts as $post) {
-                $responseHtml .= view('timelines.partials.post', ['post' => $post, 'timeline' => $timeline, 'next_page_url' => $posts->appends(['ajax' => true, 'hashtag' => $request->hashtag])->nextPageUrl()])->render();
+                $responseHtml .= view('timelines.partials.post', ['post' => $post, 'timeline' => $timeline, 'nextPageUrl' => $posts->appends(['ajax' => true, 'hashtag' => $request->hashtag])->nextPageUrl()])->render();
             }
 
             return $responseHtml;
@@ -54,20 +54,20 @@ class DashboardController extends Controller
             $chkIsExpire = $announcement->chkAnnouncementExpire($announcement->id);
 
             if ($chkIsExpire == 'notexpired') {
-                $active_announcement = $announcement;
+                $activeAnnouncement = $announcement;
                 if (!$announcement->users->contains($id)) {
                     $announcement->users()->attach($id);
                 }
             }
         }
 
-        $next_page_url = url('ajax/get-more-feed?page=2&ajax=true&hashtag='.$request->hashtag.'&username='.Auth::user()->username);
+        $nextPageUrl = url('ajax/get-more-feed?page=2&ajax=true&hashtag='.$request->hashtag.'&username='.Auth::user()->username);
 
-        //return $this->response(compact('timeline', 'posts', 'next_page_url', 'trending_tags', 'suggested_users', 'active_announcement', 'suggested_groups', 'suggested_pages'));
+        //return $this->response(compact('timeline', 'posts', 'nextPageUrl', 'trendingTags', 'suggestedUsers', 'activeAnnouncement', 'suggestedGroups', 'suggestedPages'));
 
         //$theme->setTitle($timeline->name.' | '.Setting::get('site_title').' | '.Setting::get('site_tagline'));
 
-        return view('dashboard.home', compact('timeline', 'posts', 'next_page_url', 'trending_tags', 'suggested_users', 'active_announcement', 'suggested_groups', 'suggested_pages'));
+        return view('dashboard.home', compact('timeline', 'posts', 'nextPageUrl', 'trendingTags', 'suggestedUsers', 'activeAnnouncement', 'suggestedGroups', 'suggestedPages'));
     }
 
     public function books()

@@ -5,6 +5,12 @@ namespace Medlib\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class GenerateJWTSecretCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class GenerateJWTSecretCommand extends Command
 {
     /**
@@ -23,6 +29,7 @@ class GenerateJWTSecretCommand extends Command
      * Execute the console command.
      *
      * @throws \RuntimeException
+     * @return string
      */
     public function fire()
     {

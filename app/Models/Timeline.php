@@ -78,10 +78,10 @@ class Timeline extends Model
     {
         $array = parent::toArray();
 
-        $cover_url = $this->cover()->get()->toArray();
-        $avatar_url = $this->avatar()->get()->toArray();
-        $array['cover_url'] = $cover_url;
-        $array['avatar_url'] = $avatar_url;
+        $coverUrl = $this->cover()->get()->toArray();
+        $avatarUrl = $this->avatar()->get()->toArray();
+        $array['cover_url'] = $coverUrl;
+        $array['avatar_url'] = $avatarUrl;
 
 
         if ($this->type == 'user') {

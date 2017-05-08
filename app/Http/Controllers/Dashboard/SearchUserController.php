@@ -43,7 +43,7 @@ class SearchUserController extends Controller
             return Redirect::back();
         }
 
-        $results = [];
+        //$results = [];
 
         $users = User::where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'LIKE', "%{$term}%")
             ->orWhere('username', 'LIKE', "%{$term}%")

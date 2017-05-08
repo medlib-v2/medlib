@@ -5,6 +5,12 @@ namespace Medlib\Console\Commands;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class MakeVueViewCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class MakeVueViewCommand extends VueCommand
 {
     /**
@@ -51,6 +57,7 @@ class MakeVueViewCommand extends VueCommand
 
         $fullComponentPath = resource_path("{$path}/{$component}");
         $fullRoutPath = resource_path("{$path}/{$route}");
+
         $this->checkFileExists($filesystem, $fullComponentPath, $component);
         $this->checkFileExists($filesystem, $fullRoutPath, $route);
 

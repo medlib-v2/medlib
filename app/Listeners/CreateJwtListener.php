@@ -35,22 +35,22 @@ class CreateJwtListener
      */
     public function handle(Login $event)
     {
-        $token_id    = base64_encode(str_random(32));
-        $issued_at   = Carbon::now()->timestamp;
-        $notBefore  = $issued_at;
+        $tokenId    = base64_encode(str_random(32));
+        $issuedAt   = Carbon::now()->timestamp;
+        $notBefore  = $issuedAt;
         $expire     = $notBefore + 3 * 60 * 60; /** Adding 3 hours **/
 
         /**
          * Create the token
          */
         $config = [
-            'iat'  => $issued_at,               /** Issued at: time when the token was generated **/
-            'jti'  => $token_id,                /** JSON Token ID: an unique identifier for the token **/
-            'iss'  => config('app.url'),        /** Issuer **/
-            'nbf'  => $notBefore,               /** Not before **/
-            'exp'  => $expire,                  /** Expire **/
-            'data' => [                         /** Data related to the signed user **/
-                'user_id' => $event->user->id    /** User ID from the users table **/
+            'iat'  => $issuedAt,               /** Issued at: time when the token was generated **/
+            'jti'  => $tokenId,                /** JSON Token ID: an unique identifier for the token **/
+            'iss'  => config('app.url'),  /** Issuer **/
+            'nbf'  => $notBefore,              /** Not before **/
+            'exp'  => $expire,                 /** Expire **/
+            'data' => [                        /** Data related to the signed user **/
+                'user_id' => $event->user->id  /** User ID from the users table **/
             ],
         ];
 

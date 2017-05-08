@@ -43,6 +43,11 @@ return [
             'database' => ':memory:',
             'prefix'   => '',
         ],
+        'dusk-sqlite' => [
+            'driver' => 'sqlite',
+            'database' => database_path('database.sqlite'), // env() in sqlite option was using .env value
+            'prefix' => '',
+        ],
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),

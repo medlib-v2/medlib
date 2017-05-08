@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Medlib\Http\Requests\CreateFeedRequest;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SqlMigrations
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
+ */
 class CreateFeedService extends Service
 {
-
     /**
      * @var array
      */
@@ -123,9 +130,9 @@ class CreateFeedService extends Service
              * Let us tag the post friends :)
              */
             if (array_key_exists('user_tags', $this->input)) {
-                $user_tags = $this->input['user_tags'];
-                if (!is_null($user_tags)) {
-                    $post->usersTagged()->sync(explode(',', $user_tags));
+                $userTags = $this->input['user_tags'];
+                if (!is_null($userTags)) {
+                    $post->usersTagged()->sync(explode(',', $userTags));
                 }
             }
         }

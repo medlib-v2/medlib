@@ -8,6 +8,12 @@ use Medlib\Events\JsonWebTokenExpired;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class RefreshJsonWebToken
+ *
+ * @SuppressWarnings("unused")
+ */
 class RefreshJsonWebToken extends BaseMiddleware
 {
     /**
@@ -15,13 +21,13 @@ class RefreshJsonWebToken extends BaseMiddleware
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param   null $guard
+     * @param  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $autheticated_user = Auth::user();
-        $has_valid_token = false;
+        $authenticatedUser = Auth::user();
+        $hasValidToken = false;
 
         /**
          * Is the user has used "remember me" the token may not be in their session when they return
@@ -30,15 +36,15 @@ class RefreshJsonWebToken extends BaseMiddleware
             $token = str_replace("Bearer ", "", $request->session()->get('jwt-token'));
 
             try {
-                $token_user = $this->auth->authenticate($token);
+                $tokenUser = $this->auth->authenticate($token);
 
-                if ($token_user->id !== $autheticated_user->id) {
+                if ($tokenUser->id !== $authenticatedUser->id) {
                     return $this->respond('Token does not belong to the authenticated user', 'user_not_found', 404);
                 }
-                $has_valid_token = true;
-                $this->events->fire('tymon.jwt.valid', $token_user);
+                $hasValidToken = true;
+                $this->events->fire('tymon.jwt.valid', $tokenUser);
             } catch (TokenExpiredException $e) {
-                $has_valid_token = false;
+                $hasValidToken = false;
             } catch (JWTException $e) {
                 if ($request->ajax()) {
                     return $this->respond('tymon.jwt.invalid', 'token_invalid', $e->getStatusCode(), [$e]);
@@ -51,9 +57,9 @@ class RefreshJsonWebToken extends BaseMiddleware
         /**
          * If there is no valid token, generate one
          */
-        if (!$has_valid_token) {
-            if ($autheticated_user) {
-                event(new JsonWebTokenExpired($autheticated_user));
+        if (!$hasValidToken) {
+            if ($authenticatedUser) {
+                event(new JsonWebTokenExpired($authenticatedUser));
             }
             //return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
         }

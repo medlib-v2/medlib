@@ -20,7 +20,10 @@ class UseDifferentConfigIfE2E
      */
     public function handle(Request $request, Closure $next)
     {
-        if (array_get($_SERVER, 'SERVER_PORT') === '8081') {
+        /**
+         * array_get($_SERVER, 'SERVER_PORT')
+         */
+        if (request()->server('SERVER_PORT') === '8081') {
             config(['database.default' => 'sqlite-e2e']);
         }
         return $next($request);

@@ -5,10 +5,12 @@
 </template>
 
 <script type="text/babel">
+    import Lang from '@/mixins/lang'
+
     export default {
         components: {},
 
-        mixins: [],
+        mixins: [Lang],
 
         data () {
             return {

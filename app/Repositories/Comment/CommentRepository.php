@@ -8,5 +8,5 @@ interface CommentRepository
 {
     public function getCommentByFeedAndUser(User $user);
 
-    public function getCommentById($IdComment);
+    public function getCommentById($idComment);
 }

@@ -4,6 +4,12 @@ namespace Medlib\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class DatabaseSeederCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class DatabaseSeederCommand extends Command
 {
     /**
@@ -31,7 +37,7 @@ class DatabaseSeederCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -69,16 +75,16 @@ class DatabaseSeederCommand extends Command
          */
         $contents = file_get_contents($fileName);
 
-        $s = "";
+        $source = "";
 
         foreach ($files as $file) {
-            $s .= "\t\t" . $file . "::class,\n";
+            $source .= "\t\t" . $file . "::class,\n";
         }
 
         /**
          * Replace existing calls with string
          */
-        $contents = preg_replace("/protected [$]seeders = \[.*?\];/is", "protected \$seeders = [\n$s\t];", $contents);
+        $contents = preg_replace("/protected [$]seeders = \[.*?\];/is", "protected \$seeders = [\n$source\t];", $contents);
         file_put_contents($fileName, $contents);
     }
 }

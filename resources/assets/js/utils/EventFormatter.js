@@ -8,7 +8,7 @@ export class EventFormatter {
   * @params  {string | boolean} namespace
   */
   constructor (namespace) {
-    this.namespace = null
+    this.namespace = null;
     this.setNamespace(namespace)
   }
 

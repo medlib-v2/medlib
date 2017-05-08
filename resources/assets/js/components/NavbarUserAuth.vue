@@ -46,10 +46,10 @@
 
                         </div>
                     </li>
-                    <li><a href="#profile.user.show/getUsername" class="text-small"><span class="glyphicon glyphicon-user"></span>&nbsp;Afficher mon profil</a></li>
-                    <li><a href="#dashboard.home" class="text-small"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashbord</a></li>
-                    <li><a href="#profile.show.settings"><span class="glyphicon glyphicon-lock"></span>&nbsp;Paramètres</a></li>
-                    <li><a href="javascript:void(0)" @click.prevent="logout"><i class="glyphicon glyphicon-off"></i>&nbsp;Se déconnecter</a></li>
+                    <li><a href="#profile.user.show/getUsername" class="text-small"><icon name="user"/>&nbsp;Afficher mon profil</a></li>
+                    <li><a href="#dashboard.home" class="text-small"><icon name="dashboard"/>&nbsp;Dashbord</a></li>
+                    <li><router-link :to="{ name: 'setting', exact: true }" class="text-small"><icon name="lock"/>&nbsp;Paramètres</router-link></li>
+                    <li><a href="javascript:void(0)" @click.prevent="logout" class="text-small"><icon name="power-off"/>&nbsp;Se déconnecter</a></li>
                 </ul>
             </li>
             <!-- / user profile -->
@@ -60,18 +60,18 @@
 </template>
 
 <script type="text/babel">
-    import lang from '@/mixins/lang'
+    import Lang from '@/mixins/lang'
     import { Form } from './Form'
     import { mapActions, mapGetters } from 'vuex'
     import { user as http } from '@/services';
     import ElSearch from './ElSearch.vue'
     import { Notifications } from './Notifications'
     import { jwtToken } from '@/utils'
-    import router from '@/router'
+    import router from '@/desktop/router'
 
     export default {
-        mixins: [lang],
         name: 'navbar-user-auth',
+        mixins: [Lang],
         data(){
             return {
                 suggestionAttribute: 'original_title',

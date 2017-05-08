@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Validator;
 use Medlib\Console\Commands\Traits\AskAndValidate;
 use Symfony\Component\Console\Helper\FormatterHelper;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class InstallCommand
+ *
+ * @SuppressWarnings("unused")
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
+ * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
+ */
 class InstallCommand extends Command
 {
     use AskAndValidate;
@@ -311,6 +320,7 @@ class InstallCommand extends Command
         $connectionVerified = false;
 
         while (!$connectionVerified) {
+
             $database = [];
 
             /**
@@ -357,7 +367,7 @@ class InstallCommand extends Command
         $regions = $this->getTimezoneRegions();
         $locales = $this->getLocales();
 
-        $url_callback = function ($answer) {
+        $urlCallback = function ($answer) {
             $validator = Validator::make(['url' => $answer], [
                 'url' => 'url',
             ]);
@@ -369,7 +379,7 @@ class InstallCommand extends Command
             return preg_replace('#/$#', '', $answer);
         };
 
-        $url    = $this->askAndValidate('Application URL ("http://medlib.app" for example)', [], $url_callback);
+        $url    = $this->askAndValidate('Application URL ("http://medlib.app" for example)', [], $urlCallback);
         $region = $this->choice('Timezone region', array_keys($regions), 0);
 
         if ($region !== 'UTC') {
@@ -378,7 +388,7 @@ class InstallCommand extends Command
             $region .= '/' . $this->choice('Timezone location', $locations, 0);
         }
 
-        $socket = $this->askAndValidate('Socket URL', [], $url_callback, $url);
+        $socket = $this->askAndValidate('Socket URL', [], $urlCallback, $url);
 
         /**
          * If the URL doesn't have : in twice (the first is in the protocol, the second for the port)
@@ -396,7 +406,7 @@ class InstallCommand extends Command
             }
         }
 
-        $path_callback = function ($answer) {
+        $pathCallback = function ($answer) {
             $validator = Validator::make(['path' => $answer], [
                 'path' => 'required',
             ]);
@@ -415,9 +425,9 @@ class InstallCommand extends Command
         $ssl = null;
         if (substr($socket, 0, 5) === 'https') {
             $ssl = [
-                'key_file'  => $this->askAndValidate('SSL key File', [], $path_callback),
-                'cert_file' => $this->askAndValidate('SSL certificate File', [], $path_callback),
-                'ca_file'   => $this->askAndValidate('SSL certificate authority file', [], $path_callback),
+                'key_file'  => $this->askAndValidate('SSL key File', [], $pathCallback),
+                'cert_file' => $this->askAndValidate('SSL certificate File', [], $pathCallback),
+                'ca_file'   => $this->askAndValidate('SSL certificate authority file', [], $pathCallback),
             ];
         };
 
@@ -475,9 +485,9 @@ class InstallCommand extends Command
             $email['password'] = $pass;
         }
 
-        $from_name = $this->ask('From name', 'Medlib');
+        $fromName = $this->ask('From name', 'Medlib');
 
-        $from_address = $this->askAndValidate('From address', [], function ($answer) {
+        $fromAddress = $this->askAndValidate('From address', [], function ($answer) {
             $validator = Validator::make(['from_address' => $answer], [
                 'from_address' => 'email',
             ]);
@@ -489,8 +499,8 @@ class InstallCommand extends Command
             return $answer;
         }, 'no-reply@medlib.app');
 
-        $email['from_name']    = $from_name;
-        $email['from_address'] = $from_address;
+        $email['from_name']    = $fromName;
+        $email['from_address'] = $fromAddress;
         $email['driver']       = $driver;
 
         return $email;
@@ -519,7 +529,7 @@ class InstallCommand extends Command
             return $answer;
         });
 
-        $email_address = $this->askAndValidate('Email address', [], function ($answer) {
+        $emailAddress = $this->askAndValidate('Email address', [], function ($answer) {
             $validator = Validator::make(['email_address' => $answer], [
                 'email_address' => 'email',
             ]);
@@ -546,7 +556,7 @@ class InstallCommand extends Command
         return [
             'name'     => $name,
             'username'  => $username,
-            'email'    => $email_address,
+            'email'    => $emailAddress,
             'password' => bcrypt($password),
         ];
     }
@@ -647,11 +657,11 @@ class InstallCommand extends Command
         /**
          * Check for required PHP extensions
          */
-        $required_extensions = ['PDO', 'curl', 'gd', 'json',
+        $requiredExtensions = ['PDO', 'curl', 'gd', 'json',
             'tokenizer', 'openssl', 'mbstring',
         ];
 
-        foreach ($required_extensions as $extension) {
+        foreach ($requiredExtensions as $extension) {
             if (!extension_loaded($extension)) {
                 $this->error('Extension required: ' . $extension);
                 $errors = true;
@@ -668,9 +678,9 @@ class InstallCommand extends Command
         /**
          * Functions needed by symfony process
          */
-        $required_functions = ['proc_open'];
+        $requiredFunctions = ['proc_open'];
 
-        foreach ($required_functions as $function) {
+        foreach ($requiredFunctions as $function) {
             if (!function_exists($function)) {
                 $this->error('Function required: ' . $function . '. Is it disabled in php.ini?');
                 $errors = true;
@@ -680,9 +690,9 @@ class InstallCommand extends Command
         /**
          * Programs needed in $PATH
          */
-        $required_commands = ['ssh', 'ssh-keygen', 'git', 'scp', 'tar', 'gzip', 'rsync', 'bash'];
+        $requiredCommands = ['ssh', 'ssh-keygen', 'git', 'scp', 'tar', 'gzip', 'rsync', 'bash'];
 
-        foreach ($required_commands as $command) {
+        foreach ($requiredCommands as $command) {
             $process = new Process('which ' . $command);
             $process->setTimeout(null);
             $process->run();
@@ -693,9 +703,9 @@ class InstallCommand extends Command
             }
         }
 
-        $required_one = ['node', 'nodejs'];
+        $requiredOne = ['node', 'nodejs'];
         $found        = false;
-        foreach ($required_one as $command) {
+        foreach ($requiredOne as $command) {
             $process = new Process('which ' . $command);
             $process->setTimeout(null);
             $process->run();
@@ -734,7 +744,9 @@ class InstallCommand extends Command
             $errors = true;
         }
 
-        if (isset($_ENV['QUEUE_DRIVER']) && $_ENV['QUEUE_DRIVER'] === 'beanstalkd') {
+        $driver = env('QUEUE_DRIVER');
+
+        if (isset($driver) && $driver === 'beanstalkd') {
             $connected = Queue::connection()->getPheanstalk()
                 ->getConnection()
                 ->isServiceListening();

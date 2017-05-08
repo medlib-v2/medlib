@@ -3,6 +3,22 @@ let glob = require('glob');
 let webpack = require('webpack');
 let Mix = require('laravel-mix').config;
 let webpackPlugins = require('laravel-mix').plugins;
+let dotenv = require('dotenv');
+
+/*
+ |--------------------------------------------------------------------------
+ | Load Environment Variables
+ |--------------------------------------------------------------------------
+ |
+ | Load environment variables from .env file. dotenv will never modify
+ | any environment variables that have already been set.
+ |
+ */
+
+dotenv.config({
+    path: Mix.Paths.root('.env')
+});
+
 
 /*
  |--------------------------------------------------------------------------
@@ -43,7 +59,7 @@ module.exports.context = Mix.Paths.root();
  |
  */
 
-module.exports.entry = Mix.entry();
+module.exports.entry = Mix.entry().get();
 
 
 /*
@@ -70,6 +86,7 @@ module.exports.output = Mix.output();
  | as quickly as possible, though feel free to add to this list.
  |
  */
+
 let plugins = [];
 
 if (Mix.options.extractVueStyles) {
@@ -93,6 +110,10 @@ let rules = [
                     use: 'css-loader!sass-loader?indentedSyntax',
                     fallback: 'vue-style-loader'
                 }),
+                less: vueExtractTextPlugin.extract({
+                    use: 'css-loader!less-loader',
+                    fallback: 'vue-style-loader'
+                }),
                 stylus: vueExtractTextPlugin.extract({
                     use: 'css-loader!stylus-loader?paths[]=node_modules',
                     fallback: 'vue-style-loader'
@@ -105,10 +126,15 @@ let rules = [
                 js: 'babel-loader' + Mix.babelConfig(),
                 scss: 'vue-style-loader!css-loader!sass-loader',
                 sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                less: 'vue-style-loader!css-loader!less-loader',
                 stylus: 'vue-style-loader!css-loader!stylus-loader?paths[]=node_modules'
             },
 
-            postcss: Mix.options.postCss
+            postcss: Mix.options.postCss,
+
+            preLoaders: Mix.options.vue.preLoaders,
+
+            postLoaders: Mix.options.vue.postLoaders
         }
     },
 
@@ -121,12 +147,6 @@ let rules = [
     {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader']
-    },
-
-    {
-        test: /\.s[ac]ss$/,
-        include: /node_modules/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
     },
 
     {
@@ -176,6 +196,7 @@ let rules = [
             publicPath: Mix.options.resourceRoot
         }
     },
+
     {
         test: /\.(cur|ani)$/,
         loader: 'file-loader',
@@ -184,9 +205,19 @@ let rules = [
             publicPath: Mix.options.resourceRoot
         }
     },
-
-
 ];
+
+let sassRule = {
+    test: /\.s[ac]ss$/,
+    include: /node_modules/,
+    loaders: ['style-loader', 'css-loader', 'sass-loader']
+};
+
+if (Mix.preprocessors) {
+    sassRule.exclude = Mix.preprocessors.map(preprocessor => preprocessor.test());
+}
+
+rules.push(sassRule);
 
 if (Mix.preprocessors) {
     Mix.preprocessors.forEach(preprocessor => {
@@ -197,52 +228,6 @@ if (Mix.preprocessors) {
 }
 
 module.exports.module = { rules };
-
-
-/**
-if (Mix.preprocessors) {
-    Mix.preprocessors.forEach(toCompile => {
-        let extractPlugin = new plugins.ExtractTextPlugin(
-            Mix.cssOutput(toCompile)
-        );
-
-        let sourceMap = Mix.sourcemaps ? '?sourceMap' : '';
-
-        module.exports.module.rules.push({
-            test: new RegExp(toCompile.src.path.replace(/\\/g, '\\\\') + '$'),
-            use: extractPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                    { loader: 'css-loader' + sourceMap },
-                    { loader: 'postcss-loader' + sourceMap }
-                ].concat(
-                    toCompile.type == 'sass' ? [
-                            { loader: 'resolve-url-loader' + sourceMap },
-                            {
-                                loader: 'sass-loader',
-                                options: Object.assign({
-                                    precision: 8,
-                                    outputStyle: 'expanded'
-                                }, toCompile.pluginOptions, { sourceMap: true })
-                            }
-                        ] : [
-                            {
-                                loader: 'less-loader' + sourceMap,
-                                options: toCompile.pluginOptions
-                            }
-                        ]
-                )
-            })
-        });
-
-        module.exports.plugins = (module.exports.plugins || []).concat(extractPlugin);
-    });
-} else if (Mix.options.extractVueStyles) {
-    module.exports.plugins = (module.exports.plugins || []).concat(
-        new plugins.ExtractTextPlugin(path.join(Mix.js.base, 'vue-styles.css'))
-    );
-}
-**/
 
 
 /*
@@ -263,6 +248,7 @@ module.exports.resolve = {
         'vue$': 'vue/dist/vue.common.js',
     }
 };
+
 
 /*
  |--------------------------------------------------------------------------
@@ -288,7 +274,6 @@ process.noDeprecation = true;
 module.exports.performance = { hints: false };
 
 
-
 /*
  |--------------------------------------------------------------------------
  | Devtool
@@ -300,7 +285,7 @@ module.exports.performance = { hints: false };
  |
  */
 
-module.exports.devtool = Mix.sourcemaps;
+module.exports.devtool = Mix.options.sourcemaps;
 
 
 /*
@@ -313,11 +298,13 @@ module.exports.devtool = Mix.sourcemaps;
  | for the Node server. You very likely won't want to edit this.
  |
  */
+
 module.exports.devServer = {
     historyApiFallback: true,
     noInfo: true,
     compress: true,
-    quiet: true
+    quiet: true,
+    headers: { "Access-Control-Allow-Origin": "*"}
 };
 
 
@@ -390,6 +377,11 @@ if (Mix.options.notifications) {
     );
 }
 
+if (Mix.copy.length) {
+    new webpackPlugins.CopyWebpackPlugin(Mix.copy);
+}
+
+/**
 if (Mix.copy) {
     Mix.copy.forEach(copy => {
         plugins.push(
@@ -397,13 +389,11 @@ if (Mix.copy) {
         );
     });
 }
-
-if (Mix.extract) {
+**/
+if (Mix.entry().hasExtractions()) {
     plugins.push(
         new webpack.optimize.CommonsChunkPlugin({
-            names: Mix.entryBuilder.extractions.concat([
-                path.join(Mix.js.base, 'manifest').replace(/\\/g, '/')
-            ]),
+            names: Mix.entry().getExtractions(),
             minChunks: Infinity
         })
     );
@@ -421,8 +411,8 @@ if (Mix.options.purifyCss) {
 
     // By default, we'll scan all Blade and Vue files in our project.
     let paths = glob.sync(Mix.Paths.root('resources/views/**/*.blade.php')).concat(
-        Mix.js.reduce((carry, js) => {
-            return carry.concat(glob.sync(js.entry.map(entry => entry.base) + '/**/*.vue'));
+        Mix.entry().scripts.reduce((carry, js) => {
+            return carry.concat(glob.sync(js.base + '/**/*.vue'));
         }, [])
     );
 
@@ -431,30 +421,37 @@ if (Mix.options.purifyCss) {
     ));
 }
 
-if (Mix.inProduction) {
+if (Mix.inProduction && Mix.options.uglify) {
     plugins.push(
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        })
+        new webpack.optimize.UglifyJsPlugin(Mix.options.uglify)
     );
-
-    if (Mix.options.uglify) {
-        plugins.push(
-            new webpack.optimize.UglifyJsPlugin(Mix.options.uglify)
-        );
-    }
 }
 
 plugins.push(
+    new webpack.DefinePlugin(
+        Mix.definitions({
+            NODE_ENV: Mix.inProduction
+                ? 'production'
+                : ( process.env.NODE_ENV || 'development' )
+        })
+    ),
+
     new webpackPlugins.WebpackOnBuildPlugin(
         stats => Mix.events.fire('build', stats)
     )
+
+    /**
+    new webpackPlugins.WebpackOnBuildPlugin(
+        stats => global.events.fire('build', stats)
+    )
+    **/
 );
 
-module.exports.plugins = plugins;
+if (! Mix.entry().hasScripts()) {
+    plugins.push(new webpackPlugins.MockEntryPlugin(Mix.output().path));
+}
 
+module.exports.plugins = plugins;
 
 /*
  |--------------------------------------------------------------------------
@@ -471,4 +468,3 @@ if (Mix.webpackConfig) {
         module.exports, Mix.webpackConfig
     );
 }
-//Mix.finalize(module.exports);

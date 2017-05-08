@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class ProcessImage
+ *
+ * @SuppressWarnings("unused")
+ */
 class ProcessImage
 {
     /**
@@ -21,9 +27,9 @@ class ProcessImage
     public function execute($file, $path, $width, $height)
     {
         $filename = $this->rename($file);
-        $full_path = public_path($path);
+        $fullPath = public_path($path);
 
-        Image::make($file)->resize($width, $height)->save($full_path.$filename);
+        Image::make($file)->resize($width, $height)->save($fullPath.$filename);
 
         return $path.$filename;
     }

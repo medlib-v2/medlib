@@ -5,6 +5,12 @@ namespace Medlib\Console\Commands;
 use Illuminate\Console\Command;
 use Medlib\Repositories\Activation\ConfirmationTokenRepository;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class DeleteExpiredConfirmationTokensCommand
+ *
+ * @SuppressWarnings("unused")
+ */
 class DeleteExpiredConfirmationTokensCommand extends Command
 {
     /**
@@ -41,7 +47,7 @@ class DeleteExpiredConfirmationTokensCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {

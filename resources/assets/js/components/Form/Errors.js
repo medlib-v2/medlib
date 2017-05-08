@@ -9,7 +9,7 @@ export default class Errors {
     /**
      * Set the errors object.
      *
-     * @param {Object}
+     * @param {Object} errors
      */
     set (errors) {
         this.errors = errors
@@ -56,7 +56,7 @@ export default class Errors {
     /**
      * Get the error message for the given field.
      *
-     * @param  String} field
+     * @param  {String} field
      * @return {String|undefined}
      */
     get (field) {

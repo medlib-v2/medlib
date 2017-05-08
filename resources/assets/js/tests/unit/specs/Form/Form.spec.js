@@ -14,7 +14,7 @@ describe('Form', () => {
         });
         afterEach(() => { form = null });
 
-        it('it instantiates the form properties', () => {
+        it('should instantiates the form properties', () => {
             expect(form.busy).toBeFalsy();
             expect(form.successful).toBeFalsy();
             expect(form.successful).toBeFalsy();
@@ -22,16 +22,16 @@ describe('Form', () => {
             expect(form.originalData).toEqual({ username: 'foo', password: 'bar' });
         });
 
-        it('it exposes the passed form field values as properties', () => {
+        it('should exposes the passed form field values as properties', () => {
             expect(form.username).toBe('foo');
             expect(form.password).toBe('bar');
         });
 
-        it('it can get the form data', () => {
+        it('should can get the form data', () => {
             expect(form.data()).toEqual({ username: 'foo', password: 'bar' });
         });
 
-        it('it will start processing the form', () => {
+        it('should will start processing the form', () => {
             form.startProcessing();
 
             expect(form.busy).toBeTruthy();
@@ -39,21 +39,21 @@ describe('Form', () => {
             expect(form.errors.any()).toBeFalsy();
         });
 
-        it('it will finish processing the form', () => {
+        it('should will finish processing the form', () => {
             form.finishProcessing();
 
             expect(form.busy).toBeFalsy();
             expect(form.successful).toBeTruthy();
         });
 
-        it('it can clear the form errors', () => {
+        it('should can clear the form errors', () => {
             form.clear();
 
             expect(form.errors.any()).toBeFalsy();
             expect(form.successful).toBeFalsy();
         });
 
-        it('it can reset the form values', () => {
+        it('should can reset the form values', () => {
             form.username = 'bar';
             form.password = 'foo';
             form.reset();
@@ -63,7 +63,7 @@ describe('Form', () => {
         });
 
         describe('::Service', () => {
-            it('it will submit the form successfully', () => {
+            it('should will submit the form successfully', () => {
                 form.post('/auth/login').then(() => {
                     expect(form.busy).toBeFalsy();
                     expect(form.successful).toBeTruthy();
@@ -71,7 +71,7 @@ describe('Form', () => {
                 })
             });
 
-            it('it will convert the data object to FormData if it contains files', () => {
+            it('should will convert the data object to FormData if it contains files', () => {
                 form.photo = new Blob([new Uint8Array(10)], { type: 'image/png', lastModified: new Date(0) });
 
                 form.put('/user/photo').then(config => {
@@ -81,7 +81,7 @@ describe('Form', () => {
                 })
             });
 
-            it('it will set errors from the server', () => {
+            it('should will set errors from the server', () => {
                 form.post('/auth/error')
                     .then(() => {})
                     .catch(() => {})
@@ -95,7 +95,7 @@ describe('Form', () => {
 
         describe('::Response object', () => {
 
-            it('it can extract the errors from the response object', () => {
+            it('should can extract the errors from the response object', () => {
                 let response = {};
 
                 expect(form.extractErrors(response)).toEqual({ error: 'Something went wrong. Please try again.' });
@@ -107,7 +107,7 @@ describe('Form', () => {
                 expect(form.extractErrors(response)).toEqual({ 'error': 'Value is required' });
 
                 response = { body: { 'username': ['Value is required'] }};
-                expectl(form.extractErrors(response)).toEqual({ 'username': ['Value is required'] });
+                expect(form.extractErrors(response)).toEqual({ 'username': ['Value is required'] });
             });
         });
     });

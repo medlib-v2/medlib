@@ -23,7 +23,6 @@ use Medlib\Repositories\FriendRequest\EloquentFriendRequestRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *

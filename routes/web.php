@@ -97,5 +97,13 @@ Route::group(['middleware' => 'language'], function () {
 **/
 
 Route::group(['middleware' => 'language'], function () {
-    Route::get('{uri?}', [ 'uses' => 'HomeController@index', 'as' => 'home'])->where('uri', '(.*)');
+    Route::get('/{uri?}', [ 'uses' => 'HomeController@index', 'as' => 'home'])->where('uri', '(.*)');
+    /**
+    |--------------------------------------------------------------------------
+    | Authentification routes
+    |--------------------------------------------------------------------------
+    |
+    | Password reset routes...
+     */
+    Route::get('/password/reset/{token}', ['uses' => 'Auth\ForgotPasswordController@showLinkRequestForm', 'as' => 'password.reset']);
 });

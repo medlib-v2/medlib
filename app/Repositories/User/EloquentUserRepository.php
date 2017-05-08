@@ -11,17 +11,17 @@ class EloquentUserRepository implements UserRepository
     /**
      * Get a paginated list of all users
      *
-     * @param int $how_many
-     * @param string $by_first_name
+     * @param int $howMany
+     * @param string $byFirstName
      * @return mixed
      */
-    public function getPaginated($how_many = 10, $by_first_name = null)
+    public function getPaginated($howMany = 10, $byFirstName = null)
     {
-        if (is_null($by_first_name)) {
-            return User::whereNotIn('id', [Auth::user()->id])->orderBy('first_name', 'asc')->paginate($how_many);
+        if (is_null($byFirstName)) {
+            return User::whereNotIn('id', [Auth::user()->id])->orderBy('first_name', 'asc')->paginate($howMany);
         }
         
-        return User::whereNotIn('id', [Auth::user()->id])->where('first_name', 'like', '%'.$by_first_name.'%')->orderBy('first_name', 'asc')->paginate($how_many);
+        return User::whereNotIn('id', [Auth::user()->id])->where('first_name', 'like', '%'.$byFirstName.'%')->orderBy('first_name', 'asc')->paginate($howMany);
     }
 
     /**
@@ -49,10 +49,10 @@ class EloquentUserRepository implements UserRepository
     /**
      * Fetch many users by id
      *
-     * @param Collection $collection_ids
+     * @param Collection $collectionIds
      * @return mixed
      */
-    public function findManyById(Collection $collection_ids)
+    public function findManyById(Collection $collectionIds)
     {
         /**
         $users = $collection->map(function($id) {
@@ -61,7 +61,7 @@ class EloquentUserRepository implements UserRepository
         });
         **/
         $users = [];
-        foreach ($collection_ids as $id) {
+        foreach ($collectionIds as $id) {
             $users[] = $this->findById($id);
         }
         return $users;

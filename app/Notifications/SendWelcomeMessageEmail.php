@@ -8,6 +8,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Medlib\Models\User;
 
+/**
+ * Suppress all rules containing "unused" in this
+ * class SendWelcomeMessageEmail
+ *
+ * @SuppressWarnings("unused")
+ */
 class SendWelcomeMessageEmail extends Notification implements ShouldQueue
 {
     use Queueable;

@@ -24,7 +24,13 @@ class HomeController extends Controller
                 ]
             ];
         }
+        /**
+        $manifest = file_get_contents(base_path('public/mix-manifest.json'));
 
+        $view = view('app', compact('datasource'));
+
+        return response($view)->withCookie(cookie('manifest', $manifest));
+        **/
         return view('app', compact('datasource'));
     }
 }

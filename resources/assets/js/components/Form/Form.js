@@ -197,19 +197,23 @@ class Form {
      */
     extractErrors (response) {
 
-        if (response.status === 500) {
-            return {};
+        if (response.status === 500 || response.status === 405) {
+            return { error: Form.errorMessage };
         }
         if (!response.body) {
             return { error: Form.errorMessage };
+        }
+
+        if (response.body.message) {
+            return { error: response.body.message };
         }
 
         if (response.body.errors) {
             return { ...response.body.errors };
         }
 
-        if (response.body.message) {
-            return { error: response.body.message };
+        if (response.body.data) {
+            return { ...response.body.data };
         }
 
         return { ...response.body };
@@ -218,8 +222,8 @@ class Form {
     /**
      * Get a named route.
      *
-     * @param  {String} name
-     * @return {Object} parameters
+     * @param {String} name
+     * @param {Object} parameters
      * @return {String}
      */
     route (name, parameters = {}) {
