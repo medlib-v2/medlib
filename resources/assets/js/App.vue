@@ -1,7 +1,7 @@
 <template lang="html">
-    <div class="be-wrapper be-float-sidebar be-header-fixed" id="app">
-        <nprogress-container></nprogress-container>
-        <site-header/>
+    <div class="be-wrapper be-float-sidebar be-header-fixed" id="app" v-if="isDesktop">
+        <NprogressContainer/>
+        <SiteHeader/>
         <!-- main content -->
         <main class="be-content">
             <div class="main-content content-search">
@@ -9,9 +9,11 @@
             </div>
         </main>
         <br>
-        <!-- <site-footer/> -->
+        <!-- <SiteFooter/> -->
         <!-- / end main content -->
     </div>
+
+    <div v-else></div>
 </template>
 
 <script type="text/babel">
@@ -28,6 +30,7 @@
             SiteHeader,
             SiteFooter
         },
+
         created () {
             if (jwtToken.hasToken() && jwtToken.isAuthenticated()) {
                 let user = jwtToken.getUserData();
@@ -36,7 +39,7 @@
                 http.logout().then((response) => {
                     jwtToken.removeToken();
                     jwtToken.removeUserData();
-                    this.$store.dispatch('SET_AUTH_USER_LOGOUT', {});
+                    this.$store.dispatch('setLogout', {});
                     this.$router.replace({
                         name: 'login'
                     })
@@ -50,6 +53,12 @@
 
         methods: {
             ...mapActions(['setUserAuth'])
+        },
+
+        computed: {
+            isDesktop() {
+                return !this.isMobile.isPhone() || !this.isMobile.isTablet()
+            }
         }
     }
 </script>

@@ -17,7 +17,8 @@ return [
     'failed'                            => 'These credentials do not match our records.',
     'throttle'                          => 'Too many login attempts. Please try again in :seconds seconds.',
     'btn'=> [
-        'login'                         => 'Login',
+        'login'                         => 'Sign in',
+        'logout'                        => 'Sign out',
         'forgot_password'               => 'Forgot password ?',
     ],
     'txt' => [

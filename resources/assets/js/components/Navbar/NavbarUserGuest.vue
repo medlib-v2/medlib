@@ -1,4 +1,5 @@
 <template lang="html">
+    <!-- navbar collapse -->
     <div id="navbar" class="be-right-navbar collapse navbar-collapse bg-white-only">
         <!-- nabar user no login right -->
         <ul  class="nav navbar-nav navbar-right be-user-nav">
@@ -74,7 +75,7 @@
 <script type="text/babel">
     import Lang from '@/mixins/lang'
     import Login from '@/mixins/login'
-    import { Form } from './Form'
+    import {Form} from '../Form/index'
 
     export default {
         name: 'navbar-user-guest',
@@ -94,8 +95,8 @@
         },
         methods: {
             /**
-            * Toggle the visibilty of the password.
-            */
+             * Toggle the visibilty of the password.
+             */
             togglePassword() {
                 this.type = this.type === 'password' ? 'text' : 'password';
                 this.$refs.input.setAttribute('type', this.type)

@@ -176,301 +176,301 @@
         computed: {
           getPlaceholder () {
             if (this.inputChanged || this.textValIsEmpty()) {
-              return this.placeholderVal
+              return this.placeholderVal;
             }
           },
           modeIsFull () {
-            return this.showAutocomplete
+            return this.showAutocomplete;
           },
           showSuggestions () {
-            return this.similiarData.length >= this.minMatch
+            return this.similiarData.length >= this.minMatch;
           },
           getPropertiesClass () {
-            let type = this.getType()
-            return type.properties
+            let type = this.getType();
+            return type.properties;
           },
           getFormClass () {
-            let type = this.getType()
-            return type.formClass
+            let type = this.getType();
+            return type.formClass;
           },
           getClassWrapper () {
-            let type = this.getType()
-            return type.classWrapper
+            let type = this.getType();
+            return type.classWrapper;
           },
           getClassInput () {
-            let type = this.getType()
-            return type.classInput
+            let type = this.getType();
+            return type.classInput;
           },
           getClassInputPlaceholder () {
-            let type = this.getType()
-            return type.classInputPlaceholder
+            let type = this.getType();
+            return type.classInputPlaceholder;
           },
           getClassSubmit () {
-            let type = this.getType()
-            return type.classSubmit
+            let type = this.getType();
+            return type.classSubmit;
           },
           getSVGSearch () {
-            let type = this.getType()
-            return type.svgSearch
+            let type = this.getType();
+            return type.svgSearch;
           },
           getClassReset () {
-            let type = this.getType()
-            return type.classReset
+            let type = this.getType();
+            return type.classReset;
           },
           getSVGClear () {
-            let type = this.getType()
-            return type.svgClear
+            let type = this.getType();
+            return type.svgClear;
           }
         },
         methods: {
           decrementHighlightedIndex () {
-            this.highlightedIndex -= 1
+            this.highlightedIndex -= 1;
           },
           incrementHighlightedIndex () {
-            this.highlightedIndex += 1
+            this.highlightedIndex += 1;
           },
           escapeAction () {
-            this.clearHighlightedIndex()
-            this.clearSimilarData()
-            this.clearSelected()
-            this.setBlur()
-            this.emitEscape()
+            this.clearHighlightedIndex();
+            this.clearSimilarData();
+            this.clearSelected();
+            this.setBlur();
+            this.emitEscape();
           },
           arrowRightAction () {
-            this.setPlaceholderAndTextVal()
-            this.emitKeyRight()
+            this.setPlaceholderAndTextVal();
+            this.emitKeyRight();
           },
           arrowDownAction () {
             if (this.arrowDownValidation()) {
-              this.incrementHighlightedIndex()
-              this.setPlaceholderAndTextVal()
-              this.emitKeyDown()
+              this.incrementHighlightedIndex();
+              this.setPlaceholderAndTextVal();
+              this.emitKeyDown();
             } else {
-              this.clearHighlightedIndex()
+              this.clearHighlightedIndex();
             }
           },
           arrowUpAction () {
             if (this.highlightedIndex > 0) {
-              this.decrementHighlightedIndex()
-              this.setPlaceholderAndTextVal()
-              this.emitKeyUp()
+              this.decrementHighlightedIndex();
+              this.setPlaceholderAndTextVal();
+              this.emitKeyUp();
             } else {
-              this.clearHighlightedIndex()
+              this.clearHighlightedIndex();
             }
           },
           enterAction () {
-            this.setFinalTextValue()
-            this.clearHighlightedIndex()
-            this.clearSimilarData()
-            this.emitEnter()
+            this.setFinalTextValue();
+            this.clearHighlightedIndex();
+            this.clearSimilarData();
+            this.emitEnter();
           },
           selectedAction (index) {
-            this.highlightedIndex = index
-            this.setFinalTextValue()
-            this.clearPlaceholder()
-            this.clearSimilarData()
-            this.emitSelected()
+            this.highlightedIndex = index;
+            this.setFinalTextValue();
+            this.clearPlaceholder();
+            this.clearSimilarData();
+            this.emitSelected();
           },
           addRegister (o) {
             if (this.isSimilar(o) && this.textValIsNotEmpty()) {
-              this.addSuggestion(o)
+              this.addSuggestion(o);
             }
           },
           addSuggestion (o) {
             if (!this.findSuggestionTextIsRepited(o)) {
-              this.addToSimilarData(o)
+              this.addToSimilarData(o);
             }
           },
           addToSimilarData (o) {
             if (this.canAddToSimilarData()) {
-              this.placeholderVal = this.letterProcess(o)
-              this.selectedSuggest = o
-              this.emitSelected()
-              this.similiarData.unshift(o)
+              this.placeholderVal = this.letterProcess(o);
+              this.selectedSuggest = o;
+              this.emitSelected();
+              this.similiarData.unshift(o);
             }
           },
           setTextValue (e) {
             if (e.target.value.trim()) {
-              this.textVal = e.target.value
-              this.emitChange()
+              this.textVal = e.target.value;
+              this.emitChange();
             }
           },
           setSelectedAsTextValue () {
-            this.textVal = this.selected
+            this.textVal = this.selected;
           },
           setInitialTextValue () {
-            this.textVal = this.value
+            this.textVal = this.value;
           },
           setFinalTextValue () {
             if (this.finalTextValueValidation()) {
-              this.setPlaceholderAndTextVal()
-              this.emitChange()
+              this.setPlaceholderAndTextVal();
+              this.emitChange();
             } else {
-              this.clearAll()
+              this.clearAll();
             }
           },
           setPlaceholderAndTextVal () {
             if (typeof this.similiarData[this.highlightedIndex] !== 'undefined') {
-              let suggest = this.similiarData[this.highlightedIndex]
-              this.placeholderVal = suggest[this.suggestionAttribute]
-              this.textVal = suggest[this.suggestionAttribute]
-              this.selectedSuggest = suggest
-              this.emitSelected()
+              let suggest = this.similiarData[this.highlightedIndex];
+              this.placeholderVal = suggest[this.suggestionAttribute];
+              this.textVal = suggest[this.suggestionAttribute];
+              this.selectedSuggest = suggest;
+              this.emitSelected();
             }
           },
           setInitialPlaceholder () {
-            this.placeholderVal = this.placeholder
+            this.placeholderVal = this.placeholder;
           },
           setBlur () {
-            this.$el.blur()
+            this.$el.blur();
           },
           getType () {
-            return this.types.find(this.isSameType)
+            return this.types.find(this.isSameType);
           },
           getClassHighlighted (index) {
             if (this.highlightedIndex === index) {
-              let type = this.getType()
-              return type.highlighClass
+              let type = this.getType();
+              return type.highlighClass;
             }
           },
           letterProcess (o) {
-            let remoteText = o[this.suggestionAttribute].split('')
-            let inputText = this.textVal.split('')
+            let remoteText = o[this.suggestionAttribute].split('');
+            let inputText = this.textVal.split('');
             inputText.forEach(function (letter, key) {
               if (letter !== remoteText[key]) {
-                remoteText[key] = letter
+                remoteText[key] = letter;
               }
-            })
-            return remoteText.join('')
+            });
+            return remoteText.join('');
           },
           findSuggests () {
             if (this.suggestionsPropIsDefined()) {
-              this.suggestions.forEach(this.addRegister)
+              this.suggestions.forEach(this.addRegister);
             }
           },
           arrowDownValidation () {
             return this.highlightedIndex < this.highlightedIndexMax &&
-                   this.highlightedIndex < (this.similiarData.length - 1)
+                   this.highlightedIndex < (this.similiarData.length - 1);
           },
           lowerFirst (string) {
-            return string.charAt(0).toLowerCase() + string.slice(1)
+            return string.charAt(0).toLowerCase() + string.slice(1);
           },
           controlEvents () {
-            let uncaptz = this.lowerFirst(this.selectedEvent + 'Action')
-            let fnName = (this[uncaptz])
+            let uncaptz = this.lowerFirst(this.selectedEvent + 'Action');
+            let fnName = (this[uncaptz]);
             if (this.fnExists(fnName)) {
-              fnName()
+              fnName();
             }
           },
           findRepited (similarItem, o) {
             return (similarItem[this.suggestionAttribute] ===
-            o[this.suggestionAttribute])
+            o[this.suggestionAttribute]);
           },
           findSuggestionTextIsRepited (o) {
-            return this.similiarData.find(this.findRepited.bind(this, o))
+            return this.similiarData.find(this.findRepited.bind(this, o));
           },
           finalTextValueValidation () {
             return typeof this.similiarData[this.highlightedIndex] !== 'undefined' ||
-                this.placeholderVal === '' && this.highlightedIndex !== 0
+                this.placeholderVal === '' && this.highlightedIndex !== 0;
           },
           isSimilar (o) {
             if (o) {
               return o[this.suggestionAttribute]
                       .toLowerCase()
-                      .startsWith(this.textVal.toLowerCase())
+                      .startsWith(this.textVal.toLowerCase());
             }
           },
           isSameType (o) {
-            return o.name === this.type
+            return o.name === this.type;
           },
           fnExists (fnName) {
-            return typeof fnName === 'function'
+            return typeof fnName === 'function';
           },
           canAddToSimilarData () {
-            return this.similiarData.length < this.highlightedIndexMax
+            return this.similiarData.length < this.highlightedIndexMax;
           },
           suggestionsPropIsDefined () {
-            return typeof this.suggestions !== 'undefined'
+            return typeof this.suggestions !== 'undefined';
           },
           notArrowKeysEvent () {
             return this.selectedEvent !== 'ArrowUp' &&
-                    this.selectedEvent !== 'ArrowDown' && this.selectedEvent !== 'ArrowRight'
+                    this.selectedEvent !== 'ArrowDown' && this.selectedEvent !== 'ArrowRight';
           },
           notEnterKeyEvent () {
-            return this.selectedEvent !== 'Enter'
+            return this.selectedEvent !== 'Enter';
           },
           textValIsEmpty () {
-            return this.textVal === ''
+            return this.textVal === '';
           },
           textValIsNotEmpty () {
-            return this.textVal !== ''
+            return this.textVal !== '';
           },
           reset () {
-            this.clearValue()
-            this.clearSelected()
-            this.clearPlaceholder()
-            this.clearSimilarData()
-            this.clearSelectedSuggest()
-            this.emitClear()
-            this.emitSelected()
+            this.clearValue();
+            this.clearSelected();
+            this.clearPlaceholder();
+            this.clearSimilarData();
+            this.clearSelectedSuggest();
+            this.emitClear();
+            this.emitSelected();
           },
           clearAll () {
-            this.clearSelected()
-            this.clearPlaceholder()
-            this.clearSimilarData()
-            this.clearSelectedSuggest()
+            this.clearSelected();
+            this.clearPlaceholder();
+            this.clearSimilarData();
+            this.clearSelectedSuggest();
           },
           clearValue () {
-            this.textVal = ''
+            this.textVal = '';
           },
           clearSelected () {
-            this.selected = null
+            this.selected = null;
           },
           clearSelectedSuggest () {
-            this.selectedSuggest = null
+            this.selectedSuggest = null;
           },
           clearSimilarData () {
-            this.similiarData = []
+            this.similiarData = [];
           },
           clearPlaceholder () {
             if (this.textValIsEmpty()) {
-              this.clearSimilarData()
-              this.setInitialPlaceholder()
+              this.clearSimilarData();
+              this.setInitialPlaceholder();
             } else {
-              this.placeholderVal = ''
+              this.placeholderVal = '';
             }
           },
           clearHighlightedIndex () {
-            this.highlightedIndex = 0
+            this.highlightedIndex = 0;
           },
           changeText (e) {
-            this.selectedEvent = e.code
-            this.setTextValue(e)
-            this.processChangeText()
-            this.controlEvents(e)
+            this.selectedEvent = e.code;
+            this.setTextValue(e);
+            this.processChangeText();
+            this.controlEvents(e);
           },
           processChangeText (e) {
             if (this.notEnterKeyEvent()) {
-              this.inputChanged = true
-              this.suggestionsIsVisible = true
-              this.clearAllAndFindSuggest()
+              this.inputChanged = true;
+              this.suggestionsIsVisible = true;
+              this.clearAllAndFindSuggest();
             }
           },
           clearAllAndFindSuggest () {
             if (this.notArrowKeysEvent()) {
-              this.clearAll()
-              this.findSuggests()
+              this.clearAll();
+              this.findSuggests();
             }
           },
           away () {
-            this.suggestionsIsVisible = false
-            this.emitSelected()
+            this.suggestionsIsVisible = false;
+            this.emitSelected();
           },
           emitChange () {
-            event.emit('input', this.textVal)
+            event.emit('input', this.textVal);
           },
           emitClickInput (e) {
-            event.emit('click-input', e)
+            event.emit('click-input', e);
           },
           emitClickButton (event) {
             event.emit('click-button', this.textVal)

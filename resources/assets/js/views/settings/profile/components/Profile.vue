@@ -47,7 +47,7 @@
                     src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit',
                     async: true,
                     body: true,
-                    defer: true
+                    defer: true,
                 },
             ],
             meta: [

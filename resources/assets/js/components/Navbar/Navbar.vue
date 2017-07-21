@@ -6,7 +6,7 @@
 
 <script type="text/babel">
     export default {
-        name: 'nav-bar',
+        name: 'Navbar',
         replace: true,
         computed: {
             classObject() {

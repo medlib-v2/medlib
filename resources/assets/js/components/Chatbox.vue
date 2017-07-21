@@ -64,80 +64,80 @@
             title () {
                 if (this.conversation.sender !== undefined && this.conversation.recipient !== undefined) {
                     if (this.conversation.sender_id === this.user.id) {
-                        return this.conversation.recipient.name
+                        return this.conversation.recipient.name;
                     } else {
-                        return this.conversation.sender.name
+                        return this.conversation.sender.name;
                     }
                 }
-                return ''
+                return '';
             }
         },
         methods: {
             send (e) {
-                e.preventDefault()
-                console.log('send event', e)
+                e.preventDefault();
+                console.log('send event', e);
                 if (this.message.trim().length > 0 && !e.shiftKey) {
                     /** replace newline in message with <br> **/
-                    this.message = this.message.replace(/[\r\n]/g, "\n")
+                    this.message = this.message.replace(/[\r\n]/g, "\n");
                     this.$http.post('/api/v1/messages', {
                         api_token: this.apiToken,
                         user_id: this.user.id,
                         conversation_id: this.conversation.id,
                         body: this.message
-                    }).then(function (response) {
+                    }).then((response) => {
                         /** push the message to the parent **/
-                        this.$dispatch('messageSent', {message: response.data.message, conversation: this.conversation})
+                        this.$dispatch('messageSent', {message: response.data.message, conversation: this.conversation});
                         /** emit the message to the chatserver **/
-                        this.$socket.emit('chat.message', response.data.message)
+                        this.$socket.emit('chat.message', response.data.message);
                         /** clear the message input **/
-                        this.message = ''
+                        this.message = '';
                         /** scroll message into view **/
                         setTimeout(() => {
                             document.querySelector('.chatbox-content').scrollTop = 10000000
-                        }, 50)
-                    }, function (response) {
+                        }, 50);
+                    }, (response) => {
                         /** error callback **/
-                        console.log('Failed to send message', response)
-                    }.bind(this))
+                        console.log('Failed to send message', response);
+                    })
                 }
             },
             maximize () {
                 /** maximize chatbox **/
-                document.querySelector('.chatbox').classList.add('maximize')
-                document.querySelector('.chatbox').classList.remove('minimize')
+                document.querySelector('.chatbox').classList.add('maximize');
+                document.querySelector('.chatbox').classList.remove('minimize');
                 /** show the chatbox-content and chatbox-input **/
-                document.querySelector('.chatbox-content').setAttribute('style', 'display:block')
-                document.querySelector('.chatbox-input').setAttribute('style', 'display:block')
+                document.querySelector('.chatbox-content').setAttribute('style', 'display:block');
+                document.querySelector('.chatbox-input').setAttribute('style', 'display:block');
             },
             minimize () {
                 /** toggle the minimize and maximize classes **/
                 if (document.querySelector('.chatbox').classList.contains('minimize')) {
                     /** maximize chatbox **/
-                    document.querySelector('.chatbox').classList.add('maximize')
-                    document.querySelector('.chatbox').classList.remove('minimize')
+                    document.querySelector('.chatbox').classList.add('maximize');
+                    document.querySelector('.chatbox').classList.remove('minimize');
                     /** show the chatbox-content and chatbox-input **/
-                    document.querySelector('.chatbox-content').setAttribute('style', 'display:block')
+                    document.querySelector('.chatbox-content').setAttribute('style', 'display:block');
                     document.querySelector('.chatbox-input').setAttribute('style', 'display:block')
                 } else {
                     /** minimize chatbox **/
-                    document.querySelector('.chatbox').classList.remove('maximize')
-                    document.querySelector('.chatbox').classList.add('minimize')
+                    document.querySelector('.chatbox').classList.remove('maximize');
+                    document.querySelector('.chatbox').classList.add('minimize');
                     /** hide the chatbox-content and chatbox-input **/
                     setTimeout(function () {
-                        document.querySelector('.chatbox-content').setAttribute('style', 'visibility:hidden')
-                        document.querySelector('.chatbox-input').setAttribute('style', 'visibility:hidden')
-                    }, 800)
+                        document.querySelector('.chatbox-content').setAttribute('style', 'visibility:hidden');
+                        document.querySelector('.chatbox-input').setAttribute('style', 'visibility:hidden');
+                    }, 800);
                 }
             },
             close () {
                 /** if chatbox is in mimimized state **/
                 if (document.querySelector('.chatbox').classList.contains('minimize')) {
                     /** remove any classes and close the chatbox **/
-                    document.querySelector('.chatbox').classList.remove('maximize')
-                    document.querySelector('.chatbox').classList.remove('minimize')
+                    document.querySelector('.chatbox').classList.remove('maximize');
+                    document.querySelector('.chatbox').classList.remove('minimize');
                     document.querySelector('.chatbox').setAttribute('style', 'display:none')
                 } else if (document.querySelector('.chatbox').classList.contains('maximize')) {
-                    document.querySelector('.chatbox').classList.remove('maximize')
+                    document.querySelector('.chatbox').classList.remove('maximize');
                 }
                 /** hide the chatbox **/
                 this.show = false

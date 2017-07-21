@@ -1,4 +1,8 @@
-import Vue from 'vue';
-import UploadImage from '../UploadImage.vue';
+import UploadImage from './UploadImage.vue';
 
-Vue.component(UploadImage.name, UploadImage);
+/* istanbul ignore next */
+UploadImage.install = (Vue) => {
+    Vue.component(UploadImage.name, UploadImage);
+};
+
+export default UploadImage;

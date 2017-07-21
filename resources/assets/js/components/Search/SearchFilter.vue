@@ -39,7 +39,9 @@
     import { mapGetters } from 'vuex'
     export default {
         name: 'search-filter',
+
         mixins: [Lang],
+
         components: {
             CreatorsFilter,
             YearFilter,
@@ -47,6 +49,7 @@
             PublicationFilter,
             SubjectsFilter
         },
+
         computed: {
             ...mapGetters({
                 filters: 'getFilters'

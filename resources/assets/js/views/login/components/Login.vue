@@ -1,7 +1,7 @@
 <template lang="html">
     <main id="content" class="content" role="main">
-        <section class="splash-container animated fadeInUp">
-            <div class="panel panel-default panel-border-color panel-border-color-primary">
+        <section class="splash-container">
+            <div class="panel panel-default panel-border-color panel-border-color-primary animated bounceIn">
                 <div class="panel-heading">
                     <header class="wrapper text-center">
                         <strong>{{ trans('auth.user_title_login') }}</strong>

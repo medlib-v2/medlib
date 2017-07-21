@@ -77,5 +77,5 @@ class EventBus {
         this.bus.$off()
     }
 }
-export const event = new EventBus()
+export const event = new EventBus();
 

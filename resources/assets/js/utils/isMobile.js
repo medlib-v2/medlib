@@ -196,4 +196,13 @@ class IsMobile {
     }
 }
 
-export const isMobile = new IsMobile();
+let installed = false;
+const isMobile = new IsMobile();
+
+export default (Vue, options) => {
+    if (installed) return;
+
+    installed = true;
+
+    Vue.prototype.isMobile = isMobile;
+}

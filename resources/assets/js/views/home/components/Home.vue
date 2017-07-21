@@ -112,16 +112,13 @@
 <script type="text/babel">
     import Lang from '@/mixins/lang'
     import { Form } from '@/components/Form'
-    import  TypeSearch from '@/components/TypeSearch.vue'
-    import  Select2 from '@/components/Select2.vue'
     import { Setting, mix } from  '@/utils'
 
     export default {
         name: 'Home',
         mixins: [Lang],
         components: {
-            TypeSearch,
-            Select2
+            //
         },
         data () {
             return {
@@ -144,7 +141,12 @@
                 inner: 'Home'
             },
             script: [
-                { type: 'text/javascript', src: mix('/js/books/app.min.js'), async: true, body: true},
+                {
+                    type: 'text/javascript',
+                    src: mix('/js/books/app.min.js'),
+                    async: true,
+                    body: true
+                },
             ],
         },
         methods : {

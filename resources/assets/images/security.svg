@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="5px" height="29px" viewBox="0 0 5 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>security</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02-Register" transform="translate(-613.000000, -540.000000)">
+            <g id="Register" transform="translate(0.000000, 100.000000)">
+                <g id="Popup-Register" transform="translate(253.000000, 147.000000)">
+                    <g id="form" transform="translate(124.000000, 81.000000)">
+                        <g id="Password" transform="translate(44.000000, 205.000000)">
+                            <g id="security" transform="translate(192.000000, 7.000000)">
+                                <g id="bubbles">
+                                    <circle id="green"          fill="#FD4146" cx="2.3" cy="26.4" r="2"></circle>
+                                    <circle id="light-green"    fill="#E0E0E0" cx="2.3" cy="2.4"  r="2"></circle>
+                                    <circle id="yellow"         fill="#E0E0E0" cx="2.3" cy="10.4" r="2"></circle>
+                                    <circle id="red"            fill="#F9C466" cx="2.3" cy="18.4" r="2"></circle>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

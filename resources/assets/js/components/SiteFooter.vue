@@ -66,7 +66,7 @@
 
 <script type="text/babel">
     export default {
-        name: 'site-footer',
+        name: 'siteFooter',
         components: {},
 
         mixins: [],
@@ -83,7 +83,7 @@
 
         computed: {
             year() {
-                const date = new Date()
+                const date = new Date();
                 return date.getFullYear()
             }
         },

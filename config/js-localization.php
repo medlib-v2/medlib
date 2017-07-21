@@ -81,6 +81,7 @@ return [
             'throttle',
             'btn' => [
                 'login',
+                'logout',
                 'forgot_password'
             ],
             'txt' => [

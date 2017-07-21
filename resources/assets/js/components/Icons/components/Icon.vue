@@ -88,10 +88,10 @@ export default {
   },
   computed: {
     normalizedScale () {
-      let scale = this.scale
-      scale = typeof scale === 'undefined' ? 1 : Number(scale)
+      let scale = this.scale;
+      scale = typeof scale === 'undefined' ? 1 : Number(scale);
       if (isNaN(scale) || scale <= 0) {
-        Vue.util.warn(`Invalid prop: prop "scale" should be a number over 0.`, this)
+        Vue.util.warn(`Invalid prop: prop "scale" should be a number over 0.`, this);
         return this.outerScale
       }
       return scale * this.outerScale
@@ -138,23 +138,23 @@ export default {
     }
     this.$children.forEach(child => {
       child.outerScale = this.normalizedScale
-    })
-    let width = 0
-    let height = 0
+    });
+    let width = 0;
+    let height = 0;
     this.$children.forEach(child => {
-      width = Math.max(width, child.width)
+      width = Math.max(width, child.width);
       height = Math.max(height, child.height)
-    })
-    this.childrenWidth = width
-    this.childrenHeight = height
+    });
+    this.childrenWidth = width;
+    this.childrenHeight = height;
     this.$children.forEach(child => {
-      child.x = (width - child.width) / 2
-      child.y = (height - child.height) / 2
+      child.x = (width - child.width) / 2;
+      child.y = (height - child.height) / 2;
     })
   },
   register (data) {
     for (let name in data) {
-      let icon = data[name]
+      let icon = data[name];
       if (!icon.paths) {
         icon.paths = []
       }

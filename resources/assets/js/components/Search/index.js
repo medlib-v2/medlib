@@ -1,4 +1,8 @@
-import Vue from 'vue';
 import SearchFilter from './SearchFilter.vue';
 
-Vue.component(SearchFilter.name, SearchFilter);
+/* istanbul ignore next */
+SearchFilter.install = (Vue) => {
+    Vue.component(SearchFilter.name, SearchFilter);
+};
+
+export default SearchFilter;

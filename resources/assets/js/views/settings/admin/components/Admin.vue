@@ -147,14 +147,11 @@
     import Lang from '@/mixins/lang';
     import { mapGetters } from 'vuex';
     import { Form } from '@/components/Form';
-    import UploadImage from '@/components/UploadImage.vue';
-    import  Select2 from '@/components/Select2.vue';
 
     export default {
         name: 'Admin',
         components: {
-            UploadImage,
-            Select2
+            //
         },
 
         mixins: [Lang],

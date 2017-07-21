@@ -289,7 +289,6 @@
 
 <script type="text/babel">
     import { Form } from '@/components/Form';
-    import UploadImage from '@/components/UploadImage.vue';
     import Lang from '@/mixins/lang';
     import reCAPTCHA from '@/mixins/reCAPTCHA';
     import Recaptcha from '@/plugins/Recaptcha';
@@ -298,7 +297,6 @@
         name: 'Register',
 
         components: {
-            UploadImage,
             Recaptcha
         },
 

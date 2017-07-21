@@ -136,7 +136,7 @@
 
 <script type="text/babel">
     import GoogleAutocomplete from './GoogleAutocomplete.vue'
-    import UploadImage from './UploadImage.vue'
+    import UploadImage from './UploadImage/UploadImage.vue'
     import {mapGetters} from 'vuex'
     import each from 'lodash/each'
     import Lang from '@/mixins/lang'

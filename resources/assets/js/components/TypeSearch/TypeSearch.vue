@@ -31,7 +31,7 @@
     import Lang from '@/mixins/lang'
 
     export default {
-        name: 'type-search',
+        name: 'typeSearch',
 
         components: {},
 

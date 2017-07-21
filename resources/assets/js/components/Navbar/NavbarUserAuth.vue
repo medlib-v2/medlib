@@ -2,7 +2,7 @@
     <!-- navbar collapse -->
     <div id="navbar" class="be-right-navbar collapse navbar-collapse bg-white-only">
         <!-- buttons -->
-        <ul class="nav navbar-nav be-navbar-toggle hidden-xs">
+        <ul class="nav navbar-nav be-navbar-toggle be-user-nav hidden-xs">
             <li><a class="be-toggle-left-sidebar" href="#"
                    data-sn-action="toggle-navigation-state"
                    title="" data-placement="bottom"
@@ -49,7 +49,7 @@
                     <li><a href="#profile.user.show/getUsername" class="text-small"><icon name="user"/>&nbsp;Afficher mon profil</a></li>
                     <li><a href="#dashboard.home" class="text-small"><icon name="dashboard"/>&nbsp;Dashbord</a></li>
                     <li><router-link :to="{ name: 'setting', exact: true }" class="text-small"><icon name="lock"/>&nbsp;Paramètres</router-link></li>
-                    <li><a href="javascript:void(0)" @click.prevent="logout" class="text-small"><icon name="power-off"/>&nbsp;Se déconnecter</a></li>
+                    <li><a href="javascript:void(0)" @click.prevent="logout" class="text-small"><icon name="power-off"/>&nbsp;{{ trans('auth.btn.logout') }}</a></li>
                 </ul>
             </li>
             <!-- / user profile -->
@@ -61,16 +61,16 @@
 
 <script type="text/babel">
     import Lang from '@/mixins/lang'
-    import { Form } from './Form'
-    import { mapActions, mapGetters } from 'vuex'
-    import { user as http } from '@/services';
-    import ElSearch from './ElSearch.vue'
-    import { Notifications } from './Notifications'
-    import { jwtToken } from '@/utils'
-    import router from '@/desktop/router'
+    import {Form} from '../Form/index'
+    import {mapActions, mapGetters} from 'vuex'
+    import {user as http} from '@/services';
+    import ElSearch from '../ElSearch.vue'
+    import {Notifications} from '../Notifications/index'
+    import {jwtToken} from '@/utils'
+    import router from '@/router'
 
     export default {
-        name: 'navbar-user-auth',
+        name: 'navbarUserAuth',
         mixins: [Lang],
         data(){
             return {

@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="form-group" :class="[themeClass, classes]">
         <slot></slot>
-        <span class="form-count" v-if="enableCounter">{{ inputLength }} / {{ counterLength }}</span>
         <slot name="password-toggle" @click.native="togglePasswordType" v-if="beHasPassword">
           <a class="hideShowPassword-toggle" role="button" @click.prevent="togglePasswordType">
             <svg class="hideShowPassword-toggle-icon" viewBox="0 0 32 32" v-if="showPassword === false">
@@ -14,6 +13,33 @@
             </svg>
           </a>
         </slot>
+        <slot name="strength-meter" v-if="enableMeter && beHasPassword" :strength="this.strength">
+            <a class="hideShowPassword-meter" role="button">
+                <svg id="password-meter" width="5px" height="29px" viewBox="0 0 5 29" class="hideShowPassword-meter-icon" preserveAspectRatio="none" v-if="!disableMeter">
+                    <g id="password-meter" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-613.000000, -540.000000)">
+                            <g transform="translate(0.000000, 100.000000)">
+                                <g transform="translate(253.000000, 147.000000)">
+                                    <g transform="translate(124.000000, 81.000000)">
+                                        <g transform="translate(44.000000, 205.000000)">
+                                            <g transform="translate(192.000000, 7.000000)">
+                                                <g id="bubbles">
+                                                    <circle id="green"       fill="#FD4146" cx="2.3" cy="26.4" r="2"></circle>
+                                                    <circle id="light-green" fill="#E0E0E0" cx="2.3" cy="2.4"  r="2"></circle>
+                                                    <circle id="yellow"      fill="#E0E0E0" cx="2.3" cy="10.4" r="2"></circle>
+                                                    <circle id="red"         fill="#F9C466" cx="2.3" cy="18.4" r="2"></circle>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </slot>
+        <span class="form-count" v-if="enableCounter">{{ inputLength }} / {{ counterLength }}</span>
     </div>
 </template>
 
@@ -21,74 +47,108 @@
   import { isArray } from 'lodash';
 
   export default {
-    props: {
-      beInline: Boolean,
-      beHasPassword: Boolean,
-      themeClass: [String, Array]
-    },
-    data() {
-      return {
-        value: '',
-        input: false,
-        showPassword: false,
-        enableCounter: false,
-        hasSelect: false,
-        hasPlaceholder: false,
-        hasFile: false,
-        isDisabled: false,
-        isRequired: false,
-        isFocused: false,
-        counterLength: 0,
-        inputLength: 0
-      };
-    },
-    computed: {
-      hasValue() {
-        if (isArray(this.value)) {
-          return this.value.length > 0;
-        }
-        return Boolean(this.value);
-      },
-      classes() {
-        return {
-          'be-input-inline': this.beInline,
-          'be-has-password': this.beHasPassword,
-          'be-has-select': this.hasSelect,
-          'be-has-file': this.hasFile,
-          'be-has-value': this.hasValue,
-          'be-input-placeholder': this.hasPlaceholder,
-          'be-input-disabled': this.isDisabled,
-          'be-input-required': this.isRequired,
-          'be-input-focused': this.isFocused
-        }
-      }
-    },
-    methods: {
-      isInput() {
-        return this.input && this.input.tagName.toLowerCase() === 'input';
-      },
-      togglePasswordType() {
-        if (this.isInput()) {
-          if (this.input.type === 'password') {
-            this.input.type = 'text';
-            this.showPassword = true;
-          } else {
-            this.input.type = 'password';
-            this.showPassword = false;
+      name: 'be-input-container',
+      props: {
+          beInline: Boolean,
+          beHasPassword: Boolean,
+          themeClass: [String, Array],
+          /**
+           * Disable the password strength.
+           **/
+          disableStrength: {
+              type: Boolean,
+              default: false
+          },
+          enableMeter: {
+              type: Boolean,
+              default: false
           }
-          this.input.focus();
-        }
       },
-      setValue(value) {
-        this.value = value;
+      data() {
+          return {
+              value: '',
+              strength: {},
+              input: false,
+              showPassword: false,
+              enableCounter: false,
+              hasSelect: false,
+              hasPlaceholder: false,
+              hasFile: false,
+              isDisabled: false,
+              isRequired: false,
+              isFocused: false,
+              counterLength: 0,
+              inputLength: 0
+          };
+      },
+
+      computed: {
+          hasValue() {
+              if (isArray(this.value)) {
+                  return this.value.length > 0;
+              }
+              return Boolean(this.value);
+          },
+
+          classes() {
+              return {
+                  'be-input-inline': this.beInline,
+                  'be-has-password': this.beHasPassword,
+                  'be-has-select': this.hasSelect,
+                  'be-has-file': this.hasFile,
+                  'be-has-value': this.hasValue,
+                  'be-input-placeholder': this.hasPlaceholder,
+                  'be-input-disabled': this.isDisabled,
+                  'be-input-required': this.isRequired,
+                  'be-input-focused': this.isFocused
+              }
+          }
+      },
+
+      methods: {
+          isInput() {
+              return this.input && this.input.tagName.toLowerCase() === 'input';
+          },
+
+          togglePasswordType() {
+              if (this.isInput()) {
+                  if (this.input.type === 'password') {
+                      this.input.type = 'text';
+                      this.showPassword = true;
+                  } else {
+                      this.input.type = 'password';
+                      this.showPassword = false;
+                  }
+                  this.input.focus();
+              }
+          },
+
+          setValue(value) {
+              this.value = value;
+          },
+
+          /**
+           * Get the current strength class based on the strength calculated
+           * by zxcvbn.
+           *
+           * @param  {Number} strength
+           * @return {String}
+           */
+          getStrengthClass (strength) {
+              if (this.strength.score > strength) {
+                  return this.strengthClass
+              }
+              return ''
+          }
+      },
+
+      mounted() {
+          this.input = this.$el.querySelectorAll('input, textarea, select, .be-file')[0];
+
+          if (!this.input) {
+              this.$destroy();
+              throw new Error('Missing input/select/textarea inside be-input-container');
+          }
       }
-    },
-    mounted() {
-      this.input = this.$el.querySelectorAll('input, textarea, select, .be-file')[0];
-      if (!this.input) {
-        this.$destroy();
-        throw new Error('Missing input/select/textarea inside be-input-container');
-      }
-    }
   };
 </script>

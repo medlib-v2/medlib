@@ -93,7 +93,8 @@ const util = {
     title (val) {
         if (!val) return;
         diffTitle.before = opt.complement;
-        window.document.title = `${val.inner} ${val.separator || opt.separator} ${val.complement || opt.complement}`
+        let title = `${val.inner} ${val.separator || opt.separator} ${val.complement || opt.complement}`;
+        window.document.title = title.trim();
     },
 
     update () {
@@ -102,7 +103,7 @@ const util = {
             if (diffEls[key] && !diffEls[key].isEqualNode(el)) {
                 el.parentElement.replaceChild(diffEls[key], els[key]);
                 els.splice(key, 1, diffEls[key]);
-                return
+                return;
             }
         });
         diffEls = []
@@ -199,6 +200,6 @@ const MetaHead = (Vue, options) => {
     })
 };
 
-MetaHead.version = '2.0.10';
+MetaHead.version = '2.0.11';
 
 export default MetaHead

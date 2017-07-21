@@ -1,4 +1,8 @@
-import Vue from 'vue';
 import bButton from './Button.vue';
 
-Vue.component(bButton.name, bButton);
+/* istanbul ignore next */
+bButton.install = (Vue) => {
+    Vue.component(bButton.name, bButton);
+};
+
+export default bButton;

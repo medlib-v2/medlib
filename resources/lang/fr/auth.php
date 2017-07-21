@@ -18,6 +18,7 @@ return [
     'throttle'                          => 'Trop de tentatives de connexion. Veuillez essayer de nouveau dans :seconds secondes.',
     'btn'=> [
         'login'                         => 'Se connecter',
+        'logout'                        => 'Se déconnecter',
         'forgot_password'               => 'Mot de passe oublié ?',
     ],
     'txt' => [

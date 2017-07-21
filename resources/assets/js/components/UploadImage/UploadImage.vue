@@ -36,7 +36,7 @@
 </template>
 
 <script type="text/babel">
-    import Store from '../stores'
+    import Store from '../../stores/index'
     import each from 'lodash/each'
 
     function noop() {

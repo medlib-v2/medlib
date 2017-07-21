@@ -1,5 +1,5 @@
 <template lang="html">
-    <nav-bar  id="header" class="navbar navbar-default navbar-fixed-top be-top-header box-shadow" role="navigation">
+    <Navbar  id="header" class="navbar navbar-default navbar-fixed-top be-top-header box-shadow" role="navigation">
         <nav class="container-fluid">
             <!-- navbar header -->
             <div class="navbar-header aside-md bg-dark">
@@ -12,23 +12,21 @@
             <!-- / navbar header -->
 
             <!-- navbar collapse -->
-            <navbar-user-guest v-if="!authenticated"/>
-            <navbar-user-auth v-else/>
+            <NavbarUserGuest v-if="!authenticated"/>
+            <NavbarUserAuth v-else/>
             <!-- / navbar collapse -->
         </nav>
-    </nav-bar>
+    </Navbar>
 </template>
 
 <script type="text/babel">
-    import NavBar from './Navbar.vue'
-    import NavbarUserGuest from './NavbarUserGuest.vue'
-    import NavbarUserAuth from './NavbarUserAuth.vue'
-    import { mapGetters } from 'vuex'
+    import NavbarUserGuest from './Navbar/NavbarUserGuest.vue';
+    import NavbarUserAuth from './Navbar/NavbarUserAuth.vue';
+    import {mapGetters} from 'vuex'
 
     export default {
-        name: 'site-header',
+        name: 'siteHeader',
         components: {
-            NavBar,
             NavbarUserGuest,
             NavbarUserAuth
         },
