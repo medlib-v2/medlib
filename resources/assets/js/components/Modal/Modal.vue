@@ -6,8 +6,7 @@
                       leave-active-class=""
                       leave-to-class="hidden"
                       v-on:after-enter="afterEnter"
-                      v-on:before-leave="beforeLeave"
-    >
+                      v-on:before-leave="beforeLeave">
         <div key="modal"
              :id="id"
              role="dialog"

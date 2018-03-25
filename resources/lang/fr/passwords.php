@@ -23,5 +23,4 @@ return [
     'send_reset_password' => 'Envoyer l\'e-mail de réinitialisation mot de passe',
     'password_text' => 'Mot de passe',
     'password_confirm_text' => 'Confirmez le mot de passe',
-
 ];

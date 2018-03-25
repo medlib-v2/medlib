@@ -19,12 +19,14 @@ class GenerateJWTSecretCommand extends Command
      * @var string
      */
     protected $signature = 'medlib:generate-jwt-secret {--return-key : Return the generated key}';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Set the JWTAuth secret key used to sign the tokens';
+
     /**
      * Execute the console command.
      *

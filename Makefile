@@ -30,15 +30,11 @@ migration:
 seed:
 	php artisan db:seed
 
-install-gulp:
-	npm install --g gulp
-	npm install
-
 assets-production:
-	gulp --production
+	yarn run prod
 
-assets_dev:
-	gulp
+assets-dev:
+	yarn run dev
 
 cs:
 	vendor/bin/phpcs --colors -p -n --standard=PSR2 --ignore="app/Helpers/Helpers.php" app/
